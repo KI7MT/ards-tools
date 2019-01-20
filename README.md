@@ -25,14 +25,14 @@ Project documentation will be hosted on `Github.io` when available.
       batch              # Windows batch scripts
       bash               # Linux bash scripts
       python
-          rds-dbutils    # database connection and setup tools
-          rds-lotw       # LoTW activity management
-          rds-adif       # ADIF specification enumeration data
-          rds-esql       # eSQL activity management
-          rds-alltext    # WSJT-X all-text update, search, post, query
-          rds-fab3       # server setup scripts using Python Fabric3
+          ards-dbutils    # database connection and setup tools
+          ards-lotw       # LoTW activity management
+          ards-adif       # ADIF specification enumeration data
+          ards-esql       # eSQL activity management
+          ards-alltext    # WSJT-X all-text update, search, post, query
+          ards-fab3       # server setup scripts using Python Fabric3
       dotnet-core
-        RdsAdminMvc      # Rds Admin MVC written in Net Core
-        RdsAAdminApi     # Rds Admin API written in Swagger OpenAPI
-        RdsPubicMvc      # Rds Public WebMVC
-        RdsPublicApi     # Rds Public API
+        ARdsAdminMvc      # Rds Admin MVC written in Net Core
+        ARdsAAdminApi     # Rds Admin API written in Swagger OpenAPI
+        ARdsPubicMvc      # Rds Public WebMVC
+        ARdsPublicApi     # Rds Public API
