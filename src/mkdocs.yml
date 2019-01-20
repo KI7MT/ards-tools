@@ -1,0 +1,17 @@
+# Project information
+site_name: 'Rds-Docs'
+site_description: 'Amateur Radio Data Services'
+site_author: 'Greg Beam, KI7MT'
+
+# Copyright
+copyright: 'Copyright &copy; 2018 - 2019 Greg Beam, KI7MT'
+
+# Configuration
+theme:
+  name: 'flatly'
+  language: 'en'
+
+# Extensions
+markdown_extensions:
+  - toc:
+        permalink: true
