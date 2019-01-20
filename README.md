@@ -26,7 +26,7 @@ Project documentation will be hosted on `Github.io` when available.
       bash                # Linux bash scripts
       dotnet-core
         ARdsAdminMvc      # ARds Admin MVC written in Net Core
-        ARdsAAdminApi     # ARds Admin API written in Swagger OpenAPI
+        ARdsAdminApi      # ARds Admin API written in Swagger OpenAPI
         ARdsPubicMvc      # ARds Public WebMVC
         ARdsPublicApi     # ARds Public API
       pgsql               # Raw PostgreSQL Scripts and CSV Data Files
