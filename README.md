@@ -22,9 +22,14 @@ Project documentation will be hosted on `Github.io` when available.
       index.md            # The documentation homepage.
       ...                 # Other markdown pages, images and other files.
     src
-      pgsql               # Raw Pgsql and CSV
       batch               # Windows batch scripts
       bash                # Linux bash scripts
+      dotnet-core
+        ARdsAdminMvc      # ARds Admin MVC written in Net Core
+        ARdsAAdminApi     # ARds Admin API written in Swagger OpenAPI
+        ARdsPubicMvc      # ARds Public WebMVC
+        ARdsPublicApi     # ARds Public API
+      pgsql               # Raw PostgreSQL Scripts and CSV Data Files
       python
           ards-dbutils    # database connection and setup tools
           ards-lotw       # LoTW activity management
@@ -32,8 +37,4 @@ Project documentation will be hosted on `Github.io` when available.
           ards-esql       # eSQL activity management
           ards-alltext    # WSJT-X all-text update, search, post, query
           ards-fab3       # server setup scripts using Python Fabric3
-      dotnet-core
-        ARdsAdminMvc      # ARds Admin MVC written in Net Core
-        ARdsAAdminApi     # ARds Admin API written in Swagger OpenAPI
-        ARdsPubicMvc      # ARds Public WebMVC
-        ARdsPublicApi     # ARds Public API
+
