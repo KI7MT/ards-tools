@@ -19,11 +19,12 @@ Project documentation will be hosted on `Github.io` when available.
 ## Project Layout
 
     docs/
-      index.md           # The documentation homepage.
-      ...                # Other markdown pages, images and other files.
+      index.md            # The documentation homepage.
+      ...                 # Other markdown pages, images and other files.
     src
-      batch              # Windows batch scripts
-      bash               # Linux bash scripts
+      pgsql               # Raw Pgsql and CSV
+      batch               # Windows batch scripts
+      bash                # Linux bash scripts
       python
           ards-dbutils    # database connection and setup tools
           ards-lotw       # LoTW activity management
