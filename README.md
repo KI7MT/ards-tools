@@ -1,4 +1,4 @@
-# Amateur Radio Data Service PostgreSQL
+# Amateur Radio Data Service
 
 PostgreSQL data store for Amateur Radio Data. Includes ADIF Spec Enumeration,
 LoTW, eSQL, and More. Manage by CLI, WebMVC, and Swagger OpenAPI.  
