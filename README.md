@@ -32,7 +32,7 @@ Project documentation will be hosted on `Github.io` when available.
           ards-alltext    # WSJT-X all-text update, search, post, query
           ards-fab3       # server setup scripts using Python Fabric3
       dotnet-core
-        ARdsAdminMvc      # Rds Admin MVC written in Net Core
-        ARdsAAdminApi     # Rds Admin API written in Swagger OpenAPI
-        ARdsPubicMvc      # Rds Public WebMVC
-        ARdsPublicApi     # Rds Public API
+        ARdsAdminMvc      # ARds Admin MVC written in Net Core
+        ARdsAAdminApi     # ARds Admin API written in Swagger OpenAPI
+        ARdsPubicMvc      # ARds Public WebMVC
+        ARdsPublicApi     # ARds Public API
