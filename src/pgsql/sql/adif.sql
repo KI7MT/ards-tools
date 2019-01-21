@@ -38,7 +38,7 @@
 
             cd radio-data-service\ards-pgsql\src\pgsql\sql
 
-            psql -v ON_ERROR_STOP=1 -U postgres -f ards-adif.sql
+            psql -v ON_ERROR_STOP=1 -U postgres -f adif.sql
 
     Development Activity and Coding
 

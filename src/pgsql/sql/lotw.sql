@@ -5,7 +5,7 @@
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
 
-    File ................: lotw-import.sql
+    File ................: lotw.sql
     Description .........: Script to import LoTW Active user csv file
     Database Type .......: PostgreSQL v10 or later
     Version .............: 1.0.0
@@ -29,7 +29,7 @@
 
     2. In the Terminal, run the following command:
 
-       psql -v ON_ERROR_STOP=1 -U postgres -f lotw-import.sql
+       psql -v ON_ERROR_STOP=1 -U postgres -f lotw.sql
 
     3. After installation, run the following query to test the installaiton:
 
