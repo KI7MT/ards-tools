@@ -1,17 +1,17 @@
 /* 
 
-    Project .............: Amateur Radio Data Serivce
+    Project .............: Amateur Radio Data Serivce Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
 
-    File ................: adif.sql
-    Description .........: Enumeration Tables for R-DaaS Project
+    File ................: adif.pgsql
+    Description .........: ADIF Enumeration Tables
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
     ADIF Refrence .......: http://www.adif.org/309/ADIF_309.htm#Enumerations
-    Bug Reports .........: https://github.com/KI7MT/radio-data-service/issues'
+    Bug Reports .........: https://github.com/KI7MT/ards-tools/issues'
 
     Comments
     
@@ -32,13 +32,13 @@
     
         * Clone the repository
 
-            git clone https://github.com/KI7MT/radio-data-service.git
+            git clone https://github.com/KI7MT/ards-tools.git
         
         * Change directories and run the sql script
 
-            cd radio-data-service\ards-pgsql\src\pgsql\sql
+            cd ards-tools\src\pgsql
 
-            psql -v ON_ERROR_STOP=1 -U postgres -f adif.sql
+            psql -v ON_ERROR_STOP=1 -U postgres -f adif.pgsql
 
     Development Activity and Coding
 
