@@ -57,6 +57,10 @@
 --  BEGIN SCHEMA CREATION
 -- *****************************************************************************
 
+\set name adif
+\set ver 0.0.3
+\set adifv 3.0.9
+
 \echo ''
 \echo '-----------------------------------'
 \echo 'Reproducing ADIF Schema'
@@ -68,18 +72,11 @@ DROP SCHEMA IF EXISTS adif CASCADE;
 -- Create New Schema
 CREATE SCHEMA adif;
 
---ADIF Informaiton Table
-CREATE TABLE adif.database_info
-(
-    id INT PRIMARY KEY,
-    author VARCHAR (20),
-    db_version VARCHAR(10),
-    adif_spec VARCHAR(10),
-    last_update TIMESTAMP DEFAULT NOW() 
-);
-
-INSERT INTO adif.database_info (id, author, db_version, adif_spec, last_update)
-VALUES(1, 'Greg Beam', '1.0.0', '3.0.9', CURRENT_TIMESTAMP);
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
 
 -- *****************************************************************************
 --  BEGIN TABLE CREATION
@@ -458,6 +455,7 @@ CREATE TABLE adif.jtalert_data
 \echo '---------------------------'
 \echo 'Importing CSV Files'
 \echo '---------------------------'
+
 \COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.award FROM 'adif/award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
@@ -562,14 +560,10 @@ create index mode_mode_description_id_idx on adif.mode (mode_description_id);
 --  GENERATE Views
 -- *****************************************************************************
 
--- Create Test View: adif.database_info_view
-CREATE OR REPLACE VIEW adif.database_info_view AS
-    SELECT
-        database_info.author AS "Author",
-        database_info.db_version AS "DB Version",
-        database_info.adif_spec AS "ADIF Spec",
-        date_trunc('second', database_info.last_update::TIMESTAMP) AS "Revision Date"
-    FROM adif.database_info;
+\echo ''
+\echo '-----------------------------'
+\echo 'Creating Views'
+\echo '-----------------------------'
 
 -- View: adif.vw_antenna_path
 CREATE OR REPLACE VIEW adif.antenna_path_view AS
@@ -709,10 +703,12 @@ CREATE OR REPLACE VIEW adif.state_county_view AS
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo 'Finished Creating ARDS Enumeration Schema'
 \echo ''
-\echo 'Database Information'
+\echo Finished Creating ARDS Schema for ( :name )
 \echo ''
-select * from adif.database_info_view;
+\echo 'Schema Informaiton'
+\echo ''
+SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+\echo
 
 -- END adif.sql

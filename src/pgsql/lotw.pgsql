@@ -50,6 +50,10 @@
 --  BEGIN TABLE GENERATION and IMPORT
 -- *****************************************************************************
 
+\set name lotw
+\set ver 0.0.2
+\set adifv 3.0.9
+
 \echo ''
 \echo '-----------------------------------'
 \echo 'Regenerating LoTW Schema'
@@ -60,6 +64,12 @@ DROP SCHEMA IF EXISTS lotw CASCADE;
 
 -- Create New Schema
 CREATE SCHEMA lotw;
+
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
 
 -- LoTW Active Users
 CREATE TABLE lotw.lotw_activity
@@ -91,6 +101,16 @@ CREATE OR REPLACE VIEW lotw.lotw_test_view AS
 \echo '-----------------------------------'
 \echo ''
 select * from lotw.lotw_test_view;
-\echo 'Finished !!'
+
+-- *****************************************************************************
+--  FOOTER - Finished
+-- *****************************************************************************
+\echo ''
+\echo Finished Creating ARDS Schema for ( :name )
+\echo ''
+\echo 'Schema Informaiton'
+\echo ''
+SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+\echo
 
 -- END: lotw.sql

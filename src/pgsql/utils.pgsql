@@ -1,17 +1,43 @@
--- Project .............: ARDS Tools
--- Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
--- Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
--- License .............: GPL-3
+/*
+    Project .............: ARDS Tools
+    Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
+    Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
+    License .............: GPL-3
 
--- File ................: utils.sql
--- Description .........: Database Utility Views
--- Database Type .......: PostgreSQL v10 or later
--- Version .............: 0.0.1
--- ADIF Specification ..: 3.0.8
+    File ................: utils.sql
+    Description .........: Database Utility Views
+    Database Type .......: PostgreSQL v10 or later
+    Version .............: 0.0.1
+    ADIF Specification ..: 3.0.8
+
+    Installation
+    
+        * Clone the repository
+
+            git clone https://github.com/KI7MT/ards-tools.git
+        
+        * Change directories and run the sql script
+
+            cd ards-tools\src\pgsql
+
+            psql -v ON_ERROR_STOP=1 -U postgres -f utils.pgsql
+
+*/
 
 --******************************************************************************
 -- Enum Schema Utility Views
 --******************************************************************************
+
+\echo ''
+\echo '-----------------------------------'
+\echo 'Reproducing Utils Schema'
+\echo '-----------------------------------'
+
+-- Drop, and re-create schema
+DROP SCHEMA IF EXISTS utils CASCADE;
+
+-- Create New Schema
+CREATE SCHEMA utils;
 
 \echo ''
 \echo '-----------------------------'
@@ -46,13 +72,9 @@ CREATE OR REPLACE VIEW utils.schema_size_view AS
     GROUP BY schema_name
     ORDER BY schema_name;
 
+-- Run DB size views
 \echo ''
-\echo 'Finished Creating Utility Views'
-\echo 'Version ........: 1.0.0'
-\echo 'ADIF Spec ......: 3.0.9'
-\echo 'Report Bugs to..: https://github.com/KI7MT/dotnet-core-examples/issues'
-\echo ''
-\echo 'The following Views Are Available For Use'
-select * from utils.view_list;
+select * from utils.schema_size_view;
+select * from utils.db_size_view;
 
--- END utils-utility-views.sql
+-- END utils.sql
