@@ -58,17 +58,12 @@
 -- *****************************************************************************
 
 \echo ''
-\echo '---------------------------'
-\echo 'Creating ADIF Schema'
-\echo '---------------------------'
+\echo '-----------------------------------'
+\echo 'Reproducing ADIF Schema'
+\echo '-----------------------------------'
 
 -- Drop, and re-create schema
 DROP SCHEMA IF EXISTS adif CASCADE;
-
-\echo ''
-\echo '==========================='
-\echo 'Creating Schema adif'
-\echo '==========================='
 
 -- Create New Schema
 CREATE SCHEMA adif;
@@ -89,11 +84,6 @@ VALUES(1, 'Greg Beam', '1.0.0', '3.0.9', CURRENT_TIMESTAMP);
 -- *****************************************************************************
 --  BEGIN TABLE CREATION
 -- *****************************************************************************
-
-\echo ''
-\echo '==========================='
-\echo 'Creating Tables'
-\echo '==========================='
 
 -- Antenna Path
 CREATE TABLE adif.antenna_path
@@ -724,11 +714,5 @@ CREATE OR REPLACE VIEW adif.state_county_view AS
 \echo 'Database Information'
 \echo ''
 select * from adif.database_info_view;
-\echo 'Project Data'
-\echo ''
-\echo 'Github URL ......: https://github.com/KI7MT/radio-data-service'
-\echo 'Report Bugs to ..: https://github.com/KI7MT/radio-data-service/issues'
-\echo 'ADIF Refrence ...: http://www.adif.org/309/ADIF_309.htm#Enumerations'
-\echo ''
 
 -- END adif.sql

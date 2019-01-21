@@ -1,2 +1,4 @@
 .vscode/*
 src/docs/site/*
+src/pgsql/eqsl/*.txt
+src/pgsql/lotw/*.csv

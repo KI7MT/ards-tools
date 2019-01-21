@@ -1,6 +1,6 @@
 /* 
 
-    Project .............: ARDS
+    Project .............: ARDS Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
@@ -14,22 +14,31 @@
     Tool Requirments:
 
     * PostgreSQL v10 or above
-    * Access to Curl or Wget (Native Linux, WSL, Powershell, WinSSL, other)
+    * Access to Curl (Native Linux, WSL, Powershell, WinSSL, other)
 
     Installation and Usage Instrucitons
     
-    1. Download lotw-user-activity.csv file and place it in the 
-       same directory as this script resides.
+    1. Download and update table for lotw-user-activity.csv
 
-        wget -c https://lotw.arrl.org/lotw-user-activity.csv
+        * Clone the repository
 
-        or with Curl, just copy and paste the command
+            git clone https://github.com/KI7MT/ards-tools.git
 
-        curl -o lotw-user-activity.csv -z lotw-user-activity.csv https://lotw.arrl.org/lotw-user-activity.csv
+        * Update Commands:
+
+            Win32
+                cd /d ards-tools\src\pgsql
+                set url=https://lotw.arrl.org/lotw-user-activity.csv
+                curl -o lotw/lotw-user-activity.csv %url%            
+
+            Linux | MacOS | Posix
+                cd ards-tools/src/pgsql
+                url="https://lotw.arrl.org/lotw-user-activity.csv"
+                curl -o lotw/lotw-user-activity.csv "$url"
 
     2. In the Terminal, run the following command:
 
-       psql -v ON_ERROR_STOP=1 -U postgres -f lotw.sql
+       psql -v ON_ERROR_STOP=1 -U postgres -f lotw.pgsql
 
     3. After installation, run the following query to test the installaiton:
 
@@ -62,7 +71,7 @@ CREATE TABLE lotw.lotw_activity
 );
 
 -- Copy the CSV into LOTW Schema
-\COPY lotw.lotw_activity FROM 'lotw/lotw-user-activity.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY lotw.lotw_activity FROM 'lotw/lotw-user-activity.csv' DELIMITER ',' QUOTE '"' CSV HEADER;
 
 -- Create Test View: lotw.lotw_test_view
 CREATE OR REPLACE VIEW lotw.lotw_test_view AS
@@ -75,6 +84,7 @@ CREATE OR REPLACE VIEW lotw.lotw_test_view AS
         ORDER BY last_update DESC,
             last_time DESC
         LIMIT 10;
+
 \echo ''
 \echo '-----------------------------------'
 \echo 'Running Query lotw.lotw_test_view'
@@ -83,4 +93,4 @@ CREATE OR REPLACE VIEW lotw.lotw_test_view AS
 select * from lotw.lotw_test_view;
 \echo 'Finished !!'
 
--- END: lotw-import.sql
+-- END: lotw.sql
