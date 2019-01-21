@@ -1,6 +1,6 @@
 /* 
 
-    Project .............: R-DaaS
+    Project .............: ARDS
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
@@ -8,7 +8,7 @@
     File ................: lotw.sql
     Description .........: Script to import LoTW Active user csv file
     Database Type .......: PostgreSQL v10 or later
-    Version .............: 1.0.0
+    Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
 
     Tool Requirments:
@@ -33,7 +33,7 @@
 
     3. After installation, run the following query to test the installaiton:
 
-       psql -U postgres -c "select * from rdaas.lotw_test_view"
+       psql -U postgres -c "select * from lotw.lotw_test_view"
 
 */
 
@@ -42,15 +42,18 @@
 -- *****************************************************************************
 
 \echo ''
-\echo '---------------------------'
-\echo 'Creating LoTW Table'
-\echo '---------------------------'
+\echo '-----------------------------------'
+\echo 'Regenerating LoTW Schema'
+\echo '-----------------------------------'
 
--- Drop table if exists
-DROP TABLE IF EXISTS rdaas.lotw_activity CASCADE;
+-- Drop, and re-create schema
+DROP SCHEMA IF EXISTS lotw CASCADE;
+
+-- Create New Schema
+CREATE SCHEMA lotw;
 
 -- LoTW Active Users
-CREATE TABLE rdaas.lotw_activity
+CREATE TABLE lotw.lotw_activity
 (
     callsign TEXT NOT NULL,
     last_update DATE NOT NULL,
@@ -58,34 +61,26 @@ CREATE TABLE rdaas.lotw_activity
     CONSTRAINT lotw_activity_callsign_pkey PRIMARY KEY (callsign)
 );
 
-\echo ''
-\echo '---------------------------'
-\echo 'Importing LoTW Data'
-\echo '---------------------------'
-\COPY rdaas.lotw_activity FROM 'lotw-user-activity.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+-- Copy the CSV into LOTW Schema
+\COPY lotw.lotw_activity FROM 'lotw/lotw-user-activity.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 
-\echo ''
-\echo '---------------------------'
-\echo 'Adding Test Query'
-\echo '---------------------------'
-
--- Create Test View: rdaas.lotw_test_view
-CREATE OR REPLACE VIEW rdaas.lotw_test_view AS
+-- Create Test View: lotw.lotw_test_view
+CREATE OR REPLACE VIEW lotw.lotw_test_view AS
     SELECT
         lotw_activity.callsign AS "Callsign",
         lotw_activity.last_update AS "Last Update",
         lotw_activity.last_time AS "Time"
-    FROM rdaas.lotw_activity
-        WHERE last_update > '2018-12-1' AND last_update < '2018-12-31'
+    FROM lotw.lotw_activity
+        WHERE last_update > '2018-12-1' AND last_update < '2019-01-31'
         ORDER BY last_update DESC,
             last_time DESC
         LIMIT 10;
-
 \echo ''
-\echo '=> Finished Installing LoTW Activity Data'
-\echo '=> Running Test Query: rdaas.lotw_test_view'
+\echo '-----------------------------------'
+\echo 'Running Query lotw.lotw_test_view'
+\echo '-----------------------------------'
 \echo ''
-select * from rdaas.lotw_test_view;
+select * from lotw.lotw_test_view;
 \echo 'Finished !!'
 
 -- END: lotw-import.sql

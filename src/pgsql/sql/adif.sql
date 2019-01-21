@@ -8,7 +8,7 @@
     File ................: adif.sql
     Description .........: Enumeration Tables for R-DaaS Project
     Database Type .......: PostgreSQL v10 or later
-    Version .............: 1.0.0
+    Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
     ADIF Refrence .......: http://www.adif.org/309/ADIF_309.htm#Enumerations
     Bug Reports .........: https://github.com/KI7MT/radio-data-service/issues'
