@@ -50,8 +50,9 @@
 --  BEGIN TABLE GENERATION and IMPORT
 -- *****************************************************************************
 
+-- Script Variables
 \set name lotw
-\set ver 0.0.2
+\set ver 0.0.1
 \set adifv 3.0.9
 
 \echo ''

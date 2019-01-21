@@ -22,12 +22,16 @@
             cd ards-tools\src\pgsql
 
             psql -v ON_ERROR_STOP=1 -U postgres -f ards.pgsql
-
 */
 
 --******************************************************************************
 -- Enum Schema Utility Views
 --******************************************************************************
+
+-- Script variables
+\set name ards
+\set ver 0.0.1
+\set adifv 3.0.9
 
 \echo ''
 \echo '-----------------------------------'
@@ -51,6 +55,13 @@ CREATE TABLE ards.schema_info
     CONSTRAINT schema_info_schema_name_pkey PRIMARY KEY (schema_name)
 );
 
+-- Insert ards data
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
+
 \echo ''
 \echo '-----------------------------'
 \echo 'Creating Views'
@@ -63,4 +74,16 @@ CREATE OR REPLACE VIEW ards.schema_info_view AS
         schema_info.schema_version AS "Schema Version",
         schema_info.adif_spec AS "ADIF Spec",
         date_trunc('second', schema_info.last_update::TIMESTAMP) AS "Revision Date"
-    FROM ards.schema_info;
+    FROM ards.schema_info
+    ORDER BY  schema_info.schema_name;
+    
+-- *****************************************************************************
+--  FOOTER - Finished
+-- *****************************************************************************
+\echo ''
+\echo Finished Creating ARDS Schema for ( :name )
+\echo ''
+\echo 'Schema Informaiton'
+\echo ''
+SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+\echo

@@ -57,8 +57,9 @@
 --  BEGIN SCHEMA CREATION
 -- *****************************************************************************
 
+-- Script Variables
 \set name adif
-\set ver 0.0.3
+\set ver 0.0.1
 \set adifv 3.0.9
 
 \echo ''

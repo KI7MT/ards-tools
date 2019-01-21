@@ -28,6 +28,11 @@
 -- Enum Schema Utility Views
 --******************************************************************************
 
+-- Script variables
+\set name utils
+\set ver 0.0.1
+\set adifv 3.0.9
+
 \echo ''
 \echo '-----------------------------------'
 \echo 'Reproducing Utils Schema'
@@ -38,6 +43,13 @@ DROP SCHEMA IF EXISTS utils CASCADE;
 
 -- Create New Schema
 CREATE SCHEMA utils;
+
+-- Insert utils data
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
 
 \echo ''
 \echo '-----------------------------'
@@ -76,5 +88,16 @@ CREATE OR REPLACE VIEW utils.schema_size_view AS
 \echo ''
 select * from utils.schema_size_view;
 select * from utils.db_size_view;
+
+-- *****************************************************************************
+--  FOOTER - Finished
+-- *****************************************************************************
+\echo ''
+\echo Finished Creating ARDS Schema for ( :name )
+\echo ''
+\echo 'Schema Informaiton'
+\echo ''
+SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+\echo
 
 -- END utils.sql
