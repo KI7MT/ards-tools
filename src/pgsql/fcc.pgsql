@@ -19,6 +19,11 @@
       Schemas
             mssql: https://www.fcc.gov/file/14479/download
 
+      Schema Modifications
+
+            pubacc_hd: certifier_last_name varchar(30) null,
+            pubacc_en: po_box varchar(30) null,
+
       Main Database
             zip-file: http://wireless.fcc.gov/uls/data/complete/l_amat.zip
       
@@ -48,6 +53,11 @@
             HS    PUBACC_HS   Application/License History
             AM    PUBACC_AM   Amateur data
 
+      Primary Keys
+
+            Each table has the same unique_system_identifier. Either this, or a
+            combination of record_type and unoque_system_identifer could be used.
+
       Normilization
 
             The data, as if it presented from the FCC is NOT normalized in any
@@ -69,6 +79,10 @@
             As for the remaining fields, many should / could be normalized. If
             and when this will happen in ARDS is yet to be determined.
 
+      Indexing
+
+            As there are no Fkeys in the four tables, indxing will be placed on
+            any fields that are JOINED, or WHERE clause is used.
 
       Installation
       
@@ -145,7 +159,7 @@ create table fcc.PUBACC_HD
       interconnected_service        char(1)              null,
       certifier_first_name          varchar(20)          null,
       certifier_mi                  char(1)              null,
-      certifier_last_name           varchar(20)          null,
+      certifier_last_name           varchar(30)          null,
       certifier_suffix              char(3)              null,
       certifier_title               char(40)             null,
       gender                        char(1)              null,
@@ -162,7 +176,8 @@ create table fcc.PUBACC_HD
       band_manager                  char(1)              null,
       type_serv_broad_serv          char(1)              null,
       alien_ruling                  char(1)              null,
-      licensee_name_change          char(1)              null
+      licensee_name_change          char(1)              null,
+      CONSTRAINT pubacc_hd_usi_pkey PRIMARY KEY (unique_system_identifier)      
 );
 
 -- EN: Names and addresses
@@ -187,14 +202,15 @@ create table fcc.PUBACC_EN
       city                          varchar(20)          null,
       state                         char(2)              null,
       zip_code                      char(9)              null,
-      po_box                        varchar(20)          null,
+      po_box                        varchar(25)          null,
       attention_line                varchar(35)          null,
       sgin                          char(3)              null,
       frn                           char(10)             null,
       applicant_type_code           char(1)              null,
       applicant_type_other          char(40)             null,
       status_code                   char(1)              null,
-      status_date		            timestamp(3)         null
+      status_date		            timestamp(3)         null,
+      CONSTRAINT pubacc_en_usi_pkey PRIMARY KEY (unique_system_identifier)      
 );
 
 -- AM: Amateur data
@@ -217,7 +233,8 @@ create table fcc.PUBACC_AM
       vanity_relationship           char(12)             null,
       previous_callsign             char(10)             null,
       previous_operator_class       char(1)              null,
-      trustee_name                  varchar(50)          null
+      trustee_name                  varchar(50)          null,
+      CONSTRAINT pubacc_am_usi_pkey PRIMARY KEY (unique_system_identifier)      
 );
 
 -- HS: Application/License History
@@ -228,8 +245,27 @@ create table fcc.PUBACC_HS
       uls_file_number               char(14)             null,
       callsign                      char(10)             null,
       log_date                      char(10)             null,
-      code                          char(6)              null
+      code                          char(6)              null   
 );
+
+\echo ''
+\echo '---------------------------'
+\echo 'Importing DAT Files'
+\echo '---------------------------'
+\echo ''
+\echo 'Adding HD'
+\COPY fcc.pubacc_hd FROM 'fcc/HD.dat' DELIMITER '|' QUOTE '"' CSV;
+\echo 'Adding AM'
+\COPY fcc.pubacc_AM FROM 'fcc/AM.dat' DELIMITER '|' QUOTE '"' CSV;
+\echo 'Adding EN'
+\COPY fcc.pubacc_en FROM 'fcc/EN.dat' DELIMITER '|' QUOTE '"' CSV;
+\echo 'Adding HS'
+\COPY fcc.pubacc_hs FROM 'fcc/HS.dat' DELIMITER '|' QUOTE '"' CSV;
+
+-- Create Indexes
+
+-- Create Views
+
 
 -- *****************************************************************************
 --  FOOTER - Finished
