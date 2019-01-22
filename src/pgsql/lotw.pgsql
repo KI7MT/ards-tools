@@ -5,8 +5,8 @@
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
 
-    File ................: lotw.sql
-    Description .........: Script to import LoTW Active user csv file
+    File ................: lotw.pgsql
+    Description .........: LoTW CSV Tables and Views
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
@@ -57,7 +57,7 @@
 
 \echo ''
 \echo '-----------------------------------'
-\echo 'Regenerating LoTW Schema'
+\echo Regenerating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema

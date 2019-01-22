@@ -4,7 +4,7 @@
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
 
-    File ................: utils.sql
+    File ................: utils.pgsql
     Description .........: Database Utility Views
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
@@ -35,7 +35,7 @@
 
 \echo ''
 \echo '-----------------------------------'
-\echo 'Reproducing Utils Schema'
+\echo Regenerating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema

@@ -5,8 +5,8 @@
     Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
     License .............: GPL-3
 
-    File ................: utils.sql
-    Description .........: Database Utility Views
+    File ................: utils.pgsql
+    Description .........: ARDS Tables and Views
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.8
@@ -35,7 +35,7 @@
 
 \echo ''
 \echo '-----------------------------------'
-\echo 'Reproducing Schema Infor Table'
+\echo Regenerating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
@@ -73,7 +73,7 @@ CREATE OR REPLACE VIEW ards.schema_info_view AS
         schema_info.schema_name AS "Schema Name",
         schema_info.schema_version AS "Schema Version",
         schema_info.adif_spec AS "ADIF Spec",
-        date_trunc('second', schema_info.last_update::TIMESTAMP) AS "Revision Date"
+        date_trunc('second', schema_info.last_update::TIMESTAMP) AS "Create Date"
     FROM ards.schema_info
     ORDER BY  schema_info.schema_name;
     

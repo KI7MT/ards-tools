@@ -6,7 +6,7 @@
     License .............: GPL-3
 
     File ................: eqsl
-    Description .........: Script to import eqsl text file
+    Description .........: eQSL Tables and views
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
@@ -53,17 +53,27 @@
 --  BEGIN TABLE GENERATION and IMPORT
 -- *****************************************************************************
 
+-- Script Variables
+\set name esql
+\set ver 0.0.1
+\set adifv 3.0.9
 
 \echo ''
 \echo '-----------------------------------'
-\echo 'Regenerating eQSL Schema'
+\echo Regenerating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
-DROP SCHEMA IF EXISTS eqsl CASCADE;
+DROP SCHEMA IF EXISTS lotw CASCADE;
 
 -- Create New Schema
-CREATE SCHEMA eqsl;
+CREATE SCHEMA lotw;
+
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
 
 -- LoTW Active Users
 CREATE TABLE eqsl.eqsl_ag
