@@ -34,10 +34,12 @@
                 sed -i -e 's/0000\-00\-00/1900\-01\-01/' eqsl\tmp.txt
 
             Linux | MacOS | Posix
+
+                Note: The line numbers may change that need editing. This is a temporary workaround
+ 
                 cd ards-tools/src/pgsql
-                url="http://www.eqsl.cc/qslcard/DownloadedFiles/AGMemberListDated.txt"
-                curl -o eqsl/AGMemberListDated.txt "$url"
-                awk -F '[[:space:]]*,[[:space:]]*' '{$1=$1}1' OFS=, eqsl/AGMemberListDated.txt > eqsl/tmp.txt
+                bash update-eqsl.sh
+
 
     2. In the Terminal, run the following command:
 
@@ -54,7 +56,7 @@
 -- *****************************************************************************
 
 -- Script Variables
-\set name esql
+\set name eqsl
 \set ver 0.0.1
 \set adifv 3.0.9
 
@@ -64,10 +66,10 @@
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
-DROP SCHEMA IF EXISTS lotw CASCADE;
+DROP SCHEMA IF EXISTS :name CASCADE;
 
 -- Create New Schema
-CREATE SCHEMA lotw;
+CREATE SCHEMA :name;
 
 INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
@@ -102,6 +104,17 @@ CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
 \echo '-----------------------------------'
 \echo ''
 select * from eqsl.eqsl_test_view;
-\echo 'Finished !!'
+
+-- *****************************************************************************
+--  FOOTER - Finished
+-- *****************************************************************************
+\echo ''
+\echo Finished Creating ARDS Schema for ( :name )
+\echo ''
+\echo 'Schema Informaiton'
+\echo ''
+SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+\echo
+
 
 -- END: eqsl.sql
