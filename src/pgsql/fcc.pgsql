@@ -248,24 +248,19 @@ create table fcc.PUBACC_HS
       code                          char(6)              null   
 );
 
-\echo ''
-\echo '---------------------------'
-\echo 'Importing DAT Files'
-\echo '---------------------------'
-\echo ''
-\echo 'Adding HD'
-\COPY fcc.pubacc_hd FROM 'fcc/HD.dat' DELIMITER '|' QUOTE '"' CSV;
-\echo 'Adding AM'
-\COPY fcc.pubacc_AM FROM 'fcc/AM.dat' DELIMITER '|' QUOTE '"' CSV;
-\echo 'Adding EN'
-\COPY fcc.pubacc_en FROM 'fcc/EN.dat' DELIMITER '|' QUOTE '"' CSV;
-\echo 'Adding HS'
-\COPY fcc.pubacc_hs FROM 'fcc/HS.dat' DELIMITER '|' QUOTE '"' CSV;
-
--- Create Indexes
-
--- Create Views
-
+-- \echo ''
+-- \echo '---------------------------'
+-- \echo 'Importing DAT Files'
+-- \echo '---------------------------'
+-- \echo ''
+-- \echo 'Adding HD'
+-- \COPY fcc.pubacc_hd FROM 'fcc/HD.dat' DELIMITER '|' QUOTE '"' CSV;
+-- \echo 'Adding AM'
+-- \COPY fcc.pubacc_AM FROM 'fcc/AM.dat' DELIMITER '|' QUOTE '"' CSV;
+-- \echo 'Adding EN'
+-- \COPY fcc.pubacc_en FROM 'fcc/EN.dat' DELIMITER '|' QUOTE '"' CSV;
+-- \echo 'Adding HS'
+-- \COPY fcc.pubacc_hs FROM 'fcc/HS.dat' DELIMITER '|' QUOTE '"' CSV;
 
 -- *****************************************************************************
 --  FOOTER - Finished
