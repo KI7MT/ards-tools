@@ -4,14 +4,19 @@ import time
 import psycopg2
 from config import config
 
-DIR_PATH = os.getcwd()
-FILE = os.path.join(DIR_PATH,'wspr','wsprspots-2008-03.csv')
+# TODO: Add argparse arg to provide the file name to import
 
+DIR_PATH = os.getcwd()
+FILE = os.path.join(DIR_PATH,'pgsql','wspr','wsprspots-2008-03.csv')
+INIFILE='database.ini'
+
+
+# For testing, delete data in the ards.raw_csv table
 def delete_data():
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(INIFILE,'ards')
  
         # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database...')
@@ -37,11 +42,11 @@ def delete_data():
             print('Database connection closed.')
 
 
-def test1():
+def add_csv():
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(INIFILE,'ards')
 
         # connect to the PostgreSQL server
         conn = psycopg2.connect(**params)
@@ -67,7 +72,7 @@ def test1():
         if conn is not None:
             conn.close()
 
-
+# get file line count: this is slow, it would be better to use wc -l
 def line_count():
     return len(FILE.readlines())
 
@@ -75,5 +80,5 @@ def line_count():
 if __name__ =='__main__':
     delete_data()
     start = time.time()
-    test1()
+    add_csv()
     print("\nTime ..: {:.2f} sec\n".format(time.time() - start))

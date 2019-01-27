@@ -99,8 +99,8 @@ CREATE TABLE wspr.spot
     distance SMALLINT,            -- distance
     azimuth SMALLINT,             -- azimuth
     band_id SMALLINT,             -- band
-    sw_version_id SMALLINT,          -- version
-    code SMALLINT,               -- code
+    sw_version_id SMALLINT,       -- version
+    code SMALLINT,                -- code
     CONSTRAINT spot_id_pkey PRIMARY KEY (id)
 );
 
@@ -166,7 +166,6 @@ CREATE TABLE wspr.raw_csv
     code SMALLINT,                -- Non-zero values will indicatea bad spot is likely
     CONSTRAINT raw_csv_spot_pkey PRIMARY KEY (spot)
 );
-
 
 -- *****************************************************************************
 --  FKEY

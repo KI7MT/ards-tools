@@ -1,13 +1,15 @@
 import psycopg2
 from config import config
 
+_inifile='database.ini'
+_section='postgres'
 
-def version_check():
+def db_version(_inifile,_section):
     """Connect to the PostgreSQL database server"""
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(_inifile,_section)
  
         # connect to PostgreSQL
         print("\n* Connecting to the PostgreSQL database")
@@ -32,7 +34,6 @@ def version_check():
         if conn is not None:
             conn.close()
             print('\n* Database connection closed.')
- 
- 
-if __name__ == '__main__':
-    version_check()
+
+if __name__ =='__main__':
+    db_version(_inifile,_section)

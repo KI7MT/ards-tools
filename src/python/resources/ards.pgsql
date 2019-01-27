@@ -31,7 +31,7 @@
 -- Script variables
 \set name ards
 \set ver 0.0.1
-\set adifv 3.0.9
+\set adifv 0.0.0
 
 \echo ''
 \echo '-----------------------------------'

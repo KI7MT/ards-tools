@@ -1,7 +1,8 @@
 from configparser import ConfigParser
 
 
-def config(filename='database.ini', section='pgsql'):
+# used to parse database.ini file
+def config(filename,section):
     parser = ConfigParser()
     parser.read(filename)
  

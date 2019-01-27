@@ -457,34 +457,34 @@ CREATE TABLE adif.jtalert_data
 \echo 'Importing CSV Files'
 \echo '---------------------------'
 
-\COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.award FROM 'adif/award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.band FROM 'adif/band.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.contest FROM 'adif/contest.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.continent FROM 'adif/continent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.county_name FROM 'adif/county_name.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit FROM 'adif/credit.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.dxcc_entity FROM 'adif/dxcc_entity.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.state FROM 'adif/state.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.mode FROM 'adif/mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.submode FROM 'adif/submode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.propogation_mode FROM 'adif/propogation_mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_medium FROM 'adif/qsl_medium.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.region FROM 'adif/region.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.antenna_path FROM 'resources/adif/antenna_path.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.arrl_section FROM 'resources/adif/arrl_section.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.award FROM 'resources/adif/award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.band FROM 'resources/adif/band.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.contest FROM 'resources/adif/contest.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.continent FROM 'resources/adif/continent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.county_name FROM 'resources/adif/county_name.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.credit FROM 'resources/adif/credit.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.credit_award FROM 'resources/adif/credit_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.credit_facet FROM 'resources/adif/credit_facet.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.credit_sponsor FROM 'resources/adif/credit_sponsor.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.dxcc_entity FROM 'resources/adif/dxcc_entity.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.state FROM 'resources/adif/state.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.state_county FROM 'resources/adif/state_county.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.mode FROM 'resources/adif/mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.submode FROM 'resources/adif/submode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.propogation_mode FROM 'resources/adif/propogation_mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_medium FROM 'resources/adif/qsl_medium.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_rcvd FROM 'resources/adif/qsl_rcvd.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_sent FROM 'resources/adif/qsl_sent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_via FROM 'resources/adif/qsl_via.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qso_complete FROM 'resources/adif/qsl_complete.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.qso_upload_status FROM 'resources/adif/qso_upload_status.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.region FROM 'resources/adif/region.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.region_applicability FROM 'resources/adif/region_applicability.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.weblink FROM 'resources/adif/weblink.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.sponsored_award FROM 'resources/adif/sponsored_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.cq_zone FROM 'resources/adif/cq_zone.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
