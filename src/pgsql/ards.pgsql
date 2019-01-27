@@ -21,7 +21,7 @@
 
             cd ards-tools\src\pgsql
 
-            psql -v ON_ERROR_STOP=1 -U postgres -f ards.pgsql
+            psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql
 */
 
 --******************************************************************************
@@ -43,7 +43,6 @@ DROP SCHEMA IF EXISTS ards CASCADE;
 
 -- Create New Schema
 CREATE SCHEMA ards;
-
 
 --ARDS Schema Information table
 CREATE TABLE ards.schema_info

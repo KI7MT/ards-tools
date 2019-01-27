@@ -117,4 +117,4 @@ SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'nam
 \echo
 
 
--- END: eqsl.sql
+-- END: eqsl.pgsql

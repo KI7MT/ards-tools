@@ -38,7 +38,7 @@
 
             cd ards-tools\src\pgsql
 
-            psql -v ON_ERROR_STOP=1 -U postgres -f adif.pgsql
+            psql -v ON_ERROR_STOP=1 -U ards -f adif.pgsql
 
     Development Activity and Coding
 
