@@ -85,10 +85,8 @@ CREATE TABLE eqsl.eqsl_ag
     CONSTRAINT leqsl_ag_callsign_pkey PRIMARY KEY (callsign)
 );
 
--- Copy the CSV into LOTW Schema
-\COPY eqsl.eqsl_ag FROM 'eqsl/tmp.txt' DELIMITER ',' CSV HEADER;
-
 -- Create Test View: eqsl.eqsl_test_view
+-- TODO: COvert this view to a function
 CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
     SELECT
         eqsl_ag.callsign AS "Callsign",
@@ -98,12 +96,15 @@ CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
         ORDER BY last_update DESC
         LIMIT 10;
 
-\echo ''
-\echo '-----------------------------------'
-\echo 'Running Query eqsl.eqsl_test_view'
-\echo '-----------------------------------'
-\echo ''
-select * from eqsl.eqsl_test_view;
+-- Only import Data during Development testing
+-- Copy the CSV into LOTW Schema
+-- \COPY eqsl.eqsl_ag FROM 'eqsl/tmp.txt' DELIMITER ',' CSV HEADER;
+-- \echo ''
+-- \echo '-----------------------------------'
+-- \echo 'Running Query eqsl.eqsl_test_view'
+-- \echo '-----------------------------------'
+-- \echo ''
+-- select * from eqsl.eqsl_test_view;
 
 -- *****************************************************************************
 --  FOOTER - Finished
@@ -115,6 +116,5 @@ select * from eqsl.eqsl_test_view;
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
 \echo
-
 
 -- END: eqsl.pgsql

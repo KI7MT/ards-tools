@@ -248,6 +248,7 @@ create table fcc.PUBACC_HS
       code                          char(6)              null   
 );
 
+-- Only Add Data from DAT file during Development testing
 -- \echo ''
 -- \echo '---------------------------'
 -- \echo 'Importing DAT Files'
