@@ -35,7 +35,6 @@
 \set ver 0.0.1
 \set adifv 3.0.9
 
-\! cls
 \echo ''
 \echo '-----------------------------------------'
 \echo Ctreating Database and Rols for ( :name )

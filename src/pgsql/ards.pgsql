@@ -84,4 +84,3 @@ CREATE OR REPLACE VIEW ards.schema_info_view AS
 \echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
-\echo

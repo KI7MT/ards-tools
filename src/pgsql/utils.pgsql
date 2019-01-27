@@ -98,6 +98,5 @@ select * from utils.db_size_view;
 \echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
-\echo
 
 -- END utils.sql

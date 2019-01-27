@@ -115,6 +115,5 @@ CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
 \echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
-\echo
 
 -- END: eqsl.pgsql

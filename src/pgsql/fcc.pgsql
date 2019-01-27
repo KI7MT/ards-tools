@@ -273,4 +273,3 @@ create table fcc.PUBACC_HS
 \echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
-\echo

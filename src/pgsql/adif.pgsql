@@ -710,6 +710,5 @@ CREATE OR REPLACE VIEW adif.state_county_view AS
 \echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
-\echo
 
 -- END adif.sql
