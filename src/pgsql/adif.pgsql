@@ -62,8 +62,7 @@
 \set ver 0.0.1
 \set adifv 3.0.9
 
-\echo ''
-\echo '-----------------------------------'
+\echo
 \echo 'Reproducing ADIF Schema'
 \echo '-----------------------------------'
 
@@ -452,11 +451,9 @@ CREATE TABLE adif.jtalert_data
 --  1. Delimiter for dxc_entity is "|" due to comma's in 'name' column
 --  2. All other CSV files use ',' delimiters with double-quote escapes
 
-\echo ''
-\echo '---------------------------'
+\echo
 \echo 'Importing CSV Files'
 \echo '---------------------------'
-
 \COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.award FROM 'adif/award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
@@ -490,8 +487,7 @@ CREATE TABLE adif.jtalert_data
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
 
-\echo ''
-\echo '---------------------------'
+\echo
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
 
@@ -538,8 +534,7 @@ ALTER TABLE adif.submode ADD CONSTRAINT submode_mode_description_fkey
 --  GENERATE INDEXES based on utilitiies\index-reccomend2.sql
 -- *****************************************************************************
 
-\echo ''
-\echo '-----------------------------'
+\echo
 \echo 'Creating Foreign Key Indexes'
 \echo '-----------------------------'
 
@@ -561,8 +556,7 @@ create index mode_mode_description_id_idx on adif.mode (mode_description_id);
 --  GENERATE Views
 -- *****************************************************************************
 
-\echo ''
-\echo '-----------------------------'
+\echo
 \echo 'Creating Views'
 \echo '-----------------------------'
 
@@ -704,11 +698,7 @@ CREATE OR REPLACE VIEW adif.state_county_view AS
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo ''
-\echo Finished Creating ARDS Schema for ( :name )
-\echo ''
-\echo 'Schema Informaiton'
-\echo ''
+\echo
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
 
 -- END adif.sql

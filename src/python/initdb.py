@@ -132,6 +132,6 @@ def create_database():
 if __name__ == '__main__':
     create_database() # this is always first
     init_ards() # this should always follow database creation
-    #init_adif()
+    init_adif()
     #init_eqsl()
     #init_fcc()
