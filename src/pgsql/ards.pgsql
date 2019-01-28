@@ -32,9 +32,8 @@
 \set ver 0.0.1
 \set adifv 0.0.0
 
-\echo ''
-\echo '-----------------------------------'
-\echo Regenerating Schema for ( :name )
+\echo
+\echo Generating Schema  ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
@@ -60,12 +59,9 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
 
-\echo ''
-\echo '-----------------------------'
-\echo 'Creating Views'
-\echo '-----------------------------'
-
+-- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
+-- *****************************************************************************
 CREATE OR REPLACE VIEW ards.schema_info_view AS
     SELECT
         schema_info.schema_name AS "Schema Name",
@@ -78,9 +74,5 @@ CREATE OR REPLACE VIEW ards.schema_info_view AS
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo ''
-\echo Finished Creating ARDS Schema for ( :name )
-\echo ''
-\echo 'Schema Informaiton'
 \echo ''
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';

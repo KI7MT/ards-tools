@@ -87,36 +87,36 @@ def create_database():
         cur = conn.cursor()
         
         # Terminate any users
-        print("  * Terminating Connections")
         cur.execute("SELECT pg_terminate_backend (pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '%s'" % dbuser)
+        print("  * Terminated connections")
 
         # Drop the database is exists
-        print("  * Drop DB")
         cur.execute("DROP DATABASE IF EXISTS %s" % dbuser)
+        print("  * Dropped database")
 
         # Drop user if exists
-        print("  * Drop User")
         cur.execute("DROP USER IF EXISTS %s" % dbuser)
+        print("  * Dropped user")
 
         # Create the new user "ards"
-        print("  * Create Role: ( %s ) with Password: ( %s ) " % (dbuser,dbuser_pw))
         cur.execute("CREATE USER %s WITH LOGIN SUPERUSER CREATEDB CREATEROLE INHERIT REPLICATION CONNECTION LIMIT -1 PASSWORD '%s'" % (dbuser,dbuser_pw))
-      
+        print("  * Created role: ( %s ) with password: ( %s ) " % (dbuser,dbuser_pw))
+
         # add comment on user
-        print("  * Add Comment For Role: ( %s )" % dbuser)
         cur.execute("COMMENT ON ROLE %s IS 'Role for ARDS Tools'" % dbuser)
+        print("  * Added comment for role: ( %s )" % dbuser)
 
         # Create the ards database
-        print("  * Create Database: ( %s )" % dbname)
         cur.execute("CREATE DATABASE %s WITH OWNER = %s ENCODING = 'UTF8' CONNECTION LIMIT = -1" % (dbname,dbuser))
-        
+        print("  * Created database: ( %s )" % dbname)
+
         # Comments on new database
-        print("  * Comment on Database: ( %s )" % dbname)
         cur.execute("COMMENT ON DATABASE %s IS 'Databases for ARDS Tools'" % dbname)
+        print("  * Added comment on database: ( %s )" % dbname)
 
         # Grant permissions to dbuser
-        print("  * Grant permissions on Database: ( %s ) for Role: ( % s )" % (dbname,dbuser))
         cur.execute("GRANT ALL ON DATABASE %s TO %s" % (dbname,dbuser))
+        print("  * Granted permissions on database: ( %s ) for role: ( % s )" % (dbname,dbuser))
 
         # close PostgreSQL connection
         cur.close()
@@ -131,7 +131,7 @@ def create_database():
 
 if __name__ == '__main__':
     create_database() # this is always first
-    #init_ards() # this should always follow database creation
+    init_ards() # this should always follow database creation
     #init_adif()
     #init_eqsl()
     #init_fcc()
