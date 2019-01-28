@@ -1,6 +1,5 @@
 from configparser import ConfigParser
 
-
 # used to parse database.ini file
 def config(filename,section):
     parser = ConfigParser()

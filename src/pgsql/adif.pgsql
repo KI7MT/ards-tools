@@ -2,7 +2,7 @@
 
     Project .............: Amateur Radio Data Serivce Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
-    Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
+    Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
     License .............: GPL-3
 
     File ................: adif.pgsql
@@ -61,9 +61,7 @@
 \set name adif
 \set ver 0.0.1
 \set adifv 3.0.9
-
-\echo
-\echo 'Reproducing ADIF Schema'
+\echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema

@@ -1,7 +1,7 @@
 /*
     Project .............: ARDS Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
-    Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
+    Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
     License .............: GPL-3
 
     File ................: utils.pgsql
@@ -31,8 +31,6 @@
 \set name ards
 \set ver 0.0.1
 \set adifv 0.0.0
-
-\echo
 \echo Generating Schema  ( :name )
 \echo '-----------------------------------'
 

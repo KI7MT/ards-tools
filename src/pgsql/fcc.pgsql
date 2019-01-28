@@ -1,14 +1,14 @@
 /*
     Project .............: ARDS Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
-    Copyright ...........: Copyright (C) 2018 Greg Beam, KI7MT
+    Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
     License .............: GPL-3
 
     File ................: fcc.pgsql
     Description .........: FCC ULS Tables and Views
     Database Type .......: PostgreSQL v10 or later
     Version .............: 0.0.1
-    ADIF Specification ..: 3.0.8
+    ADIF Specification ..: 3.0.9
 
       * FCC ULS: Data Table Schemas are taken directly from the FCC utils
         webtites.
@@ -105,11 +105,8 @@
 -- Script Variables
 \set name fcc
 \set ver 0.0.1
-\set adifv 3.0.9
-
-\echo ''
-\echo '-----------------------------------'
-\echo Regenerating Schema for ( :name )
+\set adifv 0.0.0
+\echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
@@ -266,10 +263,5 @@ create table fcc.PUBACC_HS
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-
-\echo ''
-\echo Finished Creating ARDS Schema for ( :name )
-\echo ''
-\echo 'Schema Informaiton'
-\echo ''
+\echo
 SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';

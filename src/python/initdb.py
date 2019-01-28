@@ -7,6 +7,7 @@ import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 from config import config
+from schema_info import schema_info
 from configparser import ConfigParser
 
 # the database config file
@@ -14,6 +15,14 @@ _inifile='database.ini'
 
 # setup the parser
 parser = ConfigParser()
+
+
+def clear_screen():
+    """Clear screen based on platform."""
+    if sys.platform == 'win32':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 
 # database Role / User
@@ -46,37 +55,60 @@ def set_pg_access(section):
 # must be second
 def init_ards():
     """Use subprocess to call ards.pgsql"""
-    set_pg_access('ards')
-    os.chdir('../pgsql')
-    subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql", shell=True)
-    os.chdir('../python')
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
 
 
 # initialize adif tables
 def init_adif():
-    """Use subprocess to call adif.pgsql"""
-    set_pg_access('ards')
-    os.chdir('../pgsql')
-    subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif.pgsql", shell=True)
-    os.chdir('../python')
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
 
 
 # initialize eqsl tables
 def init_eqsl():
     """Use subprocess to call eqsl.pgsql"""
-    set_pg_access('ards')
-    os.chdir('../pgsql')
-    subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f eqsl.pgsql", shell=True)
-    os.chdir('../python')
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f eqsl.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
 
 
 # initialize fcc uls tables
 def init_fcc():
     """Use subprocess to call fcc.pgsql"""
-    set_pg_access('ards')
-    os.chdir('../pgsql')
-    subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f fcc.pgsql", shell=True)
-    os.chdir('../python')
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f fcc.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
 
 
 # Crop DB and User if exists and re-create
@@ -141,10 +173,13 @@ def create_database():
             conn.close()
             print("Finished, connection closed.")
             print("*" * 70)
+            print("")
 
 if __name__ == '__main__':
+    clear_screen()
     create_database() # this is always first
     init_ards() # this should always follow database creation
     init_adif()
     init_eqsl()
-    #init_fcc()
+    init_fcc()
+    schema_info()
