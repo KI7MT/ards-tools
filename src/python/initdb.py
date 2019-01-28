@@ -18,16 +18,21 @@ parser = ConfigParser()
 
 # database Role / User
 def get_dbuser(section):
+    """Returns dauabase user name from ini file"""
     parser.read(_inifile)
     return parser.get(section, 'user')
 
+
 # db user passwd
 def get_dbuser_pw(section):
+    """Returns atabase user password from database ini file"""
     parser.read(_inifile)
     return parser.get(section, 'password')
 
+
 # database name
 def get_dbname(section):
+    """Retuens database name from database ini file"""
     parser.read(_inifile)
     return parser.get(section, 'database')
 
@@ -40,35 +45,43 @@ def set_pg_access(section):
 
 # must be second
 def init_ards():
-    """ use subprocess to call ards.pgsql"""
+    """Use subprocess to call ards.pgsql"""
     set_pg_access('ards')
     os.chdir('../pgsql')
     subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql", shell=True)
     os.chdir('../python')
 
+
+# initialize adif tables
 def init_adif():
-    """ use subprocess to call adif.pgsql"""
+    """Use subprocess to call adif.pgsql"""
     set_pg_access('ards')
     os.chdir('../pgsql')
     subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif.pgsql", shell=True)
     os.chdir('../python')
 
+
+# initialize eqsl tables
 def init_eqsl():
-    """ use subprocess to call eqsl.pgsql"""
+    """Use subprocess to call eqsl.pgsql"""
     set_pg_access('ards')
     os.chdir('../pgsql')
     subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f eqsl.pgsql", shell=True)
     os.chdir('../python')
 
+
+# initialize fcc uls tables
 def init_fcc():
-    """ use subprocess to call fcc.pgsql"""
+    """Use subprocess to call fcc.pgsql"""
     set_pg_access('ards')
     os.chdir('../pgsql')
     subprocess.call("psql -v ON_ERROR_STOP=1 -U ards -d ards -f fcc.pgsql", shell=True)
     os.chdir('../python')
 
+
 # Crop DB and User if exists and re-create
 def create_database():
+    """Initialize the Database and Role"""
     conn = None
     try:
         # Get the database user and pw from _inifile
@@ -133,5 +146,5 @@ if __name__ == '__main__':
     create_database() # this is always first
     init_ards() # this should always follow database creation
     init_adif()
-    #init_eqsl()
+    init_eqsl()
     #init_fcc()
