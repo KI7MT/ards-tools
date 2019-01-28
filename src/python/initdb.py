@@ -6,9 +6,11 @@ import sys
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
+from configparser import ConfigParser
+
 from config import config
 from schema_info import schema_info
-from configparser import ConfigParser
+
 
 # the database config file
 _inifile='database.ini'
