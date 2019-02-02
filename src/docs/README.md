@@ -1,4 +1,4 @@
-# RDaaS Project
+# Amateur Radio Data Service Tools
 
 >NOTE: This page is under heavy revision. Expect things to change at rapid
 >pace.
@@ -25,14 +25,15 @@
 
 ## Overview
 
-The Radio Data as a Service (RDaaS) project aims to provide radio amateurs with
-a scalable set of end-points for data access. As the project grows, so
-shall this section of the dotnet-core-examples.
+The Amateur Radio Data Service Tools (ARDS) project aims to provide radio
+amateurs with a scalable set of end-points for data access. As the project
+grows, so shall this section of the `ards-tools`
 
 The conceptual components can be broken down into three basic areas during
 development, and the order of work:
 
 * Data Store (PostgreSQL, MongoDB, Redis, other Data Stores)
+* Optional Command Line Tools
 * Application API (JSON/JSONB) RESt Endpoints
 * Web Based Interface for administration, or Web MVC.
 
@@ -46,41 +47,41 @@ At the time of this writing, all example applications are being tested on:
 * Window-10 build 17134 x86_64
 * [Windows Subsystem Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about)
 * Linux Native [Ubuntu 18.04](http://releases.ubuntu.com/18.04/)
-* If the [.Net Core SDK](#system-requirments) can run on a particular system, so should RDaaS.
 
 ## System Requirements
 
 * Supported Operating Systems: `Windows`, `Linux`, `MacOS`
 * [Net Core SDK v2.2+](https://dotnet.microsoft.com/download)
 * [VS Code Editor](https://code.visualstudio.com/) is optional but preferred
-* Dual Core CPU Minimum
-* At Least 1GB RAM
-* 1 to 2 GB of Free disk space (if running all apps, less if not)
-* [PostgreSQL Database](https://github.com/KI7MT/jtsdk-dotnet-core/wiki/Install-PostgreSQL)
+* [PostgreSQL v11.1+](https://ki7mt.github.io/jtsdk-tools/windows/Install-PostgreSQL/#optional-install-postgresql)
+* [Python 3.5+](https://ki7mt.github.io/jtsdk-tools/windows/Install-Python/#install-anaconda-python)
+* Dual Core CPU
+* At Least 2GB RAM
+* 10 GB of Free disk space (minimum)
+
+>IMPORTANT: The `PostgreSQL Install Instructions` list 10.6 as the version of
+>of choice. However, `ards-tools` requires version 11.0 or better to facilitate
+>[Store Procedures](https://www.postgresql.org/docs/11/sql-createprocedure.html).
 
 ## Development and Environment
 
-The following applications are in various state(s) of development, anywhere from
+The following applications are in various state(s) of development; anywhere from
 Database Design to final API/MVC integration. A given project may reside in the
 repository, but should not be considered functional. As they move from
 development to testing, I will update the status to reflect the change.
 
 ## Current Testing
 
-|Application  |Database |DB Setup|Status|Description
-| :---        |:---|:---|:---    |:---
-|[RDaaS-Data](https://github.com/KI7MT/dotnet-core-examples/tree/master/Database)|PostgreSQL|[See Docs](https://github.com/KI7MT/jtsdk-dotnet-core/wiki/Install-PostgreSQL)|Testing|Database backend for the RDaaS project
-|[RDaaS-API](https://github.com/KI7MT/dotnet-core-examples/tree/master/Database)|PostgreSQL|TBD|Devel|Swagger RESt-API for Radio Related Data
-|[RDaaS-MVC](https://github.com/KI7MT/dotnet-core-examples/tree/master/Database)|PostgreSQL|TBD|Devel|Razor WebMVC for Admin Access to RDaaS
-
 Currently, `Database Initialization` is the focus. In order to run the SQL scripts,
-you must have [PostgreSQL v10+](https://github.com/KI7MT/jtsdk-dotnet-core/wiki/Install-PostgreSQL)
+you must have [PostgreSQL v11+](https://github.com/KI7MT/jtsdk-dotnet-core/wiki/Install-PostgreSQL)
 installed. This can be through [JTSDK-Tools](https://github.com/KI7MT/jtsdk-dotnet-core/wiki),
 or a native installation for the system you are running. The Default
 installation is preferred:
 
-```shell
+>NOTE: Included are a series of `Python` scripts that make database initialization
+>and basic testing much easier. If you've not done so, [Install Anaconda Python][].
 
+```bash
 # These are the defaults if you do not change them during installation
 
 Host.......: localhost
@@ -88,27 +89,44 @@ Port.......: 5432
 Username...: postgres
 Password...: postgres
 Database...: postgres
+
 ```
 
->NOTE: If you change any of these items, you must adjust the instructions to match.
+>NOTE: If you change any of these items, you must adjust the `databases.ini` file
+>to match.
 
 ## Database Initialization
 
-In order to use `psql`, you must be able to access it directly from the command-line. This can be a native console or `JTSK-Tools` environment. Until this works properly, you
-should not continue. For all of actions in this document,
-I will be using `JTSDK-Tools Env`.
+In order to use `psql`, you must be able to access it directly from the
+command-line. This can be a native console or `JTSK-Tools` environment. Until
+this works properly, you should not continue. For all of actions in this document,
+I will be using `JTSDK-Tools Env`. The same is true for `Python`
 
 ### Psql Version Check
 
-```shell
-# Open a Terminal, Windows CMD, Powershell, Linux Terminal and type:
+```bash
+# Open JTSDK-Tools, a Terminal, Windows CMD, Powershell, Linux Terminal and type:
+
 
 psql --version
 ````
 
-| ![Psql Version](docs/images/psql-version.PNG?raw=true) |
+| ![Psql Version](images/psql-version.PNG?raw=true) |
 |:--:|
 | *psql version check* |
+
+### Python Version Check
+
+```bash
+# Open JTSDK-Tools, a Terminal, Windows CMD, Powershell, Linux Terminal and type:
+
+python -V
+````
+
+| ![Python Verison](images/python-version.PNG?raw=true) |
+|:--:|
+| *python version check* |
+
 
 ### Checkout Repository
 
@@ -117,21 +135,25 @@ I prefer the src directory in `JTSDK-Tools Env`.
 
 Checkout the repository, and `cd /d` to the `rdaas` folder.
 
-```shell
-# Checkout dotnet-core-examples
+```bash
+# Checkout ards-tools
 
-cd /d (C|D):\JTSDK-Tools\src
+#C-Drive
+cd /d C:\JTSDK-Tools\src
 
-git clone https://github.com/KI7MT/dotnet-core-examples.git
+# D-Drive
+cd /d D:\JTSDK-Tools\src
 
-cd /d dotnet-core-examples\Database\rdaas\sql
+git clone https://github.com/KI7MT/ards-tools
+
+cd /d ards-tools\src\
 ```
 
 ### Initialize The Database
 
 In the terminal, review the available SQL Scripts, then run the main `rdaas.sql` script.
 
-```shell
+```bash
 # List the *.sql scripts we'll be using
 
 # Windows:
@@ -151,7 +173,7 @@ Run the `rdaas.sql` script using `psql` command (copy and paste should work too)
 >re-initialize the DB, just run the script again. However, doing so will mean you
 must re-add the utilities and views.
 
-```shell
+```bash
 psql -v ON_ERROR_STOP=1 -U postgres -f rdaas.sql
 ```
 
@@ -166,7 +188,7 @@ If the script finishes without error, you should see the following output:
 This step is similar to initialization. The difference being, we are adding
 views for testing.
 
-```shell
+```bash
 psql -v ON_ERROR_STOP=1 -U postgres -f rdaas-views.sql
 ```
 
@@ -178,7 +200,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -f rdaas-views.sql
 
 The next step we'll install some useful utility views.
 
-```shell
+```bash
 # Change directories to utilities and install the views
 
 cd utilities
@@ -194,7 +216,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -f rdaas-utilities.sql
 
 Now that we have the utilities installed, you can print a list of available views.
 
-```shell
+```bash
 # Call the the rdaas.view_list
 
 psql -U postgres -c "SELECT * FROM rdaas.view_list"
@@ -255,7 +277,7 @@ select statement with `EXPLAIN ANALYZE` to see the performance of the query.
 
 Example: `rdaas.state_county_view`
 
-```shell
+```bash
 psql -U postgres -c "explain analyze select * from rdaas.state_county_view"
 ```
 
@@ -268,7 +290,7 @@ psql -U postgres -c "explain analyze select * from rdaas.state_county_view"
 As most know, LoTW released their `lotw-user-activity.csv` for public consumption.
 This section shows you how `easy` it is to update the LoTW table. At present, there are over 124,000 calls in the CSV file. The query below limits the results to ten for display purposes.
 
-```shell
+```bash
 # Change directory to lotw, and run the update
 # Note: If the update is successful, "View" will list the top
 # 15 or so callsigns according to date and time DESC
@@ -303,3 +325,4 @@ If you have problems with setting things up, or any of the steps in this brief g
 please file a [Bug Report](https://github.com/KI7MT/dotnet-core-examples/issues)
 on the Github Issue Tracker.
 
+[Install Anaconda Python]: https://ki7mt.github.io/jtsdk-tools/windows/Install-Python/#install-anaconda-python
