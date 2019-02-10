@@ -77,9 +77,10 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- LoTW Active Users
 CREATE TABLE eqsl.eqsl_ag
 (
+    id SERIAL,
     callsign TEXT NOT NULL,
-    last_update DATE NOT NULL,
-    CONSTRAINT leqsl_ag_callsign_pkey PRIMARY KEY (callsign)
+    last_update DATE,
+    CONSTRAINT eqsl_ag_id_pkey PRIMARY KEY (id)
 );
 
 -- Create Test View: eqsl.eqsl_test_view

@@ -173,7 +173,7 @@ def create_database():
     finally:
         if conn is not None:
             conn.close()
-            print("Finished, connection closed.")
+            print("  * Finished, connection closed.")
             print("*" * 70)
             print("")
 
