@@ -46,8 +46,8 @@ namespace Ards.NetCore.Adif.Api
                 {
                     Version = "v1",
                     Title = "Amateur Radio Data Service ADIF API",
-                    Description = "Postman Like Interface documenting available method calls.",
-                    TermsOfService = "Free, and in Free For Ever",
+                    Description = "Postman Like Interface documenting ADIF endpoints.",
+                    TermsOfService = "https://github.com/KI7MT/ards-tools/blob/master/LICENSE",
                     Contact = new Contact
                     {
                         Name = "Greg Beam",

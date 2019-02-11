@@ -74,7 +74,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
 
--- LoTW Active Users
+-- Eqsl Active Users
 CREATE TABLE eqsl.eqsl_ag
 (
     id SERIAL,
@@ -84,7 +84,7 @@ CREATE TABLE eqsl.eqsl_ag
 );
 
 -- Create Test View: eqsl.eqsl_test_view
--- TODO: COvert this view to a function
+-- TODO: Covert this view to a function
 CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
     SELECT
         eqsl_ag.callsign AS "Callsign",
