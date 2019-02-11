@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,6 +25,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(255)]
         public string Url { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("Weblink")]
         public virtual ICollection<Contest> Contest { get; set; }
     }

@@ -30,10 +30,13 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("is_deleted")]
         public bool? IsDeleted { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("DxccEntity")]
         public virtual ICollection<ArrlSection> ArrlSection { get; set; }
+
         [InverseProperty("DxccEntity")]
         public virtual ICollection<Pas> Pas { get; set; }
+
         [InverseProperty("DxccEntity")]
         public virtual ICollection<Region> Region { get; set; }
     }

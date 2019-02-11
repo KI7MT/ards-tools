@@ -27,9 +27,11 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(80)]
         public string Subdivision { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("DxccEntityId")]
         [InverseProperty("Pas")]
         public virtual DxccEntity DxccEntity { get; set; }
+
         [InverseProperty("Pas")]
         public virtual ICollection<Sas> Sas { get; set; }
     }

@@ -19,6 +19,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(20)]
         public string Name { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("Sponsor")]
         public virtual ICollection<Credit> Credit { get; set; }
     }

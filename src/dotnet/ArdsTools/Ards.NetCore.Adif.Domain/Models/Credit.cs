@@ -23,6 +23,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("facet_id")]
         public int FacetId { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("AwardId")]
         [InverseProperty("Credit")]
         public virtual CreditAward Award { get; set; }

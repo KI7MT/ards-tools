@@ -20,9 +20,11 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("mode_description_id")]
         public int? ModeDescriptionId { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("ModeId")]
         [InverseProperty("Submode")]
         public virtual Mode Mode { get; set; }
+
         [ForeignKey("ModeDescriptionId")]
         [InverseProperty("Submode")]
         public virtual ModeDescription ModeDescription { get; set; }

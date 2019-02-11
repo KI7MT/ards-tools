@@ -14,6 +14,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("county_name_id")]
         public int CountyNameId { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("CountyNameId")]
         [InverseProperty("StateCounty")]
         public virtual CountyName CountyName { get; set; }

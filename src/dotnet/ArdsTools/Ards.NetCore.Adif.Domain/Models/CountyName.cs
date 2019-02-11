@@ -20,6 +20,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(60)]
         public string Name { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("CountyName")]
         public virtual ICollection<StateCounty> StateCounty { get; set; }
     }

@@ -14,10 +14,12 @@ namespace Ards.NetCore.Adif.Domain.Models
 
         [Column("id")]
         public int Id { get; set; }
+
         [Column("name")]
         [StringLength(60)]
         public string Name { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("Award")]
         public virtual ICollection<Credit> Credit { get; set; }
     }

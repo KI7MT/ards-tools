@@ -23,6 +23,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("weblink_id")]
         public int? WeblinkId { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("WeblinkId")]
         [InverseProperty("Contest")]
         public virtual Weblink Weblink { get; set; }

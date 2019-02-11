@@ -20,8 +20,10 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(120)]
         public string Description { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("ModeDescription")]
         public virtual ICollection<Mode> Mode { get; set; }
+
         [InverseProperty("ModeDescription")]
         public virtual ICollection<Submode> Submode { get; set; }
     }

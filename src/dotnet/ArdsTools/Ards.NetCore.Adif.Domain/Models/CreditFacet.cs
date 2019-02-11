@@ -20,6 +20,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(20)]
         public string Name { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [InverseProperty("Facet")]
         public virtual ICollection<Credit> Credit { get; set; }
     }

@@ -26,9 +26,11 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("import_only")]
         public bool ImportOnly { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("ModeDescriptionId")]
         [InverseProperty("Mode")]
         public virtual ModeDescription ModeDescription { get; set; }
+
         [InverseProperty("Mode")]
         public virtual ICollection<Submode> Submode { get; set; }
     }

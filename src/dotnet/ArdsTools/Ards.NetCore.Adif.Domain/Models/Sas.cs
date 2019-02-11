@@ -17,6 +17,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [Column("pas_id")]
         public int PasId { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("PasId")]
         [InverseProperty("Sas")]
         public virtual Pas Pas { get; set; }

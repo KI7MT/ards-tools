@@ -24,6 +24,7 @@ namespace Ards.NetCore.Adif.Domain.Models
         [StringLength(10)]
         public string Prefix { get; set; }
 
+        // ForeignKey's and Navigation Properties
         [ForeignKey("DxccEntityId")]
         [InverseProperty("Region")]
         public virtual DxccEntity DxccEntity { get; set; }
