@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="ArdsToolAdifModels" transaction-type="RESOURCE_LOCAL">
+		<description>Defaul Persistance mapping xml file</description>
+		<class>com.ards.jpa.model.AntennaPath</class>
+		<class>com.ards.jpa.model.ArrlSection</class>
+		<class>com.ards.jpa.model.Award</class>
+		<class>com.ards.jpa.model.Band</class>
+		<class>com.ards.jpa.model.Contest</class>
+		<class>com.ards.jpa.model.Continent</class>
+		<class>com.ards.jpa.model.CountyName</class>
+		<class>com.ards.jpa.model.CqZone</class>
+		<class>com.ards.jpa.model.Credit</class>
+		<class>com.ards.jpa.model.CreditAward</class>
+		<class>com.ards.jpa.model.CreditFacet</class>
+		<class>com.ards.jpa.model.CreditSponsor</class>
+		<class>com.ards.jpa.model.DxccEntity</class>
+		<class>com.ards.jpa.model.EqslAgList</class>
+		<class>com.ards.jpa.model.ItuZone</class>
+		<class>com.ards.jpa.model.JtalertData</class>
+		<class>com.ards.jpa.model.LotwActivity</class>
+		<class>com.ards.jpa.model.Mode</class>
+		<class>com.ards.jpa.model.ModeDescription</class>
+		<class>com.ards.jpa.model.Oblast</class>
+		<class>com.ards.jpa.model.Pa</class>
+		<class>com.ards.jpa.model.PropogationMode</class>
+		<class>com.ards.jpa.model.QslMedium</class>
+		<class>com.ards.jpa.model.QslRcvd</class>
+		<class>com.ards.jpa.model.QslSent</class>
+		<class>com.ards.jpa.model.QslVia</class>
+		<class>com.ards.jpa.model.QsoComplete</class>
+		<class>com.ards.jpa.model.QsoUploadStatus</class>
+		<class>com.ards.jpa.model.Region</class>
+		<class>com.ards.jpa.model.RegionApplicability</class>
+		<class>com.ards.jpa.model.Sa</class>
+		<class>com.ards.jpa.model.SponsoredAward</class>
+		<class>com.ards.jpa.model.State</class>
+		<class>com.ards.jpa.model.StateCounty</class>
+		<class>com.ards.jpa.model.Submode</class>
+		<class>com.ards.jpa.model.Weblink</class>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/ards"/>
+			<property name="javax.persistence.jdbc.user" value="ards"/>
+			<property name="javax.persistence.jdbc.password" value="ards"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+			<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>
