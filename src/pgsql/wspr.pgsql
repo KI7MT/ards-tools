@@ -237,7 +237,7 @@ CREATE OR REPLACE VIEW wspr.unique_stats AS
 			SELECT COUNT(*)
 				FROM wspr.software_version
 			) AS "UQ Software";
-
+/* 
 \echo ''
 \echo '-------------------------------------'
 \echo Create Store Procedures for ( :name )
@@ -297,6 +297,7 @@ AS $BODY$
         WHERE software_version IS NOT NULL
     ON CONFLICT DO NOTHING;
 $BODY$;
+*/
 
 \echo ''
 \echo 'Finished'
