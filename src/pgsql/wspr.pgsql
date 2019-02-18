@@ -176,7 +176,7 @@ ALTER TABLE wspr.spot ADD CONSTRAINT spot_sw_versoin_fkey
     FOREIGN KEY (sw_version_id) REFERENCES wspr.software_version (id);
 
 -- Create Test View: wspr.raw_csv_view
-CREATE OR REPLACE VIEW wspr.raw_csv_view AS
+CREATE OR REPLACE VIEW wspr.view_raw_csv AS
     SELECT
         to_timestamp(raw_csv.time_stamp)::date AS "Date",
         to_timestamp(raw_csv.time_stamp)::time AS "Time",
@@ -196,7 +196,7 @@ CREATE OR REPLACE VIEW wspr.raw_csv_view AS
     FROM wspr.raw_csv;
 
 -- Unique stats
-CREATE OR REPLACE VIEW wspr.unique_stats AS
+CREATE OR REPLACE VIEW wspr.view_unique_stats AS
 	SELECT  (
 			SELECT COUNT(*)
 				FROM   wspr.callsign
