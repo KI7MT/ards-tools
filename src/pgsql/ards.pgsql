@@ -60,7 +60,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************
-CREATE OR REPLACE VIEW ards.schema_info_view AS
+CREATE OR REPLACE VIEW ards.view_schema_info AS
     SELECT
         schema_info.schema_name AS "Schema Name",
         schema_info.schema_version AS "Schema Version",
@@ -73,4 +73,4 @@ CREATE OR REPLACE VIEW ards.schema_info_view AS
 --  FOOTER - Finished
 -- *****************************************************************************
 \echo ''
-SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';

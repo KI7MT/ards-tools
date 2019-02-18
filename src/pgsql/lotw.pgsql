@@ -111,6 +111,6 @@ select * from lotw.lotw_test_view;
 \echo ''
 \echo 'Schema Informaiton'
 \echo ''
-SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
 -- END: lotw.sql

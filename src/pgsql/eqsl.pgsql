@@ -108,6 +108,6 @@ CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
 --  FOOTER - Finished
 -- *****************************************************************************
 \echo
-SELECT * FROM ards.schema_info_view WHERE schema_info_view."Schema Name" = :'name';
+SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
 -- END: eqsl.pgsql
