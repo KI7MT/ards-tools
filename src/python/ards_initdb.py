@@ -15,7 +15,7 @@ from ards_schema_info import schema_info
 # the database config file
 _inifile='ards_database.ini'
 
-# setup the parser
+# setup the config parser
 parser = ConfigParser()
 
 
@@ -27,98 +27,35 @@ def clear_screen():
         os.system('clear')
 
 
-# database Role / User
 def get_dbuser(section):
-    """Returns dauabase user name from ini file"""
+    """Returns database user name from ards_database.ini file"""
     parser.read(_inifile)
     return parser.get(section, 'user')
 
 
-# db user passwd
 def get_dbuser_pw(section):
-    """Returns atabase user password from database ini file"""
+    """Returns database user password from database ini file"""
     parser.read(_inifile)
     return parser.get(section, 'password')
 
 
-# database name
 def get_dbname(section):
-    """Retuens database name from database ini file"""
+    """Returns database name from ards_database.ini file"""
     parser.read(_inifile)
     return parser.get(section, 'database')
 
 
-# section onf ini to parse
 def set_pg_access(section):
+    """Section of ards_database.ini to parse """
     os.environ["PGUSER"] = get_dbuser(section)
     os.environ["PGPASSWORD"] = get_dbuser_pw(section)    
 
 
-# must be second
-def init_ards():
-    """Use subprocess to call ards.pgsql"""
-    try:
-        set_pg_access('ards')
-        os.chdir('../pgsql')
-        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql", check=True, shell=True)
-    except subprocess.CalledProcessError as error:
-        print(error)
-        os.chdir('../python')
-        sys.exit(1)
-    finally:
-        os.chdir('../python')
-
-
-# initialize adif tables
-def init_adif():
-    try:
-        set_pg_access('ards')
-        os.chdir('../pgsql')
-        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif.pgsql", check=True, shell=True)
-    except subprocess.CalledProcessError as error:
-        print(error)
-        os.chdir('../python')
-        sys.exit(1)
-    finally:
-        os.chdir('../python')
-
-
-# initialize eqsl tables
-def init_eqsl():
-    """Use subprocess to call eqsl.pgsql"""
-    try:
-        set_pg_access('ards')
-        os.chdir('../pgsql')
-        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f eqsl.pgsql", check=True, shell=True)
-    except subprocess.CalledProcessError as error:
-        print(error)
-        os.chdir('../python')
-        sys.exit(1)
-    finally:
-        os.chdir('../python')
-
-
-# initialize fcc uls tables
-def init_fcc():
-    """Use subprocess to call fcc.pgsql"""
-    try:
-        set_pg_access('ards')
-        os.chdir('../pgsql')
-        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f fcc.pgsql", check=True, shell=True)
-    except subprocess.CalledProcessError as error:
-        print(error)
-        os.chdir('../python')
-        sys.exit(1)
-    finally:
-        os.chdir('../python')
-
-
-# Crop DB and User if exists and re-create
 def create_database():
     """Initialize the Database and Role"""
     conn = None
     try:
-        # Get the database user and pw from _inifile
+        # Get the database user and password from _inifile
         print("*" * 70)
         print("Initializing Database")
         dbuser = get_dbuser('ards')
@@ -133,19 +70,19 @@ def create_database():
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT) 
         cur = conn.cursor()
         
-        # Terminate any users
+        # terminate any users
         cur.execute("SELECT pg_terminate_backend (pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '%s'" % dbuser)
         print("  * Terminated connections")
 
-        # Drop the database is exists
+        # drop the database is exists
         cur.execute("DROP DATABASE IF EXISTS %s" % dbuser)
         print("  * Dropped database")
 
-        # Drop user if exists
+        # drop user if exists
         cur.execute("DROP USER IF EXISTS %s" % dbuser)
         print("  * Dropped user")
 
-        # Create the new user "ards"
+        # create the new user "ards"
         cur.execute("CREATE USER %s WITH LOGIN SUPERUSER CREATEDB CREATEROLE INHERIT REPLICATION CONNECTION LIMIT -1 PASSWORD '%s'" % (dbuser,dbuser_pw))
         print("  * Created role: ( %s ) with password: ( %s ) " % (dbuser,dbuser_pw))
 
@@ -153,15 +90,15 @@ def create_database():
         cur.execute("COMMENT ON ROLE %s IS 'Role for ARDS Tools'" % dbuser)
         print("  * Added comment for role: ( %s )" % dbuser)
 
-        # Create the ards database
+        # create the ards database
         cur.execute("CREATE DATABASE %s WITH OWNER = %s ENCODING = 'UTF8' CONNECTION LIMIT = -1" % (dbname,dbuser))
         print("  * Created database: ( %s )" % dbname)
 
-        # Comments on new database
+        # add comments on new database
         cur.execute("COMMENT ON DATABASE %s IS 'Databases for ARDS Tools'" % dbname)
         print("  * Added comment on database: ( %s )" % dbname)
 
-        # Grant permissions to dbuser
+        # grant permissions to dbuser
         cur.execute("GRANT ALL ON DATABASE %s TO %s" % (dbname,dbuser))
         print("  * Granted permissions on database: ( %s ) for role: ( % s )" % (dbname,dbuser))
 
@@ -179,9 +116,4 @@ def create_database():
 
 if __name__ == '__main__':
     clear_screen()
-    create_database() # this is always first
-    init_ards() # this should always follow database creation
-    init_adif()
-    init_eqsl()
-    init_fcc()
-    schema_info()
+    create_database() # this is the only method that should be called
