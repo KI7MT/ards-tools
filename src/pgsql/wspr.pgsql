@@ -113,6 +113,16 @@ CREATE TABLE wspr.spot
     CONSTRAINT spot_id_pkey PRIMARY KEY (id)
 );
 
+-- wspr.band
+-- IDX: wspr.band_idx
+CREATE TABLE wspr.band
+(
+    id SERIAL,
+    band SMALLINT,
+    UNIQUE (band),
+    CONSTRAINT band_id_pkey PRIMARY KEY (id)
+);
+
 -- wspr.rxcall
 -- IDX: wspr.callsign_idx
 CREATE TABLE wspr.callsign
@@ -131,16 +141,6 @@ CREATE TABLE wspr.grid
     grid VARCHAR(8),
     UNIQUE (grid),
     CONSTRAINT grid_id_pkey PRIMARY KEY (id)
-);
-
--- wspr.band
--- IDX: wspr.band_idx
-CREATE TABLE wspr.band
-(
-    id SERIAL,
-    band SMALLINT,
-    UNIQUE (band),
-    CONSTRAINT band_id_pkey PRIMARY KEY (id)
 );
 
 -- wspr.software_version

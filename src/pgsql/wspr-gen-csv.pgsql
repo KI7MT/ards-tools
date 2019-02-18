@@ -65,7 +65,7 @@
 \COPY wspr.grid TO 'wspr/wspr-grid.csv' WITH (FORMAT CSV, HEADER);
 \echo ''
 \echo 'Band'
-\COPY wspr.grid TO 'wspr/wspr-band.csv' WITH (FORMAT CSV, HEADER);
+\COPY wspr.band TO 'wspr/wspr-band.csv' WITH (FORMAT CSV, HEADER);
 \echo ''
 \echo 'SW Version'
 \COPY wspr.software_version TO 'wspr/wspr-software.csv' WITH (FORMAT CSV, HEADER);
