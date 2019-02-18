@@ -1,5 +1,4 @@
 /* 
-
     Project .............: ARDS Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
     Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
@@ -49,12 +48,8 @@
 \set name wspr
 \set ver 0.0.1
 \set adifv 0.0.0
-
-\! clear
-\echo ''
-\echo '-------------------------------------'
-\echo Regenerating Schema for ( :name )
-\echo '-------------------------------------'
+\echo Generating Schema for ( :name )
+\echo '-----------------------------------'
 
 -- Drop, and re-create schema
 DROP SCHEMA IF EXISTS :name CASCADE;
@@ -68,14 +63,28 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
 
--- *****************************************************************************
---  Normal Form Tables (NF2/NF3)
--- *****************************************************************************
-
-\echo ''
-\echo '-------------------------------------'
-\echo Create Tables for ( :name )
-\echo '-------------------------------------'
+-- RAW WSPR Daily Spot CSV
+-- Requires WSPR CSV Conversion of EPOCH (unix time) to Date | Time Columns
+-- Schema- 1: 15 Fields
+CREATE TABLE wspr.raw_csv
+(
+    spot INTEGER NOT NULL,        -- unique identifier from WSPRnet
+    time_stamp INTEGER NOT NULL,  -- EPOCH Timespamp 
+    rx_call VARCHAR(15),          -- Recieve Station callsign
+    rx_grid VARCHAR(8),           -- Recieve station grid square
+    snr SMALLINT,                 -- range -100 db to +100 db
+    frequency NUMERIC(10,6),      -- 9999.123456 MHZ
+    tx_call VARCHAR(15),          -- Transmitting Station Call
+    tx_grid VARCHAR(8),           -- Transmitting Station Grid
+    power SMALLINT,               -- TX Power: range -99 to +99 in db
+    drift SMALLINT,               -- Drift: range -99 to +99 in Herts (hz)
+    distance SMALLINT,            -- Dinstace grid to grid in Kilometers (km)
+    azimuth SMALLINT,             -- Direction, in degrees, from tx_call to rx_call
+    band SMALLINT,                -- Band ELF to whatever
+    software_version VARCHAR(20), -- Software version being used
+    code SMALLINT,                -- Non-zero values will indicatea bad spot is likely
+    CONSTRAINT raw_csv_spot_pkey PRIMARY KEY (spot)
+);
 
 -- Spot Table (NF3)
 -- FKEY (rxcall_id) REFERENCES wspr.callsign (id);
@@ -87,7 +96,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 CREATE TABLE wspr.spot
 (
     id BIGINT NOT NULL,           -- spot_id
-    time_stamp INTEGER NOT NULL,  -- timestamp
+    time_stamp INTEGER NOT NULL,  -- EPOCH timestamp
     rxcall_id INTEGER,            -- Reporter callsign
     rxgrid_id INTEGER,            -- Reporter Grid
     snr SMALLINT,                 -- snr
@@ -144,37 +153,9 @@ CREATE TABLE wspr.software_version
     CONSTRAINT software_version_id_pkey PRIMARY KEY (id)
 );
 
--- WSPR Daily Spot CSV
--- Requires WSPR CSV Conversion of EPOCH (unix time) to Date | Time Columns
--- Schema-1: 15 Fields
-CREATE TABLE wspr.raw_csv
-(
-    spot INTEGER NOT NULL,        -- unique identifier from WSPRnet
-    time_stamp INTEGER NOT NULL,  -- EPOCH Timespamp 
-    rx_call VARCHAR(15),          -- Recieve Station callsign
-    rx_grid VARCHAR(8),           -- Recieve station grid square
-    snr SMALLINT,                 -- range -100 db to +100 db
-    frequency NUMERIC(10,6),      -- 9999.123456 MHZ
-    tx_call VARCHAR(15),          -- Transmitting Station Call
-    tx_grid VARCHAR(8),           -- Transmitting Station Grid
-    power SMALLINT,               -- TX Power: range -99 to +99 in db
-    drift SMALLINT,               -- Drift: range -99 to +99 in Herts (hz)
-    distance SMALLINT,            -- Dinstace grid to grid in Kilometers (km)
-    azimuth SMALLINT,             -- Direction, in degrees, from tx_call to rx_call
-    band SMALLINT,                -- Band ELF to whatever
-    software_version VARCHAR(20), -- Software version being used
-    code SMALLINT,                -- Non-zero values will indicatea bad spot is likely
-    CONSTRAINT raw_csv_spot_pkey PRIMARY KEY (spot)
-);
-
 -- *****************************************************************************
 --  FKEY
 -- *****************************************************************************
-
-\echo ''
-\echo '-------------------------------------'
-\echo Add Foreign Keys for ( :name )
-\echo '-------------------------------------'
 
 ALTER TABLE wspr.spot ADD CONSTRAINT spot_rxcall_fkey
     FOREIGN KEY (rxcall_id) REFERENCES wspr.callsign (id);
@@ -193,11 +174,6 @@ ALTER TABLE wspr.spot ADD CONSTRAINT spot_band_fkey
 
 ALTER TABLE wspr.spot ADD CONSTRAINT spot_sw_versoin_fkey
     FOREIGN KEY (sw_version_id) REFERENCES wspr.software_version (id);
-
-\echo ''
-\echo '-------------------------------------'
-\echo Creating Views for ( :name )
-\echo '-------------------------------------'
 
 -- Create Test View: wspr.raw_csv_view
 CREATE OR REPLACE VIEW wspr.raw_csv_view AS
@@ -224,24 +200,19 @@ CREATE OR REPLACE VIEW wspr.unique_stats AS
 	SELECT  (
 			SELECT COUNT(*)
 				FROM   wspr.callsign
-			) AS "UQ Calls",
+			) AS "Unique Calls",
 			(
 			SELECT COUNT(*)
 				FROM wspr.grid
-			) AS "UQ Grids",
+			) AS "Unique Grids",
 			(
 			SELECT COUNT(*)
 				FROM wspr.band
-			) AS "UQ Bands",
+			) AS "Unique Bands",
 			(
 			SELECT COUNT(*)
 				FROM wspr.software_version
-			) AS "UQ Software";
-/* 
-\echo ''
-\echo '-------------------------------------'
-\echo Create Store Procedures for ( :name )
-\echo '-------------------------------------'
+			) AS "Unique Software";
 
 -- Procedure: Import Unique RxCall adn TxCall into wspr.callsign
 CREATE OR REPLACE PROCEDURE wspr.update_rxcall()
@@ -297,7 +268,3 @@ AS $BODY$
         WHERE software_version IS NOT NULL
     ON CONFLICT DO NOTHING;
 $BODY$;
-*/
-
-\echo ''
-\echo 'Finished'

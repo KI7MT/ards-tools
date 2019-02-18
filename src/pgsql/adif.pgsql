@@ -64,10 +64,10 @@
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
-DROP SCHEMA IF EXISTS adif CASCADE;
+DROP SCHEMA IF EXISTS :name CASCADE;
 
 -- Create New Schema
-CREATE SCHEMA adif;
+CREATE SCHEMA :name;
 
 INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)

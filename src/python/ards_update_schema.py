@@ -119,6 +119,20 @@ def init_utils():
     finally:
         os.chdir('../python')
 
+def init_wspr():
+    """Use subprocess to call wspr.pgsql"""
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f wspr.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
+
+
 def db_size_info():
     """Use subprocess to call utils.pgsql"""
     try:
@@ -136,6 +150,7 @@ if __name__ == '__main__':
     init_eqsl()
     init_fcc()
     init_utils()
+    init_wspr()
     schema_info()
     print("")
     db_size_info()
