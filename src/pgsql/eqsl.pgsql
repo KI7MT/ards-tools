@@ -47,7 +47,7 @@
 
     3. After installation, run the following query to test the installaiton:
 
-       psql -U postgres -c "select * from eqsl.eqsl_test_view"
+       psql -U postgres -c "select * from eqsl.view_eqsl_test"
 
 */
 
@@ -83,9 +83,9 @@ CREATE TABLE eqsl.eqsl_ag
     CONSTRAINT eqsl_ag_id_pkey PRIMARY KEY (id)
 );
 
--- Create Test View: eqsl.eqsl_test_view
+-- Create Test View: eqsl.view_eqsl_test
 -- TODO: Covert this view to a function
-CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
+CREATE OR REPLACE VIEW eqsl.view_eqsl_test AS
     SELECT
         eqsl_ag.callsign AS "Callsign",
         eqsl_ag.last_update AS "Last Update"
@@ -99,10 +99,10 @@ CREATE OR REPLACE VIEW eqsl.eqsl_test_view AS
 -- \COPY eqsl.eqsl_ag FROM 'eqsl/tmp.txt' DELIMITER ',' CSV HEADER;
 -- \echo ''
 -- \echo '-----------------------------------'
--- \echo 'Running Query eqsl.eqsl_test_view'
+-- \echo 'Running Query eqsl.'view_eqsl_test''
 -- \echo '-----------------------------------'
 -- \echo ''
--- select * from eqsl.eqsl_test_view;
+-- select * from eqsl.view_eqsl_test;
 
 -- *****************************************************************************
 --  FOOTER - Finished

@@ -32,29 +32,20 @@
 \set name utils
 \set ver 0.0.1
 \set adifv 3.0.9
-
-\echo ''
-\echo '-----------------------------------'
-\echo Regenerating Schema for ( :name )
+\echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
-DROP SCHEMA IF EXISTS utils CASCADE;
+DROP SCHEMA IF EXISTS :name CASCADE;
 
 -- Create New Schema
-CREATE SCHEMA utils;
+CREATE SCHEMA :name;
 
--- Insert utils data
 INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
-
-\echo ''
-\echo '-----------------------------'
-\echo 'Creating User Views'
-\echo '-----------------------------'
 
 -- View: utils.vw_view_list
 CREATE OR REPLACE VIEW utils.view_list AS
@@ -65,13 +56,13 @@ CREATE OR REPLACE VIEW utils.view_list AS
         WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
     ORDER BY schemaname, viewname;
 
--- View: utils.vw_db_size_detail
-CREATE OR REPLACE VIEW utils.db_size_view AS
+-- View: utils.view_db_size
+CREATE OR REPLACE VIEW utils.view_db_size AS
     SELECT
-        pg_size_pretty(pg_database_size('postgres')) AS "DB Size";
+        pg_size_pretty(pg_database_size('ards')) AS "Database Size";
 
--- View: utils.vw_db_size_detail
-CREATE OR REPLACE VIEW utils.schema_size_view AS
+-- View: utils.view_schema_size
+CREATE OR REPLACE VIEW utils.view_schema_size AS
     SELECT schema_name, 
         pg_size_pretty(sum(table_size)::BIGINT),
         trunc((sum(table_size) / pg_database_size(current_database())) * 100, 2) AS percent
@@ -84,19 +75,10 @@ CREATE OR REPLACE VIEW utils.schema_size_view AS
     GROUP BY schema_name
     ORDER BY schema_name;
 
--- Run DB size views
-\echo ''
-select * from utils.schema_size_view;
-select * from utils.db_size_view;
-
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo ''
-\echo Finished Creating ARDS Schema for ( :name )
-\echo ''
-\echo 'Schema Informaiton'
-\echo ''
+\echo
 SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
 -- END utils.sql
