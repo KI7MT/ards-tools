@@ -47,7 +47,7 @@ def main_menu():
     print(" ARDS Tools Main Menu")
     print(45 * "-")
     print("\n DATABASE FUNCTIONS")    
-    print("   1. Initial PostgreSQL Database")
+    print("   1. Initialize PostgreSQL Database")
     print("   2. Update Schema Data")
     print("   3. Print Schema Information")
     print("   4. Database Version Check")
