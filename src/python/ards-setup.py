@@ -44,13 +44,13 @@ def main_menu():
     """Prints The Main Menu"""
     cmon = DATE_TIME.strftime("%B")
     print(45 * "-")
-    print(" ARDS Tools Main Menu")
+    print(" ARDS Tools Setup Main Menu")
     print(45 * "-")
-    print("\n DATABASE FUNCTIONS")    
-    print("   1. Initialize PostgreSQL Database")
+    print("\n   1. Initialize PostgreSQL Database")
     print("   2. Update Schema Data")
     print("   3. Print Schema Information")
-    print("   4. Database Version Check")
+    print("   4. Print Schema Disk Usage")
+    print("   5. Print Database Version")
     print("   9. Exit")
     print("")
 
@@ -80,7 +80,7 @@ def main():
             print("")
             update_schema.schema_info()
             print("")
-            update_schema.db_size_info()
+            update_schema.db_schema_size()
             pause()
             main()
         elif selection == '3':  # update current month from WSPRnet
@@ -88,7 +88,12 @@ def main():
             schema_info.schema_info()
             pause()
             main()
-        elif selection == '4':  # search current month for a call
+        elif selection == '4':  # update current month from WSPRnet
+            clear_screen()
+            update_schema.db_schema_size()
+            pause()
+            main()
+        elif selection == '5':  # search current month for a call
             clear_screen()
             version_check.db_version(_inifile,_section)
             pause()
