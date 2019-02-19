@@ -6,49 +6,11 @@ import subprocess
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from configparser import ConfigParser
+import ards_common as common
+import ards_dbutils as dbutils
 
 from ards_config import config
-from ards_dbutils import schema_info
-
-
-# the database config file
-_inifile='ards_database.ini'
-
-# setup the config parser
-parser = ConfigParser()
-
-
-def clear_screen():
-    """Clear screen based on platform."""
-    if sys.platform == 'win32':
-        os.system('cls')
-    else:
-        os.system('clear')
-
-
-def get_dbuser(section):
-    """Returns database user name from ards_database.ini file"""
-    parser.read(_inifile)
-    return parser.get(section, 'user')
-
-
-def get_dbuser_pw(section):
-    """Returns database user password from database ini file"""
-    parser.read(_inifile)
-    return parser.get(section, 'password')
-
-
-def get_dbname(section):
-    """Returns database name from ards_database.ini file"""
-    parser.read(_inifile)
-    return parser.get(section, 'database')
-
-
-def set_pg_access(section):
-    """Section of ards_database.ini to parse """
-    os.environ["PGUSER"] = get_dbuser(section)
-    os.environ["PGPASSWORD"] = get_dbuser_pw(section)    
+from ards_dbutils import _inifile
 
 
 def create_database():
@@ -58,9 +20,9 @@ def create_database():
         # Get the database user and password from _inifile
         print("*" * 70)
         print("Initializing Database")
-        dbuser = get_dbuser('ards')
-        dbuser_pw = get_dbuser_pw('ards')
-        dbname = get_dbname('ards')
+        dbuser = dbutils.get_dbuser('ards')
+        dbuser_pw = dbutils.get_dbuser_pw('ards')
+        dbname = dbutils.get_dbname('ards')
 
         # read connection parameters and create cursor
         params = config(_inifile,'postgres')
@@ -115,5 +77,5 @@ def create_database():
             print("")
 
 if __name__ == '__main__':
-    clear_screen()
+    common.clear_screen()
     create_database() # this is the only method that should be called

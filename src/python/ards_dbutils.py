@@ -1,9 +1,39 @@
+import os
+
 import psycopg2
 from ards_config import config
+
+from configparser import ConfigParser
 
 # Note
 _inifile='ards_database.ini'
 _section='postgres'
+
+# setup the parser
+parser = ConfigParser()
+
+def get_dbuser(section):
+    """Returns database user name from ini file"""
+    parser.read(_inifile)
+    return parser.get(section, 'user')
+
+
+def get_dbuser_pw(section):
+    """Returns database user password from database ini file"""
+    parser.read(_inifile)
+    return parser.get(section, 'password')
+
+
+def get_dbname(section):
+    """Returns database name from database ini file"""
+    parser.read(_inifile)
+    return parser.get(section, 'database')
+
+
+def set_pg_access(section):
+    os.environ["PGUSER"] = get_dbuser(section)
+    os.environ["PGPASSWORD"] = get_dbuser_pw(section)  
+
 
 def schema_info(_inifile,_section):
     """Connect to the PostgreSQL database server"""
