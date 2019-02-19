@@ -395,7 +395,42 @@ CREATE TABLE adif.oblast
 --
 -- *****************************************************************************
 
--- 
+-- Primary Administration Subdivision
+-- id is the same as dxcc.id
+CREATE TABLE adif.pas_summary
+(
+    id INT PRIMARY KEY,
+    dxcc_id INT NOT NULL,
+    pas_subdivision_type_id INT NOT NULL,
+    has_oblast BOOLEAN NOT NULL DEFAULT '0',
+    has_sas BOOLEAN NOT NULL DEFAULT '0',
+    CHECK ( NOT (has_oblast AND has_sas IS NULL) )
+); 
+
+-- Primary Administration Subdivision
+CREATE TABLE adif.pas_subdivision_type
+(
+    id SERIAL PRIMARY KEY,
+    subdivision VARCHAR(20) NOT NULL,
+    CONSTRAINT psa_subdivision_type_uq UNIQUE (subdivision)
+);
+
+-- View: adif.vw_contest
+-- Note: the pas_summary.id is the dxcc.id
+CREATE OR REPLACE VIEW adif.view_psa_summary AS
+    SELECT
+        pas_summary.id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas_subdivision_type.subdivision AS "Subdivision",
+        pas_summary.has_oblast AS "Has Oblast",
+        pas_summary.has_sas AS "Has Secondary"
+    FROM adif.pas_summary
+        LEFT JOIN adif.dxcc ON
+            adif.dxcc.id = adif.pas_summary.id
+        LEFT JOIN adif.pas_subdivision_type ON
+            adif.pas_summary.id = adif.pas_subdivision_type.id
+    ORDER BY pas_summary.id;
+
 
 -- *****************************************************************************
 --
@@ -545,7 +580,7 @@ CREATE OR REPLACE VIEW adif.view_arrl_section AS
         arrl_section.from_date AS "From Date",
         arrl_section.deleted_date AS "Deleted On"
     FROM adif.arrl_section
-        INNER JOIN adif.dxcc ON 
+        JOIN adif.dxcc ON 
             adif.dxcc.id = adif.arrl_section.dxcc_id
     ORDER BY arrl_section.name;
 
