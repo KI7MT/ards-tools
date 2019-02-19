@@ -1,21 +1,16 @@
-import os
-import sys
-import csv
 import datetime
+import sys
 
 from builtins import input
-
-import ards_initdb as initdb
-import ards_update as update
-import ards_dbutils as dbutils
-import ards_common as common
-
-
-from ards_dbutils import _inifile
-from ards_dbutils import _section
+from ards_common import clear_screen
+from ards_common import pause
+from ards_dbutils import create_database
+from ards_dbutils import full_update
+from ards_dbutils import schema_info
+from ards_dbutils import db_schema_size
+from ards_dbutils import db_version
 
 DATE_TIME = datetime.date.today()
-
 
 #--------------------------------------------------------------------- Main Menu
 def main_menu():
@@ -36,47 +31,37 @@ def main_menu():
 def main():
     """Main Menu Functions"""
     
-    common.clear_screen()
+    clear_screen()
 
     while True:
         main_menu()
         selection = input("Selection: ")
                
         if selection == '1':  # update all archive files from WSPRnet
-            common.clear_screen()
-            initdb.create_database()
-            common.pause()
+            clear_screen()
+            create_database()
+            pause()
             main()
         elif selection == '2':  # search all archives for call
-            common.clear_screen()
-            update.init_ards() # Always first after database creation
-            update.init_adif()
-            update.init_eqsl()
-            update.init_fcc()
-            update.init_utils()
-            update.init_wspr()
-            print("")
-            dbutils.schema_info(_inifile,_section)
-            print("")
-            update.db_schema_size()
-            common.pause()
+            full_update()
+            pause()
             main()
         elif selection == '3':  # update current month from WSPRnet
-            common.clear_screen()
-            dbutils.schema_info(_inifile,_section)
+            clear_screen()
+            schema_info()
             print("")    
-            common.pause()
+            pause()
             main()
         elif selection == '4':  # update current month from WSPRnet
-            common.clear_screen()
-            update.db_schema_size()
-            common.pause()
+            clear_screen()
+            db_schema_size()
+            pause()
             main()
         elif selection == '5':  # search current month for a call
-            common.clear_screen()
-            dbutils.db_version(_inifile,_section)
+            clear_screen()
+            db_version()
             print('')
-            common.pause()
+            pause()
             main()
         elif selection == '9': # Exit the menu
             now = datetime.datetime.now()
@@ -86,7 +71,7 @@ def main():
             print("\nUnknown selection ( {selection} )".format(
                                                             selection=selection)
                                                             )
-            common.pause()
+            pause()
             main()
 
 if __name__ == "__main__":
