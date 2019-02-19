@@ -395,48 +395,7 @@ CREATE TABLE adif.oblast
 --
 -- *****************************************************************************
 
--- Primary Administrative Subdivision (PAS)
-CREATE TABLE adif.pas -- FK Done
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code VARCHAR(10) NOT NULL,
-    pas_type_id INT NOT NULL
-);
-
--- PAS Type
-CREATE TABLE adif.pas_type -- No FK Needed
-(
-    id SERIAL PRIMARY KEY,
-    pas_type VARCHAR(20) NOT NULL,
-    CONSTRAINT pas_type_uq UNIQUE (pas_type)
-);
-
--- PAS Oblast
-CREATE TABLE adif.pas_oblast -- FK NEEDED
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    oblast_id INT NOT NULL
-);
-
--- PAS CQ Zone
-CREATE TABLE adif.pas_cq_zone -- FK NEEDED
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    cq_zone_id INT NOT NULL    
-);
-
--- PAS ITU Zone
--- FK pas_id REFERENCED adif.pas (id)
--- FK itu_zone_id REFERENCES adif.itu_zone (id)
-CREATE TABLE adif.pas_itu_zone -- FK NEEDED
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    itu_zone_id INT NOT NULL    
-);
+-- 
 
 -- *****************************************************************************
 --
@@ -445,7 +404,7 @@ CREATE TABLE adif.pas_itu_zone -- FK NEEDED
 -- *****************************************************************************
 
 
-
+---
 
 -- *****************************************************************************
 --  ADD CSV DATA
@@ -537,21 +496,6 @@ ALTER TABLE adif.cq_zone ADD CONSTRAINT cq_zone_weblink_fkey
 ALTER TABLE adif.itu_zone ADD CONSTRAINT itu_zone_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
-ALTER TABLE adif.pas ADD CONSTRAINT pas_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
-
-ALTER TABLE adif.pas_cq_zone ADD CONSTRAINT pas_cq_zone_pas_fkey
-    FOREIGN KEY (pas_id) REFERENCES adif.pas (id);
-
-ALTER TABLE adif.pas_cq_zone ADD CONSTRAINT pas_cq_zone_cq_zone_fkey
-    FOREIGN KEY (cq_zone_id) REFERENCES adif.cq_zone (id);
-
-ALTER TABLE adif.pas_itu_zone ADD CONSTRAINT pas_itu_zone_pas_fkey
-    FOREIGN KEY (pas_id) REFERENCES adif.pas (id);
-
-ALTER TABLE adif.pas_itu_zone ADD CONSTRAINT pas_itu_zone_itu_zone_fkey
-    FOREIGN KEY (itu_zone_id) REFERENCES adif.itu_zone (id);
-
 ALTER TABLE adif.region ADD CONSTRAINT region_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
@@ -574,36 +518,6 @@ ALTER TABLE adif.oblast ADD CONSTRAINT oblast_dxcc_fkey
 \echo
 \echo 'Creating Foreign Key Indexes'
 \echo '-----------------------------'
-create index submode_mode_description_id_idx on adif.submode (mode_description_id);
-create index spot_rxgrid_id_idx on wspr.spot (rxgrid_id);
-create index credit_facet_id_idx on adif.credit (facet_id);
-create index oblast_continent_id_idx on adif.oblast (continent_id);
-create index pas_itu_zone_pas_id_idx on adif.pas_itu_zone (pas_id);
-create index state_county_state_id_idx on adif.state_county (state_id);
-create index pas_dxcc_id_idx on adif.pas (dxcc_id);
-create index spot_rxcall_id_idx on wspr.spot (rxcall_id);
-create index pas_cq_zone_cq_zone_id_idx on adif.pas_cq_zone (cq_zone_id);
-create index spot_txcall_id_idx on wspr.spot (txcall_id);
-create index oblast_dxcc_id_idx on adif.oblast (dxcc_id);
-create index mode_mode_description_id_idx on adif.mode (mode_description_id);
-create index spot_txgrid_id_idx on wspr.spot (txgrid_id);
-create index region_applicability_region_id_idx on adif.region_applicability (region_id);
-create index region_dxcc_id_idx on adif.region (dxcc_id);
-create index region_applicability_weblink_id_idx on adif.region_applicability (weblink_id);
-create index arrl_section_dxcc_id_idx on adif.arrl_section (dxcc_id);
-create index cq_zone_weblink_id_idx on adif.cq_zone (weblink_id);
-create index source_list_weblink_id_idx on adif.source_list (weblink_id);
-create index sponsored_award_weblink_id_idx on adif.sponsored_award (weblink_id);
-create index pas_cq_zone_pas_id_idx on adif.pas_cq_zone (pas_id);
-create index itu_zone_weblink_id_idx on adif.itu_zone (weblink_id);
-create index submode_mode_id_idx on adif.submode (mode_id);
-create index state_county_county_name_id_idx on adif.state_county (county_name_id);
-create index credit_award_id_idx on adif.credit (award_id);
-create index spot_sw_version_id_idx on wspr.spot (sw_version_id);
-create index spot_band_id_idx on wspr.spot (band_id);
-create index pas_itu_zone_itu_zone_id_idx on adif.pas_itu_zone (itu_zone_id);
-create index contest_weblink_id_idx on adif.contest (weblink_id);
-create index credit_sponsor_id_idx on adif.credit (sponsor_id);
 
 -- *****************************************************************************
 --  VIEWS
@@ -631,8 +545,8 @@ CREATE OR REPLACE VIEW adif.view_arrl_section AS
         arrl_section.from_date AS "From Date",
         arrl_section.deleted_date AS "Deleted On"
     FROM adif.arrl_section
-        JOIN adif.dxcc ON 
-            adif.dxcc.id = adif.arrl_section.id
+        INNER JOIN adif.dxcc ON 
+            adif.dxcc.id = adif.arrl_section.dxcc_id
     ORDER BY arrl_section.name;
 
 -- View: adif.vw_award
