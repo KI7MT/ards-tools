@@ -1,17 +1,15 @@
 import os
 import subprocess
 import sys
-
 import psycopg2
-from ards_config import config
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 from configparser import ConfigParser
-
-from ards_common import clear_screen
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from config import config
+from common import clear_screen
 
 # Globals - this should really be in ards_config
-_inifile='ards_database.ini'
+_inifile='database.ini'
 _section='postgres'
 _ards_section='ards'
 

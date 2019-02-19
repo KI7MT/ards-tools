@@ -2,13 +2,14 @@ import datetime
 import sys
 
 from builtins import input
-from ards_common import clear_screen
-from ards_common import pause
-from ards_dbutils import create_database
-from ards_dbutils import full_update
-from ards_dbutils import schema_info
-from ards_dbutils import db_schema_size
-from ards_dbutils import db_version
+
+from common import clear_screen
+from common import pause
+from db_utils import create_database
+from db_utils import full_update
+from db_utils import schema_info
+from db_utils import db_schema_size
+from db_utils import db_version
 
 DATE_TIME = datetime.date.today()
 
@@ -68,7 +69,7 @@ def main():
             print("Exiting Setup at : {0} ".format(now))
             sys.exit(0)
         else:
-            print("\nUnknown selection ( {selection} )".format(
+            print("\nUnknown selection ({selection})\n".format(
                                                             selection=selection)
                                                             )
             pause()
