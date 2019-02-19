@@ -1,0 +1,10 @@
+-- JTAlerts Data Model
+CREATE TABLE adif.jtalert_data
+(
+    call VARCHAR(20),
+    state VARCHAR(4),
+    lotw BOOLEAN,
+    eqsl BOOLEAN,
+    lotw_date DATE,
+    CONSTRAINT jtalert_data_pkey PRIMARY KEY (call)
+);

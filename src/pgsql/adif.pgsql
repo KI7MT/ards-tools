@@ -110,7 +110,7 @@ CREATE TABLE adif.arrl_section -- FK Done
     id SERIAL PRIMARY KEY,
     abbreviation VARCHAR(4) NOT NULL,
     name VARCHAR(70) NOT NULL,
-    dxcc_entity_id INT NOT NULL,
+    dxcc_id INT NOT NULL,
     from_date date,
     deleted_date date
 );
@@ -181,14 +181,14 @@ CREATE TABLE adif.credit -- FK Done
 );
 
 -- DXCC Entities
--- (id) is a natureal PK matching the dxcc_entity_id
-CREATE TABLE adif.dxcc_entity -- No FK needed
+-- (id) is a natureal PK matching the dxcc_id
+CREATE TABLE adif.dxcc -- No FK needed
 (
     id INT PRIMARY KEY,
     code VARCHAR(4) NOT NULL,
     name VARCHAR(90) NOT NULL,
     is_deleted BOOLEAN DEFAULT '0',
-    CONSTRAINT dxcc_entity_name_uq UNIQUE (code, name)
+    CONSTRAINT dxcc_code_name_uq UNIQUE (code, name)
 );
 
 -- State
@@ -272,35 +272,6 @@ CREATE TABLE adif.propogation_mode -- FK Done
     CONSTRAINT propogation_mode_abbreviation_uq UNIQUE (enumeration)
 );
 
--- Primary Administrative Subdivision (PAS)
-CREATE TABLE adif.pas -- FK Done
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_entity_id INT NOT NULL,
-    region VARCHAR(120),
-    code VARCHAR(10) NOT NULL,
-    subdivision VARCHAR(80) NOT NULL,
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    oblast_id INT,
-    CONSTRAINT pas_code_subdivision_uq UNIQUE (code, subdivision)
-);
-
--- PAS CQ Zone
-CREATE TABLE adif.pas_cq_zone -- FK Done
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    cq_zone_id INT NOT NULL    
-);
-
--- PAS ITU Zone
-CREATE TABLE adif.pas_itu_zone -- FK Done
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    itu_zone_id INT NOT NULL    
-);
-
 -- Secondary Administrative Subdivision (SAS)
 CREATE TABLE adif.sas
 (
@@ -373,7 +344,7 @@ CREATE TABLE adif.region -- FK Done
 (
     id SERIAL PRIMARY KEY,
     code VARCHAR(4),
-    dxcc_entity_id INT,
+    dxcc_id INT,
     region VARCHAR(120),
     prefix VARCHAR(10),
     CONSTRAINT region_code_uq UNIQUE (code)
@@ -415,19 +386,66 @@ CREATE TABLE adif.oblast
     designation VARCHAR(2) NOT NULL,
     territory VARCHAR(60) NOT NULL,
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    dxcc_entity_id INT NOT NULL
+    dxcc_id INT NOT NULL
 );
 
--- JTAlerts Data Model
-CREATE TABLE adif.jtalert_data
+-- *****************************************************************************
+--
+-- PRIMARY ADMINISTRATIVE ENUMERATIONS
+--
+-- *****************************************************************************
+
+-- Primary Administrative Subdivision (PAS)
+CREATE TABLE adif.pas -- FK Done
 (
-    call VARCHAR(20),
-    state VARCHAR(4),
-    lotw BOOLEAN,
-    eqsl BOOLEAN,
-    lotw_date DATE,
-    CONSTRAINT jtalert_data_pkey PRIMARY KEY (call)
+    id SERIAL PRIMARY KEY,
+    dxcc_id INT NOT NULL,
+    code VARCHAR(10) NOT NULL,
+    pas_type_id INT NOT NULL
 );
+
+-- PAS Type
+CREATE TABLE adif.pas_type -- No FK Needed
+(
+    id SERIAL PRIMARY KEY,
+    pas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT pas_type_uq UNIQUE (pas_type)
+);
+
+-- PAS Oblast
+CREATE TABLE adif.pas_oblast -- FK NEEDED
+(
+    id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    oblast_id INT NOT NULL
+);
+
+-- PAS CQ Zone
+CREATE TABLE adif.pas_cq_zone -- FK NEEDED
+(
+    id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    cq_zone_id INT NOT NULL    
+);
+
+-- PAS ITU Zone
+-- FK pas_id REFERENCED adif.pas (id)
+-- FK itu_zone_id REFERENCES adif.itu_zone (id)
+CREATE TABLE adif.pas_itu_zone -- FK NEEDED
+(
+    id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    itu_zone_id INT NOT NULL    
+);
+
+-- *****************************************************************************
+--
+-- SECONDARY ADMINISTRATIVE ENUMERATIONS
+--
+-- *****************************************************************************
+
+
+
 
 -- *****************************************************************************
 --  ADD CSV DATA
@@ -451,7 +469,7 @@ CREATE TABLE adif.jtalert_data
 \COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.dxcc_entity FROM 'adif/dxcc_entity.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.dxcc FROM 'adif/dxcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.state FROM 'adif/state.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
 \COPY adif.mode FROM 'adif/mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
@@ -480,8 +498,8 @@ CREATE TABLE adif.jtalert_data
 ALTER TABLE adif.source_list ADD CONSTRAINT source_list_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
-ALTER TABLE adif.arrl_section ADD CONSTRAINT arrl_section_dxcc_entity_fkey
-    FOREIGN KEY (dxcc_entity_id) REFERENCES adif.dxcc_entity (id);
+ALTER TABLE adif.arrl_section ADD CONSTRAINT arrl_section_dxcc_fkey
+    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 ALTER TABLE adif.contest ADD CONSTRAINT contest_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
@@ -519,11 +537,8 @@ ALTER TABLE adif.cq_zone ADD CONSTRAINT cq_zone_weblink_fkey
 ALTER TABLE adif.itu_zone ADD CONSTRAINT itu_zone_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
-ALTER TABLE adif.pas ADD CONSTRAINT pas_dxcc_entity_fkey
-    FOREIGN KEY (dxcc_entity_id) REFERENCES adif.dxcc_entity (id);
-
-ALTER TABLE adif.pas ADD CONSTRAINT pas_oblast_fkey
-    FOREIGN KEY (oblast_id) REFERENCES adif.oblast (id);
+ALTER TABLE adif.pas ADD CONSTRAINT pas_dxcc_fkey
+    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 ALTER TABLE adif.pas_cq_zone ADD CONSTRAINT pas_cq_zone_pas_fkey
     FOREIGN KEY (pas_id) REFERENCES adif.pas (id);
@@ -537,8 +552,8 @@ ALTER TABLE adif.pas_itu_zone ADD CONSTRAINT pas_itu_zone_pas_fkey
 ALTER TABLE adif.pas_itu_zone ADD CONSTRAINT pas_itu_zone_itu_zone_fkey
     FOREIGN KEY (itu_zone_id) REFERENCES adif.itu_zone (id);
 
-ALTER TABLE adif.region ADD CONSTRAINT region_dxcc_entity_fkey
-    FOREIGN KEY (dxcc_entity_id) REFERENCES adif.dxcc_entity (id);
+ALTER TABLE adif.region ADD CONSTRAINT region_dxcc_fkey
+    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 ALTER TABLE adif.region_applicability ADD CONSTRAINT region_applicability_region_fkey
     FOREIGN KEY (region_id) REFERENCES adif.region (id);
@@ -549,8 +564,8 @@ ALTER TABLE adif.region_applicability ADD CONSTRAINT region_applicability_weblin
 ALTER TABLE adif.oblast ADD CONSTRAINT oblast_continent_fkey
     FOREIGN KEY (continent_id) REFERENCES adif.continent (id);
 
-ALTER TABLE adif.oblast ADD CONSTRAINT oblast_dxcc_entity_fkey
-    FOREIGN KEY (dxcc_entity_id) REFERENCES adif.dxcc_entity (id);
+ALTER TABLE adif.oblast ADD CONSTRAINT oblast_dxcc_fkey
+    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 -- *****************************************************************************
 --  ADD INDEXES based on z-tools\index-reccomend2.sql
@@ -559,33 +574,36 @@ ALTER TABLE adif.oblast ADD CONSTRAINT oblast_dxcc_entity_fkey
 \echo
 \echo 'Creating Foreign Key Indexes'
 \echo '-----------------------------'
-
-CREATE INDEX contest_weblink_id_idx on adif.contest (weblink_id);
-create index state_county_county_name_id_idx on adif.state_county (county_name_id);
 create index submode_mode_description_id_idx on adif.submode (mode_description_id);
-create index pas_dxcc_entity_id_idx on adif.pas (dxcc_entity_id);
+create index spot_rxgrid_id_idx on wspr.spot (rxgrid_id);
 create index credit_facet_id_idx on adif.credit (facet_id);
-create index submode_mode_id_idx on adif.submode (mode_id);
-create index sas_pas_id_idx on adif.sas (pas_id);
-create index arrl_section_dxcc_entity_id_idx on adif.arrl_section (dxcc_entity_id);
-create index credit_award_id_idx on adif.credit (award_id);
-create index credit_sponsor_id_idx on adif.credit (sponsor_id);
-create index state_county_state_id_idx on adif.state_county (state_id);
-create index region_dxcc_entity_id_idx on adif.region (dxcc_entity_id);
-create index mode_mode_description_id_idx on adif.mode (mode_description_id);
-create index pas_cq_zone_pas_id_idx on adif.pas_cq_zone (pas_id);
-create index region_applicability_region_id_idx on adif.region_applicability (region_id);
-create index itu_zone_weblink_id_idx on adif.itu_zone (weblink_id);
-create index cq_zone_weblink_id_idx on adif.cq_zone (weblink_id);
-create index oblast_dxcc_entity_id_idx on adif.oblast (dxcc_entity_id);
 create index oblast_continent_id_idx on adif.oblast (continent_id);
-create index pas_oblast_id_idx on adif.pas (oblast_id);
 create index pas_itu_zone_pas_id_idx on adif.pas_itu_zone (pas_id);
-create index pas_itu_zone_itu_zone_id_idx on adif.pas_itu_zone (itu_zone_id);
-create index sponsored_award_weblink_id_idx on adif.sponsored_award (weblink_id);
-create index source_list_weblink_id_idx on adif.source_list (weblink_id);
-create index region_applicability_weblink_id_idx on adif.region_applicability (weblink_id);
+create index state_county_state_id_idx on adif.state_county (state_id);
+create index pas_dxcc_id_idx on adif.pas (dxcc_id);
+create index spot_rxcall_id_idx on wspr.spot (rxcall_id);
 create index pas_cq_zone_cq_zone_id_idx on adif.pas_cq_zone (cq_zone_id);
+create index spot_txcall_id_idx on wspr.spot (txcall_id);
+create index oblast_dxcc_id_idx on adif.oblast (dxcc_id);
+create index mode_mode_description_id_idx on adif.mode (mode_description_id);
+create index spot_txgrid_id_idx on wspr.spot (txgrid_id);
+create index region_applicability_region_id_idx on adif.region_applicability (region_id);
+create index region_dxcc_id_idx on adif.region (dxcc_id);
+create index region_applicability_weblink_id_idx on adif.region_applicability (weblink_id);
+create index arrl_section_dxcc_id_idx on adif.arrl_section (dxcc_id);
+create index cq_zone_weblink_id_idx on adif.cq_zone (weblink_id);
+create index source_list_weblink_id_idx on adif.source_list (weblink_id);
+create index sponsored_award_weblink_id_idx on adif.sponsored_award (weblink_id);
+create index pas_cq_zone_pas_id_idx on adif.pas_cq_zone (pas_id);
+create index itu_zone_weblink_id_idx on adif.itu_zone (weblink_id);
+create index submode_mode_id_idx on adif.submode (mode_id);
+create index state_county_county_name_id_idx on adif.state_county (county_name_id);
+create index credit_award_id_idx on adif.credit (award_id);
+create index spot_sw_version_id_idx on wspr.spot (sw_version_id);
+create index spot_band_id_idx on wspr.spot (band_id);
+create index pas_itu_zone_itu_zone_id_idx on adif.pas_itu_zone (itu_zone_id);
+create index contest_weblink_id_idx on adif.contest (weblink_id);
+create index credit_sponsor_id_idx on adif.credit (sponsor_id);
 
 -- *****************************************************************************
 --  VIEWS
@@ -608,13 +626,13 @@ CREATE OR REPLACE VIEW adif.view_arrl_section AS
     SELECT 
         arrl_section.abbreviation AS "Abbreviation",
         arrl_section.name AS "Section Name",
-        dxcc_entity.code AS "DXCC Code",
-        dxcc_entity.name AS "DXCC Name",
+        dxcc.code AS "DXCC Code",
+        dxcc.name AS "DXCC Name",
         arrl_section.from_date AS "From Date",
         arrl_section.deleted_date AS "Deleted On"
     FROM adif.arrl_section
-        JOIN adif.dxcc_entity ON 
-            adif.dxcc_entity.id = adif.arrl_section.id
+        JOIN adif.dxcc ON 
+            adif.dxcc.id = adif.arrl_section.id
     ORDER BY arrl_section.name;
 
 -- View: adif.vw_award
@@ -698,14 +716,14 @@ CREATE OR REPLACE VIEW adif.view_credit AS
             adif.credit_facet.id = adif.credit.facet_id
     ORDER BY credit_for;
 
--- View: adif.vw_dxcc_entity
-CREATE OR REPLACE VIEW adif.view_dxcc_entity AS
+-- View: adif.vw_dxcc
+CREATE OR REPLACE VIEW adif.view_dxcc AS
     SELECT
-        dxcc_entity.code AS "DXCC Code",
-        dxcc_entity.name AS "DXCC Name",
-        dxcc_entity.is_deleted as "Deleted"
-    FROM adif.dxcc_entity
-    ORDER BY dxcc_entity.code;
+        dxcc.code AS "DXCC Code",
+        dxcc.name AS "DXCC Name",
+        dxcc.is_deleted as "Deleted"
+    FROM adif.dxcc
+    ORDER BY dxcc.code;
 
 
 -- View: adif.vw_state

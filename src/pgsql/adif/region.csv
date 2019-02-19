@@ -1,4 +1,4 @@
-id,code,dxcc_entity_id,region,prefix
+id,code,dxcc_id,region,prefix
 1,NONE,,Not within a WAE or CQ region that is within a DXCC entity,
 2,IV,206,ITU Vienna,4U1V
 3,AI,248,African Italy,IG9

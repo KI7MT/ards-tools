@@ -1,4 +1,4 @@
-id,abbreviation,name,dxcc_entity_id,from_date,deleted_date
+id,abbreviation,name,dxcc_id,from_date,deleted_date
 1,AL,Alabama,291,,
 2,AK,Alaska,6,,
 3,AB,Alberta,1,,
@@ -13,8 +13,8 @@ id,abbreviation,name,dxcc_entity_id,from_date,deleted_date
 12,ENY,Eastern New York,291,,
 13,EPA,Eastern Pennsylvania,291,,
 14,EWA,Eastern Washington,291,,
-15,GA,Georgia,291,,2012/09/01
-16,GTA,Greater Toronto Area,1,2012/09/01,
+15,GA,Georgia,291,,9/1/2012
+16,GTA,Greater Toronto Area,1,9/1/2012,
 17,ID,Idaho,291,,
 18,IL,Illinois,291,,
 19,IN,Indiana,291,,
@@ -43,15 +43,15 @@ id,abbreviation,name,dxcc_entity_id,from_date,deleted_date
 42,NTX,North Texas,291,,
 43,NFL,Northern Florida,291,,
 44,NNJ,Northern New Jersey,291,,
-45,NNY,Northern New York,291,,2003/11/01
-46,NT,Northwest Territories/Yukon/Nunavut,1,2003/11/01,
+45,NNY,Northern New York,291,,11/1/2003
+46,NT,Northwest Territories/Yukon/Nunavut,1,11/1/2003,
 47,NWT,Northwest Territories/Yukon/Nunavut replaced by NT,1,,
 48,OH,Ohio,291,,
 49,OK,Oklahoma,291,,
-50,ON,Ontario replaced by GTA ONE ONN and ONS,1,,2012/09/01
-51,ONE,Ontario East,1,2012/09/01,2012/09/01
-52,ONN,Ontario North,1,2012/09/01,2012/09/01
-53,ONS,Ontario South,1,2012/09/01,
+50,ON,Ontario replaced by GTA ONE ONN and ONS,1,,9/1/2012
+51,ONE,Ontario East,1,9/1/2012,9/1/2012
+52,ONN,Ontario North,1,9/1/2012,9/1/2012
+53,ONS,Ontario South,1,9/1/2012,
 54,ORG,Orange,291,,
 55,OR,Oregon,291,,
 56,PAC,Pacific,9,,
