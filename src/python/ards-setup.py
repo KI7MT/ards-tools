@@ -2,6 +2,7 @@ import os
 import sys
 import csv
 import datetime
+
 from time import gmtime
 from builtins import input
 
@@ -101,6 +102,8 @@ def main():
             pause()
             main()
         elif selection == '9': # Exit the menu
+            now = datetime.datetime.now()
+            print("Exiting Setup at : {0} ".format(now))
             sys.exit(0)
         else:
             print("\nUnknown selection ( {selection} )".format(
