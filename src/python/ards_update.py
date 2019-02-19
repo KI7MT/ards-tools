@@ -9,11 +9,12 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from configparser import ConfigParser
 
 from ards_config import config
-from ards_schema_info import schema_info
+from ards_dbutils import schema_info
 
 
 # the database config file
 _inifile='ards_database.ini'
+
 
 # setup the parser
 parser = ConfigParser()
@@ -159,6 +160,6 @@ if __name__ == '__main__':
     init_fcc()
     init_utils()
     init_wspr()
-    schema_info()
+    schema_info(_inifile,'ards')
     print("")
     db_schema_size()

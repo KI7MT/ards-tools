@@ -6,14 +6,14 @@ from time import gmtime
 from builtins import input
 
 import ards_initdb as initdb
-import ards_update_schema as update_schema
-import ards_schema_info as schema_info
-import ards_version_check as version_check
+import ards_update as update
+import ards_dbutils as dbutils
 
-from ards_version_check import _inifile
-from ards_version_check import _section
+from ards_dbutils import _inifile
+from ards_dbutils import _section
 
 DATE_TIME = datetime.date.today()
+
 
 #------------------------------------------------------------------ Clean Screen
 def clear_screen():
@@ -27,7 +27,7 @@ def clear_screen():
 #---------------------------------------------------------------- Pause function
 def pause():
     """Pause Statement"""
-    input("\nPress [ ENTER ] to continue...")
+    input("Press [ ENTER ] to continue...")
 
 
 #----------------------------------------------------- Under Development Message
@@ -71,31 +71,33 @@ def main():
             main()
         elif selection == '2':  # search all archives for call
             clear_screen()
-            update_schema.init_ards() # Always first after database creation
-            update_schema.init_adif()
-            update_schema.init_eqsl()
-            update_schema.init_fcc()
-            update_schema.init_utils()
-            update_schema.init_wspr()
+            update.init_ards() # Always first after database creation
+            update.init_adif()
+            update.init_eqsl()
+            update.init_fcc()
+            update.init_utils()
+            update.init_wspr()
             print("")
-            update_schema.schema_info()
+            dbutils.schema_info(_inifile,_section)
             print("")
-            update_schema.db_schema_size()
+            update.db_schema_size()
             pause()
             main()
         elif selection == '3':  # update current month from WSPRnet
             clear_screen()
-            schema_info.schema_info()
+            dbutils.schema_info(_inifile,_section)
+            print("")    
             pause()
             main()
         elif selection == '4':  # update current month from WSPRnet
             clear_screen()
-            update_schema.db_schema_size()
+            update.db_schema_size()
             pause()
             main()
         elif selection == '5':  # search current month for a call
             clear_screen()
-            version_check.db_version(_inifile,_section)
+            dbutils.db_version(_inifile,_section)
+            print('')
             pause()
             main()
         elif selection == '9': # Exit the menu
