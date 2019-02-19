@@ -1,7 +1,7 @@
 """ Simple wrapper script to call all pgsql files"""
 import os
-import subprocess
 import sys
+import subprocess
 
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT

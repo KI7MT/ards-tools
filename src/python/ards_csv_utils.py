@@ -6,10 +6,9 @@ from ards_config import config
 
 # TODO: Add argparse arg to provide the file name to import
 
-DIR_PATH = os.getcwd()
-FILE = os.path.join(DIR_PATH,'pgsql','wspr','wsprspots-2008-03.csv')
+DIR_PATH = "D:\WSPR-ANA\csvd"
+FILE = os.path.join(DIR_PATH, 'wsprspots-2008-03.csv')
 INIFILE='ards_database.ini'
-
 
 # For testing, delete data in the ards.raw_csv table
 def delete_data():
@@ -25,9 +24,9 @@ def delete_data():
         # create a cursor
         cur = conn.cursor()
 
-        # execute command
+        # execute command : use truncate, not delete as it's much faster
         print('Deleting Data from wspr.raw_csv...')
-        cur.execute('DELETE FROM wspr.raw_csv;')
+        cur.execute('TRUNCATE TABLE wspr.raw_csv;')
         
         # commit the changes
         conn.commit
@@ -78,7 +77,8 @@ def line_count():
 
 
 if __name__ =='__main__':
-    delete_data()
     start = time.time()
     add_csv()
+    delete_data() # delete raw csv data after processing
     print("\nTime ..: {:.2f} sec\n".format(time.time() - start))
+
