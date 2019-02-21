@@ -377,6 +377,35 @@ CREATE TABLE adif.sponsored_award
     CONSTRAINT qso_sponsored_award_sponsor_uq UNIQUE (sponsor)
 );
 
+-- Russian Oblast
+-- TODO: Need Oblast CSV Data
+-- TODO adif.view_russian_oblast
+CREATE TABLE adif.russian_oblast
+(
+    id SERIAL PRIMARY KEY,
+    rdxc_code VARCHAR(2) NOT NULL,
+    prefix VARCHAR(4) NOT NULL,
+    oblast VARCHAR(60) NOT NULL 
+    CONSTRAINT russian_oblast_uq UNIQUE (rdxc_codeoblast)
+);
+
+-- Russian Oblast Districts
+-- TODO: FK russian_oblast_id REFERENCED russian_oblast (id)
+-- TODO: Need Russian Oblast District CSV DATA
+-- TODO: adif.view_russian_oblast_district
+
+CREATE TABLE adif.russian_oblast_district
+(
+    id SERIAL PRIMARY KEY,
+    russian_oblast_id INT NOT NULL,
+    code VARCHAR(5) NOT NULL,
+    district VARCHAR(60),
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    replaced_by code VARCHAR(5) NOT NULL
+    CONSTRAINT russian_district_oblast_uq UNIQUE (code,district)
+);
+
+
 -- *****************************************************************************
 --  ADD CSV DATA
 -- *****************************************************************************
