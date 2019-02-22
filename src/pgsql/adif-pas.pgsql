@@ -1588,7 +1588,7 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
 CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
     SELECT
         subdivision_type AS "Pri. Subdivision"
-    FROM adif.sas_subdivision_type
+    FROM adif.pas_subdivision_type
     ORDER BY subdivision_type;
 
 -- adif.view_sas_subdivision_type
