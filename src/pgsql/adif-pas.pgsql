@@ -292,7 +292,6 @@ CREATE TABLE adif.pas_061
 
 -- 70 Cuba ---------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_070
 CREATE TABLE adif.pas_070
 (
@@ -305,7 +304,6 @@ CREATE TABLE adif.pas_070
 
 -- 74 El Salvador --------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_074
 CREATE TABLE adif.pas_074
 (
@@ -318,7 +316,6 @@ CREATE TABLE adif.pas_074
 
 -- 86 Nicaragua ----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_086
 CREATE TABLE adif.pas_086
 (
@@ -331,7 +328,6 @@ CREATE TABLE adif.pas_086
 
 -- 100 Argintina ---------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_100
 CREATE TABLE adif.pas_100
 (
@@ -344,7 +340,6 @@ CREATE TABLE adif.pas_100
 
 -- 104 Bolivia -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_104
 CREATE TABLE adif.pas_104
 (
@@ -357,7 +352,6 @@ CREATE TABLE adif.pas_104
 
 -- 108 Brazil ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_108
 CREATE TABLE adif.pas_108
 (
@@ -370,7 +364,6 @@ CREATE TABLE adif.pas_108
 
 -- 110 Hawaii ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_108
 CREATE TABLE adif.pas_110
 (
