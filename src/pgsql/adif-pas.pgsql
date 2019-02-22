@@ -214,7 +214,6 @@ CREATE TABLE adif.pas_027
 
 -- 29 Canary Is. ---------------------------------------------------------------
 
--- TODO: Need CSV data for pas_029 Canary Is.
 -- TODO: adif.view_pas_029
 CREATE TABLE adif.pas_029
 (
@@ -227,7 +226,6 @@ CREATE TABLE adif.pas_029
 
 -- 32 Cetua & Melilla ----------------------------------------------------------
 
--- TODO: Need CSV data for pas_032 Cetua & Melilla
 -- TODO: adif.view_pas_032
 CREATE TABLE adif.pas_032
 (
@@ -240,7 +238,6 @@ CREATE TABLE adif.pas_032
 
 -- 50 Mexico -------------------------------------------------------------------
 
--- TODO: Need CSV data for pas_050 Mexico
 -- TODO: adif.view_pas_050
 CREATE TABLE adif.pas_050
 (
@@ -267,7 +264,6 @@ CREATE TABLE adif.pas_052
 -- 54 European Russia ----------------------------------------------------------
 
 -- NOTE: There are no multiple itu or cq zones for EU Russia
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_055
 CREATE TABLE adif.pas_054
 (
