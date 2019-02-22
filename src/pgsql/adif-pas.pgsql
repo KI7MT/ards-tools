@@ -106,7 +106,6 @@ CREATE TABLE adif.sas_subdivision_type
 
 -- PAS 001 Canada --------------------------------------------------------------
 
--- TODO: Needs CSV Data Table
 -- TODO: Need adif.view_pas_001
 CREATE TABLE adif.pas_001
 (
@@ -134,7 +133,6 @@ CREATE TABLE adif.pas_001_ituzone
 
 -- 5 Aland Is. -----------------------------------------------------------------
 
--- TODO: Need CSV data for pas_005 Aland Is. 
 -- TODO: adif.view_pas_005
 CREATE TABLE adif.pas_005
 (
@@ -148,7 +146,6 @@ CREATE TABLE adif.pas_005
 
 -- 6 Alaska --------------------------------------------------------------------
 
--- TODO: Need CSV data for adif.pas_006 Alaska 
 -- TODO: adif.view_pas_006
 CREATE TABLE adif.pas_006
 (
@@ -171,16 +168,9 @@ CREATE TABLE adif.pas_015
     code CHAR(2) NOT NULL, -- two char AA, BB, CC
     subdivision VARCHAR(80) NOT NULL,
     oblast VARCHAR(3) NOT NULL,
+    before_data DATE,
+    referred_to_as VARCHAR(80),
     CONSTRAINT pas_015_uq UNIQUE (code,subdivision)
-);
-
--- TODO: Need CSV Data (There is only One with Vrevious Before Date)
-CREATE TABLE adif.pas_015_history
-(
-    id SERIAL PRIMARY KEY,
-    pas_015_id INT NOT NULL,
-    previous_reference VARCHAR(80),
-    before_date DATE
 );
 
 -- PAS-015 Asiatic Russia CQ Zone
@@ -1226,9 +1216,6 @@ ALTER TABLE adif.pas_006 ADD CONSTRAINT pas_006_dxcc_fkey
 -- PAS-015 Asiatic Russia ------------------------------------------------------
 ALTER TABLE adif.pas_015 ADD CONSTRAINT pas_015_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
-
-ALTER TABLE adif.pas_015_history ADD CONSTRAINT pas_015_history_pas_015_fkey
-    FOREIGN KEY (pas_015_id) REFERENCES adif.pas_015 (id);
 
 ALTER TABLE adif.pas_015_cqzone ADD CONSTRAINT pas_015_cqzone_pas_015_fkey
     FOREIGN KEY (pas_015_id) REFERENCES adif.pas_015 (id);
