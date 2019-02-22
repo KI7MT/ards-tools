@@ -376,7 +376,6 @@ CREATE TABLE adif.pas_110
 
 -- 112 Chile -------------------------------------------------------------------
 
--- NOTE: There are no known lists for Chile
 -- TODO: adif.view_pas_112
 CREATE TABLE adif.pas_112
 (
@@ -390,7 +389,6 @@ CREATE TABLE adif.pas_112
 -- 126 Kalingrad ---------------------------------------------------------------
 
 -- NOTE: There are no multiple itu or cq zones for EU Russia
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_126
 CREATE TABLE adif.pas_126
 (
@@ -406,7 +404,6 @@ CREATE TABLE adif.pas_126
 
 -- 130 Kazakhstan --------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_130
 CREATE TABLE adif.pas_130
 (
@@ -419,7 +416,6 @@ CREATE TABLE adif.pas_130
 
 -- 132 Paraguay ----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_132
 CREATE TABLE adif.pas_132
 (
@@ -432,7 +428,6 @@ CREATE TABLE adif.pas_132
 
 -- 137 Republic of Korea -------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_137
 CREATE TABLE adif.pas_137
 (
@@ -445,7 +440,6 @@ CREATE TABLE adif.pas_137
 
 -- 138 Kure Island -------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_138
 CREATE TABLE adif.pas_138
 (
