@@ -279,13 +279,12 @@ CREATE TABLE adif.pas_054
 
 -- 61 Franz Josef Land ---------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_061
 CREATE TABLE adif.pas_061
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AR, ...
+    code CHAR(3) NOT NULL, -- three char AR, ...
     subdivision VARCHAR(60) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas_061_uq UNIQUE (code,subdivision)
