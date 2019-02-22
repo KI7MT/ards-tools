@@ -1579,9 +1579,9 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
         LEFT JOIN adif.dxcc ON
             adif.dxcc.id = adif.pas_summary.dxcc_id
         LEFT JOIN adif.pas_subdivision_type ON
-            adif.pas_summary.id = adif.pas_subdivision_type.id
+            adif.pas_summary.pas_subdivision_type_id = adif.pas_subdivision_type.id
         LEFT JOIN adif.sas_subdivision_type ON
-            adif.pas_summary.id = adif.sas_subdivision_type.id
+            adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.id
     ORDER BY pas_summary.id;
 
 -- adif.view_pas_subdivision_type
