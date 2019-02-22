@@ -158,7 +158,6 @@ CREATE TABLE adif.pas_006
 
 -- 15 Asiatic Russia -----------------------------------------------------------
 
--- TODO: Need CSV data for pas_015 Asiatic Russia
 -- TODO: adif.view_pas_015
 -- TODO: adif.view_pas_015_with_history
 CREATE TABLE adif.pas_015
@@ -174,7 +173,6 @@ CREATE TABLE adif.pas_015
 );
 
 -- PAS-015 Asiatic Russia CQ Zone
--- TODO: Need CSV Data
 CREATE TABLE adif.pas_015_cqzone
 (
     id SERIAL PRIMARY KEY,
@@ -183,7 +181,6 @@ CREATE TABLE adif.pas_015_cqzone
 );
 
 -- PAS-015 Canada ITU Zone
--- TODO: Need CSV Data
 CREATE TABLE adif.pas_015_ituzone
 (
     id SERIAL PRIMARY KEY,
@@ -193,7 +190,6 @@ CREATE TABLE adif.pas_015_ituzone
 
 -- 21 Beleric Is. --------------------------------------------------------------
 
--- TODO: Need CSV data for pas_021 Beleric Is. 
 -- TODO: adif.view_pas_021
 CREATE TABLE adif.pas_021
 (
@@ -206,7 +202,6 @@ CREATE TABLE adif.pas_021
 
 -- 27 Belarus ------------------------------------------------------------------
 
--- TODO: Need CSV data for pas_027 Belarus
 -- TODO: adif.view_pas_027
 CREATE TABLE adif.pas_027
 (
