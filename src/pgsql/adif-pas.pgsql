@@ -1577,7 +1577,7 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
         sas_subdivision_type.subdivision_type AS "Sec. Subdivision"
     FROM adif.pas_summary
         LEFT JOIN adif.dxcc ON
-            adif.dxcc.id = adif.pas_summary.id
+            adif.dxcc.id = adif.pas_summary.dxcc_id
         LEFT JOIN adif.pas_subdivision_type ON
             adif.pas_summary.id = adif.pas_subdivision_type.id
         LEFT JOIN adif.sas_subdivision_type ON
