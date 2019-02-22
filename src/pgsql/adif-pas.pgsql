@@ -91,7 +91,7 @@ CREATE TABLE adif.pas_subdivision_type
 (
     id SERIAL PRIMARY KEY,
     subdivision_type VARCHAR(20) NOT NULL,
-    CONSTRAINT psa_subdivision_type_uq UNIQUE (subdivision_type)
+    CONSTRAINT pas_subdivision_type_uq UNIQUE (subdivision_type)
 );
 
 -- Secondary Administration Subdivision
@@ -1572,7 +1572,7 @@ ALTER TABLE adif.pas_504_subdivision ADD CONSTRAINT pas_504_subdivision_pas_504_
 
 -- View: adif.vw_contest
 -- Note: the pas_summary.id is the dxcc.id
-CREATE OR REPLACE VIEW adif.view_psa_summary AS
+CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
         pas_summary.id AS "DXCC Code",
         dxcc.name AS "Country",
