@@ -72,7 +72,6 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- -----------------------------------------------------------------------------
 
 -- Primary Administration Subdivision
--- TODO: Need CSV Table Data
 -- TODO: adif.view_pas_summary
 CREATE TABLE adif.pas_summary
 (
@@ -86,7 +85,6 @@ CREATE TABLE adif.pas_summary
 ); 
 
 -- Primary Administration Subdivision Type
--- TODO: Need CSV Table
 CREATE TABLE adif.pas_subdivision_type
 (
     id SERIAL PRIMARY KEY,
@@ -95,7 +93,6 @@ CREATE TABLE adif.pas_subdivision_type
 );
 
 -- Secondary Administration Subdivision
--- TODO: Need CSV Table
 CREATE TABLE adif.sas_subdivision_type
 (
     id SERIAL PRIMARY KEY,
@@ -1538,7 +1535,6 @@ ALTER TABLE adif.pas_387 ADD CONSTRAINT pas_387_dxcc_fkey
 ALTER TABLE adif.pas_497 ADD CONSTRAINT pas_497_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
-
 -- 503 Czech Republic ----------------------------------------------------------
 ALTER TABLE adif.pas_503_region ADD CONSTRAINT pas_503_region_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
@@ -1570,16 +1566,15 @@ ALTER TABLE adif.pas_504_subdivision ADD CONSTRAINT pas_504_subdivision_pas_504_
 \echo 'Creating Views'
 \echo '-----------------------------'
 
--- View: adif.vw_contest
--- Note: the pas_summary.id is the dxcc.id
+-- adif.view_pas_summary
 CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
-        pas_summary.id AS "DXCC Code",
+        dxcc.id AS "DXCC Code",
         dxcc.name AS "Country",
-        pas_subdivision_type.subdivision AS "Pri. Subdivision",
+        pas_subdivision_type.subdivision_type AS "Pri. Subdivision",
         pas_summary.has_oblast AS "Has Oblast",
         pas_summary.has_sas AS "Has Secondary",
-        sas_subdivision_type.subdivision AS "Sec. Subdivision"
+        sas_subdivision_type.subdivision_type AS "Sec. Subdivision"
     FROM adif.pas_summary
         LEFT JOIN adif.dxcc ON
             adif.dxcc.id = adif.pas_summary.id
@@ -1588,6 +1583,20 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
         LEFT JOIN adif.sas_subdivision_type ON
             adif.pas_summary.id = adif.sas_subdivision_type.id
     ORDER BY pas_summary.id;
+
+-- adif.view_pas_subdivision_type
+CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
+    SELECT
+        subdivision_type AS "Pri. Subdivision"
+    FROM adif.sas_subdivision_type
+    ORDER BY subdivision_type;
+
+-- adif.view_sas_subdivision_type
+CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
+    SELECT
+        subdivision_type AS "Sec. Subdivision"
+    FROM adif.sas_subdivision_type
+    ORDER BY subdivision_type;
 
 
 -- *****************************************************************************
