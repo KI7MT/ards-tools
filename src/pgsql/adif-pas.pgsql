@@ -705,7 +705,6 @@ CREATE TABLE adif.pas_224_subdivision
 
 -- NOTE: Sardinia has Regions and Subdivisions
 -- NOTE: Sardinia has one Import Only Subdivision
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_225_region
 CREATE TABLE adif.pas_225_region
 (
@@ -715,7 +714,6 @@ CREATE TABLE adif.pas_225_region
     CONSTRAINT pas_225_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_225_subdivision
 CREATE TABLE adif.pas_225_subdivision
 (
@@ -729,7 +727,6 @@ CREATE TABLE adif.pas_225_subdivision
 
 -- 227 France ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_227
 CREATE TABLE adif.pas_227
 (
@@ -742,7 +739,6 @@ CREATE TABLE adif.pas_227
 
 -- 230 Fed. Rep. of Germany ----------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_230
 CREATE TABLE adif.pas_230
 (
@@ -755,7 +751,6 @@ CREATE TABLE adif.pas_230
 
 -- 239 Hungary -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_239
 CREATE TABLE adif.pas_239
 (
@@ -768,7 +763,6 @@ CREATE TABLE adif.pas_239
 
 -- 245 Ireland -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_245
 CREATE TABLE adif.pas_245
 (
