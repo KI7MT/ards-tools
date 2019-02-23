@@ -14,7 +14,7 @@
 
     Comments
     
-        This schema implements section III.B of the Amateur Data Interchange
+        This schema implements section III.B.11 of the Amateur Data Interchange
         Format (ADIF) in a 3NF normalized fashion (or close to it). The intent
         is to keep the data-set static and in sync with specification revisions.
         Users should refrain from modifying the data directly unless you are
@@ -167,7 +167,7 @@ CREATE TABLE adif.pas_015
     code CHAR(2) NOT NULL, -- two char AA, BB, CC
     subdivision VARCHAR(80) NOT NULL,
     oblast VARCHAR(3) NOT NULL,
-    before_data DATE,
+    before_date DATE,
     referred_to_as VARCHAR(80),
     CONSTRAINT pas_015_uq UNIQUE (code,subdivision)
 );
@@ -181,6 +181,7 @@ CREATE TABLE adif.pas_015_cqzone
 );
 
 -- PAS-015 Canada ITU Zone
+-- For CSV File Conversion: IF(G2 <> "",TEXT(G2,"yyyy-mm-dd"),"")
 CREATE TABLE adif.pas_015_ituzone
 (
     id SERIAL PRIMARY KEY,
@@ -525,7 +526,6 @@ CREATE TABLE adif.pas_151
 
 -- 153 Macquarie Is. -----------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_153
 CREATE TABLE adif.pas_153
 (
@@ -538,7 +538,6 @@ CREATE TABLE adif.pas_153
 
 -- 163 Papua New Guinea --------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_163
 CREATE TABLE adif.pas_163
 (
@@ -551,7 +550,6 @@ CREATE TABLE adif.pas_163
 
 -- 170 New Zealand -------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_170
 CREATE TABLE adif.pas_170
 (
@@ -564,7 +562,6 @@ CREATE TABLE adif.pas_170
 
 -- 177 Minami Torishima --------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_177
 CREATE TABLE adif.pas_177
 (
@@ -577,7 +574,6 @@ CREATE TABLE adif.pas_177
 
 -- 179 Moldova -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_179
 CREATE TABLE adif.pas_179
 (
@@ -590,7 +586,6 @@ CREATE TABLE adif.pas_179
 
 -- 192 Ogasawara ---------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_179
 CREATE TABLE adif.pas_192
 (
@@ -604,25 +599,25 @@ CREATE TABLE adif.pas_192
 -- 206 Austria -----------------------------------------------------------------
 
 -- NOTE: Austria has Regions and Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_206_region
-CREATE TABLE adif.pas_206_region
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    region VARCHAR(40) NOT NULL,
-    CONSTRAINT pas_206_region_uq UNIQUE (region)
-);
-
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_206_subdivision
+-- For CSV File Conversion: IF(K2 <> "",TEXT(K2,"yyyy-mm-dd"),"")
 CREATE TABLE adif.pas_206_subdivision
 (
     id SERIAL PRIMARY KEY,
     pas_206_region_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
     subdivision VARCHAR(60) NOT NULL,
+    before_date DATE,
     CONSTRAINT pas_206_subdivision_uq UNIQUE (code,subdivision)
+);
+
+CREATE TABLE adif.pas_206_region
+(
+    id SERIAL PRIMARY KEY,
+    dxcc_id INT NOT NULL,
+    region VARCHAR(60) NOT NULL,
+    CONSTRAINT pas_206_region_uq UNIQUE (region)
 );
 
 -- 209 Belgium -----------------------------------------------------------------
