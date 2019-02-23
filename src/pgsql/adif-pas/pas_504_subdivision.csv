@@ -1,0 +1,80 @@
+id|pas_503_region_id|code|subdivision
+1|1|BAA|Bratislava 1
+2|1|BAB|Bratislava 2
+3|1|BAC|Bratislava 3
+4|1|BAD|Bratislava 4
+5|1|BAE|Bratislava 5
+6|1|MAL|Malacky
+7|1|PEZ|Pezinok
+8|1|SEN|Senec
+9|2|DST|Dunajska Streda
+10|2|GAL|Galanta
+11|2|HLO|Hlohovec
+12|2|PIE|Piestany
+13|2|SEA|Senica
+14|2|SKA|Skalica
+15|2|TRN|Trnava
+16|3|BAN|Banovce n. Bebr.
+17|3|ILA|Ilava
+18|3|MYJ|Myjava
+19|3|NMV|Nove Mesto n. Vah
+20|3|PAR|Partizanske
+21|3|PBY|Povazska Bystrica
+22|3|PRI|Prievidza
+23|3|PUC|Puchov
+24|3|TNC|Trencin
+25|4|KOM|Komarno
+26|4|LVC|Levice
+27|4|NIT|Nitra
+28|4|NZA|Nove Zamky
+29|4|SAL|Sala
+30|4|TOP|Topolcany
+31|4|ZMO|Zlate Moravce
+32|5|BYT|Bytca
+33|5|CAD|Cadca
+34|5|DKU|Dolny Kubin
+35|5|KNM|Kysucke N. Mesto
+36|5|LMI|Liptovsky Mikulas
+37|5|MAR|Martin
+38|5|NAM|Namestovo
+39|5|RUZ|Ruzomberok
+40|5|TTE|Turcianske Teplice
+41|5|TVR|Tvrdosin
+42|5|ZIL|Zilina
+43|6|BBY|Banska Bystrica
+44|6|BST|Banska Stiavnica
+45|6|BRE|Brezno
+46|6|DET|Detva
+47|6|KRU|Krupina
+48|6|LUC|Lucenec
+49|6|POL|Poltar
+50|6|REV|Revuca
+51|6|RSO|Rimavska Sobota
+52|6|VKR|Velky Krtis
+53|6|ZAR|Zarnovica
+54|6|ZIH|Ziar nad Hronom
+55|6|ZVO|Zvolen
+56|7|GEL|Gelnica
+57|7|KEA|Kosice 1
+58|7|KEB|Kosice 2
+59|7|KEC|Kosice 3
+60|7|KED|Kosice 4
+61|7|KEO|Kosice-okolie
+62|7|MIC|Michalovce
+63|7|ROZ|Roznava
+64|7|SOB|Sobrance
+65|7|SNV|Spisska Nova Ves
+66|7|TRE|Trebisov
+67|8|BAR|Bardejov
+68|8|HUM|Humenne
+69|8|KEZ|Kezmarok
+70|8|LEV|Levoca
+71|8|MED|Medzilaborce
+72|8|POP|Poprad
+73|8|PRE|Presov
+74|8|SAB|Sabinov
+75|8|SNI|Snina
+76|8|SLU|Stara Lubovna
+77|8|STR|Stropkov
+78|8|SVI|Svidnik
+79|8|VRT|Vranov nad Toplou

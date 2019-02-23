@@ -327,7 +327,7 @@ CREATE TABLE adif.pas_086
     CONSTRAINT pas_086_uq UNIQUE (code,subdivision)
 );
 
--- 100 Argintina ---------------------------------------------------------------
+-- 100 Argentina ---------------------------------------------------------------
 
 -- TODO: adif.view_pas_100
 CREATE TABLE adif.pas_100
@@ -907,7 +907,6 @@ CREATE TABLE adif.pas_288
 
 -- 291 United States -----------------------------------------------------------
 
--- TODO: Needs CSV Data
 -- TODO: adif.view_pas_291
 CREATE TABLE adif.pas_291
 (
@@ -919,7 +918,6 @@ CREATE TABLE adif.pas_291
 );
 
 -- PAS-291 United States CQ Zone
--- TODO: Need CSV Data
 CREATE TABLE adif.pas_291_cqzone
 (
     id SERIAL PRIMARY KEY,
@@ -928,7 +926,6 @@ CREATE TABLE adif.pas_291_cqzone
 );
 
 -- PAS-291 United States ITU Zone
--- TODO Need CSV Data
 CREATE TABLE adif.pas_291_ituzone
 (
     id SERIAL PRIMARY KEY,
@@ -938,7 +935,6 @@ CREATE TABLE adif.pas_291_ituzone
 
 -- 318 China -------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_287
 CREATE TABLE adif.pas_318
 (
@@ -951,7 +947,6 @@ CREATE TABLE adif.pas_318
 
 -- 327 Indonesia ---------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_327
 CREATE TABLE adif.pas_327
 (
@@ -965,7 +960,6 @@ CREATE TABLE adif.pas_327
 -- 339 Japan -------------------------------------------------------------------
 
 -- NOTE: Japan has Regions and Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_327_region
 CREATE TABLE adif.pas_339_region
 (
@@ -975,7 +969,6 @@ CREATE TABLE adif.pas_339_region
     CONSTRAINT pas_339_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_327_subdivision
 CREATE TABLE adif.pas_339_subdivision
 (
@@ -989,7 +982,6 @@ CREATE TABLE adif.pas_339_subdivision
 -- 375 Philippines -------------------------------------------------------------
 
 -- NOTE: Philippines has Regions and Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_375_region
 CREATE TABLE adif.pas_375_region
 (
@@ -1012,7 +1004,6 @@ CREATE TABLE adif.pas_375_subdivision
 
 -- 386 Taiwan ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_386
 CREATE TABLE adif.pas_386
 (
@@ -1025,7 +1016,6 @@ CREATE TABLE adif.pas_386
 
 -- 387 Thailand ----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_387
 CREATE TABLE adif.pas_387
 (
@@ -1036,9 +1026,8 @@ CREATE TABLE adif.pas_387
     CONSTRAINT pas_387_uq UNIQUE (code,subdivision)
 );
 
--- 497 Crotia ------------------------------------------------------------------
+-- 497 Croatia -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_497
 CREATE TABLE adif.pas_497
 (
@@ -1051,7 +1040,7 @@ CREATE TABLE adif.pas_497
 
 -- 503 Czech Republic ----------------------------------------------------------
 
--- TODO: Need CSV Data
+-- NOTE: Czech Republic has Regions and Subdivisions
 -- TODO: adif.view_pas_503_region
 CREATE TABLE adif.pas_503_region
 (
@@ -1061,7 +1050,6 @@ CREATE TABLE adif.pas_503_region
     CONSTRAINT pas_503_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_503_subdivision
 CREATE TABLE adif.pas_503_subdivision
 (
@@ -1074,7 +1062,7 @@ CREATE TABLE adif.pas_503_subdivision
 
 -- 504 Slovak Republic ---------------------------------------------------------
 
--- TODO: Need CSV Data
+-- NOTE: Slovak Republic has Regions and Subdivisions
 -- TODO: adif.view_pas_504_region
 CREATE TABLE adif.pas_504_region
 (
