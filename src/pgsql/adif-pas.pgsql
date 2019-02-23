@@ -632,39 +632,31 @@ CREATE TABLE adif.pas_209
     subdivision VARCHAR(60) NOT NULL,
     CONSTRAINT pas_209_uq UNIQUE (code,subdivision)
 );
-ALTER TABLE adif.pas_209 ADD CONSTRAINT pas_209_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 -- 212 Bulgaria ----------------------------------------------------------------
 
 -- NOTE: Bulgaria has Regions and Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_212_region
 CREATE TABLE adif.pas_212_region
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    region VARCHAR(40) NOT NULL,
+    region VARCHAR(70) NOT NULL,
     CONSTRAINT pas_212_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_212_subdivision
 CREATE TABLE adif.pas_212_subdivision
 (
     id SERIAL PRIMARY KEY,
     pas_212_region_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(70) NOT NULL,
     CONSTRAINT pas_212_subdivision_uq UNIQUE (code,subdivision)
 );
-ALTER TABLE adif.pas_212_subdivision ADD CONSTRAINT pas_212_subdivision_pas_212_region_fkey
-    FOREIGN KEY (pas_212_region_id) REFERENCES adif.pas_212_region (id);
-
 
 -- 214 Corsica -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_214
 CREATE TABLE adif.pas_214
 (
@@ -677,7 +669,6 @@ CREATE TABLE adif.pas_214
 
 -- 221 Denmark -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_221
 CREATE TABLE adif.pas_221
 (
@@ -691,24 +682,22 @@ CREATE TABLE adif.pas_221
 -- 224 Finland -----------------------------------------------------------------
 
 -- NOTE: Finland has Regions and Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_224_region
 CREATE TABLE adif.pas_224_region
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    region VARCHAR(40) NOT NULL,
+    region VARCHAR(70) NOT NULL,
     CONSTRAINT pas_224_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_224_subdivision
 CREATE TABLE adif.pas_224_subdivision
 (
     id SERIAL PRIMARY KEY,
     pas_224_region_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char 105, 106, 107, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(70) NOT NULL,
     CONSTRAINT pas_224_subdivision_uq UNIQUE (code,subdivision)
 );
 
