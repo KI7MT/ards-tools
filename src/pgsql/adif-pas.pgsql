@@ -452,7 +452,6 @@ CREATE TABLE adif.pas_138
 
 -- 144 Uruguay -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_144
 CREATE TABLE adif.pas_144
 (
@@ -465,7 +464,6 @@ CREATE TABLE adif.pas_144
 
 -- 147 Lord Howe Is. -----------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_147
 CREATE TABLE adif.pas_147
 (
@@ -478,7 +476,6 @@ CREATE TABLE adif.pas_147
 
 -- 148 Venezuela ---------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_148
 CREATE TABLE adif.pas_148
 (
@@ -491,7 +488,6 @@ CREATE TABLE adif.pas_148
 
 -- 149 Azores ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_149
 CREATE TABLE adif.pas_149
 (
@@ -504,7 +500,6 @@ CREATE TABLE adif.pas_149
 
 -- 150 Australia ---------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_150
 CREATE TABLE adif.pas_150
 (
@@ -517,7 +512,6 @@ CREATE TABLE adif.pas_150
 
 -- 151 Malyj Vysotski Is -------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_151
 CREATE TABLE adif.pas_151
 (
@@ -528,8 +522,6 @@ CREATE TABLE adif.pas_151
     import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas_151_uq UNIQUE (code,subdivision)
 );
-ALTER TABLE adif.pas_153 ADD CONSTRAINT pas_153_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
 -- 153 Macquarie Is. -----------------------------------------------------------
 
