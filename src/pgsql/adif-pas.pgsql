@@ -777,7 +777,6 @@ CREATE TABLE adif.pas_245
 
 -- NOTE: Italy has Regions and Subdivisions
 -- NOTE: Italy has multiple Import Only Subdivisions
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_248_region
 CREATE TABLE adif.pas_248_region
 (
@@ -787,7 +786,6 @@ CREATE TABLE adif.pas_248_region
     CONSTRAINT pas_248_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_245_subdivision
 CREATE TABLE adif.pas_248_subdivision
 (
@@ -801,7 +799,6 @@ CREATE TABLE adif.pas_248_subdivision
 
 -- 256 Maderia Is. -------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_256
 CREATE TABLE adif.pas_256
 (
@@ -814,7 +811,6 @@ CREATE TABLE adif.pas_256
 
 -- 263 Netherlands -------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_263
 CREATE TABLE adif.pas_263
 (
@@ -827,7 +823,6 @@ CREATE TABLE adif.pas_263
 
 -- 269 Poland ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_269
 CREATE TABLE adif.pas_269
 (
@@ -840,7 +835,6 @@ CREATE TABLE adif.pas_269
 
 -- 272 Portugal ----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_272
 CREATE TABLE adif.pas_272
 (
@@ -853,7 +847,6 @@ CREATE TABLE adif.pas_272
 
 -- 275 Romania -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_275
 CREATE TABLE adif.pas_275
 (
@@ -866,7 +859,6 @@ CREATE TABLE adif.pas_275
 
 -- 281 Spain -------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_281
 CREATE TABLE adif.pas_281
 (
@@ -879,7 +871,6 @@ CREATE TABLE adif.pas_281
 
 -- 284 Sweden ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_284
 CREATE TABLE adif.pas_284
 (
@@ -892,7 +883,6 @@ CREATE TABLE adif.pas_284
 
 -- 287 Switzerland -------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_287
 CREATE TABLE adif.pas_287
 (
@@ -905,7 +895,6 @@ CREATE TABLE adif.pas_287
 
 -- 288 Ukraine -----------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_287
 CREATE TABLE adif.pas_288
 (
