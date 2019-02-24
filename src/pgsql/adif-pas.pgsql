@@ -49,7 +49,8 @@
 */
 
 -- Script Variables
-\set name adif-pas
+\set client_encoding to 'WIN1252'
+\set name adifpas
 \set ver 0.0.1
 \set adifv 3.0.9
 \echo Generating Schema for ( :name )
@@ -88,16 +89,16 @@ CREATE TABLE adif.pas_summary
 CREATE TABLE adif.pas_subdivision_type
 (
     id SERIAL PRIMARY KEY,
-    subdivision_type VARCHAR(20) NOT NULL,
-    CONSTRAINT pas_subdivision_type_uq UNIQUE (subdivision_type)
+    pas_subdivision_type VARCHAR(20) NOT NULL,
+    CONSTRAINT pas_subdivision_type_uq UNIQUE (pas_subdivision_type)
 );
 
 -- Secondary Administration Subdivision
 CREATE TABLE adif.sas_subdivision_type
 (
     id SERIAL PRIMARY KEY,
-    subdivision_type VARCHAR(20) NOT NULL,
-    CONSTRAINT sas_subdivision_type_uq UNIQUE (subdivision_type)
+    sas_subdivision_type VARCHAR(20) NOT NULL,
+    CONSTRAINT sas_subdivision_type_uq UNIQUE (sas_subdivision_type)
 );
 
 -- -----------------------------------------------------------------------------
@@ -251,13 +252,12 @@ CREATE TABLE adif.pas_050
 
 -- 52 Estonia ------------------------------------------------------------------
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_052
 CREATE TABLE adif.pas_052
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- assuming two char 37, 39,44, ...
+    code CHAR(2) NOT NULL, -- assuming two char 37, 39, 44, ...
     subdivision VARCHAR(60) NOT NULL,
     CONSTRAINT pas_052_uq UNIQUE (code,subdivision)
 );
@@ -405,6 +405,8 @@ CREATE TABLE adif.pas_126
 
 -- 130 Kazakhstan --------------------------------------------------------------
 
+-- NOTE: This is a non-offical table. The Oblast is just an integer,
+--       and should an FK in the future.
 -- TODO: adif.view_pas_130
 CREATE TABLE adif.pas_130
 (
@@ -412,7 +414,8 @@ CREATE TABLE adif.pas_130
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AA, BB, CC, ...
     subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_130_uq UNIQUE (code,subdivision)
+    oblast INT NOT NULL,
+    CONSTRAINT pas_130_uq UNIQUE (code,subdivision,oblast)
 );
 
 -- 132 Paraguay ----------------------------------------------------------------
@@ -782,7 +785,7 @@ CREATE TABLE adif.pas_248_region
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    region VARCHAR(40) NOT NULL,
+    region VARCHAR(60) NOT NULL,
     CONSTRAINT pas_248_region_uq UNIQUE (region)
 );
 
@@ -794,7 +797,7 @@ CREATE TABLE adif.pas_248_subdivision
     code CHAR(2) NOT NULL, -- assuming two char BO, FE, FO, ...
     subdivision VARCHAR(60) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas_248_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas_248_subdivision_uq UNIQUE (pas_248_region_id,code,subdivision)
 );
 
 -- 256 Maderia Is. -------------------------------------------------------------
@@ -1046,7 +1049,7 @@ CREATE TABLE adif.pas_503_region
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    region VARCHAR(20) NOT NULL,
+    region VARCHAR(60) NOT NULL,
     CONSTRAINT pas_503_region_uq UNIQUE (region)
 );
 
@@ -1056,7 +1059,7 @@ CREATE TABLE adif.pas_503_subdivision
     id SERIAL PRIMARY KEY,
     pas_503_region_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- two char APA, APB, APC, ...
-    subdivision VARCHAR(20) NOT NULL,
+    subdivision VARCHAR(60) NOT NULL,
     CONSTRAINT pas_503_subdivision_uq UNIQUE (code,subdivision)
 );
 
@@ -1068,11 +1071,10 @@ CREATE TABLE adif.pas_504_region
 (
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
-    region VARCHAR(20) NOT NULL,
+    region VARCHAR(60) NOT NULL,
     CONSTRAINT pas_504_region_uq UNIQUE (region)
 );
 
--- TODO: Need CSV Data
 -- TODO: adif.view_pas_504_subdivision
 CREATE TABLE adif.pas_504_subdivision
 (
@@ -1094,6 +1096,231 @@ CREATE TABLE adif.pas_504_subdivision
 \echo
 \echo 'Importing CSV Files'
 \echo '---------------------------'
+
+-- PAS-SUMMARY and TYPES
+\COPY adif.pas_subdivision_type FROM 'adif-pas/pas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sas_subdivision_type FROM 'adif-pas/sas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_summary FROM 'adif-pas/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-001
+\COPY adif.pas_001 FROM 'adif-pas/pas_001.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_001_cqzone FROM 'adif-pas/pas_001_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_001_ituzone FROM 'adif-pas/pas_001_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-005
+\COPY adif.pas_005 FROM 'adif-pas/pas_005.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-006
+\COPY adif.pas_006 FROM 'adif-pas/pas_006.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-015
+\COPY adif.pas_015 FROM 'adif-pas/pas_015.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_015_cqzone FROM 'adif-pas/pas_015_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_015_ituzone FROM 'adif-pas/pas_015_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-021
+\COPY adif.pas_021 FROM 'adif-pas/pas_021.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-027
+\COPY adif.pas_027 FROM 'adif-pas/pas_027.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-029
+\COPY adif.pas_029 FROM 'adif-pas/pas_029.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-032
+\COPY adif.pas_032 FROM 'adif-pas/pas_032.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-050
+\COPY adif.pas_050 FROM 'adif-pas/pas_050.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-052
+\COPY adif.pas_052 FROM 'adif-pas/pas_052.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-054
+\COPY adif.pas_054 FROM 'adif-pas/pas_054.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-061
+\COPY adif.pas_061 FROM 'adif-pas/pas_061.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-070
+\COPY adif.pas_070 FROM 'adif-pas/pas_070.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-074
+\COPY adif.pas_074 FROM 'adif-pas/pas_074.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-086
+\COPY adif.pas_086 FROM 'adif-pas/pas_086.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-100
+\COPY adif.pas_100 FROM 'adif-pas/pas_100.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-104
+\COPY adif.pas_104 FROM 'adif-pas/pas_104.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-108
+\COPY adif.pas_108 FROM 'adif-pas/pas_108.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-110
+\COPY adif.pas_110 FROM 'adif-pas/pas_110.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-112
+\COPY adif.pas_112 FROM 'adif-pas/pas_112.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-126
+\COPY adif.pas_126 FROM 'adif-pas/pas_126.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-130
+\COPY adif.pas_130 FROM 'adif-pas/pas_130.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-132
+\COPY adif.pas_132 FROM 'adif-pas/pas_132.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-137
+\COPY adif.pas_137 FROM 'adif-pas/pas_137.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-138
+\COPY adif.pas_138 FROM 'adif-pas/pas_138.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-144
+\COPY adif.pas_144 FROM 'adif-pas/pas_144.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-147
+\COPY adif.pas_147 FROM 'adif-pas/pas_147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-148
+\COPY adif.pas_148 FROM 'adif-pas/pas_147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-149
+\COPY adif.pas_149 FROM 'adif-pas/pas_149.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-150
+\COPY adif.pas_150 FROM 'adif-pas/pas_150.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-151
+\COPY adif.pas_151 FROM 'adif-pas/pas_151.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-153
+\COPY adif.pas_153 FROM 'adif-pas/pas_153.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-163
+\COPY adif.pas_163 FROM 'adif-pas/pas_163.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-170
+\COPY adif.pas_170 FROM 'adif-pas/pas_170.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-177
+\COPY adif.pas_177 FROM 'adif-pas/pas_177.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-179
+\COPY adif.pas_179 FROM 'adif-pas/pas_179.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-192
+\COPY adif.pas_192 FROM 'adif-pas/pas_192.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-206
+\COPY adif.pas_206_region FROM 'adif-pas/pas_206_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_206_subdivision FROM 'adif-pas/pas_206_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-209
+\COPY adif.pas_209 FROM 'adif-pas/pas_209.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-212
+\COPY adif.pas_212_region FROM 'adif-pas/pas_212_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_212_subdivision FROM 'adif-pas/pas_212_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-214
+\COPY adif.pas_214 FROM 'adif-pas/pas_214.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-221
+\COPY adif.pas_221 FROM 'adif-pas/pas_221.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-224
+\COPY adif.pas_224_region FROM 'adif-pas/pas_224_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_224_subdivision FROM 'adif-pas/pas_224_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-225
+\COPY adif.pas_225_region FROM 'adif-pas/pas_225_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_225_subdivision FROM 'adif-pas/pas_225_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-227
+\COPY adif.pas_227 FROM 'adif-pas/pas_227.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-230
+\COPY adif.pas_230 FROM 'adif-pas/pas_230.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-239
+\COPY adif.pas_239 FROM 'adif-pas/pas_239.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-245
+\COPY adif.pas_245 FROM 'adif-pas/pas_245.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-248
+\COPY adif.pas_248_region FROM 'adif-pas/pas_248_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_248_subdivision FROM 'adif-pas/pas_248_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-256
+\COPY adif.pas_256 FROM 'adif-pas/pas_256.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-263
+\COPY adif.pas_263 FROM 'adif-pas/pas_263.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-269
+\COPY adif.pas_269 FROM 'adif-pas/pas_269.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-272
+\COPY adif.pas_272 FROM 'adif-pas/pas_272.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-275
+\COPY adif.pas_275 FROM 'adif-pas/pas_275.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-281
+\COPY adif.pas_281 FROM 'adif-pas/pas_281.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-284
+\COPY adif.pas_284 FROM 'adif-pas/pas_284.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-287
+\COPY adif.pas_287 FROM 'adif-pas/pas_287.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-288
+\COPY adif.pas_288 FROM 'adif-pas/pas_288.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-291
+\COPY adif.pas_291 FROM 'adif-pas/pas_291.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_291_cqzone FROM 'adif-pas/pas_291_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_291_ituzone FROM 'adif-pas/pas_291_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-318
+\COPY adif.pas_318 FROM 'adif-pas/pas_318.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-327
+\COPY adif.pas_327 FROM 'adif-pas/pas_327.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-339
+\COPY adif.pas_339_region FROM 'adif-pas/pas_339_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_339_subdivision FROM 'adif-pas/pas_339_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-375
+\COPY adif.pas_375_region FROM 'adif-pas/pas_375_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_375_subdivision FROM 'adif-pas/pas_375_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-386
+\COPY adif.pas_386 FROM 'adif-pas/pas_386.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-387
+\COPY adif.pas_387 FROM 'adif-pas/pas_387.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-497
+\COPY adif.pas_497 FROM 'adif-pas/pas_497.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-503
+\COPY adif.pas_503_region FROM 'adif-pas/pas_503_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_503_subdivision FROM 'adif-pas/pas_503_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-504
+\COPY adif.pas_504_region FROM 'adif-pas/pas_504_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_504_subdivision FROM 'adif-pas/pas_504_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS

@@ -1,15 +1,14 @@
-id|code|subdivision
-1|NS |Nova Scotia 
-2|QC |Québec 
-3|ON |Ontario 
-4|MB |Manitoba 
-5|SK |Saskatchewan 
-6|AB |Alberta 
-7|BC |British Columbia 
-8|NT |Northwest Territories 
-9|NB |New Brunswick 
-10|NL |Newfoundland and Labrador 
-11|YT |Yukon 
-12|PE |Prince Edward Island 
-13|NU |Nunavut 
-
+id|dxcc_id|code|subdivision
+1|1|NS|Nova Scotia 
+2|1|QC|Québec 
+3|1|ON|Ontario 
+4|1|MB|Manitoba 
+5|1|SK|Saskatchewan 
+6|1|AB|Alberta 
+7|1|BC|British Columbia 
+8|1|NT|Northwest Territories 
+9|1|NB|New Brunswick 
+10|1|NL|Newfoundland and Labrador 
+11|1|YT|Yukon 
+12|1|PE|Prince Edward Island 
+13|1|NU|Nunavut 

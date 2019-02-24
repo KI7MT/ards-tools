@@ -47,12 +47,8 @@
         _pkey   = Primary Key
         _fkey   = Foreign Key
 
-        TODO: Move JTAlerts Model to it's own script
-        TODO: Need adif.pas and adif.sas CSV Data files
-        TODO: Add adif.sas FK's after adif.pas has been populated.
         TODO: Add Japan JCC, JGC, KU Tables and List CSV Data
         TODO: Need JCC, JGC, and KU CSV Datafiles
-        TODO: Add Source Data Table: souce_data_info
 
 */
 
@@ -75,7 +71,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
 
--- Source Data Informaiton
+-- Source Data Informaiton -----------------------------------------------------
 CREATE TABLE adif.source_list -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -86,7 +82,7 @@ CREATE TABLE adif.source_list -- FK Done
     CONSTRAINT source_name_uq UNIQUE (source_name)
 );
 
--- Antenna Path
+-- Antenna Path ----------------------------------------------------------------
 CREATE TABLE adif.antenna_path -- No FK needed
 (
     id SERIAL PRIMARY KEY,
@@ -95,16 +91,7 @@ CREATE TABLE adif.antenna_path -- No FK needed
     CONSTRAINT antenna_path_uq UNIQUE (abbreviation, meaning)
 );
 
--- Award
-CREATE TABLE adif.award -- No FK needed
-(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(15),
-    import_only BOOLEAN NOT NULL DEFAULT '1',
-    CONSTRAINT award_name_uq UNIQUE (name)
-);
-
--- ARRL Section 
+-- ARRL Section ----------------------------------------------------------------
 CREATE TABLE adif.arrl_section -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -115,7 +102,16 @@ CREATE TABLE adif.arrl_section -- FK Done
     deleted_date date
 );
 
--- BAND
+-- Award -----------------------------------------------------------------------
+CREATE TABLE adif.award -- No FK needed
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(15),
+    import_only BOOLEAN NOT NULL DEFAULT '1',
+    CONSTRAINT award_name_uq UNIQUE (name)
+);
+
+-- BAND ------------------------------------------------------------------------
 CREATE TABLE adif.band -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -125,7 +121,7 @@ CREATE TABLE adif.band -- No FK Needed
     CONSTRAINT band_name_uq UNIQUE (name)
 );
 
--- Contest
+-- Contest ---------------------------------------------------------------------
 CREATE TABLE adif.contest -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -136,7 +132,7 @@ CREATE TABLE adif.contest -- FK Done
     CONSTRAINT contest_name_uq UNIQUE (name)
 );
 
--- Continent
+-- Continent -------------------------------------------------------------------
 CREATE TABLE adif.continent -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -145,7 +141,7 @@ CREATE TABLE adif.continent -- No FK Needed
     CONSTRAINT continent_name_uq UNIQUE (abbreviation, name)
 );
 
--- Credit Sponsor
+-- Credit Sponsor --------------------------------------------------------------
 CREATE TABLE adif.credit_sponsor -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -153,7 +149,7 @@ CREATE TABLE adif.credit_sponsor -- No FK Needed
     CONSTRAINT credit_sponsor_name_uq UNIQUE (name)
 );
 
--- Credit Award
+-- Credit Award ----------------------------------------------------------------
 CREATE TABLE adif.credit_award -- No FK needed
 (
     id SERIAL PRIMARY KEY,
@@ -161,7 +157,7 @@ CREATE TABLE adif.credit_award -- No FK needed
     CONSTRAINT credit_award_name_uq UNIQUE (name)
 );
 
--- Credit Facet
+-- Credit Facet ----------------------------------------------------------------
 CREATE TABLE adif.credit_facet -- No FK needed
 (
     id SERIAL PRIMARY KEY,
@@ -169,7 +165,7 @@ CREATE TABLE adif.credit_facet -- No FK needed
     CONSTRAINT credit_facet_name_uq UNIQUE (name)
 );
 
--- Credit
+-- Credit ----------------------------------------------------------------------
 CREATE TABLE adif.credit -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -180,7 +176,7 @@ CREATE TABLE adif.credit -- FK Done
     CONSTRAINT credit_for_uq UNIQUE (credit_for)
 );
 
--- DXCC Entities
+-- DXCC ------------------------------------------------------------------------
 -- (id) is a natureal PK matching the dxcc_id
 CREATE TABLE adif.dxcc -- No FK needed
 (
@@ -191,33 +187,48 @@ CREATE TABLE adif.dxcc -- No FK needed
     CONSTRAINT dxcc_code_name_uq UNIQUE (code, name)
 );
 
--- State
-CREATE TABLE adif.state -- No FK Needed
+-- CQ Zone ---------------------------------------------------------------------
+CREATE TABLE adif.cq_zone -- FK Done
 (
-    id SERIAL PRIMARY KEY,
-    abbreviation VARCHAR(2) NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    CONSTRAINT state_uq UNIQUE (abbreviation, name)
+    id INT PRIMARY KEY,
+    cqzone INT NOT NULL,
+    description VARCHAR(60) NOT NULL,
+    weblink_id INT
+    CONSTRAINT cq_zone_cqzone_uq UNIQUE (cqzone)
 );
 
--- County
-CREATE TABLE adif.county_name -- No FK Needed
+-- ITU Zone --------------------------------------------------------------------
+CREATE TABLE adif.itu_zone -- FK Done
 (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(60) NOT NULL,
-    CONSTRAINT county_name_uq UNIQUE (name)
+    id INT PRIMARY KEY,
+    ituzone INT NOT NULL,
+    description VARCHAR(300),
+    weblink_id INT,
+    CONSTRAINT itu_zone_ituzone_uq UNIQUE (itunumber)
 );
 
--- State County
-CREATE TABLE adif.state_county -- FK Done
+-- IARU Region -----------------------------------------------------------------
+CREATE TABLE adif.iaru_region -- FK Done
 (
-    id SERIAL PRIMARY KEY,
-    state_id INT NOT NULL,
-    county_name_id INT NOT NULL
+    id INT PRIMARY KEY,
+    region INT NOT NULL,
+    description VARCHAR(120),
+    weblink_id INT,
+    CONSTRAINT iaru_region_region_uq UNIQUE (region)
 );
 
--- Mode
-CREATE TABLE adif.mode -- FK DOne
+-- IARU Region Member ----------------------------------------------------------
+CREATE TABLE adif.iaru_region_member -- FK Done
+(
+    id INT PRIMARY KEY,
+    iaru_region_id INT NOT NULL,
+    name VARCHAR(120),
+    country_territory VARCHAR(60),
+    CONSTRAINT iaru_region_name_uq UNIQUE (name)
+);
+
+-- Mode ------------------------------------------------------------------------
+CREATE TABLE adif.mode -- FK Done
 (
     id SERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
@@ -226,7 +237,7 @@ CREATE TABLE adif.mode -- FK DOne
     CONSTRAINT mode_name_uq UNIQUE (name)
 );
 
--- Submode
+-- Submode ---------------------------------------------------------------------
 CREATE TABLE adif.submode -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -236,36 +247,48 @@ CREATE TABLE adif.submode -- FK Done
     CONSTRAINT submode_name_uq UNIQUE (name)
 );
 
--- Mode Description
-CREATE TABLE adif.mode_description -- FK Done
+-- Mode Description ------------------------------------------------------------
+CREATE TABLE adif.mode_description
+(
+    id SERIAL PRIMARY KEY,
+    description VARCHAR(20) NOT NULL,
+    weblink_id INT,
+);
+
+-- State -----------------------------------------------------------------------
+CREATE TABLE adif.state -- No FK Needed
+(
+    id SERIAL PRIMARY KEY,
+    abbreviation VARCHAR(2) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    CONSTRAINT state_uq UNIQUE (abbreviation, name)
+);
+
+-- County Name -----------------------------------------------------------------
+CREATE TABLE adif.county_name -- No FK Needed
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(60) NOT NULL,
+    CONSTRAINT county_name_uq UNIQUE (name)
+);
+
+-- State-County ----------------------------------------------------------------
+CREATE TABLE adif.state_county -- FK Done
+(
+    id SERIAL PRIMARY KEY,
+    state_id INT NOT NULL,
+    county_name_id INT NOT NULL
+);
+
+-- Mode Description ------------------------------------------------------------
+CREATE TABLE adif.mode_description --No FK Needed
 (
     id SERIAL PRIMARY KEY,
     description VARCHAR(120) NOT NULL
 );
 
--- CQ Zone
-CREATE TABLE adif.cq_zone -- FK Done
-(
-    id INT PRIMARY KEY,
-    number INT NOT NULL,
-    short_description VARCHAR(60) NOT NULL,
-    long_description VARCHAR NOT NULL,
-    weblink_id INT
-);
-
--- ITU Zone
-CREATE TABLE adif.itu_zone -- FK Done
-(
-    id INT PRIMARY KEY,
-    number INT NOT NULL,
-    short_description VARCHAR(120),
-    long_description VARCHAR (255),
-    weblink_id INT,
-    CONSTRAINT itu_zone_number_uq UNIQUE (number)
-);
-
--- Propogation
-CREATE TABLE adif.propogation_mode -- FK Done
+-- Propogation -----------------------------------------------------------------
+CREATE TABLE adif.propogation_mode -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
     enumeration VARCHAR(20) NOT NULL,
@@ -273,17 +296,8 @@ CREATE TABLE adif.propogation_mode -- FK Done
     CONSTRAINT propogation_mode_abbreviation_uq UNIQUE (enumeration)
 );
 
--- Secondary Administrative Subdivision (SAS)
-CREATE TABLE adif.sas
-(
-    id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    name VARCHAR(80) NOT NULL,
-    CONSTRAINT sas_name_uq UNIQUE (name)
-);
-
--- QSL Medium
-CREATE TABLE adif.qsl_medium
+-- QSL Medium ------------------------------------------------------------------
+CREATE TABLE adif.qsl_medium -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
     medium VARCHAR(10) NOT NULL,
@@ -291,18 +305,18 @@ CREATE TABLE adif.qsl_medium
     CONSTRAINT qsl_medium_uq UNIQUE (medium)
 );
 
--- QSL Recieved
+-- QSL Recieved ----------------------------------------------------------------
 CREATE TABLE adif.qsl_rcvd -- No FK needed
 (
     id SERIAL PRIMARY KEY,
     status VARCHAR(1) NOT NULL,
     meaning VARCHAR(20) NOT NULL,
-    import_only BOOLEAN NOT NULL DEFAULT '0',
     description VARCHAR(255),
+    import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT qsl_rcvd_status_uq UNIQUE (status)
 );
 
--- QSL Sent
+-- QSL Sent --------------------------------------------------------------------
 CREATE TABLE adif.qsl_sent --- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -312,7 +326,7 @@ CREATE TABLE adif.qsl_sent --- No FK Needed
     CONSTRAINT qsl_sent_status_uq UNIQUE (status)
 );
 
--- QSL Via
+-- QSL Via ---------------------------------------------------------------------
 CREATE TABLE adif.qsl_via -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -322,7 +336,7 @@ CREATE TABLE adif.qsl_via -- No FK Needed
     CONSTRAINT qsl_via_uq UNIQUE (via)
 );
 
--- QSO Complete
+-- QSO Complete ----------------------------------------------------------------
 CREATE TABLE adif.qso_complete -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -331,7 +345,7 @@ CREATE TABLE adif.qso_complete -- No FK Needed
     CONSTRAINT qso_complete_abbreviation_uq UNIQUE (abbreviation)
 );
 
--- QSO Upload Status
+-- QSO Upload Status -----------------------------------------------------------
 CREATE TABLE adif.qso_upload_status -- No FK Needed
 (
     id SERIAL PRIMARY KEY,
@@ -340,7 +354,7 @@ CREATE TABLE adif.qso_upload_status -- No FK Needed
     CONSTRAINT qso_upload_status_abbreviation_uq UNIQUE (abbreviaiton)
 );
 
--- Region
+-- Region ----------------------------------------------------------------------
 CREATE TABLE adif.region -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -351,7 +365,7 @@ CREATE TABLE adif.region -- FK Done
     CONSTRAINT region_code_uq UNIQUE (code)
 );
 
--- Region Applicability
+-- Region Applicability --------------------------------------------------------
 CREATE TABLE adif.region_applicability -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -359,7 +373,7 @@ CREATE TABLE adif.region_applicability -- FK Done
     weblink_id INT NOT NULL
 );
 
--- Web Link Section
+-- Web Link Section ------------------------------------------------------------
 CREATE TABLE adif.weblink -- No FK needed
 (
     id SERIAL PRIMARY KEY,
@@ -368,7 +382,7 @@ CREATE TABLE adif.weblink -- No FK needed
     CONSTRAINT weblink_display_text_uq UNIQUE (display_text)
 );
 
--- Sponsored Award
+-- Sponsored Award -------------------------------------------------------------
 CREATE TABLE adif.sponsored_award
 (
     id SERIAL PRIMARY KEY,
@@ -376,35 +390,6 @@ CREATE TABLE adif.sponsored_award
     weblink_id INT NOT NULL,
     CONSTRAINT qso_sponsored_award_sponsor_uq UNIQUE (sponsor)
 );
-
--- Russian Oblast
--- TODO: Need Oblast CSV Data
--- TODO adif.view_russian_oblast
-CREATE TABLE adif.russian_oblast
-(
-    id SERIAL PRIMARY KEY,
-    rdxc_code VARCHAR(2) NOT NULL,
-    prefix VARCHAR(4) NOT NULL,
-    oblast VARCHAR(60) NOT NULL 
-    CONSTRAINT russian_oblast_uq UNIQUE (rdxc_codeoblast)
-);
-
--- Russian Oblast Districts
--- TODO: FK russian_oblast_id REFERENCED russian_oblast (id)
--- TODO: Need Russian Oblast District CSV DATA
--- TODO: adif.view_russian_oblast_district
-
-CREATE TABLE adif.russian_oblast_district
-(
-    id SERIAL PRIMARY KEY,
-    russian_oblast_id INT NOT NULL,
-    code VARCHAR(5) NOT NULL,
-    district VARCHAR(60),
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    replaced_by code VARCHAR(5) NOT NULL
-    CONSTRAINT russian_district_oblast_uq UNIQUE (code,district)
-);
-
 
 -- *****************************************************************************
 --  ADD CSV DATA
@@ -417,34 +402,34 @@ CREATE TABLE adif.russian_oblast_district
 \echo
 \echo 'Importing CSV Files'
 \echo '---------------------------'
-\COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.award FROM 'adif/award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.band FROM 'adif/band.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.contest FROM 'adif/contest.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.continent FROM 'adif/continent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.county_name FROM 'adif/county_name.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit FROM 'adif/credit.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.award FROM 'adif/award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.band FROM 'adif/band.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.contest FROM 'adif/contest.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.continent FROM 'adif/continent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.county_name FROM 'adif/county_name.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.credit FROM 'adif/credit.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.dxcc FROM 'adif/dxcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.state FROM 'adif/state.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.mode FROM 'adif/mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.submode FROM 'adif/submode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.propogation_mode FROM 'adif/propogation_mode.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_medium FROM 'adif/qsl_medium.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.region FROM 'adif/region.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
-\COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER ',' QUOTE '"' HEADER CSV;
+\COPY adif.state FROM 'adif/state.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.mode FROM 'adif/mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.submode FROM 'adif/submode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.propogation_mode FROM 'adif/propogation_mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_medium FROM 'adif/qsl_medium.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.region FROM 'adif/region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
@@ -454,15 +439,19 @@ CREATE TABLE adif.russian_oblast_district
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
 
+-- Source List -----------------------------------------------------------------
 ALTER TABLE adif.source_list ADD CONSTRAINT source_list_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
+-- ARRL Section ----------------------------------------------------------------
 ALTER TABLE adif.arrl_section ADD CONSTRAINT arrl_section_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
+-- Contest ---------------------------------------------------------------------
 ALTER TABLE adif.contest ADD CONSTRAINT contest_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
+-- Credit ----------------------------------------------------------------------
 ALTER TABLE adif.credit ADD CONSTRAINT credit_credit_sponsor_fkey
     FOREIGN KEY (sponsor_id) REFERENCES adif.credit_sponsor (id);
 
@@ -472,44 +461,59 @@ ALTER TABLE adif.credit ADD CONSTRAINT credit_credit_award_fkey
 ALTER TABLE adif.credit ADD CONSTRAINT credit_credit_facet_fkey
     FOREIGN KEY (facet_id) REFERENCES adif.credit_facet (id);
 
-ALTER TABLE adif.sponsored_award ADD CONSTRAINT sponsored_award_weblink_fkey
+-- CQ Zone ---------------------------------------------------------------------
+ALTER TABLE adif.cq_zone ADD CONSTRAINT cq_zone_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
+-- ITU Zone --------------------------------------------------------------------
+ALTER TABLE adif.itu_zone ADD CONSTRAINT itu_zone_weblink_fkey
+    FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
+
+-- IARU Region Weblink ---------------------------------------------------------
+ALTER TABLE adif.iaru_region ADD CONSTRAINT iaru_region_weblink_fkey
+    FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
+
+-- IARU Region Member ----------------------------------------------------------
+ALTER TABLE adif.iaru_region_member ADD CONSTRAINT iaru_region_member_iaru_region_fkey
+    FOREIGN KEY (iaru_region_id) REFERENCES adif.iaru_region (id);
+
+-- State County ----------------------------------------------------------------
 ALTER TABLE adif.state_county ADD CONSTRAINT state_county_state_fkey
     FOREIGN KEY (state_id) REFERENCES adif.state (id);
 
 ALTER TABLE adif.state_county ADD CONSTRAINT state_county_county_name_fkey
     FOREIGN KEY (county_name_id) REFERENCES adif.county_name (id);
 
+-- Mode ------------------------------------------------------------------------
 ALTER TABLE adif.mode ADD CONSTRAINT mode_mode_description_fkey
     FOREIGN KEY (mode_description_id) REFERENCES adif.mode_description (id);
 
+-- Submode ---------------------------------------------------------------------
 ALTER TABLE adif.submode ADD CONSTRAINT submode_mode_fkey
     FOREIGN KEY (mode_id) REFERENCES adif.mode (id);
 
 ALTER TABLE adif.submode ADD CONSTRAINT submode_mode_description_fkey
     FOREIGN KEY (mode_description_id) REFERENCES adif.mode_description (id);
 
-ALTER TABLE adif.cq_zone ADD CONSTRAINT cq_zone_weblink_fkey
+-- Mode Description ------------------------------------------------------------
+ALTER TABLE adif.mode_description ADD CONSTRAINT mode_description_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
-ALTER TABLE adif.itu_zone ADD CONSTRAINT itu_zone_weblink_fkey
-    FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
+-- Region ----------------------------------------------------------------------
 ALTER TABLE adif.region ADD CONSTRAINT region_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
 
+-- Region Applicabiility -------------------------------------------------------
 ALTER TABLE adif.region_applicability ADD CONSTRAINT region_applicability_region_fkey
     FOREIGN KEY (region_id) REFERENCES adif.region (id);
 
 ALTER TABLE adif.region_applicability ADD CONSTRAINT region_applicability_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
-ALTER TABLE adif.oblast ADD CONSTRAINT oblast_continent_fkey
-    FOREIGN KEY (continent_id) REFERENCES adif.continent (id);
-
-ALTER TABLE adif.oblast ADD CONSTRAINT oblast_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
+-- Sponsored Award -------------------------------------------------------------
+ALTER TABLE adif.sponsored_award ADD CONSTRAINT sponsored_award_weblink_fkey
+    FOREIGN KEY (weblink_id) REFERENCES adif.weblink (id);
 
 -- *****************************************************************************
 --  ADD INDEXES based on z-tools\index-reccomend2.sql
