@@ -193,7 +193,7 @@ CREATE TABLE adif.cq_zone -- FK Done
     id INT PRIMARY KEY,
     cqzone INT NOT NULL,
     description VARCHAR(60) NOT NULL,
-    weblink_id INT
+    weblink_id INT,
     CONSTRAINT cq_zone_cqzone_uq UNIQUE (cqzone)
 );
 
@@ -204,7 +204,7 @@ CREATE TABLE adif.itu_zone -- FK Done
     ituzone INT NOT NULL,
     description VARCHAR(300),
     weblink_id INT,
-    CONSTRAINT itu_zone_ituzone_uq UNIQUE (itunumber)
+    CONSTRAINT itu_zone_ituzone_uq UNIQUE (ituzone)
 );
 
 -- IARU Region -----------------------------------------------------------------
@@ -252,7 +252,7 @@ CREATE TABLE adif.mode_description
 (
     id SERIAL PRIMARY KEY,
     description VARCHAR(20) NOT NULL,
-    weblink_id INT,
+    weblink_id INT
 );
 
 -- State -----------------------------------------------------------------------
@@ -278,13 +278,6 @@ CREATE TABLE adif.state_county -- FK Done
     id SERIAL PRIMARY KEY,
     state_id INT NOT NULL,
     county_name_id INT NOT NULL
-);
-
--- Mode Description ------------------------------------------------------------
-CREATE TABLE adif.mode_description --No FK Needed
-(
-    id SERIAL PRIMARY KEY,
-    description VARCHAR(120) NOT NULL
 );
 
 -- Propogation -----------------------------------------------------------------
@@ -430,6 +423,7 @@ CREATE TABLE adif.sponsored_award
 \COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.itu_zone FROM 'adif/itu_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS

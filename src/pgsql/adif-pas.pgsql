@@ -56,12 +56,6 @@
 \echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
--- Drop, and re-create schema
-DROP SCHEMA IF EXISTS :name CASCADE;
-
--- Create New Schema
-CREATE SCHEMA :name;
-
 INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
@@ -1704,15 +1698,15 @@ ALTER TABLE adif.pas_504_subdivision ADD CONSTRAINT pas_504_subdivision_pas_504_
 \echo 'Creating Views'
 \echo '-----------------------------'
 
--- adif.view_pas_summary
+-- adif.view_pas_summary -------------------------------------------------------
 CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
         dxcc.id AS "DXCC Code",
         dxcc.name AS "Country",
-        pas_subdivision_type.subdivision_type AS "Pri. Subdivision",
+        pas_subdivision_type.pas_subdivision_type AS "Pri. Subdivision",
         pas_summary.has_oblast AS "Has Oblast",
         pas_summary.has_sas AS "Has Secondary",
-        sas_subdivision_type.subdivision_type AS "Sec. Subdivision"
+        sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
     FROM adif.pas_summary
         LEFT JOIN adif.dxcc ON
             adif.dxcc.id = adif.pas_summary.dxcc_id
@@ -1722,19 +1716,19 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
             adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.id
     ORDER BY pas_summary.id;
 
--- adif.view_pas_subdivision_type
+-- adif.view_pas_subdivision_type ----------------------------------------------
 CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
     SELECT
-        subdivision_type AS "Pri. Subdivision"
+        pas_subdivision_type AS "Pri. Subdivision"
     FROM adif.pas_subdivision_type
-    ORDER BY subdivision_type;
+    ORDER BY pas_subdivision_type;
 
--- adif.view_sas_subdivision_type
+-- adif.view_sas_subdivision_type ----------------------------------------------
 CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
     SELECT
-        subdivision_type AS "Sec. Subdivision"
+        sas_subdivision_type AS "Sec. Subdivision"
     FROM adif.sas_subdivision_type
-    ORDER BY subdivision_type;
+    ORDER BY sas_subdivision_type;
 
 
 -- *****************************************************************************
