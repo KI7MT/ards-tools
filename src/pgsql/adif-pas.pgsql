@@ -29,6 +29,10 @@
 
     Installation via pgsql scripts
     
+        * Important: This script needs to be run "after" the main
+          adif.pgsql script as it does not drop and re-create
+          the adif scema.
+
         * Clone the repository
 
             git clone https://github.com/KI7MT/ards-tools.git
@@ -67,7 +71,6 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- -----------------------------------------------------------------------------
 
 -- Primary Administration Subdivision
--- TODO: adif.view_pas_summary
 CREATE TABLE adif.pas_summary
 (
     id SERIAL PRIMARY KEY,
@@ -110,6 +113,7 @@ CREATE TABLE adif.pas_001
     subdivision VARCHAR(60) NOT NULL,
     CONSTRAINT pas_001_uq UNIQUE (code,subdivision)
 );
+
 -- PAS-001 Canada CQ Zone
 CREATE TABLE adif.pas_001_cqzone
 (
