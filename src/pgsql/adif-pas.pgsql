@@ -22,7 +22,7 @@
 
     Tool Requirments:
 
-        * PostgreSQL v10 or above
+        * PostgreSQL v11 or above
         * git for cloning the repository
         * adif uses the default database (postgres) and password (postgres)
           If you want to use a different Role / DB, adjust the commands as needed.
@@ -1525,7 +1525,7 @@ ALTER TABLE adif.pas_192 ADD CONSTRAINT pas_192_dxcc_fkey
 -- PAS-206 Austria -------------------------------------------------------------
 ALTER TABLE adif.pas_206_region ADD CONSTRAINT pas_206_region_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
-
+7
 ALTER TABLE adif.pas_206_subdivision ADD CONSTRAINT pas_206_subdivision_pas_206_region_fkey
     FOREIGN KEY (pas_206_region_id) REFERENCES adif.pas_206_region (id);
 
