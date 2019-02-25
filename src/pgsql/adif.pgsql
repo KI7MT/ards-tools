@@ -389,8 +389,7 @@ CREATE TABLE adif.sponsored_award
 -- *****************************************************************************
 
 -- NOTE(s): 
---  1. Delimiter for dxc_entity is "|" due to comma's in 'name' column
---  2. All other CSV files use ',' delimiters with double-quote escapes
+-- Note: All CSV File use "|" as the delimiter.
 
 \echo
 \echo 'Importing CSV Files'

@@ -304,7 +304,7 @@ id|jcc_id|number|city|is_deleted|deleted_date
 303|13|1317|Konosu|0|
 304|13|1318|Fukaya|0|
 305|13|1319|Ageo|0|
-306|13|1320|Yono|1|2001-4-31
+306|13|1320|Yono|1|2001-04-30
 307|13|1321|Soka|0|
 308|13|1322|Koshigaya|0|
 309|13|1323|Warabi|0|
@@ -419,7 +419,7 @@ id|jcc_id|number|city|is_deleted|deleted_date
 418|18|1807|Fujinomiya|0|
 419|18|1808|Ito|0|
 420|18|1809|Shimada|0|
-421|18|1810|Yoshiwara|1|1967-1031
+421|18|1810|Yoshiwara|1|1967-10-31
 422|18|1811|Iwata|0|
 423|18|1812|Yaidu|0|
 424|18|1813|Fuji|0|
@@ -560,7 +560,7 @@ id|jcc_id|number|city|is_deleted|deleted_date
 559|25|2502|Sakai|0|
 560|25|2503|Kishiwada|0|
 561|25|2504|Toyonaka|0|
-562|25|2505|Fuse|1|1967-2-31
+562|25|2505|Fuse|1|1967-01-31
 563|25|2506|Ikeda|0|
 564|25|2507|Suita|0|
 565|25|2508|Izumiotsu|0|
@@ -717,7 +717,7 @@ id|jcc_id|number|city|is_deleted|deleted_date
 716|35|3504|Mihara|0|
 717|35|3505|Onomichi|0|
 718|35|3506|Innoshima|1|2006-01-09
-719|35|3507|Matsunaga|1|1966-4-31
+719|35|3507|Matsunaga|1|1966-04-30
 720|35|3508|Fukuyama|0|
 721|35|3509|Fuchu|0|
 722|35|3510|Miyoshi|0|
@@ -839,7 +839,7 @@ id|jcc_id|number|city|is_deleted|deleted_date
 838|43|4306|Tamana|0|
 839|43|4307|Hondo|1|2006-03-26
 840|43|4308|Yamaga|0|
-841|43|4309|Ushibuka|1|2006-23-26
+841|43|4309|Ushibuka|1|2006-03-26
 842|43|4310|Kikuchi|0|
 843|43|4311|Uto|0|
 844|43|4312|Kamiamakusa|0|

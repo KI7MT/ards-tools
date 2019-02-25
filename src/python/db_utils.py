@@ -150,11 +150,24 @@ def init_adif():
         os.chdir('../python')
 
 def init_adif_pas():
-    """Use subprocess to call adif.pgsql"""
+    """Use subprocess to call adif-pas.pgsql"""
     try:
         set_pg_access('ards')
         os.chdir('../pgsql')
         subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif-pas.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
+
+def init_adif_sas():
+    """Use subprocess to call adif-sas.pgsql"""
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif-sas.pgsql", check=True, shell=True)
     except subprocess.CalledProcessError as error:
         print(error)
         os.chdir('../python')
@@ -282,6 +295,7 @@ def full_update():
     init_ards() # Always first after database creation
     init_adif()
     init_adif_pas()
+    init_adif_sas()
     init_eqsl()
     init_fcc()
     init_utils()

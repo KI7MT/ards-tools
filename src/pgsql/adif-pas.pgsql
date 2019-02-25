@@ -1525,7 +1525,7 @@ ALTER TABLE adif.pas_192 ADD CONSTRAINT pas_192_dxcc_fkey
 -- PAS-206 Austria -------------------------------------------------------------
 ALTER TABLE adif.pas_206_region ADD CONSTRAINT pas_206_region_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES adif.dxcc (id);
-7
+
 ALTER TABLE adif.pas_206_subdivision ADD CONSTRAINT pas_206_subdivision_pas_206_region_fkey
     FOREIGN KEY (pas_206_region_id) REFERENCES adif.pas_206_region (id);
 

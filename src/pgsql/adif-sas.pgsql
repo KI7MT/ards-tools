@@ -73,6 +73,7 @@ CREATE TABLE adif.jarl_jcc
 (
 id SERIAL PRIMARY KEY,
 prefecture VARCHAR(30) NOT NULL,
+prefix CHAR(2) NOT NULL,
 CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
 );
 
@@ -86,14 +87,12 @@ is_deleted BOOLEAN NOT NULL DEFAULT '0',
 deleted_date date,
 CONSTRAINT jarl_jcc_city_uq UNIQUE(number,city)
 );
-ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
-    FOREIGN KEY (jcc_id) REFERENCES adif.jarl_jcc (id);
 
 -- RDXC Oblasts ----------------------------------------------------------------
 CREATE TABLE adif.rdxc
 (
     id SERIAL PRIMARY KEY,
-    prefix CHAR(4)
+    prefix CHAR(4) NOT NULL,
     rdxc_code CHAR(2) NOT NULL,
     oblast VARCHAR(120) NOT NULL,
     id_deleted BOOLEAN NOT NULL DEFAULT '0',
@@ -110,8 +109,39 @@ CREATE TABLE adif.rdxc_district
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
     id_new_rda BOOLEAN NOT NULL DEFAULT '0',
     has_replacement BOOLEAN NOT NULL DEFAULT '0',
-    migration_district CHAR(5)
-    CONSTRAINT rdxc_uq UNIQUE(code,district)
+    migration_district CHAR(5),
+    CONSTRAINT rdxc_district_uq UNIQUE(code,district)
 );
+
+-- *****************************************************************************
+--  ADD CSV DATA
+-- *****************************************************************************
+
+-- NOTE(s): 
+-- Note: All CSV File use "|" as the delimiter.
+
+\echo
+\echo 'Importing SAS CSV Files'
+\echo '---------------------------'
+\COPY adif.jarl_jcc FROM 'adif-sas/jarl_jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.jarl_jcc_city FROM 'adif-sas/jarl_jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.rdxc FROM 'adif-sas/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.rdxc_district FROM 'adif-sas/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- *****************************************************************************
+--  ADD FOREIGN KEYS
+-- *****************************************************************************
+
+\echo
+\echo 'Adding Foreign Keys'
+\echo '---------------------------'
+
+-- JARL JCC --------------------------------------------------------------------
+ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
+    FOREIGN KEY (jcc_id) REFERENCES adif.jarl_jcc (id);
+
+
+-- RDA RDXC --------------------------------------------------------------------
 ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
     FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (id);
+
