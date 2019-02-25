@@ -71,21 +71,21 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
 CREATE TABLE adif.jarl_jcc
 (
-id SERIAL PRIMARY KEY,
-prefecture VARCHAR(30) NOT NULL,
-prefix CHAR(2) NOT NULL,
-CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
+    id SERIAL PRIMARY KEY,
+    prefecture VARCHAR(30) NOT NULL,
+    prefix CHAR(2) NOT NULL,
+    CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
 );
 
 CREATE TABLE adif.jarl_jcc_city
 (
-id SERIAL PRIMARY KEY,
-jcc_id INT NOT NULL,
-number CHAR(6),
-city VARCHAR(30),
-is_deleted BOOLEAN NOT NULL DEFAULT '0',
-deleted_date date,
-CONSTRAINT jarl_jcc_city_uq UNIQUE(number,city)
+    id SERIAL PRIMARY KEY,
+    jcc_id INT NOT NULL,
+    number CHAR(6),
+    city VARCHAR(30),
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    deleted_date date,
+    CONSTRAINT jarl_jcc_city_uq UNIQUE(number,city)
 );
 
 -- RDXC Oblasts ----------------------------------------------------------------
@@ -94,8 +94,8 @@ CREATE TABLE adif.rdxc
     id SERIAL PRIMARY KEY,
     prefix CHAR(4) NOT NULL,
     rdxc_code CHAR(2) NOT NULL,
-    oblast VARCHAR(120) NOT NULL,
-    id_deleted BOOLEAN NOT NULL DEFAULT '0',
+    oblast VARCHAR(60) NOT NULL,
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
 );
 
@@ -107,7 +107,7 @@ CREATE TABLE adif.rdxc_district
     district VARCHAR(120),
     valid_since DATE,
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    id_new_rda BOOLEAN NOT NULL DEFAULT '0',
+    is_new_rda BOOLEAN NOT NULL DEFAULT '0',
     has_replacement BOOLEAN NOT NULL DEFAULT '0',
     migration_district CHAR(5),
     CONSTRAINT rdxc_district_uq UNIQUE(code,district)
@@ -145,3 +145,36 @@ ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
 ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
     FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (id);
 
+/*
+SELECT 
+	adif.jarl_jcc.prefecture AS "Precefture",
+	count(*) AS "City Count"
+	FROM adif.jarl_jcc JOIN adif.jarl_jcc_city ON
+        (
+            adif.jarl_jcc_city.jcc_id = adif.jarl_jcc.id
+        )
+GROUP BY adif.jarl_jcc.prefecture
+ORDER BY adif.jarl_jcc.prefecture;
+
+SELECT 
+	adif.rdxc.rdxc_code AS "RDXC Code",
+    adif.rdxc.prefix AS "Prefix", 
+	adif.rdxc.oblast AS "Oblast", 
+	count(*) AS "District Count"
+	FROM adif.rdxc JOIN adif.rdxc_district ON (adif.rdxc_district.rdxc_id = adif.rdxc.id)
+	WHERE adif.rdxc_district.is_deleted = '0'
+GROUP BY adif.rdxc.oblast, adif.rdxc.rdxc_code, adif.rdxc.prefix 
+ORDER BY adif.rdxc.rdxc_code;
+
+
+SELECT 
+	adif.rdxc.rdxc_code AS "RDXC Code",
+    adif.rdxc.prefix AS "Prefix", 
+	adif.rdxc.oblast AS "Oblast", 
+	count(*) AS "District Count"
+	FROM adif.rdxc JOIN adif.rdxc_district ON (adif.rdxc_district.rdxc_id = adif.rdxc.id)
+	WHERE adif.rdxc.is_deleted = 'false' 
+GROUP BY adif.rdxc.oblast, adif.rdxc.rdxc_code, adif.rdxc.prefix 
+ORDER BY adif.rdxc.rdxc_code;
+
+*/
