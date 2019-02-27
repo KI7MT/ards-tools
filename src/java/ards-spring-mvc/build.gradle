@@ -1,0 +1,28 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.3.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.ards'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile("org.webjars:jquery:3.3.1-2")
+	compile("org.webjars:bootstrap:3.4.0")
+	compile("org.postgresql:postgresql:42.2.5")
+	compile("io.springfox:springfox-swagger2:2.9.2")
+	compile("io.springfox:springfox-swagger-ui:2.9.2")
+	
+}
