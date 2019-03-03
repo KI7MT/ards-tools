@@ -1,3 +1,4 @@
+.project
 .vscode/*
 src/pgsql/.vscode
 src/docs/site/*
