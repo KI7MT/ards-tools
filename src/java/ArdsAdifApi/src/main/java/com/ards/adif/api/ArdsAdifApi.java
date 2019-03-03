@@ -7,10 +7,10 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ArdsAdifApiApplication {
+public class ArdsAdifApi {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArdsAdifApiApplication.class, args);
+		SpringApplication.run(ArdsAdifApi.class, args);
 	}
 	
 	@Bean
