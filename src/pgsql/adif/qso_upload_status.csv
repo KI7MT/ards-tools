@@ -1,4 +1,4 @@
-id|status|description
+id|abbreviation|description
 1|Y|The QSO has been uploaded to and accepted by the online service
 2|N|Do not upload the QSO to the online service
 3|M|The QSO has been modified since being uploaded to the online service

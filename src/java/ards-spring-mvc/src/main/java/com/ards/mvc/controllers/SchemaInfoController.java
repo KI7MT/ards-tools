@@ -34,7 +34,7 @@ public class SchemaInfoController {
 	// -----------------------------------------------------------------------
 	@GetMapping(value = "/api/schemainfo", produces = "application/json")
 	@ResponseBody
-    public  List<SchemaInfo> getApiSchemaInfo(Model model)
+    public List<SchemaInfo> getApiSchemaInfo(Model model)
     {
         List<SchemaInfo> schemaInfoList = repository.findAll();
         return schemaInfoList;

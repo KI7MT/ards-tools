@@ -1,77 +1,13 @@
-/* 
-
-    Project .............: Amateur Radio Data Serivce Tools
-    Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
-    Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
-    License .............: GPL-3
-
-    File ................: adif.pgsql
-    Description .........: ADIF Enumeration Tables
-    Database Type .......: PostgreSQL v10 or later
-    Version .............: 0.0.1
-    ADIF Specification ..: 3.0.9
-    ADIF Refrence .......: http://www.adif.org/309/ADIF_309.htm#Enumerations
-    Bug Reports .........: https://github.com/KI7MT/ards-tools/issues'
-
-    Comments
-    
-        This schema implements section III.B of the Amateur Data Interchange
-        Format (ADIF) in a 3NF normalized fashion (or close to it). The intent
-        is to keep the data-set static and in sync with specification revisions.
-        Users should refrain from modifying the data directly unless you are
-        willing to accept deviations from the spec.
-
-    Tool Requirments:
-
-        * PostgreSQL v10 or above
-        * git for cloning the repository
-        * adif uses the default database (postgres) and password (postgres)
-          If you want to use a different Role / DB, adjust the commands as needed.
-
-    Installation via pgsql scripts
-    
-        * Clone the repository
-
-            git clone https://github.com/KI7MT/ards-tools.git
-        
-        * Change directories and run the sql script
-
-            cd ards-tools\src\pgsql
-
-            psql -v ON_ERROR_STOP=1 -U ards -f adif.pgsql
-
-    Development Activity and Coding
-
-        Suffix Annotations
-        _uq     = Unique Constraint
-        _pkey   = Primary Key
-        _fkey   = Foreign Key
-
-        TODO: Add Japan JCC, JGC, KU Tables and List CSV Data
-        TODO: Need JCC, JGC, and KU CSV Datafiles
-
-*/
-
--- Script Variables
-\set name adif
-\set ver 0.0.1
-\set adifv 3.0.9
-\echo Generating Schema for ( :name )
-\echo '-----------------------------------'
-
 -- Drop, and re-create schema
-DROP SCHEMA IF EXISTS :name CASCADE;
+DROP SCHEMA IF EXISTS adif CASCADE;
 
 -- Create New Schema
-CREATE SCHEMA :name;
+CREATE SCHEMA adif;
 
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
+-- INSERT INTO adif.schema_info(schema_name, schema_version, adif_spec, last_update)
+-- VALUES('adif', '0.0.1', '3.0.9', CURRENT_TIMESTAMP)
 
--- Source Data Informaiton -----------------------------------------------------
+-- Source Data Information -----------------------------------------------------
 CREATE TABLE adif.source_list -- FK Done
 (
     id SERIAL PRIMARY KEY,
@@ -391,46 +327,40 @@ CREATE TABLE adif.sponsored_award
 -- NOTE(s): 
 -- Note: All CSV File use "|" as the delimiter.
 
-\echo
-\echo 'Importing CSV Files'
-\echo '---------------------------'
-\COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.award FROM 'adif/award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.band FROM 'adif/band.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.contest FROM 'adif/contest.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.continent FROM 'adif/continent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.county_name FROM 'adif/county_name.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.credit FROM 'adif/credit.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.dxcc FROM 'adif/dxcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.state FROM 'adif/state.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.mode FROM 'adif/mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.submode FROM 'adif/submode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.propogation_mode FROM 'adif/propogation_mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_medium FROM 'adif/qsl_medium.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.region FROM 'adif/region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.itu_zone FROM 'adif/itu_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.antenna_path FROM 'adif/antenna_path.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.arrl_section FROM 'adif/arrl_section.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.award FROM 'adif/award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.band FROM 'adif/band.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.contest FROM 'adif/contest.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.continent FROM 'adif/continent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.county_name FROM 'adif/county_name.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.credit FROM 'adif/credit.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.credit_award FROM 'adif/credit_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.credit_facet FROM 'adif/credit_facet.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.credit_sponsor FROM 'adif/credit_sponsor.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.dxcc FROM 'adif/dxcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.state FROM 'adif/state.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.state_county FROM 'adif/state_county.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.mode FROM 'adif/mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.submode FROM 'adif/submode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.propogation_mode FROM 'adif/propogation_mode.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qsl_medium FROM 'adif/qsl_medium.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.region FROM 'adif/region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.weblink FROM 'adif/weblink.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.sponsored_award FROM 'adif/sponsored_award.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.cq_zone FROM 'adif/cq_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+--COPY adif.itu_zone FROM 'adif/itu_zone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
 
-\echo
-\echo 'Adding Foreign Keys'
-\echo '---------------------------'
 
 -- Source List -----------------------------------------------------------------
 ALTER TABLE adif.source_list ADD CONSTRAINT source_list_weblink_fkey
@@ -512,17 +442,9 @@ ALTER TABLE adif.sponsored_award ADD CONSTRAINT sponsored_award_weblink_fkey
 --  ADD INDEXES based on z-tools\index-reccomend2.sql
 -- *****************************************************************************
 
-\echo
-\echo 'Creating Foreign Key Indexes'
-\echo '-----------------------------'
-
 -- *****************************************************************************
 --  VIEWS
 -- *****************************************************************************
-
-\echo
-\echo 'Creating Views'
-\echo '-----------------------------'
 
 -- View: adif.vw_antenna_path
 CREATE OR REPLACE VIEW adif.view_antenna_path AS
@@ -662,7 +584,6 @@ CREATE OR REPLACE VIEW adif.view_state_county AS
 -- *****************************************************************************
 --  FOOTER
 -- *****************************************************************************
-\echo
-SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+-- SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
--- END adif.sql
+-- END schema.sql
