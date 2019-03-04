@@ -15,10 +15,4 @@ public class ArdsGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ArdsGatewayApplication.class, args);
 	}
-
-	@Bean
-	public SimpleFilter simpleFilter() {
-		return new SimpleFilter();
-	}
-
 }
