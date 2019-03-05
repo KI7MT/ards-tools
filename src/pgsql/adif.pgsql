@@ -661,7 +661,7 @@ ORDER by state.name;
 --
 -- =============================================================================
 
--- Primary Administration Subdivision
+-- Primary Administration Subdivision Summary ----------------------------------
 CREATE TABLE adif.pas_summary
 (
     pas_summary_id SERIAL PRIMARY KEY,
@@ -693,14 +693,14 @@ CREATE TABLE adif.sas_subdivision_type
 \COPY adif.sas_subdivision_type FROM 'adif-pas/sas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas_summary FROM 'adif-pas/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- PAS Summary FK's ------------------------------------------------------------
+-- PAS Summary FK's
 ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_subdivision_type_fkey
     FOREIGN KEY (pas_subdivision_type_id) REFERENCES adif.pas_subdivision_type (pas_subdivision_type_id);
 
 ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_subdivision_type_fkey
     FOREIGN KEY (sas_subdivision_type_id) REFERENCES adif.sas_subdivision_type (sas_subdivision_type_id);
 
--- view_pas_summary -------------------------------------------------------
+-- view_pas_summary
 CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
@@ -710,22 +710,22 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
         pas_summary.has_sas AS "Has Secondary",
         sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
     FROM adif.pas_summary
-        JOIN adif.dxcc ON
+        LEFT JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas_summary.dxcc_code
-        JOIN adif.pas_subdivision_type ON
+        LEFT JOIN adif.pas_subdivision_type ON
             adif.pas_summary.pas_subdivision_type_id = adif.pas_subdivision_type.pas_subdivision_type_id
-        JOIN adif.sas_subdivision_type ON
+        LEFT JOIN adif.sas_subdivision_type ON
             adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.sas_subdivision_type_id
     ORDER BY adif.pas_summary.pas_summary_id;
 
--- view_pas_subdivision_type ---------------------------------------------------
+-- view_pas_subdivision_type
 CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
     SELECT
         pas_subdivision_type AS "Pri. Subdivision"
     FROM adif.pas_subdivision_type
     ORDER BY pas_subdivision_type;
 
--- view_sas_subdivision_type --------------------------------------------------
+-- view_sas_subdivision_type 
 CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
     SELECT
         sas_subdivision_type AS "Sec. Subdivision"
