@@ -1,4 +1,4 @@
-id|dxcc_id|code|subdivision
+pas1_id|dxcc_code|code|subdivision
 1|1|NS|Nova Scotia 
 2|1|QC|Quebec
 3|1|ON|Ontario 
@@ -11,4 +11,4 @@ id|dxcc_id|code|subdivision
 10|1|NL|Newfoundland and Labrador 
 11|1|YT|Yukon 
 12|1|PE|Prince Edward Island 
-13|1|NU|Nunavut 
+13|1|NU|Nunavut

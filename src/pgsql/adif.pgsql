@@ -710,56 +710,92 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
         pas_summary.has_sas AS "Has Secondary",
         sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
     FROM adif.pas_summary
-        LEFT JOIN adif.dxcc ON
+        JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas_summary.dxcc_code
-        LEFT JOIN adif.pas_subdivision_type ON
+        JOIN adif.pas_subdivision_type ON
             adif.pas_summary.pas_subdivision_type_id = adif.pas_subdivision_type.pas_subdivision_type_id
-        LEFT JOIN adif.sas_subdivision_type ON
+        JOIN adif.sas_subdivision_type ON
             adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.sas_subdivision_type_id
     ORDER BY adif.pas_summary.pas_summary_id;
 
--- view_pas_subdivision_type ----------------------------------------------
+-- view_pas_subdivision_type ---------------------------------------------------
 CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
     SELECT
         pas_subdivision_type AS "Pri. Subdivision"
     FROM adif.pas_subdivision_type
     ORDER BY pas_subdivision_type;
 
--- view_sas_subdivision_type ----------------------------------------------
+-- view_sas_subdivision_type --------------------------------------------------
 CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
     SELECT
         sas_subdivision_type AS "Sec. Subdivision"
     FROM adif.sas_subdivision_type
     ORDER BY sas_subdivision_type;
 
-/*
--- PAS 001 Canada --------------------------------------------------------------
+-- PAS-1 Canada ----------------------------------------------------------------
 
--- TODO: Need view_pas_001
-CREATE TABLE adif.pas_001
+CREATE TABLE adif.pas1
 (
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
+    pas1_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
     code CHAR(2) NOT NULL, -- two letter code
     subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_001_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas1_uq UNIQUE (code,subdivision)
 );
 
--- PAS-001 Canada CQ Zone ------------------------------------------------------
-CREATE TABLE adif.pas_001_cqzone
+-- PAS-1 Canada CQ Zone
+CREATE TABLE adif.pas1_cqzone
 (
-    id SERIAL PRIMARY KEY,
-    pas_001_id INT NOT NULL,
-    cq_zone_id INT NOT NULL
+    pas1_cqzone_id SERIAL PRIMARY KEY,
+    pas1_id INT NOT NULL,
+    cqzone_id INT NOT NULL
 );
 
--- PAS-001 Canada ITU Zone -----------------------------------------------------
-CREATE TABLE adif.pas_001_ituzone
+-- PAS-1 Canada ITU Zone 
+CREATE TABLE adif.pas1_ituzone
 (
-    id SERIAL PRIMARY KEY,
-    pas_001_id INT NOT NULL,
-    itu_zone_id INT NOT NULL
+    pas1_ituzone_id SERIAL PRIMARY KEY,
+    pas1_id INT NOT NULL,
+    ituzone_id INT NOT NULL
 );
+
+-- PAS-1
+\COPY adif.pas1 FROM 'adif-pas/pas1.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas1_cqzone FROM 'adif-pas/pas1_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas1_ituzone FROM 'adif-pas/pas1_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-1 Canada FK's 
+ALTER TABLE adif.pas1_cqzone ADD CONSTRAINT pas1_cqzone_pas1_fkey
+    FOREIGN KEY (pas1_id) REFERENCES adif.pas1 (pas1_id);
+
+ALTER TABLE adif.pas1_cqzone ADD CONSTRAINT pas1_cqzone_cqzone_fkey
+    FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
+
+ALTER TABLE adif.pas1_ituzone ADD CONSTRAINT pas1_ituzone_pas1_fkey
+    FOREIGN KEY (pas1_id) REFERENCES adif.pas1 (pas1_id);
+
+ALTER TABLE adif.pas1_ituzone ADD CONSTRAINT pas1_ituzone_ituzone_fkey
+    FOREIGN KEY (ituzone_id) REFERENCES adif.ituzone (ituzone_id);
+
+CREATE OR REPLACE VIEW adif.view_pas1 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas1.code AS "Code",
+        pas1.subdivision AS "Subdivision",
+		STRING_AGG(DISTINCT pas1_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+		STRING_AGG(DISTINCT pas1_ituzone.ituzone_id::text,', ') AS "ITU Zone"
+    FROM adif.pas1
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas1.dxcc_code
+		JOIN adif.pas1_cqzone ON
+		    adif.pas1_cqzone.pas1_id = pas1.pas1_id
+		JOIN adif.pas1_ituzone ON
+		    adif.pas1_ituzone.pas1_id = pas1.pas1_id
+	GROUP BY dxcc.dxcc_id, pas1.code, pas1.subdivision
+	ORDER BY adif.pas1.code;
+
+/*
 
 -- 5 Aland Is. -----------------------------------------------------------------
 
@@ -1732,9 +1768,9 @@ CREATE TABLE adif.pas_504_subdivision
 \COPY pas_summary FROM 'adif-pas/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-001
-\COPY pas_001 FROM 'adif-pas/pas_001.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas_001_cqzone FROM 'adif-pas/pas_001_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas_001_ituzone FROM 'adif-pas/pas_001_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY pas1 FROM 'adif-pas/pas1.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY pas1_cqzone FROM 'adif-pas/pas1_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY pas1_ituzone FROM 'adif-pas/pas1_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-005
 \COPY pas_005 FROM 'adif-pas/pas_005.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
@@ -1958,32 +1994,6 @@ CREATE TABLE adif.pas_504_subdivision
 \echo
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
-
--- PAS Summary FK's ------------------------------------------------------------
-ALTER TABLE pas_summary ADD CONSTRAINT pas_summary_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas_summary ADD CONSTRAINT pas_summary_pas_subdivision_type_fkey
-    FOREIGN KEY (pas_subdivision_type_id) REFERENCES pas_subdivision_type (id);
-
-ALTER TABLE pas_summary ADD CONSTRAINT pas_summary_sas_subdivision_type_fkey
-    FOREIGN KEY (sas_subdivision_type_id) REFERENCES sas_subdivision_type (id);
-
--- PAS-001 Canada FK's ---------------------------------------------------------
-ALTER TABLE pas_001 ADD CONSTRAINT pas_001_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas_001_cqzone ADD CONSTRAINT pas_001_cqzone_pas_001_fkey
-    FOREIGN KEY (pas_001_id) REFERENCES pas_001 (id);
-
-ALTER TABLE pas_001_cqzone ADD CONSTRAINT pas_001_cqzone_cq_zone_fkey
-    FOREIGN KEY (cq_zone_id) REFERENCES cqzone (cqzone_id);
-
-ALTER TABLE pas_001_ituzone ADD CONSTRAINT pas_001_ituzone_pas_001_fkey
-    FOREIGN KEY (pas_001_id) REFERENCES pas_001 (id);
-
-ALTER TABLE pas_001_ituzone ADD CONSTRAINT pas_001_ituzone_itu_zone_fkey
-    FOREIGN KEY (itu_zone_id) REFERENCES ituzone (ituzone_id);
 
 -- PAS-005 Aland Is. FK's ------------------------------------------------------
 ALTER TABLE pas_005 ADD CONSTRAINT pas_005_dxcc_fkey
