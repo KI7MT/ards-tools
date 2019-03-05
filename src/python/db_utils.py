@@ -175,6 +175,19 @@ def init_eqsl():
     finally:
         os.chdir('../python')
 
+def init_lotw():
+    """Use subprocess to call lotw.pgsql"""
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f lotw.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
+
 def init_database():
     """Use subprocess to call initdb.pgsql"""
     try:
@@ -194,6 +207,7 @@ def full_update():
     init_ards() # this should always go first before any other schemas
     init_adif()
     init_eqsl()
+    init_lotw()
     print("")
 
 if __name__ =='__main__':
