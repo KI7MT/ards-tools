@@ -1202,7 +1202,7 @@ CREATE TABLE adif.pas61
     pas_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char AR, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas61_uq UNIQUE (code,subdivision)
 );
@@ -1222,6 +1222,33 @@ CREATE OR REPLACE VIEW adif.view_pas61 AS
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas61.dxcc_code
 	ORDER BY adif.pas61.code;
+
+-- 70 Cuba ---------------------------------------------------------------------
+
+-- PAS-70 Table
+CREATE TABLE adif.pas70
+(
+    pas70_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 09, 08, 06, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas70_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-70 Data
+\COPY adif.pas70 FROM 'adif-pas/pas70.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-70 View
+CREATE OR REPLACE VIEW adif.view_pas70 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas70.code AS "Code",
+        pas70.subdivision AS "Subdivision"
+    FROM adif.pas70
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas70.dxcc_code
+	ORDER BY adif.pas70.code;
 
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view

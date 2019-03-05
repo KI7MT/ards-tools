@@ -1,17 +1,4 @@
 /*
-
--- 70 Cuba ---------------------------------------------------------------------
-
--- TODO: view_pas_070
-CREATE TABLE adif.pas_070
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char 09, 08, 06, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_070_uq UNIQUE (code,subdivision)
-);
-
 -- 74 El Salvador --------------------------------------------------------------
 
 -- TODO: view_pas_074
@@ -798,9 +785,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-070
-\COPY pas_070 FROM 'adif-pas/pas_070.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-074
 \COPY pas_074 FROM 'adif-pas/pas_074.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -980,10 +964,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-070 Cuba ----------------------------------------------------------------
-ALTER TABLE pas_070 ADD CONSTRAINT pas_070_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-074 El Salvador ---------------------------------------------------------
 ALTER TABLE pas_074 ADD CONSTRAINT pas_074_dxcc_fkey
