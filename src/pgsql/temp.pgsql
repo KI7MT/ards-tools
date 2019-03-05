@@ -1,28 +1,4 @@
 /*
--- 50 Mexico -------------------------------------------------------------------
-
--- TODO: view_pas_050
-CREATE TABLE adif.pas_050
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char COL, DF, EMX, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_050_uq UNIQUE (code,subdivision)
-);
-
--- 52 Estonia ------------------------------------------------------------------
-
--- TODO: view_pas_052
-CREATE TABLE adif.pas_052
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- assuming two char 37, 39, 44, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_052_uq UNIQUE (code,subdivision)
-);
-
 -- 54 European Russia ----------------------------------------------------------
 
 -- NOTE: There are no multiple itu or cq zones for EU Russia
@@ -850,12 +826,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-050
-\COPY pas_050 FROM 'adif-pas/pas_050.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-052
-\COPY pas_052 FROM 'adif-pas/pas_052.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-054
 \COPY pas_054 FROM 'adif-pas/pas_054.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1041,18 +1011,9 @@ CREATE TABLE adif.pas_504_subdivision
 \COPY pas_504_region FROM 'adif-pas/pas_504_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY pas_504_subdivision FROM 'adif-pas/pas_504_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
-
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-050 Mexico --------------------------------------------------------------
-ALTER TABLE pas_050 ADD CONSTRAINT pas_050_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-052 Estonia -------------------------------------------------------------
-ALTER TABLE pas_052 ADD CONSTRAINT pas_052_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-054 European Russia -----------------------------------------------------
 ALTER TABLE pas_054 ADD CONSTRAINT pas_054_dxcc_fkey

@@ -1094,6 +1094,59 @@ CREATE OR REPLACE VIEW adif.view_pas32 AS
             adif.dxcc.dxcc_id = pas32.dxcc_code
 	ORDER BY adif.pas32.code;
 
+-- 50 Mexico -------------------------------------------------------------------
+
+-- PAS-50 Table
+CREATE TABLE adif.pas50
+(
+    pas50_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char COL, DF, EMX, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas50_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-050 Data
+\COPY adif.pas50 FROM 'adif-pas/pas50.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-50 View
+CREATE OR REPLACE VIEW adif.view_pas50 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas50.code AS "Code",
+        pas50.subdivision AS "Subdivision"
+    FROM adif.pas50
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas50.dxcc_code
+	ORDER BY adif.pas50.code;
+
+-- 52 Estonia ------------------------------------------------------------------
+
+-- PAS-52 Table
+CREATE TABLE adif.pas52
+(
+    pas52_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char 37, 39, 44, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas52_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-52 View
+CREATE OR REPLACE VIEW adif.view_pas52 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas52.code AS "Code",
+        pas52.subdivision AS "Subdivision"
+    FROM adif.pas52
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas52.dxcc_code
+	ORDER BY adif.pas52.code;
+
+-- PAS-52 Data
+\COPY adif.pas52 FROM 'adif-pas/pas52.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
