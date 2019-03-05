@@ -1148,6 +1148,53 @@ CREATE OR REPLACE VIEW adif.view_pas52 AS
 -- PAS-52 Data
 \COPY adif.pas52 FROM 'adif-pas/pas52.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
+-- 54 European Russia ----------------------------------------------------------
+
+-- PAS-54 Table
+CREATE TABLE adif.pas54
+(
+    pas54_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char SP, LO, KL, ...
+    subdivision VARCHAR(120) NOT NULL,
+    oblast CHAR(3) NOT NULL, -- three char, all oblast numbers are 3 digits
+    cqzone_id INT NOT NULL,
+    ituzone_id INT NOT NULL,
+    CONSTRAINT pas54_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-054 Data
+\COPY adif.pas54 FROM 'adif-pas/pas54.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-054 FK
+ALTER TABLE adif.pas54 ADD CONSTRAINT pas54_cqzone_fkey
+    FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
+
+ALTER TABLE adif.pas54 ADD CONSTRAINT pas54_ituzone_fkey
+    FOREIGN KEY (ituzone_id) REFERENCES adif.ituzone (ituzone_id);
+
+-- PAS-54 View
+-- NOTE: There are no multiple itu or cq zones for EU Russia. Therefore, no
+--       need for it's own cqzone or ituzone tables nor aggregate's
+CREATE OR REPLACE VIEW adif.view_pas54 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas54.code AS "Code",
+        pas54.subdivision AS "Subdivision",
+        pas54.oblast AS "Oblast",
+		pas54.cqzone_id AS "CQ Zone",
+		pas54.ituzone_id AS "ITU Zone"
+    FROM adif.pas54
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas54.dxcc_code
+		JOIN adif.cqzone ON
+		    adif.cqzone.cqzone_id = pas54.cqzone_id
+        JOIN adif.ituzone ON
+		    adif.ituzone.ituzone_id = pas54.ituzone_id
+	ORDER BY adif.pas54.code;
+
+
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************

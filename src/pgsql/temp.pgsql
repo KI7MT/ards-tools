@@ -1,20 +1,4 @@
 /*
--- 54 European Russia ----------------------------------------------------------
-
--- NOTE: There are no multiple itu or cq zones for EU Russia
--- TODO: view_pas_055
-CREATE TABLE adif.pas_054
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char SP, LO, KL, ...
-    subdivision VARCHAR(60) NOT NULL,
-    oblast CHAR(3) NOT NULL, -- three char, all oblast numbers are 3 digits
-    cq_zone_id INT NOT NULL,
-    itu_xone_id INT NOT NULL,
-    CONSTRAINT pas_054_uq UNIQUE (code,subdivision)
-);
-
 -- 61 Franz Josef Land ---------------------------------------------------------
 
 -- TODO: view_pas_061
@@ -826,9 +810,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-054
-\COPY pas_054 FROM 'adif-pas/pas_054.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-061
 \COPY pas_061 FROM 'adif-pas/pas_061.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1014,16 +995,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-054 European Russia -----------------------------------------------------
-ALTER TABLE pas_054 ADD CONSTRAINT pas_054_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas_054 ADD CONSTRAINT pas_054_cq_zone_fkey
-    FOREIGN KEY (cq_zone_id) REFERENCES cqzone (cqzone_id);
-
-ALTER TABLE pas_054 ADD CONSTRAINT pas_054_itu_zone_fkey
-    FOREIGN KEY (itu_zone_id) REFERENCES ituzone (ituzone_id);
 
 -- PAS-061 Franz Josef Land ----------------------------------------------------
 ALTER TABLE pas_061 ADD CONSTRAINT pas_061_dxcc_fkey
