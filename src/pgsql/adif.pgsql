@@ -1250,6 +1250,34 @@ CREATE OR REPLACE VIEW adif.view_pas70 AS
             adif.dxcc.dxcc_id = pas70.dxcc_code
 	ORDER BY adif.pas70.code;
 
+
+-- 74 El Salvador --------------------------------------------------------------
+
+-- PAS-74 Table
+CREATE TABLE adif.pas74
+(
+    pas70_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AH, CH, CA, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas74_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-74 Data
+\COPY adif.pas74 FROM 'adif-pas/pas74.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-74 View
+CREATE OR REPLACE VIEW adif.view_pas74 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas74.code AS "Code",
+        pas74.subdivision AS "Subdivision"
+    FROM adif.pas74
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas74.dxcc_code
+	ORDER BY adif.pas74.code;
+
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************
