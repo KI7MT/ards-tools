@@ -734,6 +734,7 @@ CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
 
 -- PAS-1 Canada ----------------------------------------------------------------
 
+-- PAS-1 Table
 CREATE TABLE adif.pas1
 (
     pas1_id SERIAL PRIMARY KEY,
@@ -743,7 +744,7 @@ CREATE TABLE adif.pas1
     CONSTRAINT pas1_uq UNIQUE (code,subdivision)
 );
 
--- PAS-1 Canada CQ Zone
+-- PAS-1 CQ Zone
 CREATE TABLE adif.pas1_cqzone
 (
     pas1_cqzone_id SERIAL PRIMARY KEY,
@@ -751,7 +752,7 @@ CREATE TABLE adif.pas1_cqzone
     cqzone_id INT NOT NULL
 );
 
--- PAS-1 Canada ITU Zone 
+-- PAS-1 ITU Zone 
 CREATE TABLE adif.pas1_ituzone
 (
     pas1_ituzone_id SERIAL PRIMARY KEY,
@@ -759,12 +760,12 @@ CREATE TABLE adif.pas1_ituzone
     ituzone_id INT NOT NULL
 );
 
--- PAS-1
+-- PAS-1 Data
 \COPY adif.pas1 FROM 'adif-pas/pas1.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas1_cqzone FROM 'adif-pas/pas1_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas1_ituzone FROM 'adif-pas/pas1_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- PAS-1 Canada FK's 
+-- PAS-1 FK's 
 ALTER TABLE adif.pas1_cqzone ADD CONSTRAINT pas1_cqzone_pas1_fkey
     FOREIGN KEY (pas1_id) REFERENCES adif.pas1 (pas1_id);
 
@@ -777,6 +778,7 @@ ALTER TABLE adif.pas1_ituzone ADD CONSTRAINT pas1_ituzone_pas1_fkey
 ALTER TABLE adif.pas1_ituzone ADD CONSTRAINT pas1_ituzone_ituzone_fkey
     FOREIGN KEY (ituzone_id) REFERENCES adif.ituzone (ituzone_id);
 
+-- PAS-1 View
 CREATE OR REPLACE VIEW adif.view_pas1 AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
@@ -795,20 +797,62 @@ CREATE OR REPLACE VIEW adif.view_pas1 AS
 	GROUP BY dxcc.dxcc_id, pas1.code, pas1.subdivision
 	ORDER BY adif.pas1.code;
 
-/*
-
 -- 5 Aland Is. -----------------------------------------------------------------
 
--- TODO: view_pas_005
-CREATE TABLE adif.pas_005
+-- PAS-5 Table
+CREATE TABLE adif.pas5
 (
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
+    pas5_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char 001, 002, 003
     subdivision VARCHAR(60) NOT NULL,
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas_005_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas5_uq UNIQUE (code,subdivision)
 );
+
+-- PAS-5 Data
+\COPY adif.pas5 FROM 'adif-pas/pas5.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-5 View
+CREATE OR REPLACE VIEW adif.view_pas5 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas5.code AS "Code",
+        pas5.subdivision AS "Subdivision",
+        pas5.is_deleted AS "Is Deleted"
+    FROM adif.pas5
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas5.dxcc_code
+	ORDER BY adif.pas5.code;
+
+/*
+For future consolidation
+CREATE OR REPLACE FUNCTION adif.get_pas (dx_var CHAR) 
+RETURNS TABLE (
+    country VARCHAR,
+    dxcc_code INT,
+    code CHAR,
+    subdivision VARCHAR,
+    is_deleted BOOLEAN
+) 
+AS $$
+BEGIN
+    RETURN QUERY SELECT
+    dxcc_code AS "Code",
+    dxcc.name AS "Country",
+    code,
+    subdivision,
+    id_deleted
+    FROM dx_var
+        JOIN dxcc ON
+            dxcc.dxcc_id = dx_var.dxcc_code
+    WHERE dxcc_code = dx_var.dxcc_code;
+END; $$ 
+LANGUAGE 'plpgsql';
+*/
+
+/*
 
 -- 6 Alaska --------------------------------------------------------------------
 
@@ -1772,9 +1816,6 @@ CREATE TABLE adif.pas_504_subdivision
 \COPY pas1_cqzone FROM 'adif-pas/pas1_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY pas1_ituzone FROM 'adif-pas/pas1_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- PAS-005
-\COPY pas_005 FROM 'adif-pas/pas_005.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-006
 \COPY pas_006 FROM 'adif-pas/pas_006.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1994,10 +2035,6 @@ CREATE TABLE adif.pas_504_subdivision
 \echo
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
-
--- PAS-005 Aland Is. FK's ------------------------------------------------------
-ALTER TABLE pas_005 ADD CONSTRAINT pas_005_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- 6 Alaska --------------------------------------------------------------------
 ALTER TABLE pas_006 ADD CONSTRAINT pas_006_dxcc_fkey
