@@ -741,7 +741,7 @@ CREATE TABLE adif.pas1
     pas1_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
     code CHAR(2) NOT NULL, -- two letter code
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas1_uq UNIQUE (code,subdivision)
 );
 
@@ -806,7 +806,7 @@ CREATE TABLE adif.pas5
     pas5_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char 001, 002, 003
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas5_uq UNIQUE (code,subdivision)
 );
@@ -835,7 +835,7 @@ CREATE TABLE adif.pas6
     pas6_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AK
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas6_uq UNIQUE (code,subdivision)
 );
 
@@ -861,10 +861,10 @@ CREATE TABLE adif.pas15
     pas15_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AA, BB, CC
-    subdivision VARCHAR(80) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     oblast VARCHAR(3) NOT NULL,
     before_date DATE,
-    referred_to_as VARCHAR(80),
+    referred_to_as VARCHAR(120),
     CONSTRAINT pas15_uq UNIQUE (code,subdivision)
 );
 
@@ -985,6 +985,60 @@ CREATE OR REPLACE VIEW adif.view_pas15_stats AS
             SELECT COUNT(*)
                 FROM adif.pas15 WHERE before_date IS NULL
             ) AS "Current Count";
+
+-- 21 Beleric Is. --------------------------------------------------------------
+
+--PAS-21 Table
+CREATE TABLE adif.pas21
+(
+    pas21_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char IB, IC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas21_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-21
+\COPY adif.pas21 FROM 'adif-pas/pas21.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-21 View
+CREATE OR REPLACE VIEW adif.view_pas21 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas21.code AS "Code",
+        pas21.subdivision AS "Subdivision"
+    FROM adif.pas21
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas21.dxcc_code
+	ORDER BY adif.pas21.code;
+
+-- 27 Belarus ------------------------------------------------------------------
+
+-- PAS-27 Table
+CREATE TABLE adif.pas27
+(
+    pas27_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, --two char MI, BR, HR
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas27_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-27 Data
+\COPY adif.pas27 FROM 'adif-pas/pas27.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-27 View
+CREATE OR REPLACE VIEW adif.view_pas27 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas27.code AS "Code",
+        pas27.subdivision AS "Subdivision"
+    FROM adif.pas27
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas27.dxcc_code
+	ORDER BY adif.pas27.code;
 
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view

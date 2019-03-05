@@ -1,28 +1,4 @@
 /*
--- 21 Beleric Is. --------------------------------------------------------------
-
--- TODO: view_pas_021
-CREATE TABLE adif.pas_021
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char IB, IC, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_021_uq UNIQUE (code,subdivision)
-);
-
--- 27 Belarus ------------------------------------------------------------------
-
--- TODO: view_pas_027
-CREATE TABLE adif.pas_027
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, --two char MI, BR, HR
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_027_uq UNIQUE (code,subdivision)
-);
-
 -- 29 Canary Is. ---------------------------------------------------------------
 
 -- TODO: view_pas_029
@@ -898,12 +874,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-021
-\COPY pas_021 FROM 'adif-pas/pas_021.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-027
-\COPY pas_027 FROM 'adif-pas/pas_027.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-029
 \COPY pas_029 FROM 'adif-pas/pas_029.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1109,14 +1079,6 @@ CREATE TABLE adif.pas_504_subdivision
 \echo
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
-
--- PAS-021 Beleric Is. ---------------------------------------------------------
-ALTER TABLE pas_021 ADD CONSTRAINT pas_021_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-027 Belarus -------------------------------------------------------------
-ALTER TABLE pas_027 ADD CONSTRAINT pas_027_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-029 Canary Is. ----------------------------------------------------------
 ALTER TABLE pas_029 ADD CONSTRAINT pas_029_dxcc_fkey

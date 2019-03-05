@@ -208,6 +208,7 @@ def full_update():
     init_adif()
     init_eqsl()
     init_lotw()
+    schema_info()
     print("")
 
 if __name__ =='__main__':
