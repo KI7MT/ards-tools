@@ -28,6 +28,7 @@
 
             Win32 (copy and paste the commands)
                 cd /d ards-tools\src\pgsql
+                mkdir eqsl
                 set url=http://www.eqsl.cc/qslcard/DownloadedFiles/AGMemberListDated.txt
                 curl -o eqsl/AGMemberListDated.txt %url%
                 awk -F '[[:space:]]*,[[:space:]]*' '{$1=$1}1' OFS=, eqsl\AGMemberListDated.txt > eqsl\tmp.txt
@@ -71,10 +72,9 @@ CREATE SCHEMA :name;
 -- Eqsl Active Users
 CREATE TABLE eqsl.eqsl_ag
 (
-    id SERIAL,
     callsign TEXT NOT NULL,
     last_update DATE,
-    CONSTRAINT eqsl_ag_id_pkey PRIMARY KEY (id)
+    CONSTRAINT eqsl_ag_callsign_pkey PRIMARY KEY (callsign)
 );
 
 -- Create Test View: eqsl.view_eqsl_test
@@ -90,13 +90,7 @@ CREATE OR REPLACE VIEW eqsl.view_eqsl_test AS
 
 -- Only import Data during Development testing
 -- Copy the CSV into LOTW Schema
--- \COPY eqsl.eqsl_ag FROM 'eqsl/tmp.txt' DELIMITER ',' CSV HEADER;
--- \echo ''
--- \echo '-----------------------------------'
--- \echo 'Running Query eqsl.'view_eqsl_test''
--- \echo '-----------------------------------'
--- \echo ''
--- select * from eqsl.view_eqsl_test;
+\COPY eqsl.eqsl_ag FROM 'eqsl/tmp.txt' DELIMITER ',' CSV HEADER;
 
 -- *****************************************************************************
 --  FOOTER - Finished

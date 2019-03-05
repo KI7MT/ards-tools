@@ -32,7 +32,9 @@
                 curl -o lotw/lotw-user-activity.csv %url%            
 
             Linux | MacOS | Posix
+                mkdir lotw
                 cd ards-tools/src/pgsql
+                mkdir lotw
                 url="https://lotw.arrl.org/lotw-user-activity.csv"
                 curl -o lotw/lotw-user-activity.csv "$url"
 
@@ -53,11 +55,8 @@
 -- Script Variables
 \set name lotw
 \set ver 0.0.1
-\set adifv 3.0.9
-
-\echo ''
-\echo '-----------------------------------'
-\echo Regenerating Schema for ( :name )
+\set adifv 0.0.0
+\echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
 -- Drop, and re-create schema
@@ -65,12 +64,6 @@ DROP SCHEMA IF EXISTS lotw CASCADE;
 
 -- Create New Schema
 CREATE SCHEMA lotw;
-
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
 
 -- LoTW Active Users
 CREATE TABLE lotw.lotw_activity
@@ -96,20 +89,16 @@ CREATE OR REPLACE VIEW lotw.lotw_test_view AS
             last_time DESC
         LIMIT 10;
 
-\echo ''
-\echo '-----------------------------------'
-\echo 'Running Query lotw.lotw_test_view'
-\echo '-----------------------------------'
-\echo ''
-select * from lotw.lotw_test_view;
-
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo ''
-\echo Finished Creating ARDS Schema for ( :name )
-\echo ''
-\echo 'Schema Informaiton'
+
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
+
 \echo ''
 SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
