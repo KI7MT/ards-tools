@@ -40,7 +40,7 @@ DROP SCHEMA IF EXISTS ards CASCADE;
 -- Create New Schema
 CREATE SCHEMA ards;
 
---ARDS Schema Information table
+-- Schema Information table
 CREATE TABLE ards.schema_info
 (
     schema_name VARCHAR(10),
@@ -50,6 +50,7 @@ CREATE TABLE ards.schema_info
     CONSTRAINT schema_info_schema_name_pkey PRIMARY KEY (schema_name)
 );
 
+-- View: ards.view_schema_info -------------------------------------------------
 CREATE OR REPLACE VIEW ards.view_schema_info AS
     SELECT
         schema_info.schema_name AS "Schema Name",
@@ -59,7 +60,7 @@ CREATE OR REPLACE VIEW ards.view_schema_info AS
     FROM ards.schema_info
     ORDER BY ards.schema_info.schema_name;
     
--- View: utils.vw_view_list
+-- View: ards.vw_view_list -----------------------------------------------------
 CREATE OR REPLACE VIEW ards.view_list AS
     SELECT
         schemaname AS "Schema",
@@ -68,12 +69,12 @@ CREATE OR REPLACE VIEW ards.view_list AS
         WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
     ORDER BY schemaname, viewname;
 
--- View: utils.view_db_size
+-- View: ards.view_db_size -----------------------------------------------------
 CREATE OR REPLACE VIEW ards.view_db_size AS
     SELECT
         pg_size_pretty(pg_database_size('ards')) AS "Database Size";
 
--- View: utils.view_schema_size
+-- View: ards.view_schema_size
 CREATE OR REPLACE VIEW ards.view_schema_size AS
     SELECT schema_name, 
         pg_size_pretty(sum(table_size)::BIGINT),
@@ -87,7 +88,7 @@ CREATE OR REPLACE VIEW ards.view_schema_size AS
     GROUP BY schema_name
     ORDER BY schema_name;
 
--- Insert ards data
+-- Insert ards data ------------------------------------------------------------
 INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',

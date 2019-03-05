@@ -178,7 +178,7 @@ def init_database():
 
 def full_update():
     clear_screen()
-    init_ards()
+    init_ards() # this should always go first before any other schemas
     init_adif()
     print("")
     db_schema_size()
