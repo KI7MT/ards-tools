@@ -68,12 +68,6 @@ DROP SCHEMA IF EXISTS :name CASCADE;
 -- Create New Schema
 CREATE SCHEMA :name;
 
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
-
 -- Eqsl Active Users
 CREATE TABLE eqsl.eqsl_ag
 (
@@ -107,6 +101,13 @@ CREATE OR REPLACE VIEW eqsl.view_eqsl_test AS
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
+
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
+
 \echo
 SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 

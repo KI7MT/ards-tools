@@ -60,7 +60,7 @@ def main():
             main()
         elif selection == '5':  # search current month for a call
             clear_screen()
-            #db_version()
+            db_version()
             print('')
             pause()
             main()

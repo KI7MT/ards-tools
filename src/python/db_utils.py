@@ -16,9 +16,6 @@ _inifile='database.ini'
 _section='postgres'
 _ards_section='ards'
 
-
-_file = ['adif', 'eqsl', 'fcc', 'jtalerts', 'lotw', 'wspr']
-
 def set_pg_access(section):
     os.environ["PGUSER"] = get_dbuser(section)
     os.environ["PGPASSWORD"] = get_dbuser_pw(section)
@@ -103,15 +100,18 @@ def db_total_size():
         print(error)
         sys.exit(1)
 
-def db_version(section):
+def db_version():
     """Connect to the PostgreSQL database server"""
     conn = None
+    section = 'ards'
     try:
+        print("\nPostgreSQL Database Version Information")
+        
         # read connection parameters
         params = config(_inifile,section)
  
         # connect to PostgreSQL
-        print("\n* Connecting to the PostgreSQL database")
+        print("\n* Connecting to the database")
         conn = psycopg2.connect(**params)
  
         # create a cursor
@@ -124,7 +124,7 @@ def db_version(section):
         db_version = cur.fetchone()
 
         # Print Version information
-        print("* Database version : ", str(db_version))
+        print("* Version : ", str(db_version))
         #print(str(db_version))
        
      # close the communication with the PostgreSQL
@@ -134,7 +134,7 @@ def db_version(section):
     finally:
         if conn is not None:
             conn.close()
-            print('* Database connection closed.')
+            print('* Connection closed.')
 
 def init_ards():
     """Use subprocess to call ards.pgsql"""
@@ -162,6 +162,19 @@ def init_adif():
     finally:
         os.chdir('../python')
 
+def init_eqsl():
+    """Use subprocess to call eqsl.pgsql"""
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f eqsl.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
+
 def init_database():
     """Use subprocess to call initdb.pgsql"""
     try:
@@ -180,8 +193,8 @@ def full_update():
     clear_screen()
     init_ards() # this should always go first before any other schemas
     init_adif()
+    init_eqsl()
     print("")
-    db_schema_size()
 
 if __name__ =='__main__':
     print("Nothing to do for main")
