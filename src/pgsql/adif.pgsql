@@ -7,7 +7,7 @@
 
     File ................: pgsql
     Description .........: ADIF Database Initiation
-    Database Type .......: PostgreSQL v10 or later
+    Database Type .......: PostgreSQL v11 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
     ADIF Refrence .......: http://www.org/309/ADIF_309.htm#Enumerations
@@ -660,12 +660,12 @@ ORDER by state.name;
 --
 --
 -- =============================================================================
-/*
+
 -- Primary Administration Subdivision
 CREATE TABLE adif.pas_summary
 (
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
+    pas_summary_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
     pas_subdivision_type_id INT NOT NULL,
     has_oblast BOOLEAN NOT NULL DEFAULT '0',
     has_sas BOOLEAN NOT NULL DEFAULT '0',
@@ -673,22 +673,66 @@ CREATE TABLE adif.pas_summary
     CHECK ( NOT (has_sas AND sas_subdivision_type_id IS NULL) )
 ); 
 
--- Primary Administration Subdivision Type -------------------------------------
+-- Primary Administration Subdivision Type
 CREATE TABLE adif.pas_subdivision_type
 (
-    id SERIAL PRIMARY KEY,
+    pas_subdivision_type_id SERIAL PRIMARY KEY,
     pas_subdivision_type VARCHAR(20) NOT NULL,
     CONSTRAINT pas_subdivision_type_uq UNIQUE (pas_subdivision_type)
 );
 
--- Secondary Administration Subdivision ----------------------------------------
+-- Secondary Administration Subdivision
 CREATE TABLE adif.sas_subdivision_type
 (
-    id SERIAL PRIMARY KEY,
+    sas_subdivision_type_id SERIAL PRIMARY KEY,
     sas_subdivision_type VARCHAR(20) NOT NULL,
     CONSTRAINT sas_subdivision_type_uq UNIQUE (sas_subdivision_type)
 );
 
+\COPY adif.pas_subdivision_type FROM 'adif-pas/pas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sas_subdivision_type FROM 'adif-pas/sas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_summary FROM 'adif-pas/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS Summary FK's ------------------------------------------------------------
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_subdivision_type_fkey
+    FOREIGN KEY (pas_subdivision_type_id) REFERENCES adif.pas_subdivision_type (pas_subdivision_type_id);
+
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_subdivision_type_fkey
+    FOREIGN KEY (sas_subdivision_type_id) REFERENCES adif.sas_subdivision_type (sas_subdivision_type_id);
+
+-- view_pas_summary -------------------------------------------------------
+CREATE OR REPLACE VIEW adif.view_pas_summary AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas_subdivision_type.pas_subdivision_type AS "Pri. Subdivision",
+        pas_summary.has_oblast AS "Has Oblast",
+        pas_summary.has_sas AS "Has Secondary",
+        sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
+    FROM adif.pas_summary
+        LEFT JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas_summary.dxcc_code
+        LEFT JOIN adif.pas_subdivision_type ON
+            adif.pas_summary.pas_subdivision_type_id = adif.pas_subdivision_type.pas_subdivision_type_id
+        LEFT JOIN adif.sas_subdivision_type ON
+            adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.sas_subdivision_type_id
+    ORDER BY adif.pas_summary.pas_summary_id;
+
+-- view_pas_subdivision_type ----------------------------------------------
+CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
+    SELECT
+        pas_subdivision_type AS "Pri. Subdivision"
+    FROM adif.pas_subdivision_type
+    ORDER BY pas_subdivision_type;
+
+-- view_sas_subdivision_type ----------------------------------------------
+CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
+    SELECT
+        sas_subdivision_type AS "Sec. Subdivision"
+    FROM adif.sas_subdivision_type
+    ORDER BY sas_subdivision_type;
+
+/*
 -- PAS 001 Canada --------------------------------------------------------------
 
 -- TODO: Need view_pas_001
@@ -2290,22 +2334,22 @@ ALTER TABLE pas_504_subdivision ADD CONSTRAINT pas_504_subdivision_pas_504_regio
 \echo '-----------------------------'
 
 -- view_pas_summary -------------------------------------------------------
-CREATE OR REPLACE VIEW view_pas_summary AS
+CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
-        dxcc.id AS "DXCC Code",
+        dxcc.dxcc_code AS "DXCC Code",
         dxcc.name AS "Country",
         pas_subdivision_type.pas_subdivision_type AS "Pri. Subdivision",
         pas_summary.has_oblast AS "Has Oblast",
         pas_summary.has_sas AS "Has Secondary",
         sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
-    FROM pas_summary
+    FROM adif.pas_summary
         LEFT JOIN dxcc ON
-            dxcc.id = pas_summary.dxcc_id
+            dxcc.dxcc_id = pas_summary.dxcc_id
         LEFT JOIN pas_subdivision_type ON
             pas_summary.pas_subdivision_type_id = pas_subdivision_type.id
         LEFT JOIN sas_subdivision_type ON
             pas_summary.sas_subdivision_type_id = sas_subdivision_type.id
-    ORDER BY pas_summary.id;
+    ORDER BY adif.pas_summary.id;
 
 -- view_pas_subdivision_type ----------------------------------------------
 CREATE OR REPLACE VIEW view_pas_subdivision_type AS
@@ -2455,6 +2499,13 @@ ORDER BY rdxc.rdxc_code;
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************
+
+INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES('adifpas', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
+
 INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
