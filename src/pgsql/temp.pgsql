@@ -1,28 +1,4 @@
 /*
--- 29 Canary Is. ---------------------------------------------------------------
-
--- TODO: view_pas_029
-CREATE TABLE adif.pas_029
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, --two hcar CG, TF, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_029_uq UNIQUE (code,subdivision)
-);
-
--- 32 Cetua & Melilla ----------------------------------------------------------
-
--- TODO: view_pas_032
-CREATE TABLE adif.pas_032
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char CE, ML, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_032_uq UNIQUE (code,subdivision)
-);
-
 -- 50 Mexico -------------------------------------------------------------------
 
 -- TODO: view_pas_050
@@ -874,12 +850,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-029
-\COPY pas_029 FROM 'adif-pas/pas_029.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-032
-\COPY pas_032 FROM 'adif-pas/pas_032.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-050
 \COPY pas_050 FROM 'adif-pas/pas_050.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1075,18 +1045,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
-\echo
-\echo 'Adding Foreign Keys'
-\echo '---------------------------'
-
--- PAS-029 Canary Is. ----------------------------------------------------------
-ALTER TABLE pas_029 ADD CONSTRAINT pas_029_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-032 Cetua & Melilla -----------------------------------------------------
-ALTER TABLE pas_032 ADD CONSTRAINT pas_032_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-050 Mexico --------------------------------------------------------------
 ALTER TABLE pas_050 ADD CONSTRAINT pas_050_dxcc_fkey

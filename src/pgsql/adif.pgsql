@@ -1040,6 +1040,61 @@ CREATE OR REPLACE VIEW adif.view_pas27 AS
             adif.dxcc.dxcc_id = pas27.dxcc_code
 	ORDER BY adif.pas27.code;
 
+-- 29 Canary Is. ---------------------------------------------------------------
+
+-- PAS-29 Table
+CREATE TABLE adif.pas29
+(
+    pas29_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, --two hcar CG, TF, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas29_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-29 Data
+\COPY adif.pas29 FROM 'adif-pas/pas29.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-29 View
+CREATE OR REPLACE VIEW adif.view_pas29 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas29.code AS "Code",
+        pas29.subdivision AS "Subdivision"
+    FROM adif.pas29
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas29.dxcc_code
+	ORDER BY adif.pas29.code;
+
+-- 32 Cetua & Melilla ----------------------------------------------------------
+
+-- PAS-32 Table
+CREATE TABLE adif.pas32
+(
+    pas32_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char CE, ML, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas32_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-032 Data
+\COPY adif.pas32 FROM 'adif-pas/pas32.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-32 View
+CREATE OR REPLACE VIEW adif.view_pas32 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas32.code AS "Code",
+        pas32.subdivision AS "Subdivision"
+    FROM adif.pas32
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas32.dxcc_code
+	ORDER BY adif.pas32.code;
+
+
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************
