@@ -5,7 +5,7 @@
     License .............: GPL-3
 
     File ................: initdb.pgsql
-    Description .........: ARDS Tables and Views
+    Description .........: ARDS Databases and Users
     Database Type .......: PostgreSQL v11 or later
     Version .............: 0.0.1
     ADIF Specification ..: 0.0.0
@@ -29,19 +29,15 @@
             psql -v ON_ERROR_STOP=1 -U postgres -f initdb.pgsql
 */
 
--- Script variables
-\set name ards
-\set user ards
-\set ver 0.0.1
-\set adifv 3.0.9
-
 \echo ''
 \echo '-----------------------------------------'
-\echo Ctreating Database and Rols for ( :name )
+\echo  INITIALIZING ARDS DATABASE and ROLES
 \echo '-----------------------------------------'
 \echo ''
 
--- terminate any current activity
+-- -----------------------------------------------------------------------------
+-- SESSION TERMINATION
+-- -----------------------------------------------------------------------------
 SELECT
  pg_terminate_backend (pg_stat_activity.pid)
 FROM
@@ -49,13 +45,16 @@ FROM
 WHERE
  pg_stat_activity.datname = 'ards';
 
--- drop the db
+-- -----------------------------------------------------------------------------
+-- DATABASE TERMINATION
+-- -----------------------------------------------------------------------------
 DROP DATABASE IF EXISTS ards;
 
--- drop the user / role
+-- -----------------------------------------------------------------------------
+-- ROLE CREATION
+-- -----------------------------------------------------------------------------
 DROP USER IF EXISTS ards;
 
--- create new role / user
 CREATE USER ards WITH
 	LOGIN
 	SUPERUSER
@@ -64,15 +63,21 @@ CREATE USER ards WITH
 	INHERIT
 	REPLICATION
 	CONNECTION LIMIT -1
-	PASSWORD 'Pass@Word';
-COMMENT ON ROLE :name IS 'Role for ARDS Tools';
+	PASSWORD 'ards';
+COMMENT ON ROLE ards IS 'Role for ARDS Tools';
 
--- create database and assign privilages to ardsmaster
+-- -----------------------------------------------------------------------------
+-- DATABASE CREATION
+-- -----------------------------------------------------------------------------
+
+-- ARDS ------------------------------------------------------------------------
 CREATE DATABASE ards
     WITH 
     OWNER = ards
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
-COMMENT ON DATABASE :name IS 'Databases for ARDS Tools';
+COMMENT ON DATABASE ards IS 'Database for ARDS Tools';
 
 GRANT ALL ON DATABASE ards TO ards;
+
+-- END DATABASE INITIALIZATION

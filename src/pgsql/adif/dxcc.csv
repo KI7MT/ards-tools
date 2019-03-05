@@ -1,4 +1,4 @@
-id|code|name|is_deleted
+dxcc_id|code|name|is_deleted
 0|0|None (the contacted station is known to not be within a DXCC entity)|f
 1|1|CANADA|f
 2|2|ABU AIL IS.|f

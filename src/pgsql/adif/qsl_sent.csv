@@ -1,4 +1,4 @@
-id|status|meaning|description
+qsl_sent_id|status|meaning|description
 1|Y|yes|An outgoing QSL card has been sent or QSO has been uploaded to and accepted by the online service.
 2|N|no|Do not send an outgoing QSL card nor upload the QSO to an online service.
 3|R|requested|The contacted station has requested a QSL card or QSO be uploaded to the online service.

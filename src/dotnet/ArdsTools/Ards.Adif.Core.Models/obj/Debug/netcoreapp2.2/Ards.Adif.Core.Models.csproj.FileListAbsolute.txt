@@ -1,0 +1,6 @@
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\bin\Debug\netcoreapp2.2\Ards.Adif.Core.Models.deps.json
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\bin\Debug\netcoreapp2.2\Ards.Adif.Core.Models.dll
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\obj\Debug\netcoreapp2.2\Ards.Adif.Core.Models.csprojAssemblyReference.cache
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\obj\Debug\netcoreapp2.2\Ards.Adif.Core.Models.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\obj\Debug\netcoreapp2.2\Ards.Adif.Core.Models.AssemblyInfoInputs.cache
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Adif.Core.Models\obj\Debug\netcoreapp2.2\Ards.Adif.Core.Models.AssemblyInfo.cs

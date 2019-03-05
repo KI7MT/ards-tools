@@ -5,7 +5,7 @@ from builtins import input
 
 from common import clear_screen
 from common import pause
-from db_utils import create_database
+from db_utils import init_database
 from db_utils import full_update
 from db_utils import schema_info
 from db_utils import db_schema_size
@@ -38,16 +38,16 @@ def main():
         main_menu()
         selection = input("Selection: ")
                
-        if selection == '1':  # update all archive files from WSPRnet
+        if selection == '1':  # Init the database
             clear_screen()
-            create_database()
+            init_database()
             pause()
             main()
-        elif selection == '2':  # search all archives for call
+        elif selection == '2':  # Performs full update
             full_update()
             pause()
             main()
-        elif selection == '3':  # update current month from WSPRnet
+        elif selection == '3':  # print schema install info
             clear_screen()
             schema_info()
             print("")    
@@ -60,7 +60,7 @@ def main():
             main()
         elif selection == '5':  # search current month for a call
             clear_screen()
-            db_version()
+            #db_version()
             print('')
             pause()
             main()

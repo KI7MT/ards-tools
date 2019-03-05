@@ -9,7 +9,7 @@
     Database Type .......: PostgreSQL v11 or later
     Version .............: 0.0.1
     ADIF Specification ..: 3.0.9
-    ADIF Refrence .......: http://www.adif.org/309/ADIF_309.htm#Enumerations
+    ADIF Refrence .......: http://www.org/309/ADIF_309.htm#Enumerations
     Bug Reports .........: https://github.com/KI7MT/ards-tools/issues'
 
     Comments
@@ -30,7 +30,7 @@
     Installation via pgsql scripts
     
         * Important: This script needs to be run "after" the main
-          adif.pgsql script as it does not drop and re-create
+          pgsql script as it does not drop and re-create
           the adif scema.
 
         * Clone the repository
@@ -59,7 +59,7 @@
 \echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
@@ -69,7 +69,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
 -- Info Link   : https://www.jarl.org/English/4_Library/A-4-2_Awards/Aw_jcc.htm
 -- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
-CREATE TABLE adif.jarl_jcc
+CREATE TABLE jarl_jcc
 (
     id SERIAL PRIMARY KEY,
     prefecture VARCHAR(30) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE adif.jarl_jcc
     CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
 );
 
-CREATE TABLE adif.jarl_jcc_city
+CREATE TABLE jarl_jcc_city
 (
     id SERIAL PRIMARY KEY,
     jcc_id INT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE adif.jarl_jcc_city
 );
 
 -- RDXC Oblasts ----------------------------------------------------------------
-CREATE TABLE adif.rdxc
+CREATE TABLE rdxc
 (
     id SERIAL PRIMARY KEY,
     prefix CHAR(4) NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE adif.rdxc
     CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
 );
 
-CREATE TABLE adif.rdxc_district
+CREATE TABLE rdxc_district
 (
     id SERIAL PRIMARY KEY,
     rdxc_id INT NOT NULL,
@@ -123,10 +123,10 @@ CREATE TABLE adif.rdxc_district
 \echo
 \echo 'Importing SAS CSV Files'
 \echo '---------------------------'
-\COPY adif.jarl_jcc FROM 'adif-sas/jarl_jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.jarl_jcc_city FROM 'adif-sas/jarl_jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.rdxc FROM 'adif-sas/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.rdxc_district FROM 'adif-sas/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY jarl_jcc FROM 'adif-sas/jarl_jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY jarl_jcc_city FROM 'adif-sas/jarl_jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY rdxc FROM 'adif-sas/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY rdxc_district FROM 'adif-sas/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
@@ -137,44 +137,44 @@ CREATE TABLE adif.rdxc_district
 \echo '---------------------------'
 
 -- JARL JCC --------------------------------------------------------------------
-ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
-    FOREIGN KEY (jcc_id) REFERENCES adif.jarl_jcc (id);
+ALTER TABLE jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
+    FOREIGN KEY (jcc_id) REFERENCES jarl_jcc (id);
 
 
 -- RDA RDXC --------------------------------------------------------------------
-ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
-    FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (id);
+ALTER TABLE rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
+    FOREIGN KEY (rdxc_id) REFERENCES rdxc (id);
 
 /*
 SELECT 
-	adif.jarl_jcc.prefecture AS "Precefture",
+	jarl_jcc.prefecture AS "Precefture",
 	count(*) AS "City Count"
-	FROM adif.jarl_jcc JOIN adif.jarl_jcc_city ON
+	FROM jarl_jcc JOIN jarl_jcc_city ON
         (
-            adif.jarl_jcc_city.jcc_id = adif.jarl_jcc.id
+            jarl_jcc_city.jcc_id = jarl_jcc.id
         )
-GROUP BY adif.jarl_jcc.prefecture
-ORDER BY adif.jarl_jcc.prefecture;
+GROUP BY jarl_jcc.prefecture
+ORDER BY jarl_jcc.prefecture;
 
 SELECT 
-	adif.rdxc.rdxc_code AS "RDXC Code",
-    adif.rdxc.prefix AS "Prefix", 
-	adif.rdxc.oblast AS "Oblast", 
+	rdxc.rdxc_code AS "RDXC Code",
+    rdxc.prefix AS "Prefix", 
+	rdxc.oblast AS "Oblast", 
 	count(*) AS "District Count"
-	FROM adif.rdxc JOIN adif.rdxc_district ON (adif.rdxc_district.rdxc_id = adif.rdxc.id)
-	WHERE adif.rdxc_district.is_deleted = '0'
-GROUP BY adif.rdxc.oblast, adif.rdxc.rdxc_code, adif.rdxc.prefix 
-ORDER BY adif.rdxc.rdxc_code;
+	FROM rdxc JOIN rdxc_district ON (rdxc_district.rdxc_id = rdxc.id)
+	WHERE rdxc_district.is_deleted = '0'
+GROUP BY rdxc.oblast, rdxc.rdxc_code, rdxc.prefix 
+ORDER BY rdxc.rdxc_code;
 
 
 SELECT 
-	adif.rdxc.rdxc_code AS "RDXC Code",
-    adif.rdxc.prefix AS "Prefix", 
-	adif.rdxc.oblast AS "Oblast", 
+	rdxc.rdxc_code AS "RDXC Code",
+    rdxc.prefix AS "Prefix", 
+	rdxc.oblast AS "Oblast", 
 	count(*) AS "District Count"
-	FROM adif.rdxc JOIN adif.rdxc_district ON (adif.rdxc_district.rdxc_id = adif.rdxc.id)
-	WHERE adif.rdxc.is_deleted = 'false' 
-GROUP BY adif.rdxc.oblast, adif.rdxc.rdxc_code, adif.rdxc.prefix 
-ORDER BY adif.rdxc.rdxc_code;
+	FROM rdxc JOIN rdxc_district ON (rdxc_district.rdxc_id = rdxc.id)
+	WHERE rdxc.is_deleted = 'false' 
+GROUP BY rdxc.oblast, rdxc.rdxc_code, rdxc.prefix 
+ORDER BY rdxc.rdxc_code;
 
 */

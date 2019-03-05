@@ -41,7 +41,7 @@ DROP SCHEMA IF EXISTS :name CASCADE;
 -- Create New Schema
 CREATE SCHEMA :name;
 
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
@@ -59,7 +59,7 @@ CREATE OR REPLACE VIEW utils.view_list AS
 -- View: utils.view_db_size
 CREATE OR REPLACE VIEW utils.view_db_size AS
     SELECT
-        pg_size_pretty(pg_database_size('ards')) AS "Database Size";
+        pg_size_pretty(pg_database_size('adif')) AS "Database Size";
 
 -- View: utils.view_schema_size
 CREATE OR REPLACE VIEW utils.view_schema_size AS
@@ -79,6 +79,6 @@ CREATE OR REPLACE VIEW utils.view_schema_size AS
 --  FOOTER - Finished
 -- *****************************************************************************
 \echo
-SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+SELECT * FROM view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
 -- END utils.sql

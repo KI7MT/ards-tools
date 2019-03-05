@@ -20,7 +20,7 @@
 
             cd ards-tools\src\pgsql
 
-            psql -v ON_ERROR_STOP=1 -U ards -d ards -f ards.pgsql
+            psql -v ON_ERROR_STOP=1 -U ards -d ards -f pgsql
 */
 
 --******************************************************************************
@@ -50,16 +50,6 @@ CREATE TABLE ards.schema_info
     CONSTRAINT schema_info_schema_name_pkey PRIMARY KEY (schema_name)
 );
 
--- Insert ards data
-INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
-
--- *****************************************************************************
--- Create Test View: adif.adif_table_info_view
--- *****************************************************************************
 CREATE OR REPLACE VIEW ards.view_schema_info AS
     SELECT
         schema_info.schema_name AS "Schema Name",
@@ -67,8 +57,43 @@ CREATE OR REPLACE VIEW ards.view_schema_info AS
         schema_info.adif_spec AS "ADIF Spec",
         date_trunc('second', schema_info.last_update::TIMESTAMP) AS "Create Date"
     FROM ards.schema_info
-    ORDER BY  schema_info.schema_name;
+    ORDER BY ards.schema_info.schema_name;
     
+-- View: utils.vw_view_list
+CREATE OR REPLACE VIEW ards.view_list AS
+    SELECT
+        schemaname AS "Schema",
+        viewname AS "View Name"
+        FROM pg_catalog.pg_views
+        WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
+    ORDER BY schemaname, viewname;
+
+-- View: utils.view_db_size
+CREATE OR REPLACE VIEW ards.view_db_size AS
+    SELECT
+        pg_size_pretty(pg_database_size('ards')) AS "Database Size";
+
+-- View: utils.view_schema_size
+CREATE OR REPLACE VIEW ards.view_schema_size AS
+    SELECT schema_name, 
+        pg_size_pretty(sum(table_size)::BIGINT),
+        trunc((sum(table_size) / pg_database_size(current_database())) * 100, 2) AS percent
+    FROM (
+        SELECT pg_catalog.pg_namespace.nspname AS schema_name,
+               pg_relation_size(pg_catalog.pg_class.oid) AS table_size
+        FROM pg_catalog.pg_class
+            JOIN pg_catalog.pg_namespace ON relnamespace = pg_catalog.pg_namespace.oid
+    ) t
+    GROUP BY schema_name
+    ORDER BY schema_name;
+
+-- Insert ards data
+INSERT INTO ards.schema_info(schema_name, schema_version, adif_spec, last_update)
+VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
+ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
+                                        adif_spec = :'adifv',
+                                        last_update = CURRENT_TIMESTAMP;
+
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************

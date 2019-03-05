@@ -1,4 +1,4 @@
-id|name|lower_freq|upper_freq
+band_id|name|lower_freq|upper_freq
 1|2190m|0.1357|0.1378
 2|630m|0.472|0.479
 3|560m|0.501|0.504

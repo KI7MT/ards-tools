@@ -1,0 +1,10 @@
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\bin\Debug\netcoreapp2.2\Ards.Tools.Domain.deps.json
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\bin\Debug\netcoreapp2.2\Ards.Tools.Domain.runtimeconfig.json
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\bin\Debug\netcoreapp2.2\Ards.Tools.Domain.runtimeconfig.dev.json
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\bin\Debug\netcoreapp2.2\Ards.Tools.Domain.dll
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\bin\Debug\netcoreapp2.2\Ards.Tools.Domain.pdb
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\obj\Debug\netcoreapp2.2\Ards.Tools.Domain.csproj.CoreCompileInputs.cache
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\obj\Debug\netcoreapp2.2\Ards.Tools.Domain.AssemblyInfoInputs.cache
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\obj\Debug\netcoreapp2.2\Ards.Tools.Domain.AssemblyInfo.cs
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\obj\Debug\netcoreapp2.2\Ards.Tools.Domain.dll
+D:\Repos\Git\Projects\ards-tools\src\dotnet\ArdsTools\Ards.Tools.Domain\obj\Debug\netcoreapp2.2\Ards.Tools.Domain.pdb
