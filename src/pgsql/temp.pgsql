@@ -1,16 +1,4 @@
 /*
--- 61 Franz Josef Land ---------------------------------------------------------
-
--- TODO: view_pas_061
-CREATE TABLE adif.pas_061
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char AR, ...
-    subdivision VARCHAR(60) NOT NULL,
-    import_only BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas_061_uq UNIQUE (code,subdivision)
-);
 
 -- 70 Cuba ---------------------------------------------------------------------
 
@@ -810,9 +798,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-061
-\COPY pas_061 FROM 'adif-pas/pas_061.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-070
 \COPY pas_070 FROM 'adif-pas/pas_070.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -995,10 +980,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-061 Franz Josef Land ----------------------------------------------------
-ALTER TABLE pas_061 ADD CONSTRAINT pas_061_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-070 Cuba ----------------------------------------------------------------
 ALTER TABLE pas_070 ADD CONSTRAINT pas_070_dxcc_fkey

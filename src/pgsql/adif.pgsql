@@ -1163,10 +1163,10 @@ CREATE TABLE adif.pas54
     CONSTRAINT pas54_uq UNIQUE (code,subdivision)
 );
 
--- PAS-054 Data
+-- PAS-54 Data
 \COPY adif.pas54 FROM 'adif-pas/pas54.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- PAS-054 FK
+-- PAS-54 FK
 ALTER TABLE adif.pas54 ADD CONSTRAINT pas54_cqzone_fkey
     FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
 
@@ -1194,6 +1194,34 @@ CREATE OR REPLACE VIEW adif.view_pas54 AS
 		    adif.ituzone.ituzone_id = pas54.ituzone_id
 	ORDER BY adif.pas54.code;
 
+-- 61 Franz Josef Land ---------------------------------------------------------
+
+-- PAS-61 Table
+CREATE TABLE adif.pas61
+(
+    pas_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char AR, ...
+    subdivision VARCHAR(60) NOT NULL,
+    import_only BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT pas61_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-61 Data
+\COPY adif.pas61 FROM 'adif-pas/pas61.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-61 View
+CREATE OR REPLACE VIEW adif.view_pas61 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas61.code AS "Code",
+        pas61.subdivision AS "Subdivision",
+        pas61.import_only AS "Import Only"
+    FROM adif.pas61
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas61.dxcc_code
+	ORDER BY adif.pas61.code;
 
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
