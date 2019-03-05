@@ -1,39 +1,4 @@
 /*
--- 15 Asiatic Russia -----------------------------------------------------------
-
--- TODO: view_pas15
--- TODO: view_pas15_with_history
-CREATE TABLE adif.pas15
-(
-    pas15_id SERIAL PRIMARY KEY,
-    dxcc_code INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AA, BB, CC
-    subdivision VARCHAR(80) NOT NULL,
-    oblast VARCHAR(3) NOT NULL,
-    before_date DATE,
-    referred_to_as VARCHAR(80),
-    CONSTRAINT pas15_uq UNIQUE (code,subdivision)
-);
-
-
-
--- PAS-015 Asiatic Russia CQ Zone
-CREATE TABLE adif.pas15_cqzone
-(
-    id SERIAL PRIMARY KEY,
-    pas15_id INT NOT NULL,
-    cq_zone_id INT NOT NULL
-);
-
--- PAS-015 Canada ITU Zone
--- For CSV File Conversion: IF(G2 <> "",TEXT(G2,"yyyy-mm-dd"),"")
-CREATE TABLE adif.pas15_ituzone
-(
-    id SERIAL PRIMARY KEY,
-    pas15_id INT NOT NULL,
-    itu_zone_id INT NOT NULL
-);
-
 -- 21 Beleric Is. --------------------------------------------------------------
 
 -- TODO: view_pas_021
@@ -933,11 +898,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-015
-\COPY pas15 FROM 'adif-pas/pas15.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas15_cqzone FROM 'adif-pas/pas15_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas15_ituzone FROM 'adif-pas/pas15_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-021
 \COPY pas_021 FROM 'adif-pas/pas_021.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -1149,22 +1109,6 @@ CREATE TABLE adif.pas_504_subdivision
 \echo
 \echo 'Adding Foreign Keys'
 \echo '---------------------------'
-
--- PAS-015 Asiatic Russia ------------------------------------------------------
-ALTER TABLE pas15 ADD CONSTRAINT pas15_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas15_cqzone ADD CONSTRAINT pas15_cqzone_pas15_fkey
-    FOREIGN KEY (pas15_id) REFERENCES pas15 (id);
-
-ALTER TABLE pas15_cqzone ADD CONSTRAINT pas15_cqzone_cq_zone_fkey
-    FOREIGN KEY (cq_zone_id) REFERENCES cqzone (cqzone_id);
-
-ALTER TABLE pas15_ituzone ADD CONSTRAINT pas15_ituzone_pas15_fkey
-    FOREIGN KEY (pas15_id) REFERENCES pas15 (id);
-
-ALTER TABLE pas15_ituzone ADD CONSTRAINT pas15_ituzone_itu_zone_fkey
-    FOREIGN KEY (itu_zone_id) REFERENCES ituzone (ituzone_id);
 
 -- PAS-021 Beleric Is. ---------------------------------------------------------
 ALTER TABLE pas_021 ADD CONSTRAINT pas_021_dxcc_fkey
