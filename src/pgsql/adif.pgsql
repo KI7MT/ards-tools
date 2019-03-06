@@ -1948,7 +1948,7 @@ CREATE TABLE adif.pas206_region
 (
     pas206_region_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
-    region VARCHAR(60) NOT NULL,
+    region VARCHAR(120) NOT NULL,
     CONSTRAINT pas206_region_uq UNIQUE (region)
 );
 
@@ -1994,6 +1994,135 @@ CREATE OR REPLACE VIEW adif.view_pas206_subdivision AS
         JOIN adif.pas206_region ON
             adif.pas206_region.pas206_region_id = pas206_subdivision.pas206_region_id
     ORDER BY pas206_region.region;
+
+-- 209 Belgium -----------------------------------------------------------------
+
+-- PAS-209 Table
+CREATE TABLE adif.pas209
+(
+    pas209_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AN, BR, BW, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas209_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-209
+\COPY adif.pas209 FROM 'adif-pas/pas209.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-209 View
+CREATE OR REPLACE VIEW adif.view_pas209 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas209.code AS "Code",
+        pas209.subdivision AS "Subdivision"
+    FROM adif.pas209
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas209.dxcc_code
+	ORDER BY adif.pas209.code;
+
+-- 212 Bulgaria ----------------------------------------------------------------
+
+-- PAS-212 Table Region
+CREATE TABLE adif.pas212_region
+(
+    pas212_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas212_region_uq UNIQUE (region)
+);
+
+-- PAS-212 Table Subdivision
+CREATE TABLE adif.pas212_subdivision
+(
+    pas212_subdivision_id SERIAL PRIMARY KEY,
+    pas212_region_id INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas212_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-212
+\COPY adif.pas212_region FROM 'adif-pas/pas212_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas212_subdivision FROM 'adif-pas/pas212_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-212 View Region
+CREATE OR REPLACE VIEW adif.view_pas212_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas212_region.region AS "Region"
+    FROM adif.pas212_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas212_region.dxcc_code
+    ORDER BY adif.pas212_region.region;
+
+-- PAS-212 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas212_subdivision AS
+    SELECT
+        pas212_region.region AS "Region",
+        pas212_subdivision.code AS "Code",
+        pas212_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas212_subdivision
+        JOIN adif.pas212_region ON
+            adif.pas212_region.pas212_region_id = pas212_subdivision.pas212_region_id
+    ORDER BY pas212_region.region;
+
+-- 214 Corsica -----------------------------------------------------------------
+
+-- PAS-214 Table
+CREATE TABLE adif.pas214
+(
+    pas214_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 2A, 2B, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas214_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-214 Data
+\COPY adif.pas214 FROM 'adif-pas/pas214.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-214 View
+CREATE OR REPLACE VIEW adif.view_pas214 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas214.code AS "Code",
+        pas214.subdivision AS "Subdivision"
+    FROM adif.pas214
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas214.dxcc_code
+	ORDER BY adif.pas214.code;
+
+-- 221 Denmark -----------------------------------------------------------------
+
+-- PAS-221 Table
+CREATE TABLE adif.pas221
+(
+    pas221_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char 015, 025, 055, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas221_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-221 Data
+\COPY adif.pas221 FROM 'adif-pas/pas221.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-221 View
+CREATE OR REPLACE VIEW adif.view_pas221 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas221.code AS "Code",
+        pas221.subdivision AS "Subdivision"
+    FROM adif.pas221
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas221.dxcc_code
+	ORDER BY adif.pas221.code;
+
 
 -- *****************************************************************************
 -- Schema Informaiton

@@ -1,63 +1,4 @@
 /*
--- 209 Belgium -----------------------------------------------------------------
-
--- TODO: Need CSV Data
--- TODO: view_pas_209
-CREATE TABLE adif.pas_209
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AN, BR, BW, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_209_uq UNIQUE (code,subdivision)
-);
-
--- 212 Bulgaria ----------------------------------------------------------------
-
--- NOTE: Bulgaria has Regions and Subdivisions
--- TODO: view_pas_212_region
-CREATE TABLE adif.pas_212_region
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    region VARCHAR(70) NOT NULL,
-    CONSTRAINT pas_212_region_uq UNIQUE (region)
-);
-
--- TODO: view_pas_212_subdivision
-CREATE TABLE adif.pas_212_subdivision
-(
-    id SERIAL PRIMARY KEY,
-    pas_212_region_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
-    subdivision VARCHAR(70) NOT NULL,
-    CONSTRAINT pas_212_subdivision_uq UNIQUE (code,subdivision)
-);
-
--- 214 Corsica -----------------------------------------------------------------
-
--- TODO: view_pas_214
-CREATE TABLE adif.pas_214
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char 2A, 2B, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_214_uq UNIQUE (code,subdivision)
-);
-
--- 221 Denmark -----------------------------------------------------------------
-
--- TODO: view_pas_221
-CREATE TABLE adif.pas_221
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char 015, 025, 055, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_221_uq UNIQUE (code,subdivision)
-);
-
 -- 224 Finland -----------------------------------------------------------------
 
 -- NOTE: Finland has Regions and Subdivisions
@@ -465,19 +406,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-209
-\COPY pas_209 FROM 'adif-pas/pas_209.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-212
-\COPY pas_212_region FROM 'adif-pas/pas_212_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas_212_subdivision FROM 'adif-pas/pas_212_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-214
-\COPY pas_214 FROM 'adif-pas/pas_214.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-221
-\COPY pas_221 FROM 'adif-pas/pas_221.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-224
 \COPY pas_224_region FROM 'adif-pas/pas_224_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY pas_224_subdivision FROM 'adif-pas/pas_224_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
@@ -569,23 +497,12 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
 
--- PAS-209 Belgium -----------------------------------------------------------------
-ALTER TABLE pas_209 ADD CONSTRAINT pas_209_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-212 Bulgaria ------------------------------------------------------------
-ALTER TABLE pas_212_region ADD CONSTRAINT pas_212_region_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas_212_subdivision ADD CONSTRAINT pas_212_subdivision_pas_212_region_fkey
-    FOREIGN KEY (pas_212_region_id) REFERENCES pas_212_region (id);
-
 -- PAS-214 Corsica -------------------------------------------------------------
-ALTER TABLE pas_214 ADD CONSTRAINT pas_214_dxcc_fkey
+ALTER TABLE pas214 ADD CONSTRAINT pas214_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-221 Denmark -------------------------------------------------------------
-ALTER TABLE pas_221 ADD CONSTRAINT pas_221_dxcc_fkey
+ALTER TABLE pas221 ADD CONSTRAINT pas221_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-224 Finland -------------------------------------------------------------
