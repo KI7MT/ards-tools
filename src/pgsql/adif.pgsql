@@ -656,7 +656,22 @@ ORDER by state.name;
 -- =============================================================================
 --
 --
+--
+--
+--
+--
+--
+--
+--
 --               ADIF PRIMARY ADMINISTRATION SUBDIVISION
+--
+--
+--
+--
+--
+
+--
+--
 --
 --
 -- =============================================================================
@@ -1764,9 +1779,224 @@ CREATE OR REPLACE VIEW adif.view_pas151 AS
             adif.dxcc.dxcc_id = pas151.dxcc_code
 	ORDER BY adif.pas151.code;
 
+-- 153 Macquarie Is. -----------------------------------------------------------
+
+-- PAS-153 Table
+CREATE TABLE adif.pas153
+(
+    pas153_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char MA, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas153_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-153 Data
+\COPY adif.pas153 FROM 'adif-pas/pas153.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-153 View
+CREATE OR REPLACE VIEW adif.view_pas153 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas153.code AS "Code",
+        pas153.subdivision AS "Subdivision"
+    FROM adif.pas153
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas153.dxcc_code
+	ORDER BY adif.pas153.code;
+
+-- 163 Papua New Guinea --------------------------------------------------------
+
+-- PAS-163 Table
+CREATE TABLE adif.pas163
+(
+    pas163_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char NCD, CPM, CPK, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas163_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-163 Data
+\COPY adif.pas163 FROM 'adif-pas/pas163.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-163 View
+CREATE OR REPLACE VIEW adif.view_pas163 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas163.code AS "Code",
+        pas163.subdivision AS "Subdivision"
+    FROM adif.pas163
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas163.dxcc_code
+	ORDER BY adif.pas163.code;
+
+-- 170 New Zealand -------------------------------------------------------------
+
+-- PAS-170 Table
+CREATE TABLE adif.pas170
+(
+    pas170_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char AUK, BUP, NTL, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas170_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-170 Data
+\COPY adif.pas170 FROM 'adif-pas/pas170.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-170 View
+CREATE OR REPLACE VIEW adif.view_pas170 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas170.code AS "Code",
+        pas170.subdivision AS "Subdivision"
+    FROM adif.pas170
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas170.dxcc_code
+	ORDER BY adif.pas170.code;
+
+-- 177 Minami Torishima --------------------------------------------------------
+
+-- TODO: view_pas177
+CREATE TABLE adif.pas177
+(
+    pas177_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char MT, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas177_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-177 Data
+\COPY adif.pas177 FROM 'adif-pas/pas177.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-177 View
+CREATE OR REPLACE VIEW adif.view_pas177 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas177.code AS "Code",
+        pas177.subdivision AS "Subdivision"
+    FROM adif.pas177
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas177.dxcc_code
+	ORDER BY adif.pas177.code;
+
+-- 179 Moldova -----------------------------------------------------------------
+
+-- PAS-179 Table
+CREATE TABLE adif.pas179
+(
+    pas179_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char AAA, BBB, CCC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas179_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-179 Data
+\COPY adif.pas179 FROM 'adif-pas/pas179.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-179 View
+CREATE OR REPLACE VIEW adif.view_pas179 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas179.code AS "Code",
+        pas179.subdivision AS "Subdivision"
+    FROM adif.pas179
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas179.dxcc_code
+	ORDER BY adif.pas179.code;
+
+-- 192 Ogasawara ---------------------------------------------------------------
+
+-- PAS-192 Table
+CREATE TABLE adif.pas192
+(
+    pas192_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(1) NOT NULL, -- one char O, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas192_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-192 Data
+\COPY adif.pas192 FROM 'adif-pas/pas192.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-192 View
+CREATE OR REPLACE VIEW adif.view_pas192 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas192.code AS "Code",
+        pas192.subdivision AS "Subdivision"
+    FROM adif.pas192
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas192.dxcc_code
+	ORDER BY adif.pas192.code;
+
+-- 206 Austria -----------------------------------------------------------------
+
+-- PAS-206 Table Region 
+CREATE TABLE adif.pas206_region
+(
+    pas206_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(60) NOT NULL,
+    CONSTRAINT pas206_region_uq UNIQUE (region)
+);
+
+--PAS-206 Table Subdivision
+-- For CSV File Conversion: IF(K2 <> "",TEXT(K2,"yyyy-mm-dd"),"")
+CREATE TABLE adif.pas206_subdivision
+(
+    pa206_subdivision_id SERIAL PRIMARY KEY,
+    pas206_region_id INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
+    subdivision VARCHAR(120) NOT NULL,
+    before_date DATE,
+    CONSTRAINT pas206_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-206 Data
+\COPY adif.pas206_region FROM 'adif-pas/pas206_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas206_subdivision FROM 'adif-pas/pas206_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-206 FK
+ALTER TABLE adif.pas206_subdivision ADD CONSTRAINT pas206_subdivision_pas206_region_fkey
+    FOREIGN KEY (pas206_region_id) REFERENCES adif.pas206_region (pas206_region_id);
+
+-- PAS-206 View Region
+CREATE OR REPLACE VIEW adif.view_pas206_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas206_region.region AS "Region"
+    FROM adif.pas206_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas206_region.dxcc_code
+    ORDER BY adif.pas206_region.region;
+
+-- PAS-206 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas206_subdivision AS
+    SELECT
+        pas206_region.region AS "Region",
+        pas206_subdivision.code AS "Code",
+        pas206_subdivision.subdivision AS "Pri. Subdivision",
+        pas206_subdivision.before_date AS "Before Date"
+    FROM adif.pas206_subdivision
+        JOIN adif.pas206_region ON
+            adif.pas206_region.pas206_region_id = pas206_subdivision.pas206_region_id
+    ORDER BY pas206_region.region;
 
 -- *****************************************************************************
--- Create Test View: adif.adif_table_info_view
+-- Schema Informaiton
 -- *****************************************************************************
 
 INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)

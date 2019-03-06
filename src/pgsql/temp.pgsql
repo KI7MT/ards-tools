@@ -1,100 +1,4 @@
 /*
--- 153 Macquarie Is. -----------------------------------------------------------
-
--- TODO: view_pas_153
-CREATE TABLE adif.pas_153
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char MA, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_153_uq UNIQUE (code,subdivision)
-);
-
--- 163 Papua New Guinea --------------------------------------------------------
-
--- TODO: view_pas_163
-CREATE TABLE adif.pas_163
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char NCD, CPM, CPK, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_163_uq UNIQUE (code,subdivision)
-);
-
--- 170 New Zealand -------------------------------------------------------------
-
--- TODO: view_pas_170
-CREATE TABLE adif.pas_170
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char AUK, BUP, NTL, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_170_uq UNIQUE (code,subdivision)
-);
-
--- 177 Minami Torishima --------------------------------------------------------
-
--- TODO: view_pas_177
-CREATE TABLE adif.pas_177
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char MT, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_177_uq UNIQUE (code,subdivision)
-);
-
--- 179 Moldova -----------------------------------------------------------------
-
--- TODO: view_pas_179
-CREATE TABLE adif.pas_179
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char AAA, BBB, CCC, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_179_uq UNIQUE (code,subdivision)
-);
-
--- 192 Ogasawara ---------------------------------------------------------------
-
--- TODO: view_pas_179
-CREATE TABLE adif.pas_192
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(1) NOT NULL, -- one char O, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_192_uq UNIQUE (code,subdivision)
-);
-
--- 206 Austria -----------------------------------------------------------------
-
--- NOTE: Austria has Regions and Subdivisions
--- TODO: view_pas_206_region
--- TODO: view_pas_206_subdivision
--- For CSV File Conversion: IF(K2 <> "",TEXT(K2,"yyyy-mm-dd"),"")
-CREATE TABLE adif.pas_206_subdivision
-(
-    id SERIAL PRIMARY KEY,
-    pas_206_region_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AM, BL, BN, ...
-    subdivision VARCHAR(60) NOT NULL,
-    before_date DATE,
-    CONSTRAINT pas_206_subdivision_uq UNIQUE (code,subdivision)
-);
-
-CREATE TABLE adif.pas_206_region
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    region VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_206_region_uq UNIQUE (region)
-);
-
 -- 209 Belgium -----------------------------------------------------------------
 
 -- TODO: Need CSV Data
@@ -104,7 +8,7 @@ CREATE TABLE adif.pas_209
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AN, BR, BW, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_209_uq UNIQUE (code,subdivision)
 );
 
@@ -138,7 +42,7 @@ CREATE TABLE adif.pas_214
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char 2A, 2B, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_214_uq UNIQUE (code,subdivision)
 );
 
@@ -150,7 +54,7 @@ CREATE TABLE adif.pas_221
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char 015, 025, 055, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_221_uq UNIQUE (code,subdivision)
 );
 
@@ -195,7 +99,7 @@ CREATE TABLE adif.pas_225_subdivision
     id SERIAL PRIMARY KEY,
     pas_225_region_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char CA, CI, MD, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas_225_subdivision_uq UNIQUE (code,subdivision)
 );
@@ -208,7 +112,7 @@ CREATE TABLE adif.pas_227
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char 01, 02, 03, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_227_uq UNIQUE (code,subdivision)
 );
 
@@ -220,7 +124,7 @@ CREATE TABLE adif.pas_230
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- assuming two char BB, BW, BW, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_230_uq UNIQUE (code,subdivision)
 );
 
@@ -232,7 +136,7 @@ CREATE TABLE adif.pas_239
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- assuming two char GY, VA, ZA, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_239_uq UNIQUE (code,subdivision)
 );
 
@@ -244,7 +148,7 @@ CREATE TABLE adif.pas_245
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- assuming two char CW, CN, CE, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_245_uq UNIQUE (code,subdivision)
 );
 
@@ -267,7 +171,7 @@ CREATE TABLE adif.pas_248_subdivision
     id SERIAL PRIMARY KEY,
     pas_248_region_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- assuming two char BO, FE, FO, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
     CONSTRAINT pas_248_subdivision_uq UNIQUE (pas_248_region_id,code,subdivision)
 );
@@ -280,7 +184,7 @@ CREATE TABLE adif.pas_256
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- assuming two char MD, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_256_uq UNIQUE (code,subdivision)
 );
 
@@ -292,7 +196,7 @@ CREATE TABLE adif.pas_263
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char DR, FR, GR, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_263_uq UNIQUE (code,subdivision)
 );
 
@@ -304,7 +208,7 @@ CREATE TABLE adif.pas_269
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(1) NOT NULL, -- one char Z, F, P, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_269_uq UNIQUE (code,subdivision)
 );
 
@@ -316,7 +220,7 @@ CREATE TABLE adif.pas_272
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AV, BJ, BR, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_272_uq UNIQUE (code,subdivision)
 );
 
@@ -328,7 +232,7 @@ CREATE TABLE adif.pas_275
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AR, CS, HD, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_275_uq UNIQUE (code,subdivision)
 );
 
@@ -340,7 +244,7 @@ CREATE TABLE adif.pas_281
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AV, BU, C, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_281_uq UNIQUE (code,subdivision)
 );
 
@@ -352,7 +256,7 @@ CREATE TABLE adif.pas_284
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AB, I, BD, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_284_uq UNIQUE (code,subdivision)
 );
 
@@ -364,7 +268,7 @@ CREATE TABLE adif.pas_287
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AG, AR, AI, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_287_uq UNIQUE (code,subdivision)
 );
 
@@ -376,7 +280,7 @@ CREATE TABLE adif.pas_288
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char SU, TE, CH, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_288_uq UNIQUE (code,subdivision)
 );
 
@@ -388,7 +292,7 @@ CREATE TABLE adif.pas_291
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two letter state code
-    subdivision VARCHAR(60) NOT NULL, -- state name
+    subdivision VARCHAR(120) NOT NULL, -- state name
     CONSTRAINT pas_291_uq UNIQUE (code,subdivision)
 );
 
@@ -416,7 +320,7 @@ CREATE TABLE adif.pas_318
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char AH, BJ, CQ, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_318_uq UNIQUE (code,subdivision)
 );
 
@@ -428,7 +332,7 @@ CREATE TABLE adif.pas_327
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char BA, BB, BT, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_327_uq UNIQUE (code,subdivision)
 );
 
@@ -473,7 +377,7 @@ CREATE TABLE adif.pas_375_subdivision
     id SERIAL PRIMARY KEY,
     pas_375_region_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- three char AUR, BTG, CAV, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_375_subdivision_uq UNIQUE (code,subdivision)
 );
 
@@ -485,7 +389,7 @@ CREATE TABLE adif.pas_386
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- two char DAS, DAO, CAM, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_386_uq UNIQUE (code,subdivision)
 );
 
@@ -497,7 +401,7 @@ CREATE TABLE adif.pas_387
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char 37, 25, 81, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_387_uq UNIQUE (code,subdivision)
 );
 
@@ -509,7 +413,7 @@ CREATE TABLE adif.pas_497
     id SERIAL PRIMARY KEY,
     dxcc_id INT NOT NULL,
     code CHAR(2) NOT NULL, -- two char 01, 02, 03, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_497_uq UNIQUE (code,subdivision)
 );
 
@@ -531,7 +435,7 @@ CREATE TABLE adif.pas_503_subdivision
     id SERIAL PRIMARY KEY,
     pas_503_region_id INT NOT NULL,
     code CHAR(3) NOT NULL, -- two char APA, APB, APC, ...
-    subdivision VARCHAR(60) NOT NULL,
+    subdivision VARCHAR(120) NOT NULL,
     CONSTRAINT pas_503_subdivision_uq UNIQUE (code,subdivision)
 );
 
@@ -560,28 +464,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
-
--- PAS-153
-\COPY pas_153 FROM 'adif-pas/pas_153.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-163
-\COPY pas_163 FROM 'adif-pas/pas_163.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-170
-\COPY pas_170 FROM 'adif-pas/pas_170.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-177
-\COPY pas_177 FROM 'adif-pas/pas_177.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-179
-\COPY pas_179 FROM 'adif-pas/pas_179.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-192
-\COPY pas_192 FROM 'adif-pas/pas_192.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-206
-\COPY pas_206_region FROM 'adif-pas/pas_206_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY pas_206_subdivision FROM 'adif-pas/pas_206_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-209
 \COPY pas_209 FROM 'adif-pas/pas_209.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
@@ -686,37 +568,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-153 Macquarie Is. -------------------------------------------------------
-ALTER TABLE pas_153 ADD CONSTRAINT pas_153_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-163 Papua New Guinea ----------------------------------------------------
-ALTER TABLE pas_163 ADD CONSTRAINT pas_163_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-170 New Zealand ---------------------------------------------------------
-ALTER TABLE pas_170 ADD CONSTRAINT pas_170_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-177 Minami Torishima ----------------------------------------------------
-ALTER TABLE pas_177 ADD CONSTRAINT pas_177_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-179 Moldova -----------------------------------------------------------------
-ALTER TABLE pas_179 ADD CONSTRAINT pas_179_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-192 Ogasawara -----------------------------------------------------------
-ALTER TABLE pas_192 ADD CONSTRAINT pas_192_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-206 Austria -------------------------------------------------------------
-ALTER TABLE pas_206_region ADD CONSTRAINT pas_206_region_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
-ALTER TABLE pas_206_subdivision ADD CONSTRAINT pas_206_subdivision_pas_206_region_fkey
-    FOREIGN KEY (pas_206_region_id) REFERENCES pas_206_region (id);
 
 -- PAS-209 Belgium -----------------------------------------------------------------
 ALTER TABLE pas_209 ADD CONSTRAINT pas_209_dxcc_fkey

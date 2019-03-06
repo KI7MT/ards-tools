@@ -1,4 +1,4 @@
-id|pas_206_region_id|code|subdivision|before_date
+pas206_subdivision_id|pas206_region_id|code|subdivision|before_date
 1|1|WC|Wien|
 2|2|HA|Hallein|
 3|2|JO|St. Johann|
@@ -9,20 +9,20 @@ id|pas_206_region_id|code|subdivision|before_date
 8|3|AM|Amstetten|
 9|3|BL|Bruck/Leitha|
 10|3|BN|Baden|
-11|3|GD|Gmünd|
-12|3|GF|Gänserndorf|
+11|3|GD|Gmund|
+12|3|GF|Ganserndorf|
 13|3|HL|Hollabrunn|
 14|3|HO|Horn|
 15|3|KO|Korneuburg|
 16|3|KR|Krems-Region|
 17|3|KS|Krems|
 18|3|LF|Lilienfeld|
-19|3|MD|Mödling|
+19|3|MD|Modling|
 20|3|ME|Melk|
 21|3|MI|Mistelbach|
 22|3|NK|Neunkirchen|
-23|3|PC|St. Pölten|
-24|3|PL|St. Pölten-Land|
+23|3|PC|St. Polten|
+24|3|PL|St. Polten-Land|
 25|3|SB|Scheibbs|
 26|3|SW|Schwechat|
 27|3|TU|Tulln|
@@ -34,7 +34,7 @@ id|pas_206_region_id|code|subdivision|before_date
 33|3|ZT|Zwettl|
 34|4|EC|Eisenstadt|
 35|4|EU|Eisenstadt-Umgebung|
-36|4|GS|Güssing|
+36|4|GS|Gussing|
 37|4|JE|Jennersdorf|
 38|4|MA|Mattersburg|
 39|4|ND|Neusiedl/See|
@@ -51,20 +51,20 @@ id|pas_206_region_id|code|subdivision|before_date
 50|5|PE|Perg|
 51|5|RI|Ried/Innkreis|
 52|5|RO|Rohrbach|
-53|5|SD|Schärding|
+53|5|SD|Scharding|
 54|5|SE|Steyr-Land|
 55|5|SR|Steyr|
 56|5|UU|Urfahr|
-57|5|VB|Vöcklabruck|
+57|5|VB|Vocklabruck|
 58|5|WE|Wels|
 59|5|WL|Wels-Land|
 60|6|BA|Bad Aussee|2012-01-01
 61|6|BM|Bruck/Mur|2013-01-01
-62|6|BM|Bruck-Mürzzuschlag|2013-01-01
+62|6|BM|Bruck-Murzzuschlag|2013-01-01
 63|6|DL|Deutschlandsberg|
 64|6|FB|Feldbach|2013-01-01
-65|6|FF|Fürstenfeld|2013-01-01
-66|6|GB|Gröbming|
+65|6|FF|Furstenfeld|2013-01-01
+66|6|GB|Grobming|
 67|6|GC|Graz|
 68|6|GU|Graz-Umgebung|
 69|6|HB|Hartberg|2013-01-01
@@ -77,15 +77,15 @@ id|pas_206_region_id|code|subdivision|before_date
 76|6|LN|Leoben-Land|
 77|6|MT|Murtal|2012-01-01
 78|6|MU|Murau|
-79|6|MZ|Mürzzuschlag|2013-01-01
+79|6|MZ|Murzzuschlag|2013-01-01
 80|6|RA|Radkersburg|2013-01-01
-81|6|SO|Südoststeiermark|2013-01-01
+81|6|SO|Sudoststeiermark|2013-01-01
 82|6|VO|Voitsberg|
 83|6|WZ|Weiz|
 84|7|IC|Innsbruck|
 85|7|IL|Innsbruck-Land|
 86|7|IM|Imst|
-87|7|KB|Kitzbühel|
+87|7|KB|Kitzbuhel|
 88|7|KU|Kufstein|
 89|7|LA|Landeck|
 90|7|LZ|Lienz|
@@ -98,7 +98,7 @@ id|pas_206_region_id|code|subdivision|before_date
 97|8|SP|Spittal/Drau|
 98|8|SV|St.Veit/Glan|
 99|8|VI|Villach|
-100|8|VK|Völkermarkt|
+100|8|VK|Volkermarkt|
 101|8|VL|Villach-Land|
 102|8|WO|Wolfsberg|
 103|9|BC|Bregenz|
