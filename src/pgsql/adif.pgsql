@@ -2047,6 +2047,10 @@ CREATE TABLE adif.pas212_subdivision
 \COPY adif.pas212_region FROM 'adif-pas/pas212_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas212_subdivision FROM 'adif-pas/pas212_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
+-- PAS-212 FK
+ALTER TABLE adif.pas212_subdivision ADD CONSTRAINT pas212_subdivision_pas212_region_fkey
+    FOREIGN KEY (pas212_region_id) REFERENCES adif.pas212_region (pas212_region_id);
+
 -- PAS-212 View Region
 CREATE OR REPLACE VIEW adif.view_pas212_region AS
     SELECT
@@ -2123,16 +2127,114 @@ CREATE OR REPLACE VIEW adif.view_pas221 AS
             adif.dxcc.dxcc_id = pas221.dxcc_code
 	ORDER BY adif.pas221.code;
 
+-- 224 Finland -----------------------------------------------------------------
+
+-- PAS-224 Table Region
+CREATE TABLE adif.pas224_region
+(
+    pas224_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas224_region_uq UNIQUE (region)
+);
+
+-- PAS-224 Table Subdivision
+CREATE TABLE adif.pas224_subdivision
+(
+    pas224_subdivision_id SERIAL PRIMARY KEY,
+    pas224_region_id INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char 105, 106, 107, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas224_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-224 Data
+\COPY adif.pas224_region FROM 'adif-pas/pas224_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas224_subdivision FROM 'adif-pas/pas224_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-224 FK
+ALTER TABLE adif.pas224_subdivision ADD CONSTRAINT pas224_subdivision_pas224_region_fkey
+    FOREIGN KEY (pas224_region_id) REFERENCES adif.pas224_region (pas224_region_id);
+
+-- PAS-224 View Region
+CREATE OR REPLACE VIEW adif.view_pas224_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas224_region.region AS "Region"
+    FROM adif.pas224_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas224_region.dxcc_code
+    ORDER BY adif.pas224_region.region;
+
+-- PAS-224 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas224_subdivision AS
+    SELECT
+        pas224_region.region AS "Region",
+        pas224_subdivision.code AS "Code",
+        pas224_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas224_subdivision
+        JOIN adif.pas224_region ON
+            adif.pas224_region.pas224_region_id = pas224_subdivision.pas224_region_id
+    ORDER BY pas224_region.region;
+
+-- 225 Sardinia ----------------------------------------------------------------
+
+-- PAS-225 Table Region
+CREATE TABLE adif.pas225_region
+(
+    pas225_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas225_region_uq UNIQUE (region)
+);
+
+-- PAS-225 Table Subdivision
+CREATE TABLE adif.pas225_subdivision
+(
+    pas225_subdivision_id SERIAL PRIMARY KEY,
+    pas225_region_id INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char CA, CI, MD, ...
+    subdivision VARCHAR(120) NOT NULL,
+    import_only BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT pas225_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-225 Data
+\COPY adif.pas225_region FROM 'adif-pas/pas225_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas225_subdivision FROM 'adif-pas/pas225_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-225 FK
+ALTER TABLE adif.pas225_subdivision ADD CONSTRAINT pas225_subdivision_pas225_region_fkey
+    FOREIGN KEY (pas225_region_id) REFERENCES adif.pas225_region (pas225_region_id);
+
+-- PAS-225 View Region
+CREATE OR REPLACE VIEW adif.view_pas225_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas225_region.region AS "Region"
+    FROM adif.pas225_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas225_region.dxcc_code
+    ORDER BY adif.pas225_region.region;
+
+-- PAS-225 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas225_subdivision AS
+    SELECT
+        pas225_region.region AS "Region",
+        pas225_subdivision.code AS "Code",
+        pas225_subdivision.subdivision AS "Pri. Subdivision",
+        pas225_subdivision.import_only AS "Import Only"
+    FROM adif.pas225_subdivision
+        JOIN adif.pas225_region ON
+            adif.pas225_region.pas225_region_id = pas225_subdivision.pas225_region_id
+    ORDER BY pas225_region.region;
+
 
 -- *****************************************************************************
--- Schema Informaiton
+-- Add Schema Informaiton
 -- *****************************************************************************
-
-INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES('adifpas', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
 
 INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
 VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
