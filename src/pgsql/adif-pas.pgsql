@@ -53,7 +53,6 @@
 */
 
 -- Script Variables
-\set client_encoding to 'WIN1252'
 \set name adifpas
 \set ver 0.0.1
 \set adifv 3.0.9

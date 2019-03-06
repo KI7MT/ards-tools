@@ -2730,6 +2730,325 @@ CREATE OR REPLACE VIEW adif.view_pas318 AS
             adif.dxcc.dxcc_id = pas318.dxcc_code
 	ORDER BY adif.pas318.code;
 
+-- 327 Indonesia ---------------------------------------------------------------
+
+-- PAS-327 Table
+CREATE TABLE adif.pas327
+(
+    pas327_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char BA, BB, BT, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas327_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-327 Data
+\COPY adif.pas327 FROM 'adif-pas/pas327.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-327 View
+CREATE OR REPLACE VIEW adif.view_pas327 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas327.code AS "Code",
+        pas327.subdivision AS "Subdivision"
+    FROM adif.pas327
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas327.dxcc_code
+	ORDER BY adif.pas327.code;
+
+-- 339 Japan -------------------------------------------------------------------
+
+-- NOTE: Japan has Regions and Subdivisions
+
+-- PAS-339 Table Region
+CREATE TABLE adif.pas339_region
+(
+    pas339_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(20) NOT NULL,
+    CONSTRAINT pas339_region_uq UNIQUE (region)
+);
+
+-- PAS-339 Table Subdivision
+CREATE TABLE adif.pas339_subdivision
+(
+    pas339_subdivision_id SERIAL PRIMARY KEY,
+    pas339_region_id INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 01, 02, 03, ...
+    subdivision VARCHAR(20) NOT NULL,
+    CONSTRAINT pas339_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-339 Data
+\COPY adif.pas339_region FROM 'adif-pas/pas339_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas339_subdivision FROM 'adif-pas/pas339_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-339 Japan
+ALTER TABLE adif.pas339_subdivision ADD CONSTRAINT pas339_subdivision_pas339_region_fkey
+    FOREIGN KEY (pas339_region_id) REFERENCES adif.pas339_region (pas339_region_id);
+
+-- PAS-339 View Region
+CREATE OR REPLACE VIEW adif.view_pas339_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas339_region.region AS "Region"
+    FROM adif.pas339_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas339_region.dxcc_code
+    ORDER BY adif.pas339_region.region;
+
+-- PAS-339 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas339_subdivision AS
+    SELECT
+        pas339_region.region AS "Region",
+        pas339_subdivision.code AS "Code",
+        pas339_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas339_subdivision
+        JOIN adif.pas339_region ON
+            adif.pas339_region.pas339_region_id = pas339_subdivision.pas339_region_id
+    ORDER BY pas339_region.region;
+
+-- 375 Philippines -------------------------------------------------------------
+
+-- NOTE: Philippines has Regions and Subdivisions
+
+-- PAS-375 Table Region
+CREATE TABLE adif.pas375_region
+(
+    pas375_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(60) NOT NULL,
+    CONSTRAINT pas375_region_uq UNIQUE (region)
+);
+
+-- PAS-375 Table Subdivision
+CREATE TABLE adif.pas375_subdivision
+(
+    pas375_subdivision_id SERIAL PRIMARY KEY,
+    pas375_region_id INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char AUR, BTG, CAV, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas375_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-375 Data
+\COPY adif.pas375_region FROM 'adif-pas/pas375_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas375_subdivision FROM 'adif-pas/pas375_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-375 FK
+ALTER TABLE adif.pas375_subdivision ADD CONSTRAINT pas375_subdivision_pas375_region_fkey
+    FOREIGN KEY (pas375_region_id) REFERENCES adif.pas375_region (pas375_region_id);
+
+-- PAS-375 View Region
+CREATE OR REPLACE VIEW adif.view_pas375_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas375_region.region AS "Region"
+    FROM adif.pas375_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas375_region.dxcc_code
+    ORDER BY adif.pas375_region.region;
+
+-- PAS-375 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas375_subdivision AS
+    SELECT
+        pas375_region.region AS "Region",
+        pas375_subdivision.code AS "Code",
+        pas375_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas375_subdivision
+        JOIN adif.pas375_region ON
+            adif.pas375_region.pas375_region_id = pas375_subdivision.pas375_region_id
+    ORDER BY pas375_region.region;
+
+-- 386 Taiwan ------------------------------------------------------------------
+
+-- PAS-386 Table
+CREATE TABLE adif.pas386
+(
+    pas386_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- two char DAS, DAO, CAM, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas386_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-386 Date
+\COPY adif.pas386 FROM 'adif-pas/pas386.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-386 View
+CREATE OR REPLACE VIEW adif.view_pas386 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas386.code AS "Code",
+        pas386.subdivision AS "Subdivision"
+    FROM adif.pas386
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas386.dxcc_code
+	ORDER BY adif.pas386.code;
+
+-- 387 Thailand ----------------------------------------------------------------
+
+-- PAS-387 Table
+CREATE TABLE adif.pas387
+(
+    pas387_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 37, 25, 81, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas387_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-387 Data
+\COPY adif.pas387 FROM 'adif-pas/pas387.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-387 View
+CREATE OR REPLACE VIEW adif.view_pas387 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas387.code AS "Code",
+        pas387.subdivision AS "Subdivision"
+    FROM adif.pas387
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas387.dxcc_code
+	ORDER BY adif.pas387.code;
+
+-- 497 Croatia -----------------------------------------------------------------
+
+-- TODO: view_pas497
+CREATE TABLE adif.pas497
+(
+    pas497_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 01, 02, 03, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas497_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-497
+\COPY adif.pas497 FROM 'adif-pas/pas497.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-497 View
+CREATE OR REPLACE VIEW adif.view_pas497 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas497.code AS "Code",
+        pas497.subdivision AS "Subdivision"
+    FROM adif.pas497
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas497.dxcc_code
+	ORDER BY adif.pas497.code;
+
+-- 503 Czech Republic ----------------------------------------------------------
+
+-- NOTE: Czech Republic has Regions and Subdivisions
+
+-- PAS-503 Table Region
+CREATE TABLE adif.pas503_region
+(
+    pas503_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas503_region_uq UNIQUE (region)
+);
+
+-- TODO: view_pas503_subdivision
+CREATE TABLE adif.pas503_subdivision
+(
+    pas503_subdivision_id SERIAL PRIMARY KEY,
+    pas503_region_id INT NOT NULL,
+    code CHAR(3) NOT NULL, -- two char APA, APB, APC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas503_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-503 Data
+\COPY adif.pas503_region FROM 'adif-pas/pas503_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas503_subdivision FROM 'adif-pas/pas503_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-503 FK
+ALTER TABLE adif.pas503_subdivision ADD CONSTRAINT pas503_subdivision_pas503_region_fkey
+    FOREIGN KEY (pas503_region_id) REFERENCES adif.pas503_region (pas503_region_id);
+
+-- PAS-503 View Region
+CREATE OR REPLACE VIEW adif.view_pas503_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas503_region.region AS "Region"
+    FROM adif.pas503_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas503_region.dxcc_code
+    ORDER BY adif.pas503_region.region;
+
+-- PAS-503 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas503_subdivision AS
+    SELECT
+        pas503_region.region AS "Region",
+        pas503_subdivision.code AS "Code",
+        pas503_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas503_subdivision
+        JOIN adif.pas503_region ON
+            adif.pas503_region.pas503_region_id = pas503_subdivision.pas503_region_id
+    ORDER BY pas503_region.region;
+
+-- 504 Slovak Republic ---------------------------------------------------------
+
+-- NOTE: Slovak Republic has Regions and Subdivisions
+
+-- PAS-504 Table Region
+CREATE TABLE adif.pas504_region
+(
+    pas504_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas504_region_uq UNIQUE (region)
+);
+
+-- TODO: view_pas504_subdivision
+CREATE TABLE adif.pas504_subdivision
+(
+    pas504_subdivision_id SERIAL PRIMARY KEY,
+    pas504_region_id INT NOT NULL,
+    code CHAR(3) NOT NULL, -- two char APA, APB, APC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas504_subdivision_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-504 Data
+\COPY adif.pas504_region FROM 'adif-pas/pas504_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas504_subdivision FROM 'adif-pas/pas504_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-504 FK
+ALTER TABLE adif.pas504_subdivision ADD CONSTRAINT pas504_subdivision_pas504_region_fkey
+    FOREIGN KEY (pas504_region_id) REFERENCES adif.pas504_region (pas504_region_id);
+
+-- PAS-504 View Region
+CREATE OR REPLACE VIEW adif.view_pas504_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas504_region.region AS "Region"
+    FROM adif.pas504_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas504_region.dxcc_code
+    ORDER BY adif.pas504_region.region;
+
+-- PAS-504 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas504_subdivision AS
+    SELECT
+        pas504_region.region AS "Region",
+        pas504_subdivision.code AS "Code",
+        pas504_subdivision.subdivision AS "Pri. Subdivision"
+    FROM adif.pas504_subdivision
+        JOIN adif.pas504_region ON
+            adif.pas504_region.pas504_region_id = pas504_subdivision.pas504_region_id
+    ORDER BY pas504_region.region;
 
 -- *****************************************************************************
 -- Add Schema Informaiton
@@ -2752,3 +3071,122 @@ CREATE OR REPLACE VIEW view_schema_info AS
 
 \echo
 --SELECT * FROM view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+
+-- =============================================================================
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--               ADIF SECONDARY ADMINISTRATION SUBDIVISION
+--
+--
+--
+--
+--
+
+--
+--
+--
+--
+-- =============================================================================
+
+
+-- JARL JCC (Ku) ---------------------------------------------------------------
+
+-- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
+-- Info Link   : https://www.jarl.org/English/4_Library/A-4-2_Awards/Aw_jcc.htm
+-- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
+
+-- JARL JCC PREFECTURES
+CREATE TABLE adif.jarl_jcc
+(
+    id SERIAL PRIMARY KEY,
+    prefecture VARCHAR(30) NOT NULL,
+    prefix CHAR(2) NOT NULL,
+    CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
+);
+
+-- JARL JCC CITIES
+CREATE TABLE adif.jarl_jcc_city
+(
+    id SERIAL PRIMARY KEY,
+    jcc_id INT NOT NULL,
+    number CHAR(6),
+    city VARCHAR(30),
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    deleted_date date,
+    CONSTRAINT jarl_jcc_city_uq UNIQUE(number,city)
+);
+
+-- JARL JCC DATA
+\COPY adif.jarl_jcc FROM 'adif-sas/jarl_jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.jarl_jcc_city FROM 'adif-sas/jarl_jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- JARL JCC FK
+ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
+    FOREIGN KEY (jcc_id) REFERENCES adif.jarl_jcc (id);
+
+CREATE OR REPLACE VIEW adif.view_jcc_stats AS
+    SELECT 
+        adif.jarl_jcc.prefecture AS "Precefture",
+        count(*) AS "City Count"
+    FROM adif.jarl_jcc
+        JOIN adif.jarl_jcc_city ON
+            adif.jarl_jcc_city.jcc_id = jarl_jcc.id
+    GROUP BY jarl_jcc.prefecture
+    ORDER BY jarl_jcc.prefecture;
+
+-- RDXC Oblasts ----------------------------------------------------------------
+
+-- Table RDXC Oblast
+CREATE TABLE adif.rdxc
+(
+    rdxc_id SERIAL PRIMARY KEY,
+    prefix CHAR(4) NOT NULL,
+    rdxc_code CHAR(2) NOT NULL,
+    oblast VARCHAR(60) NOT NULL,
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
+);
+
+-- Table RDXC Districts
+CREATE TABLE adif.rdxc_district
+(
+    rdxc_district_id SERIAL PRIMARY KEY,
+    rdxc_id INT NOT NULL,
+    code CHAR(5) NOT NULL,
+    district VARCHAR(120),
+    valid_since DATE,
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    is_new_rda BOOLEAN NOT NULL DEFAULT '0',
+    has_replacement BOOLEAN NOT NULL DEFAULT '0',
+    migration_district CHAR(5),
+    CONSTRAINT rdxc_district_uq UNIQUE(code,district)
+);
+
+-- RDXC Data
+\COPY adif.rdxc FROM 'adif-sas/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.rdxc_district FROM 'adif-sas/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- RDA RDXC --------------------------------------------------------------------
+ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
+    FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (rdxc_id);
+
+-- RDXC Oblast Stats
+-- RDXC Oblasts Numbers do not match the 3.0.9 Spec
+CREATE OR REPLACE VIEW adif.view_rdxc_count_all AS
+SELECT 
+	rdxc.rdxc_code AS "RDXC Code",
+    rdxc.prefix AS "Prefix", 
+	rdxc.oblast AS "Oblast", 
+	count(*) AS "District Count"
+	FROM adif.rdxc JOIN adif.rdxc_district ON (rdxc_district.rdxc_id = rdxc.rdxc_id)
+	WHERE rdxc.is_deleted = 'false' 
+GROUP BY rdxc.oblast, rdxc.rdxc_code, rdxc.prefix 
+ORDER BY rdxc.rdxc_code;
+
