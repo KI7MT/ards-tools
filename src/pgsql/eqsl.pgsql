@@ -60,6 +60,7 @@
 \set name eqsl
 \set ver 0.0.1
 \set adifv 0.0.0
+\echo ''
 \echo Generating Schema for ( :name )
 \echo '-----------------------------------'
 
@@ -103,6 +104,6 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         last_update = CURRENT_TIMESTAMP;
 
 \echo
-SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+--SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
 
 -- END: eqsl.pgsql

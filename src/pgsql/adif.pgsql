@@ -1333,6 +1333,63 @@ CREATE OR REPLACE VIEW adif.view_pas100 AS
 	ORDER BY adif.pas100.code;
 
 
+-- 104 Bolivia -----------------------------------------------------------------
+
+-- PAS-104 Table
+CREATE TABLE adif.pas104
+(
+    pas104_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(1) NOT NULL, -- two char A, B, C, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas104_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-104 Data
+\COPY adif.pas104 FROM 'adif-pas/pas104.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-104 View
+CREATE OR REPLACE VIEW adif.view_pas104 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas104.code AS "Code",
+        pas104.subdivision AS "Subdivision"
+    FROM adif.pas104
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas104.dxcc_code
+	ORDER BY adif.pas104.code;
+
+
+-- 108 Brazil ------------------------------------------------------------------
+
+-- PAS-108 Table
+CREATE TABLE adif.pas108
+(
+    pas108_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char ES, GO, SC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas108_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-108
+\COPY adif.pas108 FROM 'adif-pas/pas108.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-108 View
+CREATE OR REPLACE VIEW adif.view_pas108 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas108.code AS "Code",
+        pas108.subdivision AS "Subdivision"
+    FROM adif.pas108
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas108.dxcc_code
+	ORDER BY adif.pas108.code;
+
+
+
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************
@@ -1359,4 +1416,4 @@ CREATE OR REPLACE VIEW view_schema_info AS
     ORDER BY  schema_info.schema_name;
 
 \echo
-SELECT * FROM view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+--SELECT * FROM view_schema_info WHERE view_schema_info."Schema Name" = :'name';

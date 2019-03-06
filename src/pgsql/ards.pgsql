@@ -31,6 +31,7 @@
 \set name ards
 \set ver 0.0.1
 \set adifv 0.0.0
+\echo ''
 \echo Generating Schema  ( :name )
 \echo '-----------------------------------'
 
@@ -98,5 +99,5 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- *****************************************************************************
 --  FOOTER - Finished
 -- *****************************************************************************
-\echo ''
-SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';
+--\echo ''
+--SELECT * FROM ards.view_schema_info WHERE view_schema_info."Schema Name" = :'name';

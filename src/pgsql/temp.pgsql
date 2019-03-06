@@ -1,31 +1,7 @@
 /*
--- 104 Bolivia -----------------------------------------------------------------
-
--- TODO: view_pas_104
-CREATE TABLE adif.pas_104
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(1) NOT NULL, -- two char A, B, C, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_104_uq UNIQUE (code,subdivision)
-);
-
--- 108 Brazil ------------------------------------------------------------------
-
--- TODO: view_pas_108
-CREATE TABLE adif.pas_108
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- assuming two char ES, GO, SC, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_108_uq UNIQUE (code,subdivision)
-);
-
 -- 110 Hawaii ------------------------------------------------------------------
 
--- TODO: view_pas_108
+-- TODO: view_pas108
 CREATE TABLE adif.pas_110
 (
     id SERIAL PRIMARY KEY,
@@ -749,12 +725,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-104
-\COPY pas_104 FROM 'adif-pas/pas_104.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-108
-\COPY pas_108 FROM 'adif-pas/pas_108.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-110
 \COPY pas_110 FROM 'adif-pas/pas_110.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -919,14 +889,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-104 Bolivia -------------------------------------------------------------
-ALTER TABLE pas_104 ADD CONSTRAINT pas_104_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-108 Brazil --------------------------------------------------------------
-ALTER TABLE pas_108 ADD CONSTRAINT pas_108_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-110 Hawaii --------------------------------------------------------------
 ALTER TABLE pas_110 ADD CONSTRAINT pas_110_dxcc_fkey
