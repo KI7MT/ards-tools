@@ -1461,7 +1461,7 @@ CREATE TABLE adif.pas126
 -- PAS-126 Data
 \COPY adif.pas126 FROM 'adif-pas/pas126.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- PAS-126 Kalingrad -----------------------------------------------------------
+-- PAS-126 Kalingrad
 ALTER TABLE adif.pas126 ADD CONSTRAINT pas126_cqzone_fkey
     FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
 
@@ -1517,6 +1517,115 @@ CREATE OR REPLACE VIEW adif.view_pas130 AS
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas130.dxcc_code
 	ORDER BY adif.pas130.code;
+
+-- 132 Paraguay ----------------------------------------------------------------
+
+-- PAS-132 Table
+CREATE TABLE adif.pas132
+(
+    pas132_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char 16, ASU, 11 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas132_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-132 Data
+\COPY adif.pas132 FROM 'adif-pas/pas132.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-132 View
+CREATE OR REPLACE VIEW adif.view_pas132 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas132.code AS "Code",
+        pas132.subdivision AS "Subdivision"
+    FROM adif.pas132
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas132.dxcc_code
+	ORDER BY adif.pas132.code;
+
+-- 137 Republic of Korea -------------------------------------------------------
+
+-- PAS-137 Table
+CREATE TABLE adif.pas137
+(
+    pas137_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(1) NOT NULL, -- one char 1, 9, 8, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas137_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-137 Data
+\COPY adif.pas137 FROM 'adif-pas/pas137.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-137 View
+CREATE OR REPLACE VIEW adif.view_pas137 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas137.code AS "Code",
+        pas137.subdivision AS "Subdivision"
+    FROM adif.pas137
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas137.dxcc_code
+	ORDER BY adif.pas137.code;
+
+-- 138 Kure Island -------------------------------------------------------------
+
+-- PAS-138 Table
+CREATE TABLE adif.pas138
+(
+    pas138_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char KI, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas138_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-138 Data
+\COPY adif.pas138 FROM 'adif-pas/pas138.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-138 View
+CREATE OR REPLACE VIEW adif.view_pas138 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas138.code AS "Code",
+        pas138.subdivision AS "Subdivision"
+    FROM adif.pas138
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas138.dxcc_code
+	ORDER BY adif.pas138.code;
+
+
+-- 144 Uruguay -----------------------------------------------------------------
+
+-- PAS-144 Table
+CREATE TABLE adif.pas144
+(
+    pas144_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two two char MO, CA, SJ, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas144_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-144 Data
+\COPY adif.pas144 FROM 'adif-pas/pas144.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-138 View
+CREATE OR REPLACE VIEW adif.view_pas144 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas144.code AS "Code",
+        pas144.subdivision AS "Subdivision"
+    FROM adif.pas144
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas144.dxcc_code
+	ORDER BY adif.pas144.code;
 
 
 -- *****************************************************************************

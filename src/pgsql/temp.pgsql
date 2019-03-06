@@ -1,52 +1,4 @@
 /*
--- 132 Paraguay ----------------------------------------------------------------
-
--- TODO: view_pas_132
-CREATE TABLE adif.pas_132
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char 16, ASU, 11 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_132_uq UNIQUE (code,subdivision)
-);
-
--- 137 Republic of Korea -------------------------------------------------------
-
--- TODO: view_pas_137
-CREATE TABLE adif.pas_137
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(1) NOT NULL, -- one char 1, 9, 8, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_137_uq UNIQUE (code,subdivision)
-);
-
--- 138 Kure Island -------------------------------------------------------------
-
--- TODO: view_pas_138
-CREATE TABLE adif.pas_138
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two two char KI, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_138_uq UNIQUE (code,subdivision)
-);
-
--- 144 Uruguay -----------------------------------------------------------------
-
--- TODO: view_pas_144
-CREATE TABLE adif.pas_144
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two two char MO, CA, SJ, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_144_uq UNIQUE (code,subdivision)
-);
-
 -- 147 Lord Howe Is. -----------------------------------------------------------
 
 -- TODO: view_pas_147
@@ -670,18 +622,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-132
-\COPY pas_132 FROM 'adif-pas/pas_132.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-137
-\COPY pas_137 FROM 'adif-pas/pas_137.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-138
-\COPY pas_138 FROM 'adif-pas/pas_138.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-144
-\COPY pas_144 FROM 'adif-pas/pas_144.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-147
 \COPY pas_147 FROM 'adif-pas/pas_147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -823,20 +763,8 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
 
--- PAS-132 Paraguay ------------------------------------------------------------
-ALTER TABLE pas_132 ADD CONSTRAINT pas_132_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-137 Republic of Korea ---------------------------------------------------
-ALTER TABLE pas_137 ADD CONSTRAINT pas_137_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-138 Kure Island ---------------------------------------------------------
-ALTER TABLE pas_138 ADD CONSTRAINT pas_138_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
 -- PAS-144 Uruguay -------------------------------------------------------------
-ALTER TABLE pas_144 ADD CONSTRAINT pas_144_dxcc_fkey
+ALTER TABLE pas144 ADD CONSTRAINT pas144_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-147 Lord Howe Is. -------------------------------------------------------
