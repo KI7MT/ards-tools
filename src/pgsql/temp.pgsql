@@ -1,40 +1,4 @@
 /*
--- 256 Maderia Is. -------------------------------------------------------------
-
--- TODO: view_pas_256
-CREATE TABLE adif.pas_256
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- assuming two char MD, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_256_uq UNIQUE (code,subdivision)
-);
-
--- 263 Netherlands -------------------------------------------------------------
-
--- TODO: view_pas_263
-CREATE TABLE adif.pas_263
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char DR, FR, GR, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_263_uq UNIQUE (code,subdivision)
-);
-
--- 269 Poland ------------------------------------------------------------------
-
--- TODO: view_pas_269
-CREATE TABLE adif.pas_269
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(1) NOT NULL, -- one char Z, F, P, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_269_uq UNIQUE (code,subdivision)
-);
-
 -- 272 Portugal ----------------------------------------------------------------
 
 -- TODO: view_pas_272
@@ -288,15 +252,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-256
-\COPY pas_256 FROM 'adif-pas/pas_256.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-263
-\COPY pas_263 FROM 'adif-pas/pas_263.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-269
-\COPY pas_269 FROM 'adif-pas/pas_269.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-272
 \COPY pas_272 FROM 'adif-pas/pas_272.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -356,15 +311,15 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 
 -- PAS-256 Maderia Is. ---------------------------------------------------------
-ALTER TABLE pas_256 ADD CONSTRAINT pas_256_dxcc_fkey
+ALTER TABLE pas256 ADD CONSTRAINT pas256_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-263 Netherlands ---------------------------------------------------------
-ALTER TABLE pas_263 ADD CONSTRAINT pas_263_dxcc_fkey
+ALTER TABLE pas263 ADD CONSTRAINT pas263_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-269 Poland --------------------------------------------------------------
-ALTER TABLE pas_269 ADD CONSTRAINT pas_269_dxcc_fkey
+ALTER TABLE pas269 ADD CONSTRAINT pas269_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-272 Portugal ------------------------------------------------------------

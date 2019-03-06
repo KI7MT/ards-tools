@@ -2338,6 +2338,7 @@ CREATE OR REPLACE VIEW adif.view_pas245 AS
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas245.dxcc_code
 	ORDER BY adif.pas245.code;
+
 -- 248 Italy -------------------------------------------------------------------
 
 -- NOTE: Italy has Regions and Subdivisions
@@ -2394,6 +2395,88 @@ CREATE OR REPLACE VIEW adif.view_pas248_subdivision AS
         JOIN adif.pas248_region ON
             adif.pas248_region.pas248_region_id = pas248_subdivision.pas248_region_id
     ORDER BY pas248_region.region;
+
+-- 256 Maderia Is. -------------------------------------------------------------
+
+-- TPAS-256 Table
+CREATE TABLE adif.pas256
+(
+    pas256_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char MD, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas256_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-256 Data
+\COPY adif.pas256 FROM 'adif-pas/pas256.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-256 View
+CREATE OR REPLACE VIEW adif.view_pas256 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas256.code AS "Code",
+        pas256.subdivision AS "Subdivision"
+    FROM adif.pas256
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas256.dxcc_code
+	ORDER BY adif.pas256.code;
+
+-- 263 Netherlands -------------------------------------------------------------
+
+-- PAS-263 Table
+CREATE TABLE adif.pas263
+(
+    pas263_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char DR, FR, GR, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas263_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-263 Data
+\COPY adif.pas263 FROM 'adif-pas/pas263.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-263 View
+CREATE OR REPLACE VIEW adif.view_pas263 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas263.code AS "Code",
+        pas263.subdivision AS "Subdivision"
+    FROM adif.pas263
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas263.dxcc_code
+	ORDER BY adif.pas263.code;
+
+-- 269 Poland ------------------------------------------------------------------
+
+-- PAS-269 Table
+CREATE TABLE adif.pas269
+(
+    pas269_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(1) NOT NULL, -- one char Z, F, P, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas269_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-269 Data
+\COPY adif.pas269 FROM 'adif-pas/pas269.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-269 View
+CREATE OR REPLACE VIEW adif.view_pas269 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas269.code AS "Code",
+        pas269.subdivision AS "Subdivision"
+    FROM adif.pas269
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas269.dxcc_code
+	ORDER BY adif.pas269.code;
+
 
 
 -- *****************************************************************************
