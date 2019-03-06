@@ -1388,6 +1388,135 @@ CREATE OR REPLACE VIEW adif.view_pas108 AS
             adif.dxcc.dxcc_id = pas108.dxcc_code
 	ORDER BY adif.pas108.code;
 
+-- 110 Hawaii ------------------------------------------------------------------
+
+-- PAS-110 Table
+CREATE TABLE adif.pas110
+(
+    pas110_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char HI
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas110_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-110 Data
+\COPY adif.pas110 FROM 'adif-pas/pas110.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-110 View
+CREATE OR REPLACE VIEW adif.view_pas110 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas110.code AS "Code",
+        pas110.subdivision AS "Subdivision"
+    FROM adif.pas110
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas110.dxcc_code
+	ORDER BY adif.pas110.code;
+
+-- 112 Chile -------------------------------------------------------------------
+
+-- PAS-112 table
+CREATE TABLE adif.pas112
+(
+    pas112_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(4) NOT NULL, -- four char XIII, XIV, XII, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas112_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-112 Data
+\COPY adif.pas112 FROM 'adif-pas/pas112.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-112 View
+CREATE OR REPLACE VIEW adif.view_pas112 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas112.code AS "Code",
+        pas112.subdivision AS "Subdivision"
+    FROM adif.pas112
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas112.dxcc_code
+	ORDER BY adif.pas112.code;
+
+-- 126 Kalingrad ---------------------------------------------------------------
+
+-- NOTE: There are no multiple itu or cq zones for EU Russia
+-- TODO: view_pas126
+CREATE TABLE adif.pas126
+(
+    pas126_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char KA, ...
+    subdivision VARCHAR(120) NOT NULL,
+    oblast CHAR(3) NOT NULL, -- three char, oblast numbers are 3 digits
+    cqzone_id INT NOT NULL,
+    ituzone_id INT NOT NULL,
+    CONSTRAINT pas126_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-126 Data
+\COPY adif.pas126 FROM 'adif-pas/pas126.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-126 Kalingrad -----------------------------------------------------------
+ALTER TABLE adif.pas126 ADD CONSTRAINT pas126_cqzone_fkey
+    FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
+
+ALTER TABLE adif.pas126 ADD CONSTRAINT pas126_ituzone_fkey
+    FOREIGN KEY (ituzone_id) REFERENCES adif.ituzone (ituzone_id);
+
+-- PAS-126 View
+-- NOTE: There are no multiple itu or cq zones for Kalingrad. Therefore, no
+--       need for it's own cqzone or ituzone tables nor aggregate's
+CREATE OR REPLACE VIEW adif.view_pas126 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas126.code AS "Code",
+        pas126.subdivision AS "Subdivision",
+        pas126.oblast AS "Oblast",
+		pas126.cqzone_id AS "CQ Zone",
+		pas126.ituzone_id AS "ITU Zone"
+    FROM adif.pas126
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas126.dxcc_code
+		JOIN adif.cqzone ON
+		    adif.cqzone.cqzone_id = pas126.cqzone_id
+        JOIN adif.ituzone ON
+		    adif.ituzone.ituzone_id = pas126.ituzone_id
+	ORDER BY adif.pas126.code;
+
+-- 130 Kazakhstan --------------------------------------------------------------
+
+-- PAS-130 Table
+CREATE TABLE adif.pas130
+(
+    pas130_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AA, BB, CC, ...
+    subdivision VARCHAR(120) NOT NULL,
+    oblast INT NOT NULL,
+    CONSTRAINT pas130_uq UNIQUE (code,subdivision,oblast)
+);
+
+-- PAS-130 Data
+\COPY adif.pas130 FROM 'adif-pas/pas130.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-130 View
+CREATE OR REPLACE VIEW adif.view_pas130 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas130.code AS "Code",
+        pas130.subdivision AS "Subdivision",
+        pas130.oblast AS "Oblast"
+    FROM adif.pas130
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas130.dxcc_code
+	ORDER BY adif.pas130.code;
 
 
 -- *****************************************************************************
