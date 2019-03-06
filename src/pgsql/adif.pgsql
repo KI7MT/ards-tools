@@ -2231,6 +2231,170 @@ CREATE OR REPLACE VIEW adif.view_pas225_subdivision AS
             adif.pas225_region.pas225_region_id = pas225_subdivision.pas225_region_id
     ORDER BY pas225_region.region;
 
+-- 227 France ------------------------------------------------------------------
+
+-- PAS-227 Table
+CREATE TABLE adif.pas227
+(
+    pas227_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char 01, 02, 03, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas227_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-227 Data
+\COPY adif.pas227 FROM 'adif-pas/pas227.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-227 View
+CREATE OR REPLACE VIEW adif.view_pas227 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas227.code AS "Code",
+        pas227.subdivision AS "Subdivision"
+    FROM adif.pas227
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas227.dxcc_code
+	ORDER BY adif.pas227.code;
+
+-- 230 Fed. Rep. of Germany ----------------------------------------------------
+
+-- PAS-230 Table
+CREATE TABLE adif.pas230
+(
+    pas230_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char BB, BW, BW, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas230_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-230 Data
+\COPY adif.pas230 FROM 'adif-pas/pas230.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-230 View
+CREATE OR REPLACE VIEW adif.view_pas230 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas230.code AS "Code",
+        pas230.subdivision AS "Subdivision"
+    FROM adif.pas230
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas230.dxcc_code
+	ORDER BY adif.pas230.code;
+
+-- 239 Hungary -----------------------------------------------------------------
+
+-- PAS-239
+CREATE TABLE adif.pas239
+(
+    pas239_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char GY, VA, ZA, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas239_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-239 Data
+\COPY adif.pas239 FROM 'adif-pas/pas239.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-230 View
+CREATE OR REPLACE VIEW adif.view_pas239 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas239.code AS "Code",
+        pas239.subdivision AS "Subdivision"
+    FROM adif.pas239
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas239.dxcc_code
+	ORDER BY adif.pas239.code;
+
+-- 245 Ireland -----------------------------------------------------------------
+
+-- PAS-245 Table
+CREATE TABLE adif.pas245
+(
+    pas245_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char CW, CN, CE, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas245_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-245 Data
+\COPY adif.pas245 FROM 'adif-pas/pas245.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-230 View
+CREATE OR REPLACE VIEW adif.view_pas245 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas245.code AS "Code",
+        pas245.subdivision AS "Subdivision"
+    FROM adif.pas245
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas245.dxcc_code
+	ORDER BY adif.pas245.code;
+-- 248 Italy -------------------------------------------------------------------
+
+-- NOTE: Italy has Regions and Subdivisions
+-- NOTE: Italy has multiple Import Only Subdivisions
+
+-- PAS-248 Table Region
+CREATE TABLE adif.pas248_region
+(
+    pas248_region_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas248_region_uq UNIQUE (region)
+);
+
+-- PAS-248 Table Subdivision
+CREATE TABLE adif.pas248_subdivision
+(
+    pas248_subdivision_id SERIAL PRIMARY KEY,
+    pas248_region_id INT NOT NULL,
+    code CHAR(2) NOT NULL, -- assuming two char BO, FE, FO, ...
+    subdivision VARCHAR(120) NOT NULL,
+    import_only BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT pas248_subdivision_uq UNIQUE (pas248_region_id,code,subdivision)
+);
+
+-- PAS-248 Data
+\COPY adif.pas248_region FROM 'adif-pas/pas248_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas248_subdivision FROM 'adif-pas/pas248_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-248 FK
+ALTER TABLE adif.pas248_subdivision ADD CONSTRAINT pas248_subdivision_pas248_region_fkey
+    FOREIGN KEY (pas248_region_id) REFERENCES adif.pas248_region (pas248_region_id);
+
+
+-- PAS-248 View Region
+CREATE OR REPLACE VIEW adif.view_pas248_region AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas248_region.region AS "Region"
+    FROM adif.pas248_region
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas248_region.dxcc_code
+    ORDER BY adif.pas248_region.region;
+
+-- PAS-225 View Subdivision
+CREATE OR REPLACE VIEW adif.view_pas248_subdivision AS
+    SELECT
+        pas248_region.region AS "Region",
+        pas248_subdivision.code AS "Code",
+        pas248_subdivision.subdivision AS "Pri. Subdivision",
+        pas248_subdivision.import_only AS "Import Only"
+    FROM adif.pas248_subdivision
+        JOIN adif.pas248_region ON
+            adif.pas248_region.pas248_region_id = pas248_subdivision.pas248_region_id
+    ORDER BY pas248_region.region;
+
 
 -- *****************************************************************************
 -- Add Schema Informaiton
