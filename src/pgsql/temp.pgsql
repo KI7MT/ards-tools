@@ -1,28 +1,4 @@
 /*
--- 86 Nicaragua ----------------------------------------------------------------
-
--- TODO: view_pas_086
-CREATE TABLE adif.pas_086
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char BO, CA, CI ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_086_uq UNIQUE (code,subdivision)
-);
-
--- 100 Argentina ---------------------------------------------------------------
-
--- TODO: view_pas_100
-CREATE TABLE adif.pas_100
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(1) NOT NULL, -- one char A, B, C, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_100_uq UNIQUE (code,subdivision)
-);
-
 -- 104 Bolivia -----------------------------------------------------------------
 
 -- TODO: view_pas_104
@@ -773,12 +749,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-086
-\COPY pas_086 FROM 'adif-pas/pas_086.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-100
-\COPY pas_100 FROM 'adif-pas/pas_100.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-104
 \COPY pas_104 FROM 'adif-pas/pas_104.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -949,14 +919,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-086 Nicaragua -----------------------------------------------------------
-ALTER TABLE pas_086 ADD CONSTRAINT pas_086_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-100 Argintina -----------------------------------------------------------
-ALTER TABLE pas_100 ADD CONSTRAINT pas_100_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-104 Bolivia -------------------------------------------------------------
 ALTER TABLE pas_104 ADD CONSTRAINT pas_104_dxcc_fkey

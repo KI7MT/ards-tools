@@ -1278,6 +1278,61 @@ CREATE OR REPLACE VIEW adif.view_pas74 AS
             adif.dxcc.dxcc_id = pas74.dxcc_code
 	ORDER BY adif.pas74.code;
 
+-- 86 Nicaragua ----------------------------------------------------------------
+
+-- PAS-86 Table
+CREATE TABLE adif.pas86
+(
+    pas86_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char BO, CA, CI ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas86_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-86 Data
+\COPY adif.pas86 FROM 'adif-pas/pas86.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-86 View
+CREATE OR REPLACE VIEW adif.view_pas86 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas86.code AS "Code",
+        pas86.subdivision AS "Subdivision"
+    FROM adif.pas86
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas86.dxcc_code
+	ORDER BY adif.pas86.code;
+
+-- 100 Argentina ---------------------------------------------------------------
+
+-- TODO: view_pas100
+CREATE TABLE adif.pas100
+(
+    pas100_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(1) NOT NULL, -- one char A, B, C, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas100_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-100 Data
+\COPY adif.pas100 FROM 'adif-pas/pas100.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-100 View
+CREATE OR REPLACE VIEW adif.view_pas100 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas100.code AS "Code",
+        pas100.subdivision AS "Subdivision"
+    FROM adif.pas100
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas100.dxcc_code
+	ORDER BY adif.pas100.code;
+
+
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view
 -- *****************************************************************************

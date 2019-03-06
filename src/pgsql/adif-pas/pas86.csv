@@ -1,4 +1,4 @@
-id|dxcc_id|code|subdivision
+pas86_id|dxcc_code|code|subdivision
 1|86|BO|Boaco
 2|86|CA|Carazo
 3|86|CI|Chinandega
@@ -12,7 +12,7 @@ id|dxcc_id|code|subdivision
 11|86|MS|Masaya
 12|86|MT|Matagalpa
 13|86|NS|Nueva Segovia
-14|86|SJ|Río San Juan
+14|86|SJ|Rio San Juan
 15|86|RI|Rivas
 16|86|AN|Atlantico Norte
 17|86|AS|Atlantico Sur

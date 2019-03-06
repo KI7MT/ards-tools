@@ -1,4 +1,4 @@
-id|dxcc_id|code|subdivision
+pas100_id|dxcc_code|code|subdivision
 1|100|C|Capital federal (Buenos Aires City)
 2|100|B|Buenos Aires Province
 3|100|S|Santa Fe
@@ -7,7 +7,7 @@ id|dxcc_id|code|subdivision
 6|100|X|Cordoba
 7|100|N|Misiones
 8|100|E|Entre Rios
-9|100|T|Tucumán
+9|100|T|Tucuman
 10|100|W|Corrientes
 11|100|M|Mendoza
 12|100|G|Santiago del Estero
@@ -18,8 +18,8 @@ id|dxcc_id|code|subdivision
 17|100|F|La Rioja
 18|100|Y|Jujuy
 19|100|L|La Pampa
-20|100|R|Rió Negro
+20|100|R|Rio Negro
 21|100|U|Chubut
 22|100|Z|Santa Cruz
 23|100|V|Tierra del Fuego
-24|100|Q|Neuquén
+24|100|Q|Neuquen
