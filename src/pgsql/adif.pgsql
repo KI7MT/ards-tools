@@ -655,24 +655,7 @@ ORDER by state.name;
 
 -- =============================================================================
 --
---
---
---
---
---
---
---
---
 --               ADIF PRIMARY ADMINISTRATION SUBDIVISION
---
---
---
---
---
-
---
---
---
 --
 -- =============================================================================
 
@@ -3074,24 +3057,7 @@ CREATE OR REPLACE VIEW view_schema_info AS
 
 -- =============================================================================
 --
---
---
---
---
---
---
---
---
 --               ADIF SECONDARY ADMINISTRATION SUBDIVISION
---
---
---
---
---
-
---
---
---
 --
 -- =============================================================================
 
@@ -3143,7 +3109,7 @@ CREATE OR REPLACE VIEW adif.view_jcc_stats AS
 
 -- RDXC Oblasts ----------------------------------------------------------------
 
--- Table RDXC Oblast
+-- RDXC Table for Oblasts
 CREATE TABLE adif.rdxc
 (
     rdxc_id SERIAL PRIMARY KEY,
@@ -3154,7 +3120,7 @@ CREATE TABLE adif.rdxc
     CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
 );
 
--- Table RDXC Districts
+-- RDXC Table for Districts under each Oblast
 CREATE TABLE adif.rdxc_district
 (
     rdxc_district_id SERIAL PRIMARY KEY,
@@ -3169,16 +3135,17 @@ CREATE TABLE adif.rdxc_district
     CONSTRAINT rdxc_district_uq UNIQUE(code,district)
 );
 
--- RDXC Data
+-- RDXC Data (Oblasts and Districts)
 \COPY adif.rdxc FROM 'adif-sas/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.rdxc_district FROM 'adif-sas/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
--- RDA RDXC --------------------------------------------------------------------
+-- RDXC District FK
 ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
     FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (rdxc_id);
 
 -- RDXC Oblast Stats
 -- RDXC Oblasts Numbers do not match the 3.0.9 Spec
+-- RDXC Number from the source dont match what's published by v3.0.9 Spec
 CREATE OR REPLACE VIEW adif.view_rdxc_count_all AS
 SELECT 
 	rdxc.rdxc_code AS "RDXC Code",
@@ -3189,4 +3156,3 @@ SELECT
 	WHERE rdxc.is_deleted = 'false' 
 GROUP BY rdxc.oblast, rdxc.rdxc_code, rdxc.prefix 
 ORDER BY rdxc.rdxc_code;
-
