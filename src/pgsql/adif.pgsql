@@ -2531,6 +2531,205 @@ CREATE OR REPLACE VIEW adif.view_pas275 AS
             adif.dxcc.dxcc_id = pas275.dxcc_code
 	ORDER BY adif.pas275.code;
 
+-- 281 Spain -------------------------------------------------------------------
+
+-- PAS-281 Table
+CREATE TABLE adif.pas281
+(
+    pas281_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AV, BU, C, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas281_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-281 Data
+\COPY adif.pas281 FROM 'adif-pas/pas281.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-281 View
+CREATE OR REPLACE VIEW adif.view_pas281 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas281.code AS "Code",
+        pas281.subdivision AS "Subdivision"
+    FROM adif.pas281
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas281.dxcc_code
+	ORDER BY adif.pas281.code;
+
+-- 284 Sweden ------------------------------------------------------------------
+
+-- PAS-284 Table
+CREATE TABLE adif.pas284
+(
+    pas284_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AB, I, BD, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas284_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-284 Data
+\COPY adif.pas284 FROM 'adif-pas/pas284.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-284 View
+CREATE OR REPLACE VIEW adif.view_pas284 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas284.code AS "Code",
+        pas284.subdivision AS "Subdivision"
+    FROM adif.pas284
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas284.dxcc_code
+	ORDER BY adif.pas284.code;
+
+-- 287 Switzerland -------------------------------------------------------------
+
+-- PAS-287 Table
+CREATE TABLE adif.pas287
+(
+    pas287_idid SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AG, AR, AI, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas287_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-287 Data
+\COPY adif.pas287 FROM 'adif-pas/pas287.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-287 View
+CREATE OR REPLACE VIEW adif.view_pas287 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas287.code AS "Code",
+        pas287.subdivision AS "Subdivision"
+    FROM adif.pas287
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas287.dxcc_code
+	ORDER BY adif.pas287.code;
+
+-- 288 Ukraine -----------------------------------------------------------------
+
+-- PAS-288 Table
+CREATE TABLE adif.pas288
+(
+    pas288_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char SU, TE, CH, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas288_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-288 Data
+\COPY adif.pas288 FROM 'adif-pas/pas288.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+CREATE OR REPLACE VIEW adif.view_pas288 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas288.code AS "Code",
+        pas288.subdivision AS "Subdivision"
+    FROM adif.pas288
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas288.dxcc_code
+	ORDER BY adif.pas288.code;
+
+-- 291 United States -----------------------------------------------------------
+
+-- TODO: view_pas291
+CREATE TABLE adif.pas291
+(
+    pas291_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- two letter state code
+    subdivision VARCHAR(120) NOT NULL, -- state name
+    CONSTRAINT pas291_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-291 CQ Zone
+CREATE TABLE adif.pas291_cqzone
+(
+    pas291_cqzone_id SERIAL PRIMARY KEY,
+    pas291_id INT NOT NULL,
+    cqzone_id INT NOT NULL
+);
+
+-- PAS-291 ITU Zone
+CREATE TABLE adif.pas291_ituzone
+(
+    pas291_ituzone_id SERIAL PRIMARY KEY,
+    pas291_id INT NOT NULL,
+    ituzone_id INT NOT NULL
+);
+
+-- PAS-291 Data
+\COPY adif.pas291 FROM 'adif-pas/pas291.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas291_cqzone FROM 'adif-pas/pas291_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas291_ituzone FROM 'adif-pas/pas291_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-291 FK's 
+ALTER TABLE adif.pas291_cqzone ADD CONSTRAINT pas291_cqzone_pas291_fkey
+    FOREIGN KEY (pas291_id) REFERENCES adif.pas291 (pas291_id);
+
+ALTER TABLE adif.pas291_cqzone ADD CONSTRAINT pas291_cqzone_cqzone_fkey
+    FOREIGN KEY (cqzone_id) REFERENCES adif.cqzone (cqzone_id);
+
+ALTER TABLE adif.pas291_ituzone ADD CONSTRAINT pas291_ituzone_pas291_fkey
+    FOREIGN KEY (pas291_id) REFERENCES adif.pas291 (pas291_id);
+
+ALTER TABLE adif.pas291_ituzone ADD CONSTRAINT pas291_ituzone_ituzone_fkey
+    FOREIGN KEY (ituzone_id) REFERENCES adif.ituzone (ituzone_id);
+
+-- PAS-291 View
+CREATE OR REPLACE VIEW adif.view_pas291 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas291.code AS "Code",
+        pas291.subdivision AS "Subdivision",
+		STRING_AGG(DISTINCT pas291_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+		STRING_AGG(DISTINCT pas291_ituzone.ituzone_id::text,', ') AS "ITU Zone"
+    FROM adif.pas291
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas291.dxcc_code
+		JOIN adif.pas291_cqzone ON
+		    adif.pas291_cqzone.pas291_id = pas291.pas291_id
+		JOIN adif.pas291_ituzone ON
+		    adif.pas291_ituzone.pas291_id = pas291.pas291_id
+	GROUP BY dxcc.dxcc_id, pas291.code, pas291.subdivision
+	ORDER BY adif.pas291.code;
+
+-- 318 China -------------------------------------------------------------------
+
+-- TODO: view_pas287
+CREATE TABLE adif.pas318
+(
+    pas318_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AH, BJ, CQ, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas318_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-318 Data
+\COPY adif.pas318 FROM 'adif-pas/pas318.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-318 View
+CREATE OR REPLACE VIEW adif.view_pas318 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas318.code AS "Code",
+        pas318.subdivision AS "Subdivision"
+    FROM adif.pas318
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas318.dxcc_code
+	ORDER BY adif.pas318.code;
+
 
 -- *****************************************************************************
 -- Add Schema Informaiton
