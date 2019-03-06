@@ -1,41 +1,4 @@
 /*
--- 149 Azores ------------------------------------------------------------------
-
--- TODO: view_pas_149
-CREATE TABLE adif.pas_149
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AC, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_149_uq UNIQUE (code,subdivision)
-);
-
--- 150 Australia ---------------------------------------------------------------
-
--- TODO: view_pas_150
-CREATE TABLE adif.pas_150
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(3) NOT NULL, -- three char ACT, SA, NSW, ...
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_150_uq UNIQUE (code,subdivision)
-);
-
--- 151 Malyj Vysotski Is -------------------------------------------------------
-
--- TODO: view_pas_151
-CREATE TABLE adif.pas_151
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char LO, MV, ...
-    subdivision VARCHAR(60) NOT NULL,
-    import_only BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas_151_uq UNIQUE (code,subdivision)
-);
-
 -- 153 Macquarie Is. -----------------------------------------------------------
 
 -- TODO: view_pas_153
@@ -598,15 +561,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-149
-\COPY pas_149 FROM 'adif-pas/pas_149.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-150
-\COPY pas_150 FROM 'adif-pas/pas_150.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-151
-\COPY pas_151 FROM 'adif-pas/pas_151.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-153
 \COPY pas_153 FROM 'adif-pas/pas_153.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -732,22 +686,6 @@ CREATE TABLE adif.pas_504_subdivision
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
-
--- PAS-148 Venezuela ---------------------------------------------------------------
-ALTER TABLE pas148 ADD CONSTRAINT pas148_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-149 Azores --------------------------------------------------------------
-ALTER TABLE pas_149 ADD CONSTRAINT pas_149_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-150 Australia -----------------------------------------------------------
-ALTER TABLE pas_150 ADD CONSTRAINT pas_150_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- 151 Malyj Vysotski Is -------------------------------------------------------
-ALTER TABLE pas_151 ADD CONSTRAINT pas_151_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-153 Macquarie Is. -------------------------------------------------------
 ALTER TABLE pas_153 ADD CONSTRAINT pas_153_dxcc_fkey

@@ -1667,7 +1667,7 @@ CREATE TABLE adif.pas148
 );
 
 -- PAS-148 Data
-\COPY adif.pas148 FROM 'adif-pas/pas147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas148 FROM 'adif-pas/pas148.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-148 View
 CREATE OR REPLACE VIEW adif.view_pas148 AS
@@ -1680,6 +1680,89 @@ CREATE OR REPLACE VIEW adif.view_pas148 AS
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas148.dxcc_code
 	ORDER BY adif.pas148.code;
+
+-- 149 Azores ------------------------------------------------------------------
+
+-- PAS-149 Table
+CREATE TABLE adif.pas149
+(
+    pas149_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AC, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas149_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-149 Data
+\COPY adif.pas149 FROM 'adif-pas/pas149.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-149 View
+CREATE OR REPLACE VIEW adif.view_pas149 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas149.code AS "Code",
+        pas149.subdivision AS "Subdivision"
+    FROM adif.pas149
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas149.dxcc_code
+	ORDER BY adif.pas149.code;
+
+-- 150 Australia ---------------------------------------------------------------
+
+-- PAS-150 Table
+CREATE TABLE adif.pas150
+(
+    pas150_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(3) NOT NULL, -- three char ACT, SA, NSW, ...
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas150_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-150 Data
+\COPY adif.pas150 FROM 'adif-pas/pas150.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-149 View
+CREATE OR REPLACE VIEW adif.view_pas150 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas150.code AS "Code",
+        pas150.subdivision AS "Subdivision"
+    FROM adif.pas150
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas150.dxcc_code
+	ORDER BY adif.pas150.code;
+
+-- 151 Malyj Vysotski Is -------------------------------------------------------
+
+-- PAS-151 Table
+CREATE TABLE adif.pas151
+(
+    pas151_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char LO, MV, ...
+    subdivision VARCHAR(120) NOT NULL,
+    import_only BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT pas151_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-151 Data
+\COPY adif.pas151 FROM 'adif-pas/pas151.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-151 View
+CREATE OR REPLACE VIEW adif.view_pas151 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas151.code AS "Code",
+        pas151.subdivision AS "Subdivision",
+        pas151.import_only AS "Import Only"
+    FROM adif.pas151
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas151.dxcc_code
+	ORDER BY adif.pas151.code;
 
 
 -- *****************************************************************************
