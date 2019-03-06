@@ -1627,6 +1627,60 @@ CREATE OR REPLACE VIEW adif.view_pas144 AS
             adif.dxcc.dxcc_id = pas144.dxcc_code
 	ORDER BY adif.pas144.code;
 
+-- 147 Lord Howe Is. -----------------------------------------------------------
+
+-- PAS-147 Table
+CREATE TABLE adif.pas147
+(
+    pas147_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char LH, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas147_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-147 Data
+\COPY adif.pas147 FROM 'adif-pas/pas147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-147 View
+CREATE OR REPLACE VIEW adif.view_pas147 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas147.code AS "Code",
+        pas147.subdivision AS "Subdivision"
+    FROM adif.pas147
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas147.dxcc_code
+	ORDER BY adif.pas147.code;
+
+-- 148 Venezuela ---------------------------------------------------------------
+
+-- PAS-148 Table
+CREATE TABLE adif.pas148
+(
+    pas148_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    code CHAR(2) NOT NULL, -- two char AM, AN, AP, ... 
+    subdivision VARCHAR(120) NOT NULL,
+    CONSTRAINT pas148_uq UNIQUE (code,subdivision)
+);
+
+-- PAS-148 Data
+\COPY adif.pas148 FROM 'adif-pas/pas147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS-148 View
+CREATE OR REPLACE VIEW adif.view_pas148 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas148.code AS "Code",
+        pas148.subdivision AS "Subdivision"
+    FROM adif.pas148
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas148.dxcc_code
+	ORDER BY adif.pas148.code;
+
 
 -- *****************************************************************************
 -- Create Test View: adif.adif_table_info_view

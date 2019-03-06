@@ -1,28 +1,4 @@
 /*
--- 147 Lord Howe Is. -----------------------------------------------------------
-
--- TODO: view_pas_147
-CREATE TABLE adif.pas_147
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char LH, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_147_uq UNIQUE (code,subdivision)
-);
-
--- 148 Venezuela ---------------------------------------------------------------
-
--- TODO: view_pas_148
-CREATE TABLE adif.pas_148
-(
-    id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,
-    code CHAR(2) NOT NULL, -- two char AM, AN, AP, ... 
-    subdivision VARCHAR(60) NOT NULL,
-    CONSTRAINT pas_148_uq UNIQUE (code,subdivision)
-);
-
 -- 149 Azores ------------------------------------------------------------------
 
 -- TODO: view_pas_149
@@ -622,12 +598,6 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD CSV DATA BEFORE FK's and IDX
 -- *****************************************************************************
 
--- PAS-147
-\COPY pas_147 FROM 'adif-pas/pas_147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-148
-\COPY pas_148 FROM 'adif-pas/pas_147.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 -- PAS-149
 \COPY pas_149 FROM 'adif-pas/pas_149.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
@@ -763,16 +733,8 @@ CREATE TABLE adif.pas_504_subdivision
 --  ADD FOREIGN KEYS
 -- *****************************************************************************
 
--- PAS-144 Uruguay -------------------------------------------------------------
-ALTER TABLE pas144 ADD CONSTRAINT pas144_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
--- PAS-147 Lord Howe Is. -------------------------------------------------------
-ALTER TABLE pas_147 ADD CONSTRAINT pas_147_dxcc_fkey
-    FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
-
 -- PAS-148 Venezuela ---------------------------------------------------------------
-ALTER TABLE pas_148 ADD CONSTRAINT pas_148_dxcc_fkey
+ALTER TABLE pas148 ADD CONSTRAINT pas148_dxcc_fkey
     FOREIGN KEY (dxcc_id) REFERENCES dxcc (dxcc_id);
 
 -- PAS-149 Azores --------------------------------------------------------------
