@@ -1978,7 +1978,7 @@ CREATE OR REPLACE VIEW adif.view_pas206_subdivision AS
     FROM adif.pas206_subdivision
         JOIN adif.pas206_region ON
             adif.pas206_region.pas206_region_id = pas206_subdivision.pas206_region_id
-    ORDER BY pas206_region.region;
+    ORDER BY pas206_region.region,pas206_subdivision.subdivision;
 
 -- 209 Belgium -----------------------------------------------------------------
 
