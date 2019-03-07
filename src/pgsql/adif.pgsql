@@ -664,72 +664,72 @@ CREATE TABLE adif.pas_summary
 (
     pas_summary_id SERIAL PRIMARY KEY,
     dxcc_code INT NOT NULL,
-    pas_subdivision_type_id INT NOT NULL,
+    pas_type_id INT NOT NULL,
     has_oblast BOOLEAN NOT NULL DEFAULT '0',
     has_sas BOOLEAN NOT NULL DEFAULT '0',
-    sas_subdivision_type_id INT,
-    CHECK ( NOT (has_sas AND sas_subdivision_type_id IS NULL) )
+    sas_type_id INT,
+    CHECK ( NOT (has_sas AND sas_type_id IS NULL) )
 ); 
 
 -- Primary Administration Subdivision Type
-CREATE TABLE adif.pas_subdivision_type
+CREATE TABLE adif.pas_type
 (
-    pas_subdivision_type_id SERIAL PRIMARY KEY,
-    pas_subdivision_type VARCHAR(20) NOT NULL,
-    CONSTRAINT pas_subdivision_type_uq UNIQUE (pas_subdivision_type)
+    pas_type_id SERIAL PRIMARY KEY,
+    pas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT pas_type_uq UNIQUE (pas_type)
 );
 
 -- Secondary Administration Subdivision
-CREATE TABLE adif.sas_subdivision_type
+CREATE TABLE adif.sas_type
 (
-    sas_subdivision_type_id SERIAL PRIMARY KEY,
-    sas_subdivision_type VARCHAR(20) NOT NULL,
-    CONSTRAINT sas_subdivision_type_uq UNIQUE (sas_subdivision_type)
+    sas_type_id SERIAL PRIMARY KEY,
+    sas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT sas_type_uq UNIQUE (sas_type)
 );
 
 -- PAS Summary Data
-\COPY adif.pas_subdivision_type FROM 'adif-pas/pas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.sas_subdivision_type FROM 'adif-pas/sas_subdivision_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_type FROM 'adif-pas/pas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sas_type FROM 'adif-pas/sas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas_summary FROM 'adif-pas/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS Summary FK's
-ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_subdivision_type_fkey
-    FOREIGN KEY (pas_subdivision_type_id) REFERENCES adif.pas_subdivision_type (pas_subdivision_type_id);
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_type_fkey
+    FOREIGN KEY (pas_type_id) REFERENCES adif.pas_type (pas_type_id);
 
-ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_subdivision_type_fkey
-    FOREIGN KEY (sas_subdivision_type_id) REFERENCES adif.sas_subdivision_type (sas_subdivision_type_id);
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_type_fkey
+    FOREIGN KEY (sas_type_id) REFERENCES adif.sas_type (sas_type_id);
 
 -- view_pas_summary
 CREATE OR REPLACE VIEW adif.view_pas_summary AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
         dxcc.name AS "Country",
-        pas_subdivision_type.pas_subdivision_type AS "Pri. Subdivision",
+        pas_type.pas_type AS "Pri. Subdivision",
         pas_summary.has_oblast AS "Has Oblast",
         pas_summary.has_sas AS "Has Secondary",
-        sas_subdivision_type.sas_subdivision_type AS "Sec. Subdivision"
+        sas_type.sas_type AS "Sec. Subdivision"
     FROM adif.pas_summary
         LEFT JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas_summary.dxcc_code
-        LEFT JOIN adif.pas_subdivision_type ON
-            adif.pas_summary.pas_subdivision_type_id = adif.pas_subdivision_type.pas_subdivision_type_id
-        LEFT JOIN adif.sas_subdivision_type ON
-            adif.pas_summary.sas_subdivision_type_id = adif.sas_subdivision_type.sas_subdivision_type_id
+        LEFT JOIN adif.pas_type ON
+            adif.pas_summary.pas_type_id = adif.pas_type.pas_type_id
+        LEFT JOIN adif.sas_type ON
+            adif.pas_summary.sas_type_id = adif.sas_type.sas_type_id
     ORDER BY adif.pas_summary.pas_summary_id;
 
--- view_pas_subdivision_type
-CREATE OR REPLACE VIEW adif.view_pas_subdivision_type AS
+-- view_pas_type
+CREATE OR REPLACE VIEW adif.view_pas_type AS
     SELECT
-        pas_subdivision_type AS "Pri. Subdivision"
-    FROM adif.pas_subdivision_type
-    ORDER BY pas_subdivision_type;
+        pas_type AS "Pri. Subdivision"
+    FROM adif.pas_type
+    ORDER BY pas_type;
 
--- view_sas_subdivision_type 
-CREATE OR REPLACE VIEW adif.view_sas_subdivision_type AS
+-- view_sas_type 
+CREATE OR REPLACE VIEW adif.view_sas_type AS
     SELECT
-        sas_subdivision_type AS "Sec. Subdivision"
-    FROM adif.sas_subdivision_type
-    ORDER BY sas_subdivision_type;
+        sas_type AS "Sec. Subdivision"
+    FROM adif.sas_type
+    ORDER BY sas_type;
 
 -- PAS-1 Canada ----------------------------------------------------------------
 
@@ -1937,23 +1937,23 @@ CREATE TABLE adif.pas206_region
 
 --PAS-206 Table Subdivision
 -- For CSV File Conversion: IF(K2 <> "",TEXT(K2,"yyyy-mm-dd"),"")
-CREATE TABLE adif.pas206_subdivision
+CREATE TABLE adif.pas206
 (
-    pa206_subdivision_id SERIAL PRIMARY KEY,
+    pa206_id SERIAL PRIMARY KEY,
     pas206_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char AM, BL, BN, ...
     subdivision VARCHAR(120) NOT NULL,
     before_date DATE, -- For QSO's Made BEFORE date
     after_date DATE, -- For QSO's made ON or AFTER date
-    CONSTRAINT pas206_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas206_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-206 Data
 \COPY adif.pas206_region FROM 'adif-pas/pas206_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas206_subdivision FROM 'adif-pas/pas206_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas206 FROM 'adif-pas/pas206.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-206 FK
-ALTER TABLE adif.pas206_subdivision ADD CONSTRAINT pas206_subdivision_pas206_region_fkey
+ALTER TABLE adif.pas206 ADD CONSTRAINT pas206_pas206_region_fkey
     FOREIGN KEY (pas206_region_id) REFERENCES adif.pas206_region (pas206_region_id);
 
 -- PAS-206 View Region
@@ -1968,17 +1968,17 @@ CREATE OR REPLACE VIEW adif.view_pas206_region AS
     ORDER BY adif.pas206_region.region;
 
 -- PAS-206 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas206_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas206 AS
     SELECT
         pas206_region.region AS "Region",
-        pas206_subdivision.code AS "Code",
-        pas206_subdivision.subdivision AS "Pri. Subdivision",
-        pas206_subdivision.before_date AS "Before Date",
-        pas206_subdivision.after_date AS "On or After Date"
-    FROM adif.pas206_subdivision
+        pas206.code AS "Code",
+        pas206.subdivision AS "Pri. Subdivision",
+        pas206.before_date AS "Before Date",
+        pas206.after_date AS "On or After Date"
+    FROM adif.pas206
         JOIN adif.pas206_region ON
-            adif.pas206_region.pas206_region_id = pas206_subdivision.pas206_region_id
-    ORDER BY pas206_region.region,pas206_subdivision.subdivision;
+            adif.pas206_region.pas206_region_id = pas206.pas206_region_id
+    ORDER BY pas206_region.region,pas206.subdivision;
 
 -- 209 Belgium -----------------------------------------------------------------
 
@@ -2019,21 +2019,21 @@ CREATE TABLE adif.pas212_region
 );
 
 -- PAS-212 Table Subdivision
-CREATE TABLE adif.pas212_subdivision
+CREATE TABLE adif.pas212
 (
-    pas212_subdivision_id SERIAL PRIMARY KEY,
+    pas212_id SERIAL PRIMARY KEY,
     pas212_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char AM, BL, BN, ...
     subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas212_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas212_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-212
 \COPY adif.pas212_region FROM 'adif-pas/pas212_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas212_subdivision FROM 'adif-pas/pas212_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas212 FROM 'adif-pas/pas212.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-212 FK
-ALTER TABLE adif.pas212_subdivision ADD CONSTRAINT pas212_subdivision_pas212_region_fkey
+ALTER TABLE adif.pas212 ADD CONSTRAINT pas212_pas212_region_fkey
     FOREIGN KEY (pas212_region_id) REFERENCES adif.pas212_region (pas212_region_id);
 
 -- PAS-212 View Region
@@ -2048,14 +2048,14 @@ CREATE OR REPLACE VIEW adif.view_pas212_region AS
     ORDER BY adif.pas212_region.region;
 
 -- PAS-212 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas212_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas212 AS
     SELECT
         pas212_region.region AS "Region",
-        pas212_subdivision.code AS "Code",
-        pas212_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas212_subdivision
+        pas212.code AS "Code",
+        pas212.subdivision AS "Pri. Subdivision"
+    FROM adif.pas212
         JOIN adif.pas212_region ON
-            adif.pas212_region.pas212_region_id = pas212_subdivision.pas212_region_id
+            adif.pas212_region.pas212_region_id = pas212.pas212_region_id
     ORDER BY pas212_region.region;
 
 -- 214 Corsica -----------------------------------------------------------------
@@ -2124,21 +2124,21 @@ CREATE TABLE adif.pas224_region
 );
 
 -- PAS-224 Table Subdivision
-CREATE TABLE adif.pas224_subdivision
+CREATE TABLE adif.pas224
 (
-    pas224_subdivision_id SERIAL PRIMARY KEY,
+    pas224_id SERIAL PRIMARY KEY,
     pas224_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- three char 105, 106, 107, ...
     subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas224_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas224_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-224 Data
 \COPY adif.pas224_region FROM 'adif-pas/pas224_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas224_subdivision FROM 'adif-pas/pas224_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas224 FROM 'adif-pas/pas224.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-224 FK
-ALTER TABLE adif.pas224_subdivision ADD CONSTRAINT pas224_subdivision_pas224_region_fkey
+ALTER TABLE adif.pas224 ADD CONSTRAINT pas224_pas224_region_fkey
     FOREIGN KEY (pas224_region_id) REFERENCES adif.pas224_region (pas224_region_id);
 
 -- PAS-224 View Region
@@ -2153,14 +2153,14 @@ CREATE OR REPLACE VIEW adif.view_pas224_region AS
     ORDER BY adif.pas224_region.region;
 
 -- PAS-224 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas224_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas224 AS
     SELECT
         pas224_region.region AS "Region",
-        pas224_subdivision.code AS "Code",
-        pas224_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas224_subdivision
+        pas224.code AS "Code",
+        pas224.subdivision AS "Pri. Subdivision"
+    FROM adif.pas224
         JOIN adif.pas224_region ON
-            adif.pas224_region.pas224_region_id = pas224_subdivision.pas224_region_id
+            adif.pas224_region.pas224_region_id = pas224.pas224_region_id
     ORDER BY pas224_region.region;
 
 -- 225 Sardinia ----------------------------------------------------------------
@@ -2175,22 +2175,22 @@ CREATE TABLE adif.pas225_region
 );
 
 -- PAS-225 Table Subdivision
-CREATE TABLE adif.pas225_subdivision
+CREATE TABLE adif.pas225
 (
-    pas225_subdivision_id SERIAL PRIMARY KEY,
+    pas225_id SERIAL PRIMARY KEY,
     pas225_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char CA, CI, MD, ...
     subdivision VARCHAR(120) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas225_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas225_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-225 Data
 \COPY adif.pas225_region FROM 'adif-pas/pas225_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas225_subdivision FROM 'adif-pas/pas225_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas225 FROM 'adif-pas/pas225.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-225 FK
-ALTER TABLE adif.pas225_subdivision ADD CONSTRAINT pas225_subdivision_pas225_region_fkey
+ALTER TABLE adif.pas225 ADD CONSTRAINT pas225_pas225_region_fkey
     FOREIGN KEY (pas225_region_id) REFERENCES adif.pas225_region (pas225_region_id);
 
 -- PAS-225 View Region
@@ -2205,15 +2205,15 @@ CREATE OR REPLACE VIEW adif.view_pas225_region AS
     ORDER BY adif.pas225_region.region;
 
 -- PAS-225 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas225_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas225 AS
     SELECT
         pas225_region.region AS "Region",
-        pas225_subdivision.code AS "Code",
-        pas225_subdivision.subdivision AS "Pri. Subdivision",
-        pas225_subdivision.import_only AS "Import Only"
-    FROM adif.pas225_subdivision
+        pas225.code AS "Code",
+        pas225.subdivision AS "Pri. Subdivision",
+        pas225.import_only AS "Import Only"
+    FROM adif.pas225
         JOIN adif.pas225_region ON
-            adif.pas225_region.pas225_region_id = pas225_subdivision.pas225_region_id
+            adif.pas225_region.pas225_region_id = pas225.pas225_region_id
     ORDER BY pas225_region.region;
 
 -- 227 France ------------------------------------------------------------------
@@ -2339,22 +2339,22 @@ CREATE TABLE adif.pas248_region
 );
 
 -- PAS-248 Table Subdivision
-CREATE TABLE adif.pas248_subdivision
+CREATE TABLE adif.pas248
 (
-    pas248_subdivision_id SERIAL PRIMARY KEY,
+    pas248_id SERIAL PRIMARY KEY,
     pas248_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- assuming two char BO, FE, FO, ...
     subdivision VARCHAR(120) NOT NULL,
     import_only BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas248_subdivision_uq UNIQUE (pas248_region_id,code,subdivision)
+    CONSTRAINT pas248_uq UNIQUE (pas248_region_id,code,subdivision)
 );
 
 -- PAS-248 Data
 \COPY adif.pas248_region FROM 'adif-pas/pas248_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas248_subdivision FROM 'adif-pas/pas248_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas248 FROM 'adif-pas/pas248.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-248 FK
-ALTER TABLE adif.pas248_subdivision ADD CONSTRAINT pas248_subdivision_pas248_region_fkey
+ALTER TABLE adif.pas248 ADD CONSTRAINT pas248_pas248_region_fkey
     FOREIGN KEY (pas248_region_id) REFERENCES adif.pas248_region (pas248_region_id);
 
 
@@ -2370,15 +2370,15 @@ CREATE OR REPLACE VIEW adif.view_pas248_region AS
     ORDER BY adif.pas248_region.region;
 
 -- PAS-225 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas248_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas248 AS
     SELECT
         pas248_region.region AS "Region",
-        pas248_subdivision.code AS "Code",
-        pas248_subdivision.subdivision AS "Pri. Subdivision",
-        pas248_subdivision.import_only AS "Import Only"
-    FROM adif.pas248_subdivision
+        pas248.code AS "Code",
+        pas248.subdivision AS "Pri. Subdivision",
+        pas248.import_only AS "Import Only"
+    FROM adif.pas248
         JOIN adif.pas248_region ON
-            adif.pas248_region.pas248_region_id = pas248_subdivision.pas248_region_id
+            adif.pas248_region.pas248_region_id = pas248.pas248_region_id
     ORDER BY pas248_region.region;
 
 -- 256 Maderia Is. -------------------------------------------------------------
@@ -2756,21 +2756,21 @@ CREATE TABLE adif.pas339_region
 );
 
 -- PAS-339 Table Subdivision
-CREATE TABLE adif.pas339_subdivision
+CREATE TABLE adif.pas339
 (
-    pas339_subdivision_id SERIAL PRIMARY KEY,
+    pas339_id SERIAL PRIMARY KEY,
     pas339_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char 01, 02, 03, ...
     subdivision VARCHAR(20) NOT NULL,
-    CONSTRAINT pas339_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas339_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-339 Data
 \COPY adif.pas339_region FROM 'adif-pas/pas339_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas339_subdivision FROM 'adif-pas/pas339_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas339 FROM 'adif-pas/pas339.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-339 Japan
-ALTER TABLE adif.pas339_subdivision ADD CONSTRAINT pas339_subdivision_pas339_region_fkey
+ALTER TABLE adif.pas339 ADD CONSTRAINT pas339_pas339_region_fkey
     FOREIGN KEY (pas339_region_id) REFERENCES adif.pas339_region (pas339_region_id);
 
 -- PAS-339 View Region
@@ -2785,14 +2785,14 @@ CREATE OR REPLACE VIEW adif.view_pas339_region AS
     ORDER BY adif.pas339_region.region;
 
 -- PAS-339 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas339_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas339 AS
     SELECT
         pas339_region.region AS "Region",
-        pas339_subdivision.code AS "Code",
-        pas339_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas339_subdivision
+        pas339.code AS "Code",
+        pas339.subdivision AS "Pri. Subdivision"
+    FROM adif.pas339
         JOIN adif.pas339_region ON
-            adif.pas339_region.pas339_region_id = pas339_subdivision.pas339_region_id
+            adif.pas339_region.pas339_region_id = pas339.pas339_region_id
     ORDER BY pas339_region.region;
 
 -- 375 Philippines -------------------------------------------------------------
@@ -2809,21 +2809,21 @@ CREATE TABLE adif.pas375_region
 );
 
 -- PAS-375 Table Subdivision
-CREATE TABLE adif.pas375_subdivision
+CREATE TABLE adif.pas375
 (
-    pas375_subdivision_id SERIAL PRIMARY KEY,
+    pas375_id SERIAL PRIMARY KEY,
     pas375_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- three char AUR, BTG, CAV, ...
     subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas375_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas375_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-375 Data
 \COPY adif.pas375_region FROM 'adif-pas/pas375_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas375_subdivision FROM 'adif-pas/pas375_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas375 FROM 'adif-pas/pas375.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-375 FK
-ALTER TABLE adif.pas375_subdivision ADD CONSTRAINT pas375_subdivision_pas375_region_fkey
+ALTER TABLE adif.pas375 ADD CONSTRAINT pas375_pas375_region_fkey
     FOREIGN KEY (pas375_region_id) REFERENCES adif.pas375_region (pas375_region_id);
 
 -- PAS-375 View Region
@@ -2838,14 +2838,14 @@ CREATE OR REPLACE VIEW adif.view_pas375_region AS
     ORDER BY adif.pas375_region.region;
 
 -- PAS-375 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas375_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas375 AS
     SELECT
         pas375_region.region AS "Region",
-        pas375_subdivision.code AS "Code",
-        pas375_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas375_subdivision
+        pas375.code AS "Code",
+        pas375.subdivision AS "Pri. Subdivision"
+    FROM adif.pas375
         JOIN adif.pas375_region ON
-            adif.pas375_region.pas375_region_id = pas375_subdivision.pas375_region_id
+            adif.pas375_region.pas375_region_id = pas375.pas375_region_id
     ORDER BY pas375_region.region;
 
 -- 386 Taiwan ------------------------------------------------------------------
@@ -2942,22 +2942,22 @@ CREATE TABLE adif.pas503_region
     CONSTRAINT pas503_region_uq UNIQUE (region)
 );
 
--- TODO: view_pas503_subdivision
-CREATE TABLE adif.pas503_subdivision
+-- TODO: view_pas503
+CREATE TABLE adif.pas503
 (
-    pas503_subdivision_id SERIAL PRIMARY KEY,
+    pas503_id SERIAL PRIMARY KEY,
     pas503_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char APA, APB, APC, ...
     subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas503_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas503_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-503 Data
 \COPY adif.pas503_region FROM 'adif-pas/pas503_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas503_subdivision FROM 'adif-pas/pas503_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas503 FROM 'adif-pas/pas503.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-503 FK
-ALTER TABLE adif.pas503_subdivision ADD CONSTRAINT pas503_subdivision_pas503_region_fkey
+ALTER TABLE adif.pas503 ADD CONSTRAINT pas503_pas503_region_fkey
     FOREIGN KEY (pas503_region_id) REFERENCES adif.pas503_region (pas503_region_id);
 
 -- PAS-503 View Region
@@ -2972,14 +2972,14 @@ CREATE OR REPLACE VIEW adif.view_pas503_region AS
     ORDER BY adif.pas503_region.region;
 
 -- PAS-503 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas503_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas503 AS
     SELECT
         pas503_region.region AS "Region",
-        pas503_subdivision.code AS "Code",
-        pas503_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas503_subdivision
+        pas503.code AS "Code",
+        pas503.subdivision AS "Pri. Subdivision"
+    FROM adif.pas503
         JOIN adif.pas503_region ON
-            adif.pas503_region.pas503_region_id = pas503_subdivision.pas503_region_id
+            adif.pas503_region.pas503_region_id = pas503.pas503_region_id
     ORDER BY pas503_region.region;
 
 -- 504 Slovak Republic ---------------------------------------------------------
@@ -2995,22 +2995,22 @@ CREATE TABLE adif.pas504_region
     CONSTRAINT pas504_region_uq UNIQUE (region)
 );
 
--- TODO: view_pas504_subdivision
-CREATE TABLE adif.pas504_subdivision
+-- TODO: view_pas504
+CREATE TABLE adif.pas504
 (
-    pas504_subdivision_id SERIAL PRIMARY KEY,
+    pas504_id SERIAL PRIMARY KEY,
     pas504_region_id INT NOT NULL,
     code CHAR(4) NOT NULL, -- two char APA, APB, APC, ...
     subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas504_subdivision_uq UNIQUE (code,subdivision)
+    CONSTRAINT pas504_uq UNIQUE (code,subdivision)
 );
 
 -- PAS-504 Data
 \COPY adif.pas504_region FROM 'adif-pas/pas504_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas504_subdivision FROM 'adif-pas/pas504_subdivision.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas504 FROM 'adif-pas/pas504.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- PAS-504 FK
-ALTER TABLE adif.pas504_subdivision ADD CONSTRAINT pas504_subdivision_pas504_region_fkey
+ALTER TABLE adif.pas504 ADD CONSTRAINT pas504_pas504_region_fkey
     FOREIGN KEY (pas504_region_id) REFERENCES adif.pas504_region (pas504_region_id);
 
 -- PAS-504 View Region
@@ -3025,14 +3025,14 @@ CREATE OR REPLACE VIEW adif.view_pas504_region AS
     ORDER BY adif.pas504_region.region;
 
 -- PAS-504 View Subdivision
-CREATE OR REPLACE VIEW adif.view_pas504_subdivision AS
+CREATE OR REPLACE VIEW adif.view_pas504 AS
     SELECT
         pas504_region.region AS "Region",
-        pas504_subdivision.code AS "Code",
-        pas504_subdivision.subdivision AS "Pri. Subdivision"
-    FROM adif.pas504_subdivision
+        pas504.code AS "Code",
+        pas504.subdivision AS "Pri. Subdivision"
+    FROM adif.pas504
         JOIN adif.pas504_region ON
-            adif.pas504_region.pas504_region_id = pas504_subdivision.pas504_region_id
+            adif.pas504_region.pas504_region_id = pas504.pas504_region_id
     ORDER BY pas504_region.region;
 
 -- *****************************************************************************
