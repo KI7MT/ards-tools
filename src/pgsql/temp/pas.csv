@@ -1,0 +1,2069 @@
+pas_id|dxcc_id|pas_code|subdivision|oblast|referred_to_as|is_deleted|is_import_only|before_date|after_date
+1|1|NS|Nova Scotia |||0|0||
+2|1|QC|Quebec|||0|0||
+3|1|ON|Ontario |||0|0||
+4|1|MB|Manitoba |||0|0||
+5|1|SK|Saskatchewan |||0|0||
+6|1|AB|Alberta |||0|0||
+7|1|BC|British Columbia |||0|0||
+8|1|NT|Northwest Territories |||0|0||
+9|1|NB|New Brunswick |||0|0||
+10|1|NL|Newfoundland and Labrador |||0|0||
+11|1|YT|Yukon |||0|0||
+12|1|PE|Prince Edward Island |||0|0||
+13|1|NU|Nunavut |||0|0||
+14|5|001|Brando|||0|0||
+15|5|002|Eckero|||0|0||
+16|5|003|Finstrom|||0|0||
+17|5|004|Foglo|||0|0||
+18|5|005|Geta|||0|0||
+19|5|006|Hammarland|||0|0||
+20|5|007|Jomala|||0|0||
+21|5|008|Kumlinge|||0|0||
+22|5|009|Kokar|||0|0||
+23|5|010|Lemland|||0|0||
+24|5|011|Lumparland|||0|0||
+25|5|012|Maarianhamina|||0|0||
+26|5|013|Saltvik|||0|0||
+27|5|014|Sottunga|||0|0||
+28|5|015|Sund|||0|0||
+29|5|016|Vardo|||0|0||
+30|5|051|Market|||1|0||
+31|6|AK|Alaska|||0|0||
+32|15|UO|Ust’-Ordynsky Autonomous Okrug|174||0|0|2008-01-01|
+33|15|AB|Aginsky Buryatsky Autonomous Okrug|175||0|0|2008-03-01|
+34|15|CB|Chelyabinsk (Chelyabinskaya oblast)|165||0|0||
+35|15|SV|Sverdlovskaya oblast|154||0|0||
+36|15|PM|Perm` (Permskaya oblast)|140||0|0|2005-12-01|
+37|15|PM|Permskaya Kraj|140||0|0|2005-12-01|
+38|15|KP|Komi-Permyatsky Autonomous Okrug|141||0|0|2005-12-01|
+39|15|TO|Tomsk (Tomskaya oblast)|158||0|0||
+40|15|HM|Khanty-Mansyisky Autonomous Okrug|162||0|0||
+41|15|YN|Yamalo-Nenetsky Autonomous Okrug|163||0|0||
+42|15|TN|Tyumen' (Tyumenskaya oblast)|161||0|0||
+43|15|OM|Omsk (Omskaya oblast)|146||0|0||
+44|15|NS|Novosibirsk (Novosibirskaya oblast)|145||0|0||
+45|15|KN|Kurgan (Kurganskaya oblast)|134||0|0||
+46|15|OB|Orenburg (Orenburgskaya oblast)|167||0|0||
+47|15|KE|Kemerovo (Kemerovskaya oblast)|130||0|0||
+48|15|BA|Republic of Bashkortostan|84||0|0||
+49|15|KO|Republic of Komi|90||0|0||
+50|15|AL|Altaysky Kraj|99||0|0||
+51|15|GA|Republic Gorny Altay|100||0|0||
+52|15|KK|Krasnoyarsk (Krasnoyarsk Kraj)|103||0|0||
+53|15|TM|Taymyr Autonomous Okrug|105||0|0|2007-01-01|
+54|15|HK|Khabarovsk (Khabarovsky Kraj)|110||0|0||
+55|15|EA|Yevreyskaya Autonomous Oblast|111||0|0||
+56|15|SL|Sakhalin (Sakhalinskaya oblast)|153||0|0||
+57|15|EV|Evenkiysky Autonomous Okrug|106||0|0|2007-01-01|
+58|15|MG|Magadan (Magadanskaya oblast)|138||0|0||
+59|15|AM|Amurskaya oblast|112||0|0||
+60|15|CK|Chukotka Autonomous Okrug|139||0|0||
+61|15|PK|Primorsky Kraj|107||0|0||
+62|15|BU|Republic of Buryatia|85||0|0||
+63|15|YA|Sakha (Yakut) Republic|98||0|0||
+64|15|IR|Irkutsk (Irkutskaya oblast)|124||0|0||
+65|15|CT|Zabaykalsky Kraj|166|Chita (Chitinskaya oblast)|0|0|2008-03-01|
+66|15|HA|Republic of Khakassia|104||0|0||
+67|15|KY|Koryaksky Autonomous Okrug|129||0|0|2007-01-01|
+68|15|TU|Republic of Tuva|159||0|0||
+69|15|KT|Kamchatka (Kamchatskaya oblast)|128||0|0||
+70|21|IB|Baleares||||||
+71|27|MI|Minsk (Minskaya voblasts')||||||
+72|27|BR|Brest (Brestskaya voblasts')||||||
+73|27|HR|Grodno (Hrodzenskaya voblasts')||||||
+74|27|VI|Vitebsk (Vitsyebskaya voblasts')||||||
+75|27|MA|Mogilev (Mahilyowskaya voblasts')||||||
+76|27|HO|Gomel (Homyel'skaya voblasts')||||||
+77|27|HM|Horad Minsk||||||
+78|29|GC|Las Palmas||||||
+79|29|TF|Tenerife||||||
+80|32|CE|Ceuta||||||
+81|32|ML|Melilla||||||
+82|50|COL|Colima||||||
+83|50|DF|Distrito Federal||||||
+84|50|EMX|Estado de Mexico||||||
+85|50|GTO|Guanajuato||||||
+86|50|HGO|Hidalgo||||||
+87|50|JAL|Jalisco||||||
+88|50|MIC|Michoacean de Ocampo||||||
+89|50|MOR|Morelos||||||
+90|50|NAY|Nayarit||||||
+91|50|PUE|Puebla||||||
+92|50|QRO|Queretaro de Arteaga||||||
+93|50|TLX|Tlaxcala||||||
+94|50|VER|Veracruz-Llave||||||
+95|50|AGS|Aguascalientes||||||
+96|50|BC|Baja California||||||
+97|50|BCS|Baja California Sur||||||
+98|50|CHH|Chihuahua||||||
+99|50|COA|Coahuila de Zaragoza||||||
+100|50|DGO|Durango||||||
+101|50|NL|Nuevo Leon||||||
+102|50|SLP|San Luis Potosi||||||
+103|50|SIN|Sinaloa||||||
+104|50|SON|Sonora||||||
+105|50|TMS|Tamaulipas||||||
+106|50|ZAC|Zacatecas||||||
+107|50|CAM|Campeche||||||
+108|50|CHS|Chiapas||||||
+109|50|GRO|Guerrero||||||
+110|50|OAX|Oaxaca||||||
+111|50|QTR|Quintana Roo||||||
+112|50|TAB|Tabasco||||||
+113|50|YUC|Yucatan||||||
+114|52|37|Harju County (Harjumaa)||||||
+115|52|39|Hiiuma County (Hiiumaa)||||||
+116|52|44|Ida-Viru County (Ida-Virumaa)||||||
+117|52|51|Jarva County (Jarvamaa)||||||
+118|52|49|Joge County (Jogevamaa)||||||
+119|52|57|Laane County (Laanemaa)||||||
+120|52|59|Laane-Viru County (Laane-Virumaa)||||||
+121|52|67|Parrnu County (Parnumaa)||||||
+122|52|65|Polva County (Polvamaa)||||||
+123|52|70|Rapla County (Raplamaa)||||||
+124|52|74|Saare County (Saaremaa)||||||
+125|52|78|Tartu County (Tartumaa)||||||
+126|52|82|Valga County (Valgamaa)||||||
+127|52|84|Viljandi County (Viljandimaa)||||||
+128|52|86|Voru County (Vorumaa)||||||
+129|54|SP|City of St. Petersburg|169|||||
+130|54|LO|Leningradskaya oblast|136|||||
+131|54|KL|Republic of Karelia|88|||||
+132|54|AR|Arkhangelsk (Arkhangelskaya oblast)|113|||||
+133|54|NO|Nenetsky Autonomous Okrug|114|||||
+134|54|VO|Vologda (Vologodskaya oblast)|120|||||
+135|54|NV|Novgorodskaya oblast|144|||||
+136|54|PS|Pskov (Pskovskaya oblast)|149|||||
+137|54|MU|Murmansk (Murmanskaya oblast)|143|||||
+138|54|MA|City of Moscow|170|||||
+139|54|MO|Moscowskaya oblast|142|||||
+140|54|OR|Oryel (Orlovskaya oblast)|147|||||
+141|54|LP|Lipetsk (Lipetskaya oblast)|137|||||
+142|54|TV|Tver' (Tverskaya oblast)|126|||||
+143|54|SM|Smolensk (Smolenskaya oblast)|155|||||
+144|54|YR|Yaroslavl (Yaroslavskaya oblast)|168|||||
+145|54|KS|Kostroma (Kostromskaya oblast)|132|||||
+146|54|TL|Tula (Tul'skaya oblast)|160|||||
+147|54|VR|Voronezh (Voronezhskaya oblast)|121|||||
+148|54|TB|Tambov (Tambovskaya oblast)|157|||||
+149|54|RA|Ryazan' (Ryazanskaya oblast)|151|||||
+150|54|NN|Nizhni Novgorod (Nizhegorodskaya oblast)|122|||||
+151|54|IV|Ivanovo (Ivanovskaya oblast)|123|||||
+152|54|VL|Vladimir (Vladimirskaya oblast)|119|||||
+153|54|KU|Kursk (Kurskaya oblast)|135|||||
+154|54|KG|Kaluga (Kaluzhskaya oblast)|127|||||
+155|54|BR|Bryansk (Bryanskaya oblast)|118|||||
+156|54|BO|Belgorod (Belgorodskaya oblast)|117|||||
+157|54|VG|Volgograd (Volgogradskaya oblast)|156|||||
+158|54|SA|Saratov (Saratovskaya oblast)|152|||||
+159|54|PE|Penza (Penzenskaya oblast)|148|||||
+160|54|SR|Samara (Samarskaya oblast)|133|||||
+161|54|UL|Ulyanovsk (Ulyanovskaya oblast)|164|||||
+162|54|KI|Kirov (Kirovskaya oblast)|131|||||
+163|54|TA|Republic of Tataria|94|||||
+164|54|MR|Republic of Marij-El|91|||||
+165|54|MD|Republic of Mordovia|92|||||
+166|54|UD|Republic of Udmurtia|95|||||
+167|54|CU|Republic of Chuvashia|97|||||
+168|54|KR|Krasnodar (Krasnodarsky Kraj)|101|||||
+169|54|KC|Republic of Karachaevo-Cherkessia|109|||||
+170|54|ST|Stavropol' (Stavropolsky Kraj)|108|||||
+171|54|KM|Republic of Kalmykia|89|||||
+172|54|SO|Republic of Northern Ossetia|93|||||
+173|54|RO|Rostov-on-Don (Rostovskaya oblast)|150|||||
+174|54|CN|Republic Chechnya|96|||||
+175|54|IN|Republic of Ingushetia|96|||||
+176|54|AO|Astrakhan' (Astrakhanskaya oblast)|115|||||
+177|54|DA|Republic of Daghestan|86|||||
+178|54|KB|Republic of Kabardino-Balkaria|87|||||
+179|54|AD|Republic of Adygeya|102|||||
+180|61|R|Arkhangelsk (Arkhangelskaya oblast)||||||
+181|61|FJL|Franz Josef Land||||1||
+182|70|9|Camaguey||||||
+183|70|8|Ciego de vila||||||
+184|70|6|Cienfuegos||||||
+185|70|3|Ciudad de La Habana||||||
+186|70|12|Granma||||||
+187|70|14|Guantanamo||||||
+188|70|11|Holquin||||||
+189|70|99|Isla de la Juventud||||||
+190|70|2|La Habana||||||
+191|70|10|Las Tunas||||||
+192|70|4|Matanzas||||||
+193|70|1|Pinar del Rio||||||
+194|70|7|Sancti Spiritus||||||
+195|70|13|Santiago de Cuba||||||
+196|70|5|Villa Clara||||||
+197|74|AH|Ahuachapan||||||
+198|74|CA|Cabanas||||||
+199|74|CH|Chalatenango||||||
+200|74|CU|Cuscatlan||||||
+201|74|LI|La Libertad||||||
+202|74|PA|La Paz||||||
+203|74|UN|La Union||||||
+204|74|MO|Morazan||||||
+205|74|SM|San Miguel||||||
+206|74|SS|San Salvador||||||
+207|74|SV|San Vicente||||||
+208|74|SA|Santa Ana||||||
+209|74|SO|Sonsonate||||||
+210|74|US|Usulutan||||||
+211|86|BO|Boaco||||||
+212|86|CA|Carazo||||||
+213|86|CI|Chinandega||||||
+214|86|CO|Chontales||||||
+215|86|ES|Estel||||||
+216|86|GR|Granada||||||
+217|86|JI|Jinotega||||||
+218|86|LE|Leon||||||
+219|86|MD|Madriz||||||
+220|86|MN|Managua||||||
+221|86|MS|Masaya||||||
+222|86|MT|Matagalpa||||||
+223|86|NS|Nueva Segovia||||||
+224|86|SJ|Rio San Juan||||||
+225|86|RI|Rivas||||||
+226|86|AN|Atlantico Norte||||||
+227|86|AS|Atlantico Sur||||||
+228|100|C|Capital federal (Buenos Aires City)||||||
+229|100|B|Buenos Aires Province||||||
+230|100|S|Santa Fe||||||
+231|100|H|Chaco||||||
+232|100|P|Formosa||||||
+233|100|X|Cordoba||||||
+234|100|N|Misiones||||||
+235|100|E|Entre Rios||||||
+236|100|T|Tucuman||||||
+237|100|W|Corrientes||||||
+238|100|M|Mendoza||||||
+239|100|G|Santiago del Estero||||||
+240|100|A|Salta||||||
+241|100|J|San Juan||||||
+242|100|D|San Luis||||||
+243|100|K|Catamarca||||||
+244|100|F|La Rioja||||||
+245|100|Y|Jujuy||||||
+246|100|L|La Pampa||||||
+247|100|R|Rio Negro||||||
+248|100|U|Chubut||||||
+249|100|Z|Santa Cruz||||||
+250|100|V|Tierra del Fuego||||||
+251|100|Q|Neuquen||||||
+252|104|H|Chuquisaca||||||
+253|104|C|Cochabamba||||||
+254|104|B|El Beni||||||
+255|104|L|La Paz||||||
+256|104|O|Oruro||||||
+257|104|N|Pando||||||
+258|104|P|Potosi||||||
+259|104|S|Santa Cruz||||||
+260|104|T|Tarija||||||
+261|108|ES|Espirito Santo||||||
+262|108|GO|Goias||||||
+263|108|SC|Santa Catarina||||||
+264|108|SE|Sergipe||||||
+265|108|AL|Alagoas||||||
+266|108|AM|Amazonas||||||
+267|108|TO|Tocantins||||||
+268|108|AP|Amapa||||||
+269|108|PB|Paraiba||||||
+270|108|MA|Maranhao||||||
+271|108|RN|Rio Grande do Norte||||||
+272|108|PI|Piaui||||||
+273|108|DF|Oietrito Federal (Brasila)||||||
+274|108|CE|Ceara||||||
+275|108|AC|Acre||||||
+276|108|MS|Mato Grosso do Sul||||||
+277|108|RR|Roraima||||||
+278|108|RO|Rondonia||||||
+279|108|RJ|Rio de Janeiro||||||
+280|108|SP|Sao Paulo||||||
+281|108|RS|Rio Grande do Sul||||||
+282|108|MG|Minas Gerais||||||
+283|108|PR|Parana||||||
+284|108|BA|Bahia||||||
+285|108|PE|Pernambuco||||||
+286|108|PA|Para||||||
+287|108|MT|Mato Grosso||||||
+288|110|HI|Hawaii||||||
+289|112|II|Antofagasta||||||
+290|112|III|Atacama||||||
+291|112|I|Tarapaca||||||
+292|112|XV|Arica y Parinacota||||||
+293|112|IV|Coquimbo||||||
+294|112|V|Valparaiso||||||
+295|112|RM|Region Metropolitana de Santiago||||||
+296|112|VI|Libertador General Bernardo O'Higgins||||||
+297|112|VII|Maule||||||
+298|112|VIII|Bio-Bio||||||
+299|112|IX|La Araucania||||||
+300|112|XIV|Los Rios||||||
+301|112|X|Los Lagos||||||
+302|112|XI|Aisen del General Carlos Ibanez del Campo||||||
+303|112|XII|Magallanes||||||
+304|126|KA|Kalingrad (Kaliningradskaya oblast)|125|||||
+305|130|AK|Akmolinsk|1|||||
+306|130|AT|Aktyubnsk|2|||||
+307|130|AY|Almaty|3|||||
+308|130|AR|Atyrau|4|||||
+309|130|SG|East Kazakhstan|5|||||
+310|130|ZM|Zhambyl|6|||||
+311|130|BY|West Kazakhstan|7|||||
+312|130|KG|Karaganda|8|||||
+313|130|KT|Kostanay|9|||||
+314|130|KO|Kyzylorda|10|||||
+315|130|MN|Mangystau|11|||||
+316|130|PV|Pavlodar|12|||||
+317|130|SL|North Kazakhstan|13|||||
+318|130|ON|South Kazakhstan|14|||||
+319|130|AA|Astana city|15|||||
+320|130|AL|Almaty city|16|||||
+321|132|16|Alto Paraguay||||||
+322|132|19|Boqueron||||||
+323|132|15|Presidente Hayes||||||
+324|132|13|Amambay||||||
+325|132|1|Concepcion||||||
+326|132|14|Canindeyu||||||
+327|132|2|San Pedro||||||
+328|132|ASU|Asuncion||||||
+329|132|11|Central||||||
+330|132|3|Cordillera||||||
+331|132|9|Paraguari||||||
+332|132|6|Caazapl||||||
+333|132|5|Caeguazu||||||
+334|132|4|Guaira||||||
+335|132|8|Miaiones||||||
+336|132|12|Neembucu||||||
+337|132|10|Alto Parana||||||
+338|132|7|Itapua||||||
+339|137|B|Busan Gwang'yeogsi (Pusan Metropolitan City)||||||
+340|137|E|Choongchungbuk-do (North Chungcheong Province)||||||
+341|137|F|Chungcheongnam-do (South Chungcheong Province)||||||
+342|137|P|Daegu Gwang'yeogsi (Taegu Metropolitan City)||||||
+343|137|R|Daejeon Gwang'yeogsi (Daejeon Metropolitan City)||||||
+344|137|D|Gangwon-do||||||
+345|137|Q|Gwangju Gwang'yeogsi (Kwangju Metropolitan City)||||||
+346|137|C|Gyeonggi-do||||||
+347|137|K|Gyeongsangbug-do (North Gyeongsang Province)||||||
+348|137|L|Gyeongsangnam-do (South Gyeongsang Province)||||||
+349|137|N|Incheon Gwang'yeogsi (Inchon Metropolitan City)||||||
+350|137|M|Jeju-do||||||
+351|137|G|Jeollabuk-do (North Jeolla Province)||||||
+352|137|H|Jeollanam-do (South Jeolla Province)||||||
+353|137|A|Seoul Teugbyeolsi (Seoul Special City)||||||
+354|137|S|Ulsan Gwanq'yeogsi (Ulsan Metropolitan City)||||||
+355|138|KI|Kure Island||||||
+356|144|MO|Montevideo||||||
+357|144|CA|Canelones||||||
+358|144|SJ|San Jose||||||
+359|144|CO|Colonia||||||
+360|144|SO|Soriano||||||
+361|144|RN|Rio Negro||||||
+362|144|PA|Paysandu||||||
+363|144|SA|Salto||||||
+364|144|AR|Artigsa||||||
+365|144|FD|Florida||||||
+366|144|FS|Flores||||||
+367|144|DU|Durazno||||||
+368|144|TA|Tacuarembo||||||
+369|144|RV|Rivera||||||
+370|144|MA|Maldonado||||||
+371|144|LA|Lavalleja||||||
+372|144|RO|Rocha||||||
+373|144|TT|Treinta y Tres||||||
+374|144|CL|Cerro Largo||||||
+375|147|LH|Lord Howe Is||||||
+376|148|AM|Amazonas||||||
+377|148|AN|Anzoategui||||||
+378|148|AP|Apure||||||
+379|148|AR|Aragua||||||
+380|148|BA|Barinas||||||
+381|148|BO|Bolívar||||||
+382|148|CA|Carabobo||||||
+383|148|CO|Cojedes||||||
+384|148|DA|Delta Amacuro||||||
+385|148|DC|Distrito Capital||||||
+386|148|FA|Falcon||||||
+387|148|GU|Guarico||||||
+388|148|LA|Lara||||||
+389|148|ME|Merida||||||
+390|148|MI|Miranda||||||
+391|148|MO|Monagas||||||
+392|148|NE|Nueva Esparta||||||
+393|148|PO|Portuguesa||||||
+394|148|SU|Sucre||||||
+395|148|TA|Tachira||||||
+396|148|TR|Trujillo||||||
+397|148|VA|Vargas||||||
+398|148|YA|Yaracuy||||||
+399|148|ZU|Zulia||||||
+400|149|AC|Acores||||||
+401|150|ACT|Australian Capital Territory||||||
+402|150|NSW|New South Wales||||||
+403|150|VIC|Victoria||||||
+404|150|QLD|Queensland||||||
+405|150|SA|South Australia||||||
+406|150|WA|Western Australia||||||
+407|150|TAS|Tasmania||||||
+408|150|NT|Northern Territory||||||
+409|151|LO|Leningradskaya Oblast||||0||
+410|151|MV|Malyj Vysotskij||||1||
+411|153|MA|Macquarie Is||||||
+412|163|NCD|National Capital District (Port Moresby)||||||
+413|163|CPM|Central||||||
+414|163|CPK|Chimbu||||||
+415|163|EHG|Eastern Highlands||||||
+416|163|EBR|East New Britain||||||
+417|163|ESW|East Sepik||||||
+418|163|EPW|Enga||||||
+419|163|GPK|Gulf||||||
+420|163|MPM|Madang||||||
+421|163|MRL|Manus||||||
+422|163|MBA|Milne Bay||||||
+423|163|MPL|Morobe||||||
+424|163|NIK|New Ireland||||||
+425|163|NPP|Northern||||||
+426|163|NSA|North Solomons||||||
+427|163|SAN|Santaun||||||
+428|163|SHM|Southern Highlands||||||
+429|163|WPD|Western||||||
+430|163|WHM|Western Highlands||||||
+431|163|WBR|West New Britain||||||
+432|170|AUK|Auckland||||||
+433|170|BOP|Bay of Plenty||||||
+434|170|NTL|Northland||||||
+435|170|WKO|Waikato||||||
+436|170|GIS|Gisborne||||||
+437|170|HKB|Hawkes Bay||||||
+438|170|MWT|Manawatu-Wanganui||||||
+439|170|TKI|Taranaki||||||
+440|170|WGN|Wellington||||||
+441|170|CAN|Canterbury||||||
+442|170|MBH|Marlborough||||||
+443|170|NSN|Nelson||||||
+444|170|TAS|Tasman||||||
+445|170|WTC|West Coast||||||
+446|170|OTA|Otago||||||
+447|170|STL|Southland||||||
+448|177|MT|Minami Torishima||||||
+449|179|ANE|Anenii Noi||||||
+450|179|BA|Balti||||||
+451|179|BAS|Basarabeasca||||||
+452|179|BRI|Briceni||||||
+453|179|CHL|Cahul||||||
+454|179|CAL|Calarasi||||||
+455|179|CAN|Cantemir||||||
+456|179|CAS|Causeni||||||
+457|179|CU|Chisinau||||||
+458|179|CIM|Cimislia||||||
+459|179|CRI|Criuleni||||||
+460|179|DON|Donduseni||||||
+461|179|DRO|Drochia||||||
+462|179|DBI|Dubasari||||||
+463|179|EDI|Edine||||||
+464|179|FAL|Falesti||||||
+465|179|FLO|Floresti||||||
+466|179|GA|Gagauzia||||||
+467|179|GLO|Glodeni||||||
+468|179|HIN|Hîncesti||||||
+469|179|IAL|Ialoveni||||||
+470|179|LEO|Leova||||||
+471|179|NIS|Nisporeni||||||
+472|179|OCN|Ocnita||||||
+473|179|OHI|Orhei||||||
+474|179|REZ|Rezina||||||
+475|179|RIS|Riscani||||||
+476|179|SIN|Sîngerei||||||
+477|179|SOL|Soldanesti||||||
+478|179|SOA|Soroca||||||
+479|179|STE|Stefan Voda||||||
+480|179|STR|Straseni||||||
+481|179|TAR|Taraclia||||||
+482|179|TEL|Telenesti||||||
+483|179|TI|Tighina||||||
+484|179|SN|Transnistria||||||
+485|179|UGI|Ungheni||||||
+486|192|O|Ogasawara||||||
+487|206|WC|Wien||||||
+488|206|HA|Hallein||||||
+489|206|JO|St. Johann||||||
+490|206|SC|Salzburg||||||
+491|206|SL|Salzburg-Land||||||
+492|206|TA|Tamsweg||||||
+493|206|ZE|Zell Am See||||||
+494|206|AM|Amstetten||||||
+495|206|BL|Bruck/Leitha||||||
+496|206|BN|Baden||||||
+497|206|GD|Gmund||||||
+498|206|GF|Ganserndorf||||||
+499|206|HL|Hollabrunn||||||
+500|206|HO|Horn||||||
+501|206|KO|Korneuburg||||||
+502|206|KR|Krems-Region||||||
+503|206|KS|Krems||||||
+504|206|LF|Lilienfeld||||||
+505|206|MD|Modling||||||
+506|206|ME|Melk||||||
+507|206|MI|Mistelbach||||||
+508|206|NK|Neunkirchen||||||
+509|206|PC|St. Polten||||||
+510|206|PL|St. Polten-Land||||||
+511|206|SB|Scheibbs||||||
+512|206|SW|Schwechat||||||
+513|206|TU|Tulln||||||
+514|206|WB|Wr.Neustadt-Bezirk||||||
+515|206|WN|Wr.Neustadt||||||
+516|206|WT|Waidhofen/Thaya||||||
+517|206|WU|Wien-Umgebung||||||
+518|206|WY|Waidhofen/Ybbs||||||
+519|206|ZT|Zwettl||||||
+520|206|EC|Eisenstadt||||||
+521|206|EU|Eisenstadt-Umgebung||||||
+522|206|GS|Gussing||||||
+523|206|JE|Jennersdorf||||||
+524|206|MA|Mattersburg||||||
+525|206|ND|Neusiedl/See||||||
+526|206|OP|Oberpullendorf||||||
+527|206|OW|Oberwart||||||
+528|206|BR|Braunau/Inn||||||
+529|206|EF|Eferding||||||
+530|206|FR|Freistadt||||||
+531|206|GM|Gmunden||||||
+532|206|GR|Grieskirchen||||||
+533|206|KI|Kirchdorf||||||
+534|206|LC|Linz||||||
+535|206|LL|Linz-Land||||||
+536|206|PE|Perg||||||
+537|206|RI|Ried/Innkreis||||||
+538|206|RO|Rohrbach||||||
+539|206|SD|Scharding||||||
+540|206|SE|Steyr-Land||||||
+541|206|SR|Steyr||||||
+542|206|UU|Urfahr||||||
+543|206|VB|Vocklabruck||||||
+544|206|WE|Wels||||||
+545|206|WL|Wels-Land||||||
+546|206|BA|Bad Aussee|||||2012-01-01|
+547|206|BM|Bruck/Mur||||||2013-01-01
+548|206|BM|Bruck-Murzzuschlag|||||2013-01-01|
+549|206|DL|Deutschlandsberg||||||
+550|206|FB|Feldbach|||||2013-01-01|
+551|206|FF|Furstenfeld|||||2013-01-01|
+552|206|GB|Grobming||||||
+553|206|GC|Graz||||||
+554|206|GU|Graz-Umgebung||||||
+555|206|HB|Hartberg|||||2013-01-01|
+556|206|HF|Hartberg-Furstenfeld||||||2013-01-01
+557|206|JU|Judenburg|||||2012-01-01|
+558|206|KF|Knittelfeld|||||2012-01-01|
+559|206|LB|Leibnitz||||||
+560|206|LE|Leoben||||||
+561|206|LI|Liezen||||||
+562|206|LN|Leoben-Land||||||
+563|206|MT|Murtal||||||2012-01-01
+564|206|MU|Murau||||||
+565|206|MZ|Murzzuschlag|||||2013-01-01|
+566|206|RA|Radkersburg|||||2013-01-01|
+567|206|SO|Sudoststeiermark||||||2013-01-01
+568|206|VO|Voitsberg||||||
+569|206|WZ|Weiz||||||
+570|206|IC|Innsbruck||||||
+571|206|IL|Innsbruck-Land||||||
+572|206|IM|Imst||||||
+573|206|KB|Kitzbuhel||||||
+574|206|KU|Kufstein||||||
+575|206|LA|Landeck||||||
+576|206|LZ|Lienz||||||
+577|206|RE|Reutte||||||
+578|206|SZ|Schwaz||||||
+579|206|FE|Feldkirchen||||||
+580|206|HE|Hermagor||||||
+581|206|KC|Klagenfurt||||||
+582|206|KL|Klagenfurt-Land||||||
+583|206|SP|Spittal/Drau||||||
+584|206|SV|St.Veit/Glan||||||
+585|206|VI|Villach||||||
+586|206|VK|Volkermarkt||||||
+587|206|VL|Villach-Land||||||
+588|206|WO|Wolfsberg||||||
+589|206|BC|Bregenz||||||
+590|206|BZ|Bludenz||||||
+591|206|DO|Dornbirn||||||
+592|206|FK|Feldkirch||||||
+593|209|AN|Antwerpen||||||
+594|209|BR|Brussels||||||
+595|209|BW|Brabant Wallon||||||
+596|209|HT|Hainaut||||||
+597|209|LB|Limburg||||||
+598|209|LG|Liêge||||||
+599|209|NM|Namur||||||
+600|209|LU|Luxembourg||||||
+601|209|OV|Oost-Vlaanderen||||||
+602|209|VB|Vlaams Brabant||||||
+603|209|WV|West-Vlaanderen||||||
+604|212|BU|Burgas||||||
+605|212|SL|Sliven||||||
+606|212|YA|Yambol (Jambol)||||||
+607|212|SO|Sofija Grad||||||
+608|212|HA|Haskovo||||||
+609|212|KA|Kardzali||||||
+610|212|SZ|Stara Zagora||||||
+611|212|PA|Pazardzik||||||
+612|212|PD|Plovdiv||||||
+613|212|SM|Smoljan||||||
+614|212|BL|Blagoevgrad||||||
+615|212|KD|Kjustendil||||||
+616|212|PK|Pernik||||||
+617|212|SF|Sofija (Sofia)||||||
+618|212|GA|Gabrovo||||||
+619|212|LV|Lovec (Lovech)||||||
+620|212|PL|Pleven||||||
+621|212|VT|Veliko Tarnovo||||||
+622|212|MN|Montana||||||
+623|212|VD|Vidin||||||
+624|212|VR|Vraca||||||
+625|212|RZ|Razgrad||||||
+626|212|RS|Ruse||||||
+627|212|SS|Silistra||||||
+628|212|TA|Targoviste||||||
+629|212|DO|Dobric||||||
+630|212|SN|Sumen||||||
+631|212|VN|Varna||||||
+632|214|2A|Corse-du-Sud||||||
+633|214|2B|Haute-Corse||||||
+634|221|15|Koebenhavns amt||||||
+635|221|20|Frederiksborg amt||||||
+636|221|25|Roskilde amt||||||
+637|221|30|Vestsjaellands amt||||||
+638|221|35|Storstrom amt (Storstroems)||||||
+639|221|40|Bornholms amt||||||
+640|221|42|Fyns amt||||||
+641|221|50|Siinderjylland amt (Sydjyllands)||||||
+642|221|55|Ribe amt||||||
+643|221|60|Vejle amt||||||
+644|221|65|Ringkobing amt (Ringkoebing)||||||
+645|221|70|Arhus amt (Aarhus)||||||
+646|221|76|Viborg amt||||||
+647|221|80|Nordjyllands amt||||||
+648|221|101|Copenhagen City||||||
+649|221|147|Frederiksberg||||||
+650|224|100|Somero||||||
+651|224|102|Alastaro||||||
+652|224|103|Askainen||||||
+653|224|104|Aura||||||
+654|224|105|Dragsfjard||||||
+655|224|106|Eura||||||
+656|224|107|Eurajoki||||||
+657|224|108|Halikko||||||
+658|224|109|Harjavalta||||||
+659|224|110|Honkajoki||||||
+660|224|111|Houtskari||||||
+661|224|112|Huittinen||||||
+662|224|115|Inio||||||
+663|224|116|Jaijarvi||||||
+664|224|117|Kaarina||||||
+665|224|119|Kankaanpaa||||||
+666|224|120|Karinainen||||||
+667|224|122|Karvia||||||
+668|224|123|Aetsa||||||
+669|224|124|Kemio||||||
+670|224|126|Kiikala||||||
+671|224|128|Kiikoinen||||||
+672|224|129|Kisko||||||
+673|224|130|Kiukainen||||||
+674|224|131|Kodisjoki||||||
+675|224|132|Kokemaki||||||
+676|224|133|Korppoo||||||
+677|224|134|Koski tl||||||
+678|224|135|Kullaa||||||
+679|224|136|Kustavi||||||
+680|224|137|Kuusjoki||||||
+681|224|138|Koylio||||||
+682|224|139|Laitila||||||
+683|224|140|Lappi||||||
+684|224|141|Lavia||||||
+685|224|142|Lemu||||||
+686|224|143|Lieto||||||
+687|224|144|Loimaa||||||
+688|224|145|Loimaan kunta||||||
+689|224|147|Luvia||||||
+690|224|148|Marttila||||||
+691|224|149|Masku||||||
+692|224|150|Mellila||||||
+693|224|151|Merikarvia||||||
+694|224|152|Merimasku||||||
+695|224|154|Mietoinen||||||
+696|224|156|Muurla||||||
+697|224|157|Mynamaki||||||
+698|224|158|Naantali||||||
+699|224|159|Nakkila||||||
+700|224|160|Nauvo||||||
+701|224|161|Noormarkku||||||
+702|224|162|Nousiainen||||||
+703|224|163|Oripaa||||||
+704|224|164|Paimio||||||
+705|224|165|Parainen||||||
+706|224|167|Pernio||||||
+707|224|168|Pertteli||||||
+708|224|169|Piikkio||||||
+709|224|170|Pomarkku||||||
+710|224|171|Pori||||||
+711|224|172|Punkalaidun||||||
+712|224|173|Pyharanta||||||
+713|224|174|Poytya||||||
+714|224|175|Raisio||||||
+715|224|176|Rauma||||||
+716|224|178|Rusko||||||
+717|224|179|Rymattyla||||||
+718|224|180|Salo||||||
+719|224|181|Sauvo||||||
+720|224|182|Siikainen||||||
+721|224|183|Suodenniemi||||||
+722|224|184|Suomusjarvi||||||
+723|224|185|Sakyla||||||
+724|224|186|Sarkisalo||||||
+725|224|187|Taivassalo||||||
+726|224|188|Tarvasjoki||||||
+727|224|189|Turku||||||
+728|224|190|Ulvila||||||
+729|224|191|Uusikaupunki||||||
+730|224|192|Vahto||||||
+731|224|193|Vammala||||||
+732|224|194|Vampula||||||
+733|224|195|Vehmaa||||||
+734|224|196|Velkua||||||
+735|224|198|Vastanfjard||||||
+736|224|199|Ylane||||||
+737|224|201|Artjarvi||||||
+738|224|202|Askola||||||
+739|224|204|Espoo||||||
+740|224|205|Hanko||||||
+741|224|206|Helsinki||||||
+742|224|207|Hyvinkaa||||||
+743|224|208|Inkoo||||||
+744|224|209|Jarvenpaa||||||
+745|224|210|Karjaa||||||
+746|224|211|Karjalohja||||||
+747|224|212|Karkkila||||||
+748|224|213|Kauniainen||||||
+749|224|214|Kerava||||||
+750|224|215|Kirkkonummi||||||
+751|224|216|Lapinjarvi||||||
+752|224|217|Liljendal||||||
+753|224|218|Lohjan kaupunki||||||
+754|224|220|Loviisa||||||
+755|224|221|Myrskyla||||||
+756|224|222|Mantsala||||||
+757|224|223|Nummi-Pusula||||||
+758|224|224|Nurmijarvi||||||
+759|224|225|Orimattila||||||
+760|224|226|Pernaja||||||
+761|224|227|Pohja||||||
+762|224|228|Pornainen||||||
+763|224|229|Porvoo||||||
+764|224|231|Pukkila||||||
+765|224|233|Ruotsinpyhtaa||||||
+766|224|234|Sammatti||||||
+767|224|235|Sipoo||||||
+768|224|236|Siuntio||||||
+769|224|238|Tammisaari||||||
+770|224|241|Tuusula||||||
+771|224|242|Vantaa||||||
+772|224|243|Vihti||||||
+773|224|301|Asikkala||||||
+774|224|303|Forssa||||||
+775|224|304|Hattula||||||
+776|224|305|Hauho||||||
+777|224|306|Hausjarvi||||||
+778|224|307|Hollola||||||
+779|224|308|Humppila||||||
+780|224|309|Hameenlinna||||||
+781|224|310|Janakkala||||||
+782|224|311|Jokioinen||||||
+783|224|312|Juupajoki||||||
+784|224|313|Kalvola||||||
+785|224|314|Kangasala||||||
+786|224|315|Hameenkoski||||||
+787|224|316|Kuhmalahti||||||
+788|224|318|Kuru||||||
+789|224|319|Kylmakoski||||||
+790|224|320|Karkola||||||
+791|224|321|Lahti||||||
+792|224|322|Lammi||||||
+793|224|323|Lempaala||||||
+794|224|324|Loppi||||||
+795|224|325|Luopioinen||||||
+796|224|326|Langelmaki||||||
+797|224|327|Mantta||||||
+798|224|328|Nastola||||||
+799|224|329|Nokia||||||
+800|224|330|Orivesi||||||
+801|224|331|Padasjoki||||||
+802|224|332|Pirkkala||||||
+803|224|333|Palkane||||||
+804|224|334|Renko||||||
+805|224|335|Riihimaki||||||
+806|224|336|Ruovesi||||||
+807|224|337|Sahalahti||||||
+808|224|340|Tammela||||||
+809|224|341|Tampere||||||
+810|224|342|Toijala||||||
+811|224|344|Tuulos||||||
+812|224|345|Urjala||||||
+813|224|346|Valkeakoski||||||
+814|224|347|Vesilahti||||||
+815|224|348|Viiala||||||
+816|224|349|Vilppula||||||
+817|224|350|Virrat||||||
+818|224|351|Ylojarvi||||||
+819|224|352|Ypaja||||||
+820|224|353|Hameenkyra||||||
+821|224|354|Ikaalinen||||||
+822|224|355|Kihnio||||||
+823|224|356|Mouhijarvi||||||
+824|224|357|Parkano||||||
+825|224|358|Viljakkala||||||
+826|224|402|Enonkoski||||||
+827|224|403|Hartola||||||
+828|224|404|Haukivuori||||||
+829|224|405|Heinola||||||
+830|224|407|Heinavesi||||||
+831|224|408|Hirvensalmi||||||
+832|224|409|Joroinen||||||
+833|224|410|Juva||||||
+834|224|411|Jappila||||||
+835|224|412|Kangaslampi||||||
+836|224|413|Kangasniemi||||||
+837|224|414|Kerimaki||||||
+838|224|415|Mikkeli||||||
+839|224|417|Mantyharju||||||
+840|224|418|Pertunmaa||||||
+841|224|419|Pieksamaki||||||
+842|224|420|Pieksanmaa||||||
+843|224|421|Punkaharju||||||
+844|224|422|Puumala||||||
+845|224|423|Rantasalmi||||||
+846|224|424|Ristiina||||||
+847|224|425|Savonlinna||||||
+848|224|426|Savonranta||||||
+849|224|427|Sulkava||||||
+850|224|428|Sysma||||||
+851|224|502|Elimaki||||||
+852|224|503|Hamina||||||
+853|224|504|Iitti||||||
+854|224|505|Imatra||||||
+855|224|506|Jaala||||||
+856|224|507|Joutseno||||||
+857|224|509|Kotka||||||
+858|224|510|Kouvola||||||
+859|224|511|Kuusankoski||||||
+860|224|513|Lappeenranta||||||
+861|224|514|Lemi||||||
+862|224|515|Luumaki||||||
+863|224|516|Miehikkala||||||
+864|224|518|Parikkala||||||
+865|224|519|Pyhtaa||||||
+866|224|520|Rautjarvi||||||
+867|224|521|Ruokolahti||||||
+868|224|522|Saari||||||
+869|224|523|Savitaipale||||||
+870|224|525|Suomenniemi||||||
+871|224|526|Taipalsaari||||||
+872|224|527|Uukuniemi||||||
+873|224|528|Valkeala||||||
+874|224|530|Virolahti||||||
+875|224|531|Ylamaa||||||
+876|224|532|Anjalankoski||||||
+877|224|601|Alaharma||||||
+878|224|602|Alajarvi||||||
+879|224|603|Alavus||||||
+880|224|604|Evijarvi||||||
+881|224|605|Halsua||||||
+882|224|606|Hankasalmi||||||
+883|224|607|Himanka||||||
+884|224|608|Ilmajoki||||||
+885|224|609|Isojoki||||||
+886|224|610|Isokyro||||||
+887|224|611|Jalasjarvi||||||
+888|224|612|Joutsa||||||
+889|224|613|Jurva||||||
+890|224|614|Jyvaskyla||||||
+891|224|615|Jyvaskylan mlk||||||
+892|224|616|Jamsa||||||
+893|224|617|Jamsankoski||||||
+894|224|619|Kannonkoski||||||
+895|224|620|Kannus||||||
+896|224|621|Karijoki||||||
+897|224|622|Karstula||||||
+898|224|623|Kaskinen||||||
+899|224|624|Kauhajoki||||||
+900|224|625|Kauhava||||||
+901|224|626|Kaustinen||||||
+902|224|627|Keuruu||||||
+903|224|628|Kinnula||||||
+904|224|629|Kivijarvi||||||
+905|224|630|Kokkola||||||
+906|224|632|Konnevesi||||||
+907|224|633|Korpilahti||||||
+908|224|634|Korsnas||||||
+909|224|635|Kortesjarvi||||||
+910|224|636|Kristiinankaupunki||||||
+911|224|637|Kruunupyy||||||
+912|224|638|Kuhmoinen||||||
+913|224|639|Kuortane||||||
+914|224|640|Kurikka||||||
+915|224|641|Kyyjarvi||||||
+916|224|642|Kalvia||||||
+917|224|643|Laihia||||||
+918|224|644|Lappajarvi||||||
+919|224|645|Lapua||||||
+920|224|646|Laukaa||||||
+921|224|647|Lehtimaki||||||
+922|224|648|Leivonmaki||||||
+923|224|649|Lestijarvi||||||
+924|224|650|Lohtaja||||||
+925|224|651|Luhanka||||||
+926|224|652|Luoto||||||
+927|224|653|Maalahti||||||
+928|224|654|Maksamaa||||||
+929|224|655|Multia||||||
+930|224|656|Mustasaari||||||
+931|224|657|Muurame||||||
+932|224|658|Nurmo||||||
+933|224|659|Narpio||||||
+934|224|660|Oravainen||||||
+935|224|661|Perho||||||
+936|224|662|Peraseinajoki||||||
+937|224|663|Petajavesi||||||
+938|224|664|Pietarsaari||||||
+939|224|665|Pedersore||||||
+940|224|666|Pihtipudas||||||
+941|224|668|Pylkonmaki||||||
+942|224|669|Saarijarvi||||||
+943|224|670|Seinajoki||||||
+944|224|671|Soini||||||
+945|224|672|Sumiainen||||||
+946|224|673|Suolahti||||||
+947|224|675|Teuva||||||
+948|224|676|Toholampi||||||
+949|224|677|Toivakka||||||
+950|224|678|Toysa||||||
+951|224|679|Ullava||||||
+952|224|680|Uurainen||||||
+953|224|681|Uusikaarlepyy||||||
+954|224|682|Vaasa||||||
+955|224|683|Veteli||||||
+956|224|684|Viitasaari||||||
+957|224|685|Vimpeli||||||
+958|224|686|Vahakyro||||||
+959|224|687|Voyri||||||
+960|224|688|Yliharma||||||
+961|224|689|Ylistaro||||||
+962|224|690|ahtari||||||
+963|224|692|aanekoski||||||
+964|224|701|Eno||||||
+965|224|702|Iisalmi||||||
+966|224|703|Ilomantsi||||||
+967|224|704|Joensuu||||||
+968|224|705|Juankoski||||||
+969|224|706|Juuka||||||
+970|224|707|Kaavi||||||
+971|224|708|Karttula||||||
+972|224|709|Keitele||||||
+973|224|710|Kesalahti||||||
+974|224|711|Kiihtelysvaara||||||
+975|224|712|Kitee||||||
+976|224|713|Kiuruvesi||||||
+977|224|714|Kontiolahti||||||
+978|224|715|Kuopio||||||
+979|224|716|Lapinlahti||||||
+980|224|717|Leppavirta||||||
+981|224|718|Lieksa||||||
+982|224|719|Liperi||||||
+983|224|720|Maaninka||||||
+984|224|721|Nilsia||||||
+985|224|722|Nurmes||||||
+986|224|723|Outokumpu||||||
+987|224|724|Pielavesi||||||
+988|224|725|Polvijarvi||||||
+989|224|726|Pyhaselka||||||
+990|224|727|Rautalampi||||||
+991|224|728|Rautavaara||||||
+992|224|729|Raakkyla||||||
+993|224|730|Siilinjarvi||||||
+994|224|731|Sonkajarvi||||||
+995|224|732|Suonenjoki||||||
+996|224|733|Tervo||||||
+997|224|734|Tohmajarvi||||||
+998|224|735|Tuupovaara||||||
+999|224|736|Tuusniemi||||||
+1000|224|737|Valtimo||||||
+1001|224|738|Varkaus||||||
+1002|224|739|Varpaisjarvi||||||
+1003|224|740|Vehmersalmi||||||
+1004|224|741|Vesanto||||||
+1005|224|742|Vierema||||||
+1006|224|743|Vartsila||||||
+1007|224|801|Alavieska||||||
+1008|224|802|Haapajarvi||||||
+1009|224|803|Haapavesi||||||
+1010|224|804|Hailuoto||||||
+1011|224|805|Haukipudas||||||
+1012|224|806|Hyrynsalmi||||||
+1013|224|807|Ii||||||
+1014|224|808|Kajaani||||||
+1015|224|810|Kalajoki||||||
+1016|224|811|Kempele||||||
+1017|224|812|Kestila||||||
+1018|224|813|Kiiminki||||||
+1019|224|814|Kuhmo||||||
+1020|224|815|Kuivaniemi||||||
+1021|224|816|Kuusamo||||||
+1022|224|817|Karsamaki||||||
+1023|224|818|Liminka||||||
+1024|224|819|Lumijoki||||||
+1025|224|820|Merijarvi||||||
+1026|224|821|Muhos||||||
+1027|224|822|Nivala||||||
+1028|224|823|Oulainen||||||
+1029|224|824|Oulu||||||
+1030|224|825|Oulunsalo||||||
+1031|224|826|Paltamo||||||
+1032|224|827|Pattijoki||||||
+1033|224|828|Piippola||||||
+1034|224|829|Pudasjarvi||||||
+1035|224|830|Pulkkila||||||
+1036|224|831|Puolanka||||||
+1037|224|832|Pyhajoki||||||
+1038|224|833|Pyhajarvi||||||
+1039|224|834|Pyhanta||||||
+1040|224|835|Raahe||||||
+1041|224|836|Rantsila||||||
+1042|224|837|Reisjarvi||||||
+1043|224|838|Ristijarvi||||||
+1044|224|839|Ruukki||||||
+1045|224|840|Sievi||||||
+1046|224|841|Siikajoki||||||
+1047|224|842|Sotkamo||||||
+1048|224|843|Suomussalmi||||||
+1049|224|844|Taivalkoski||||||
+1050|224|846|Tyrnava||||||
+1051|224|847|Utajarvi||||||
+1052|224|848|Vaala||||||
+1053|224|849|Vihanti||||||
+1054|224|850|Vuolijoki||||||
+1055|224|851|Yli-Ii||||||
+1056|224|852|Ylikiiminki||||||
+1057|224|853|Ylivieska||||||
+1058|224|901|Enontekio||||||
+1059|224|902|Inari||||||
+1060|224|903|Kemi||||||
+1061|224|904|Keminmaa||||||
+1062|224|905|Kemijarvi||||||
+1063|224|907|Kittila||||||
+1064|224|908|Kolari||||||
+1065|224|909|Muonio||||||
+1066|224|910|Pelkosenniemi||||||
+1067|224|911|Pello||||||
+1068|224|912|Posio||||||
+1069|224|913|Ranua||||||
+1070|224|914|Rovaniemi||||||
+1071|224|915|Rovaniemen mlk||||||
+1072|224|916|Salla||||||
+1073|224|917|Savukoski||||||
+1074|224|918|Simo||||||
+1075|224|919|Sodankyla||||||
+1076|224|920|Tervola||||||
+1077|224|921|Tornio||||||
+1078|224|922|Utsjoki||||||
+1079|224|923|Ylitornio||||||
+1080|225|CA|Cagliari||||0||
+1081|225|CI|Carbonia-Iglesias||||0||
+1082|225|MD|Medio Campidano||||1||
+1083|225|NU|Nuoro||||0||
+1084|225|OG|Ogliastra||||0||
+1085|225|OR|Oristano||||0||
+1086|225|OT|Olbia-Tempio||||0||
+1087|225|SS|Sassari||||0||
+1088|225|VS|MedioCampidano||||0||
+1089|227|1|Ain||||||
+1090|227|2|Aisne||||||
+1091|227|3|Allier||||||
+1092|227|4|Alpes-de-Haute-Provence||||||
+1093|227|5|Hautes-Alpes||||||
+1094|227|6|Alpes-Maritimes||||||
+1095|227|7|Ardeche||||||
+1096|227|8|Ardennes||||||
+1097|227|9|Ariege||||||
+1098|227|10|Aube||||||
+1099|227|11|Aude||||||
+1100|227|12|Aveyron||||||
+1101|227|13|Bouches-du-Rhone||||||
+1102|227|14|Calvados||||||
+1103|227|15|Cantal||||||
+1104|227|16|Charente||||||
+1105|227|17|Charente-Maritime||||||
+1106|227|18|Cher||||||
+1107|227|19|Correze||||||
+1108|227|21|Cote-d'Or||||||
+1109|227|22|Cotes-d'Armor||||||
+1110|227|23|Creuse||||||
+1111|227|24|Dordogne||||||
+1112|227|25|Doubs||||||
+1113|227|26|Drome||||||
+1114|227|27|Eure||||||
+1115|227|28|Eure-et-Loir||||||
+1116|227|29|Finistere||||||
+1117|227|30|Gard||||||
+1118|227|31|Haute-Garonne||||||
+1119|227|32|Gere||||||
+1120|227|33|Gironde||||||
+1121|227|34|Herault||||||
+1122|227|35|Ille-et-Vilaine||||||
+1123|227|36|Indre||||||
+1124|227|37|Indre-et-Loire||||||
+1125|227|38|Isere||||||
+1126|227|39|Jura||||||
+1127|227|40|Landes||||||
+1128|227|41|Loir-et-Cher||||||
+1129|227|42|Loire||||||
+1130|227|43|Haute-Loire||||||
+1131|227|44|Loire-Atlantique||||||
+1132|227|45|Loiret||||||
+1133|227|46|Lot||||||
+1134|227|47|Lot-et-Garonne||||||
+1135|227|48|Lozere||||||
+1136|227|49|Maine-et-Loire||||||
+1137|227|50|Manche||||||
+1138|227|51|Marne||||||
+1139|227|52|Haute-Marne||||||
+1140|227|53|Mayenne||||||
+1141|227|54|Meurthe-et-Moselle||||||
+1142|227|55|Meuse||||||
+1143|227|56|Morbihan||||||
+1144|227|57|Moselle||||||
+1145|227|58|Nievre||||||
+1146|227|59|Nord||||||
+1147|227|60|Oise||||||
+1148|227|61|Orne||||||
+1149|227|62|Pas-de-Calais||||||
+1150|227|63|Puy-de-Dome||||||
+1151|227|64|Pyrenees-Atlantiques||||||
+1152|227|65|Hautea-Pyrenees||||||
+1153|227|66|Pyrenees-Orientales||||||
+1154|227|67|Bas-Rhin||||||
+1155|227|68|Haut-Rhin||||||
+1156|227|69|Rhone||||||
+1157|227|70|Haute-Saone||||||
+1158|227|71|Saone-et-Loire||||||
+1159|227|72|Sarthe||||||
+1160|227|73|Savoie||||||
+1161|227|74|Haute-Savoie||||||
+1162|227|75|Paris||||||
+1163|227|76|Seine-Maritime||||||
+1164|227|77|Seine-et-Marne||||||
+1165|227|78|Yvelines||||||
+1166|227|79|Deux-Sevres||||||
+1167|227|80|Somme||||||
+1168|227|81|Tarn||||||
+1169|227|82|Tarn-et-Garonne||||||
+1170|227|83|Var||||||
+1171|227|84|Vaucluse||||||
+1172|227|85|Vendee||||||
+1173|227|86|Vienne||||||
+1174|227|87|Haute-Vienne||||||
+1175|227|88|Vosges||||||
+1176|227|89|Yonne||||||
+1177|227|90|Territoire de Belfort||||||
+1178|227|91|Essonne||||||
+1179|227|92|Hauts-de-Selne||||||
+1180|227|93|Seine-Saint-Denis||||||
+1181|227|94|Val-de-Marne||||||
+1182|227|95|Val-d'Oise||||||
+1183|230|BB|Brandenburg||||||
+1184|230|BE|Berlin||||||
+1185|230|BW|Baden-Württemberg||||||
+1186|230|BY|Freistaat Bayern||||||
+1187|230|HB|Freie Hansestadt Bremen||||||
+1188|230|HE|Hessen||||||
+1189|230|HH|Freie und Hansestadt Hamburg||||||
+1190|230|MV|Mecklenburg-Vorpommern||||||
+1191|230|NI|Niedersachsen||||||
+1192|230|NW|Nordrhein-Westfalen||||||
+1193|230|RP|Rheinland-Pfalz||||||
+1194|230|SL|Saarland||||||
+1195|230|SH|Schleswig-Holstein||||||
+1196|230|SN|Freistaat Sachsen||||||
+1197|230|ST|Sachsen-Anhalt||||||
+1198|230|TH|Freistaat Thüringen||||||
+1199|239|GY|Gyor (Gyor-Moson-Sopron)||||||
+1200|239|VA|Vas||||||
+1201|239|ZA|Zala||||||
+1202|239|KO|Komarom (Komarom-Esztergom)||||||
+1203|239|VE|Veszprem||||||
+1204|239|BA|Baranya||||||
+1205|239|SO|Somogy||||||
+1206|239|TO|Tolna||||||
+1207|239|FE|Fejer||||||
+1208|239|BP|Budapest||||||
+1209|239|HE|Heves||||||
+1210|239|NG|Nograd||||||
+1211|239|PE|Pest||||||
+1212|239|SZ|Szolnok (Jasz-Nagykun-Szolnok)||||||
+1213|239|BE|Bekes||||||
+1214|239|BN|Bacs-Kiskun||||||
+1215|239|CS|Csongrad||||||
+1216|239|BO|Borsod (Borsod-Abauj-Zemplen)||||||
+1217|239|HB|Hajdu-Bihar||||||
+1218|239|SA|Szabolcs (Szabolcs-Szatmar-Bereg)||||||
+1219|245|CW|Carlow (Ceatharlach)||||||
+1220|245|CN|Cavan (An Cabhan)||||||
+1221|245|CE|Clare (An Clar)||||||
+1222|245|C|Cork (Corcaigh)||||||
+1223|245|DL|Donegal (Dun na nGall)||||||
+1224|245|D|Dublin (Baile Ath Cliath)||||||
+1225|245|G|Galway (Gaillimh)||||||
+1226|245|KY|Kerry (Ciarrai)||||||
+1227|245|KE|Kildare (Cill Dara)||||||
+1228|245|KK|Kilkenny (Cill Chainnigh)||||||
+1229|245|LS|Laois (Laois)||||||
+1230|245|LM|Leitrim (Liatroim)||||||
+1231|245|LK|Limerick (Luimneach)||||||
+1232|245|LD|Longford (An Longfort)||||||
+1233|245|LH|Louth (Lu)||||||
+1234|245|MO|Mayo (Maigh Eo)||||||
+1235|245|MH|Meath (An Mhi)||||||
+1236|245|MN|Monaghan (Muineachan)||||||
+1237|245|OY|Offaly (Uibh Fhaili)||||||
+1238|245|RN|Roscommon (Ros Comain)||||||
+1239|245|SO|Sligo (Sligeach)||||||
+1240|245|TA|Tipperary (Tiobraid Arann)||||||
+1241|245|WD|Waterford (Port Lairge)||||||
+1242|245|WH|Westmeath (An Iarmhi)||||||
+1243|245|WX|Wexford (Loch Garman)||||||
+1244|245|WW|Wicklow (Cill Mhantain)||||||
+1245|248|GE|Genova||||0||
+1246|248|IM|Imperia||||0||
+1247|248|SP|La Spezia||||0||
+1248|248|SV|Savona||||0||
+1249|248|AL|Alessandria||||0||
+1250|248|AT|Asti||||0||
+1251|248|BI|Biella||||0||
+1252|248|CN|Cuneo||||0||
+1253|248|NO|Novara||||0||
+1254|248|TO|Torino||||0||
+1255|248|VB|Verbano Cusio Ossola||||0||
+1256|248|VC|Vercelli||||0||
+1257|248|AO|Aosta||||0||
+1258|248|BG|Bergamo||||0||
+1259|248|BS|Brescia||||0||
+1260|248|CO|Como||||0||
+1261|248|CR|Cremona||||0||
+1262|248|LC|Lecco||||0||
+1263|248|LO|Lodi||||0||
+1264|248|MB|Monza e Brianza||||0||
+1265|248|MN|Mantova||||0||
+1266|248|MI|Milano||||0||
+1267|248|PV|Pavia||||0||
+1268|248|SO|Sondrio||||0||
+1269|248|VA|Varese||||0||
+1270|248|BZ|Bolzano||||0||
+1271|248|TN|Trento||||0||
+1272|248|GO|Gorizia||||0||
+1273|248|PN|Pordenone||||0||
+1274|248|TS|Trieste||||0||
+1275|248|UD|Udine||||0||
+1276|248|BO|Bologna||||0||
+1277|248|FE|Ferrara||||0||
+1278|248|FO|Forlì||||1||
+1279|248|FC|Forlì-Cesena||||0||
+1280|248|MO|Modena||||0||
+1281|248|PR|Parma||||0||
+1282|248|PC|Piacenza||||0||
+1283|248|RA|Ravenna||||0||
+1284|248|RE|Reggio Emilia||||0||
+1285|248|RN|Rimini||||0||
+1286|248|AR|Arezzo||||0||
+1287|248|FI|Firenze||||0||
+1288|248|GR|Grosseto||||0||
+1289|248|LI|Livorno||||0||
+1290|248|LU|Lucca||||0||
+1291|248|MS|Massa Carrara||||0||
+1292|248|PT|Pistoia||||0||
+1293|248|PI|Pisa||||0||
+1294|248|PO|Prato||||0||
+1295|248|SI|Siena||||0||
+1296|248|CH|Chieti||||0||
+1297|248|AQ|L'Aquila||||0||
+1298|248|PE|Pescara||||0||
+1299|248|TE|Teramo||||0||
+1300|248|AN|Ancona||||0||
+1301|248|AP|Ascoli Piceno||||0||
+1302|248|FM|Fermo||||0||
+1303|248|MC|Macerata||||0||
+1304|248|PS|Pesaro e Urbino||||0||
+1305|248|PU|Pesaro e Urbino||||0||
+1306|248|MT|Matera||||0||
+1307|248|PZ|Potenza||||0||
+1308|248|BA|Bari||||0||
+1309|248|BT|Barletta-Andria-Trani||||0||
+1310|248|BR|Brindisi||||0||
+1311|248|FG|Foggia||||0||
+1312|248|LE|Lecce||||0||
+1313|248|TA|Taranto||||0||
+1314|248|CZ|Catanzaro||||0||
+1315|248|CS|Cosenza||||0||
+1316|248|KR|Crotone||||0||
+1317|248|RC|Reggio Calabria||||0||
+1318|248|VV|Vibo Valentia||||0||
+1319|248|AV|Avellino||||0||
+1320|248|BN|Benevento||||0||
+1321|248|CE|Caserta||||0||
+1322|248|NA|Napoli||||0||
+1323|248|SA|Salerno||||0||
+1324|248|IS|Isernia||||0||
+1325|248|CB|Campobasso||||0||
+1326|248|FR|Frosinone||||0||
+1327|248|LT|Latina||||0||
+1328|248|RI|Rieti||||0||
+1329|248|RM|Roma||||0||
+1330|248|VT|Viterbo||||0||
+1331|248|PG|Perugia||||0||
+1332|248|TR|Terni||||0||
+1333|248|AG|Agrigento||||0||
+1334|248|CL|Caltanissetta||||0||
+1335|248|CT|Catania||||0||
+1336|248|EN|Enna||||0||
+1337|248|ME|Messina||||0||
+1338|248|PA|Palermo||||0||
+1339|248|RG|Ragusa||||0||
+1340|248|SR|Siracusa||||0||
+1341|248|TP|Trapani||||0||
+1342|256|MD|Madeira||||||
+1343|263|DR|Drenthe||||||
+1344|263|FR|Friesland||||||
+1345|263|GR|Groningen||||||
+1346|263|NB|Noord-Brabant||||||
+1347|263|OV|Overijssel||||||
+1348|263|ZH|Zuid-Holland||||||
+1349|263|FL|Flevoland||||||
+1350|263|GD|Gelderland||||||
+1351|263|LB|Limburg||||||
+1352|263|NH|Noord-Holland||||||
+1353|263|UT|Utrecht||||||
+1354|263|ZL|Zeeland||||||
+1355|269|Z|Zachodnio-Pomorskie||||||
+1356|269|F|Pomorskie||||||
+1357|269|P|Kujawsko-Pomorskie||||||
+1358|269|B|Lubuskie||||||
+1359|269|W|Wielkopolskie||||||
+1360|269|J|Warminsko-Mazurskie||||||
+1361|269|O|Podlaskie||||||
+1362|269|R|Mazowieckie||||||
+1363|269|D|Dolnoslaskie||||||
+1364|269|U|Opolskie||||||
+1365|269|C|Lodzkie||||||
+1366|269|S|Swietokrzyskie||||||
+1367|269|K|Podkarpackie||||||
+1368|269|L|Lubelskie||||||
+1369|269|G|Slaskie||||||
+1370|269|M|Malopolskie||||||
+1371|272|AV|Aveiro||||||
+1372|272|BJ|Beja||||||
+1373|272|BR|Braga||||||
+1374|272|BG|Bragança||||||
+1375|272|CB|Castelo Branco||||||
+1376|272|CO|Coimbra||||||
+1377|272|EV|Evora||||||
+1378|272|FR|Faro||||||
+1379|272|GD|Guarda||||||
+1380|272|LR|Leiria||||||
+1381|272|LX|Lisboa||||||
+1382|272|PG|Portalegre||||||
+1383|272|PT|Porto||||||
+1384|272|SR|Santarem||||||
+1385|272|ST|Setubal||||||
+1386|272|VC|Viana do Castelo||||||
+1387|272|VR|Vila Real||||||
+1388|272|VS|Viseu||||||
+1389|275|AR|Arad||||||
+1390|275|Cs|Cara'-severin||||||
+1391|275|HD|Hunedoara||||||
+1392|275|TM|Timis (Timis)||||||
+1393|275|BU|Bucuresti (Bucure'ti)||||||
+1394|275|IF|Ilfov||||||
+1395|275|BR|Braila (Braila)||||||
+1396|275|CT|Conatarta||||||
+1397|275|GL|Galati||||||
+1398|275|TL|Tulcea||||||
+1399|275|VN|Vrancea||||||
+1400|275|AB|Alba||||||
+1401|275|BH|Bihor||||||
+1402|275|BN|Bistrita-Nasaud||||||
+1403|275|CJ|Cluj||||||
+1404|275|MM|Maramures (Maramures)||||||
+1405|275|sJ|salaj (salaj)||||||
+1406|275|sM|satu Mare||||||
+1407|275|BV|Brasov (Bra'ov)||||||
+1408|275|CV|Covasna||||||
+1409|275|HR|Harghita||||||
+1410|275|Ms|Mures (Mures)||||||
+1411|275|sB|sibiu||||||
+1412|275|AG|Arge'||||||
+1413|275|DJ|Dolj||||||
+1414|275|GJ|Gorj||||||
+1415|275|MH|Mehedinti (Mehedinti)||||||
+1416|275|OT|Olt||||||
+1417|275|VL|Valcea||||||
+1418|275|BC|Bacau||||||
+1419|275|BT|Boto'ani||||||
+1420|275|Is|Iasi (Iasi)||||||
+1421|275|NT|Neamt (Neamt)||||||
+1422|275|sV|suceava||||||
+1423|275|Vs|Vaslui||||||
+1424|275|BZ|Buzau (Buzau)||||||
+1425|275|CL|Calarasi (Calarasi)||||||
+1426|275|DB|Dambovita (Dambovita)||||||
+1427|275|GR|Giurqiu||||||
+1428|275|IL|Ialomita||||||
+1429|275|PH|Prahova||||||
+1430|275|TR|Teleorman||||||
+1431|281|AV|Avila||||||
+1432|281|BU|Burgos||||||
+1433|281|C|A Coruña||||||
+1434|281|LE|Leon||||||
+1435|281|LO|La Rioja||||||
+1436|281|LU|Lugo||||||
+1437|281|O|Asturias||||||
+1438|281|OU|Ourense||||||
+1439|281|P|Palencia||||||
+1440|281|PO|Pontevedra||||||
+1441|281|S|Cantabria||||||
+1442|281|SA|Salamanca||||||
+1443|281|SG|Segovia||||||
+1444|281|SO|Soria||||||
+1445|281|VA|Valladolid||||||
+1446|281|ZA|Zamora||||||
+1447|281|BI|Vizcaya||||||
+1448|281|HU|Huesca||||||
+1449|281|NA|Navarra||||||
+1450|281|SS|Guipuzcoa||||||
+1451|281|TE|Teruel||||||
+1452|281|VI|Alava||||||
+1453|281|Z|Zaragoza||||||
+1454|281|B|Barcelona||||||
+1455|281|GI|Girona||||||
+1456|281|L|Lleida||||||
+1457|281|T|Tarragona||||||
+1458|281|BA|Badajoz||||||
+1459|281|CC|Caceres||||||
+1460|281|CR|Ciudad Real||||||
+1461|281|CU|Cuenca||||||
+1462|281|GU|Guadalajara||||||
+1463|281|M|Madrid||||||
+1464|281|TO|Toledo||||||
+1465|281|A|Alicante||||||
+1466|281|AB|Albacete||||||
+1467|281|CS|Castellon||||||
+1468|281|MU|Murcia||||||
+1469|281|V|Valencia||||||
+1470|281|AL|Almeria||||||
+1471|281|CA|Cadiz||||||
+1472|281|CO|Cordoba||||||
+1473|281|GR|Granada||||||
+1474|281|H|Huelva||||||
+1475|281|J|Jaen||||||
+1476|281|MA|Malaga||||||
+1477|281|SE|Sevilla||||||
+1478|284|AB|Stockholm lan||||||
+1479|284|I|Gotlands lan||||||
+1480|284|BD|Norrbottens lan||||||
+1481|284|AC|Vasterbottens lan||||||
+1482|284|X|Gavleborgs lan||||||
+1483|284|Z|Jamtlands lan||||||
+1484|284|Y|Vasternorrlands lan||||||
+1485|284|W|Dalarna lan||||||
+1486|284|S|Varmlands lan||||||
+1487|284|O|Vastra Gotalands lan||||||
+1488|284|T|Orebro lan||||||
+1489|284|E|Ostergotlands lan||||||
+1490|284|D|Sodermanlands lan||||||
+1491|284|C|Uppsala lan||||||
+1492|284|U|Vastmanlands lan||||||
+1493|284|N|Hallands lan||||||
+1494|284|K|Blekinge lan||||||
+1495|284|F|Jonkopings lan||||||
+1496|284|H|Kalmar lan||||||
+1497|284|G|Kronobergs lan||||||
+1498|284|L|Skane lan||||||
+1499|287|AG|Aargau||||||
+1500|287|AR|Appenzell Ausserrhoden||||||
+1501|287|AI|Appenzell Innerrhoden||||||
+1502|287|BL|Basel Landschaft||||||
+1503|287|BS|Basel Stadt||||||
+1504|287|BE|Bern||||||
+1505|287|FR|Freiburg / Fribourg||||||
+1506|287|GE|Genf / Genève||||||
+1507|287|GL|Glarus||||||
+1508|287|GR|Graubuenden / Grisons||||||
+1509|287|JU|Jura||||||
+1510|287|LU|Luzern||||||
+1511|287|NE|Neuenburg / Neuchâtel||||||
+1512|287|NW|Nidwalden||||||
+1513|287|OW|Obwalden||||||
+1514|287|SH|Schaffhausen||||||
+1515|287|SZ|Schwyz||||||
+1516|287|SO|Solothurn||||||
+1517|287|SG|St. Gallen||||||
+1518|287|TI|Tessin / Ticino||||||
+1519|287|TG|Thurgau||||||
+1520|287|UR|Uri||||||
+1521|287|VD|Waadt / Vaud||||||
+1522|287|VS|Wallis / Valais||||||
+1523|287|ZH|Zuerich||||||
+1524|287|ZG|Zug||||||
+1525|288|SU|Sums'ka Oblast'||||||
+1526|288|TE|Ternopil's'ka Oblast'||||||
+1527|288|CH|Cherkas'ka Oblast'||||||
+1528|288|ZA|Zakarpats'ka Oblast'||||||
+1529|288|DN|Dnipropetrovs'ka Oblast'||||||
+1530|288|OD|Odes'ka Oblast'||||||
+1531|288|HE|Khersons'ka Oblast'||||||
+1532|288|PO|Poltavs'ka Oblast'||||||
+1533|288|DO|Donets'ka Oblast'||||||
+1534|288|RI|Rivnens'ka Oblast'||||||
+1535|288|HA|Kharkivs'ka Oblast'||||||
+1536|288|LU|Luhans'ka Oblast'||||||
+1537|288|VI|Vinnyts'ka Oblast'||||||
+1538|288|VO|Volyos'ka Oblast'||||||
+1539|288|ZP|Zaporiz'ka Oblast'||||||
+1540|288|CR|Chernihivs'ka Oblast'||||||
+1541|288|IF|Ivano-Frankivs'ka Oblast'||||||
+1542|288|HM|Khmel'nyts'ka Oblast'||||||
+1543|288|KV|Kyïv||||||
+1544|288|KO|Kyivs'ka Oblast'||||||
+1545|288|KI|Kirovohrads'ka Oblast'||||||
+1546|288|LV|L'vivs'ka Oblast'||||||
+1547|288|ZH|Zhytomyrs'ka Oblast'||||||
+1548|288|CN|Chernivets'ka Oblast'||||||
+1549|288|NI|Mykolaivs'ka Oblast'||||||
+1550|288|KR|Respublika Krym||||||
+1551|288|SL|Sevastopol'||||||
+1552|291|CT|Connecticut||||||
+1553|291|ME|Maine||||||
+1554|291|MA|Massachusetts||||||
+1555|291|NH|New Hampshire||||||
+1556|291|RI|Rhode Island||||||
+1557|291|VT|Vermont||||||
+1558|291|NJ|New Jersey||||||
+1559|291|NY|New York||||||
+1560|291|DE|Delaware||||||
+1561|291|DC|District of Columbia||||||
+1562|291|MD|Maryland||||||
+1563|291|PA|Pennsylvania||||||
+1564|291|AL|Alabama||||||
+1565|291|FL|Florida||||||
+1566|291|GA|Georgia||||||
+1567|291|KY|Kentucky||||||
+1568|291|NC|North Carolina||||||
+1569|291|SC|South Carolina||||||
+1570|291|TN|Tennessee||||||
+1571|291|VA|Virginia||||||
+1572|291|AR|Arkansas||||||
+1573|291|LA|Louisiana||||||
+1574|291|MS|Mississippi||||||
+1575|291|NM|New Mexico||||||
+1576|291|OK|Oklahoma||||||
+1577|291|TX|Texas||||||
+1578|291|CA|California||||||
+1579|291|AZ|Arizona||||||
+1580|291|ID|Idaho||||||
+1581|291|MT|Montana||||||
+1582|291|NV|Nevada||||||
+1583|291|OR|Oregon||||||
+1584|291|UT|Utah||||||
+1585|291|WA|Washington||||||
+1586|291|WY|Wyoming||||||
+1587|291|MI|Michigan||||||
+1588|291|OH|Ohio||||||
+1589|291|WV|West Virginia||||||
+1590|291|IL|Illinois||||||
+1591|291|IN|Indiana||||||
+1592|291|WI|Wisconsin||||||
+1593|291|CO|Colorado||||||
+1594|291|IA|Iowa||||||
+1595|291|KS|Kansas||||||
+1596|291|MN|Minnesota||||||
+1597|291|MO|Missouri||||||
+1598|291|NE|Nebraska||||||
+1599|291|ND|North Dakota||||||
+1600|291|SD|South Dakota||||||
+1601|318|AH|Anhui||||||
+1602|318|BJ|Beijing||||||
+1603|318|CQ|Chongqing||||||
+1604|318|FJ|Fujian||||||
+1605|318|GD|Guangdong||||||
+1606|318|GS|Gansu||||||
+1607|318|GX|Guangxi||||||
+1608|318|GZ|Guizhou||||||
+1609|318|HA|Henan||||||
+1610|318|HB|Hubei||||||
+1611|318|HE|Hebei||||||
+1612|318|HI|Hainan||||||
+1613|318|HL|Heilongjiang||||||
+1614|318|HN|Hunan||||||
+1615|318|JL|Jilin||||||
+1616|318|JS|Jiangsu||||||
+1617|318|JX|Jiangxi||||||
+1618|318|LN|Liaoning||||||
+1619|318|NM|Neimenggu||||||
+1620|318|NX|Ningxia||||||
+1621|318|QH|Qinghai||||||
+1622|318|SC|Sichuan||||||
+1623|318|SD|Shandong||||||
+1624|318|SH|Shanghai||||||
+1625|318|SN|Shaanxi||||||
+1626|318|SX|Shanxi||||||
+1627|318|TJ|Tianjin||||||
+1628|318|XJ|Xinjiang||||||
+1629|318|XZ|Xizang||||||
+1630|318|YN|Yunnan||||||
+1631|318|ZJ|Zhejiang||||||
+1632|327|BA|Bali||||||
+1633|327|BB|Bangka Belitung||||||
+1634|327|BT|Banten||||||
+1635|327|BE|Bengkulu||||||
+1636|327|YO|DI Yogyakarta||||||
+1637|327|JK|DKI Jakarta (Jakarta)||||||
+1638|327|GO|Gorontalo||||||
+1639|327|JA|Jambi||||||
+1640|327|JB|Jawa Barat (West Java)||||||
+1641|327|JT|Jawa Tengah (Central Java)||||||
+1642|327|JI|Jawa Timur (East Java)||||||
+1643|327|KB|Kalimantan Barat (West Borneo)||||||
+1644|327|KS|Kalimantan Selatan (South Borneo)||||||
+1645|327|KT|Kalimantan Tengah (Central Borneo)||||||
+1646|327|KI|Kalimantan Timur (East Borneo)||||||
+1647|327|KR|Kepulauan Riau||||||
+1648|327|LA|Lampung||||||
+1649|327|MA|Maluku (Moluccas)||||||
+1650|327|MU|Maluku Utara (North Moluccas)||||||
+1651|327|AC|Nanggroe Aceh Darussalam (Aceh)||||||
+1652|327|NB|Nusa Tenggara Barat (West Lesser Sunda Isl)||||||
+1653|327|NT|Nusa Tenggara Timur (East Lesser Suna Isl)||||||
+1654|327|IJ|Papua (Irian Jaya)||||||
+1655|327|RI|Riau||||||
+1656|327|SR|Sulawesi Barat (West Celebes)||||||
+1657|327|SN|Sulawesi Selatan (South Celebes)||||||
+1658|327|ST|Sulawesi Tengah (Central Celebes)||||||
+1659|327|SG|Sulawesi Tenggara (Southeast Celebes)||||||
+1660|327|SA|Sulawesi Utara (North Celebes)||||||
+1661|327|SB|Sumatera Barat (West Sumatra)||||||
+1662|327|SS|Sumatera Selatan (South Sumatra)||||||
+1663|327|SU|Sumatera Utara (North Sumatra)||||||
+1664|339|12|Chiba||||||
+1665|339|16|Gunma||||||
+1666|339|14|Ibaraki||||||
+1667|339|11|Kanagawa||||||
+1668|339|13|Saitama||||||
+1669|339|15|Tochigi||||||
+1670|339|10|Tokyo||||||
+1671|339|17|Yamanashi||||||
+1672|339|20|Aichi||||||
+1673|339|19|Gifu||||||
+1674|339|21|Mie||||||
+1675|339|18|Shizuoka||||||
+1676|339|27|Hyogo||||||
+1677|339|22|Kyoto||||||
+1678|339|24|Nara||||||
+1679|339|25|Osaka||||||
+1680|339|23|Shiga||||||
+1681|339|26|Wakayama||||||
+1682|339|35|Hiroshima||||||
+1683|339|31|Okayama||||||
+1684|339|32|Shimane||||||
+1685|339|34|Tottori||||||
+1686|339|33|Yamaguchi||||||
+1687|339|38|Ehime||||||
+1688|339|36|Kagawa||||||
+1689|339|39|Kochi||||||
+1690|339|37|Tokushima||||||
+1691|339|40|Fukuoka||||||
+1692|339|46|Kagoshima||||||
+1693|339|43|Kumamoto||||||
+1694|339|45|Miyazaki||||||
+1695|339|42|Nagasaki||||||
+1696|339|44|Oita||||||
+1697|339|47|Okinawa||||||
+1698|339|41|Saga||||||
+1699|339|4|Akita||||||
+1700|339|2|Aomori||||||
+1701|339|7|Fukushima||||||
+1702|339|3|Iwate||||||
+1703|339|6|Miyagi||||||
+1704|339|5|Yamagata||||||
+1705|339|1|Hokkaido||||||
+1706|339|29|Fukui||||||
+1707|339|30|Ishikawa||||||
+1708|339|28|Toyama||||||
+1709|339|9|Nagano||||||
+1710|339|8|Niigata||||||
+1711|375|AUR|Aurora||||||
+1712|375|BTG|Batangas||||||
+1713|375|CAV|Cavite||||||
+1714|375|LAG|Laguna||||||
+1715|375|MAD|Marinduque||||||
+1716|375|MDC|Mindoro Occidental||||||
+1717|375|MDR|Mindoro Oriental||||||
+1718|375|PLW|Palawan||||||
+1719|375|QUE|Quezon||||||
+1720|375|RIZ|Rizal||||||
+1721|375|ROM|Romblon||||||
+1722|375|ILN|Ilocos Norte||||||
+1723|375|ILS|Ilocos Sur||||||
+1724|375|LUN|La Union||||||
+1725|375|PAN|Pangasinan||||||
+1726|375|BTN|Batanes||||||
+1727|375|CAG|Cagayan||||||
+1728|375|ISA|Isabela||||||
+1729|375|NUV|Nueva Vizcaya||||||
+1730|375|QUI|Quirino||||||
+1731|375|ABR|Abra||||||
+1732|375|APA|Apayao||||||
+1733|375|BEN|Benguet||||||
+1734|375|IFU|Ifugao||||||
+1735|375|KAL|Kalinga-Apayso||||||
+1736|375|MOU|Mountain Province||||||
+1737|375|BAN|Batasn||||||
+1738|375|BUL|Bulacan||||||
+1739|375|NUE|Nueva Ecija||||||
+1740|375|PAM|Pampanga||||||
+1741|375|TAR|Tarlac||||||
+1742|375|ZMB|Zambales||||||
+1743|375|ALB|Albay||||||
+1744|375|CAN|Camarines Norte||||||
+1745|375|CAS|Camarines Sur||||||
+1746|375|CAT|Catanduanes||||||
+1747|375|MAS|Masbate||||||
+1748|375|SOR|Sorsogon||||||
+1749|375|BIL|Biliran||||||
+1750|375|EAS|Eastern Samar||||||
+1751|375|LEY|Leyte||||||
+1752|375|NSA|Northern Samar||||||
+1753|375|SLE|Southern Leyte||||||
+1754|375|WSA|Western Samar||||||
+1755|375|AKL|Aklan||||||
+1756|375|ANT|Antique||||||
+1757|375|CAP|Capiz||||||
+1758|375|GUI|Guimaras||||||
+1759|375|ILI|Iloilo||||||
+1760|375|NEC|Negroe Occidental||||||
+1761|375|BOH|Bohol||||||
+1762|375|CEB|Cebu||||||
+1763|375|NER|Negros Oriental||||||
+1764|375|SIG|Siquijor||||||
+1765|375|ZAN|Zamboanga del Norte||||||
+1766|375|ZAS|Zamboanga del Sur||||||
+1767|375|ZSI|Zamboanga Sibugay||||||
+1768|375|NCO|North Cotabato||||||
+1769|375|SUK|Sultan Kudarat||||||
+1770|375|SAR|Sarangani||||||
+1771|375|SCO|South Cotabato||||||
+1772|375|BAS|Basilan||||||
+1773|375|LAS|Lanao del Sur||||||
+1774|375|MAG|Maguindanao||||||
+1775|375|SLU|Sulu||||||
+1776|375|TAW|Tawi-Tawi||||||
+1777|375|LAN|Lanao del Norte||||||
+1778|375|BUK|Bukidnon||||||
+1779|375|CAM|Camiguin||||||
+1780|375|MSC|Misamis Occidental||||||
+1781|375|MSR|Misamis Oriental||||||
+1782|375|COM|Compostela Valley||||||
+1783|375|DAV|Davao del Norte||||||
+1784|375|DAS|Davao del Sur||||||
+1785|375|DAO|Davao Oriental||||||
+1786|375|AGN|Agusan del Norte||||||
+1787|375|AGS|Agusan del Sur||||||
+1788|375|SUN|Surigao del Norte||||||
+1789|375|SUR|Surigao del Sur||||||
+1790|386|CHA|Changhua||||||
+1791|386|CYI|Chiayi||||||
+1792|386|HSZ|Hsinchu||||||
+1793|386|HUA|Hualien||||||
+1794|386|ILA|Ilan (Yilan)||||||
+1795|386|KHH|Kaohsiung||||||
+1796|386|KEE|Keelung||||||
+1797|386|MIA|Miaoli||||||
+1798|386|NAN|Nantou||||||
+1799|386|PEN|Penghu||||||
+1800|386|PIF|Pingtung||||||
+1801|386|TXG|Taichung||||||
+1802|386|TNN|Tainan||||||
+1803|386|TPE|Taipei||||||
+1804|386|TTT|Taitung||||||
+1805|386|TAO|Taoyuan||||||
+1806|387|37|Amnat Charoen||||||
+1807|387|15|Ang Thong||||||
+1808|387|31|Buri Ram||||||
+1809|387|24|Chachoengsao||||||
+1810|387|18|Chai Nat||||||
+1811|387|36|Chaiyaphum||||||
+1812|387|22|Chanthaburi||||||
+1813|387|50|Chiang Mai||||||
+1814|387|57|Chiang Rai||||||
+1815|387|20|Chon Buri||||||
+1816|387|86|Chumphon||||||
+1817|387|46|Kalasin||||||
+1818|387|62|Kamphasng Phet||||||
+1819|387|71|Kanchanaburi||||||
+1820|387|40|Khon Kaen||||||
+1821|387|81|Krabi||||||
+1822|387|10|Krung Thep Maha Nakhon Bangkok||||||
+1823|387|52|Lampang||||||
+1824|387|51|Lamphun||||||
+1825|387|42|Loei||||||
+1826|387|16|Lop Buri||||||
+1827|387|58|Mae Hong Son||||||
+1828|387|44|Maha Sarakham||||||
+1829|387|49|Mukdahan||||||
+1830|387|26|Nakhon Nayok||||||
+1831|387|73|Nakhon Pathom||||||
+1832|387|48|Nakhon Phanom||||||
+1833|387|30|Nakhon Ratchasima||||||
+1834|387|60|Nakhon Sawan||||||
+1835|387|80|Nakhon Si Thammarat||||||
+1836|387|55|Nan||||||
+1837|387|96|Narathiwat||||||
+1838|387|39|Nong Bua Lam Phu||||||
+1839|387|43|Nong Khai||||||
+1840|387|12|Nonthaburi||||||
+1841|387|13|Pathum Thani||||||
+1842|387|94|Pattani||||||
+1843|387|83|Phaket||||||
+1844|387|82|Phangnga||||||
+1845|387|93|Phatthalung||||||
+1846|387|S|Phatthaya||||||
+1847|387|56|Phayao||||||
+1848|387|67|Phetchabun||||||
+1849|387|76|Phetchaburi||||||
+1850|387|66|Phichit||||||
+1851|387|65|Phitsanulok||||||
+1852|387|14|Phra Nakhon Si Ayutthaya||||||
+1853|387|54|Phrae||||||
+1854|387|25|Prachin Buri||||||
+1855|387|77|Prachuap Khiri Khan||||||
+1856|387|85|Ranong||||||
+1857|387|70|Ratchaburi||||||
+1858|387|21|Rayong||||||
+1859|387|45|Roi Et||||||
+1860|387|27|Sa Kaeo||||||
+1861|387|47|Sakon Nakhon||||||
+1862|387|11|Samut Prakan||||||
+1863|387|74|Samut Sakhon||||||
+1864|387|75|Samut Songkhram||||||
+1865|387|19|Saraburi||||||
+1866|387|91|Satun||||||
+1867|387|33|Si Sa Ket||||||
+1868|387|17|Sing Buri||||||
+1869|387|90|Songkhla||||||
+1870|387|64|Sukhothai||||||
+1871|387|72|Suphan Buri||||||
+1872|387|84|Surat Thani||||||
+1873|387|32|Surin||||||
+1874|387|63|Tak||||||
+1875|387|92|Trang||||||
+1876|387|23|Trat||||||
+1877|387|34|Ubon Ratchathani||||||
+1878|387|41|Udon Thani||||||
+1879|387|61|Uthai Thani||||||
+1880|387|53|Uttaradit||||||
+1881|387|95|Yala||||||
+1882|387|35|Yasothon||||||
+1883|497|1|Zagrebacka zupanija||||||
+1884|497|2|Krapinsko-Zagorska zupanija||||||
+1885|497|3|Sisacko-Moslavacka Zupanija||||||
+1886|497|4|Karlovacka Zupanija||||||
+1887|497|5|Varazdinska Zupanija||||||
+1888|497|6|Koprivnicko-Krizevacka Zupanija||||||
+1889|497|7|Bjelovarsko-Bilogorska zupanija||||||
+1890|497|8|Primorsko-Goranska zupanija||||||
+1891|497|9|Licko-Senjska zupanija||||||
+1892|497|10|Viroviticko-Podravska zupanija||||||
+1893|497|11|Pozesko-Slavonska zupanija||||||
+1894|497|12|Brodsko-Posavska zupanija||||||
+1895|497|13|Zadarska zupanija||||||
+1896|497|14|Osjecko-Baranjska zupanija||||||
+1897|497|15|Sibensko-Kninska zupanija||||||
+1898|497|16|Vukovarsko-Srijemska zupanija||||||
+1899|497|17|Splitsko-Dalmatinska zupanija||||||
+1900|497|18|Istarska zupanija||||||
+1901|497|19|Dubrovacko-Neretvanska zupanija||||||
+1902|497|20|Medimurskaz zupanija||||||
+1903|497|21|Grad Zagreb||||||
+1904|503|APA|Praha 1||||||
+1905|503|APB|Praha 2||||||
+1906|503|APC|Praha 3||||||
+1907|503|APD|Praha 4||||||
+1908|503|APE|Praha 5||||||
+1909|503|APF|Praha 6||||||
+1910|503|APG|Praha 7||||||
+1911|503|APH|Praha 8||||||
+1912|503|API|Praha 9||||||
+1913|503|APJ|Praha 10||||||
+1914|503|BBN|Benesov||||||
+1915|503|BBE|Beroun||||||
+1916|503|BKD|Kladno||||||
+1917|503|BKO|Kolin||||||
+1918|503|BKH|Kutna Hora||||||
+1919|503|BME|Melnik||||||
+1920|503|BMB|Mlada Boleslav||||||
+1921|503|BNY|Nymburk||||||
+1922|503|BPZ|Praha zapad||||||
+1923|503|BPV|Praha vychod||||||
+1924|503|BPB|Pribram||||||
+1925|503|BRA|Rakovnik||||||
+1926|503|CBU|Ceske Budejovice||||||
+1927|503|CCK|Cesky Krumlov||||||
+1928|503|CJH|Jindrichuv Hradec||||||
+1929|503|CPE|Pelhrimov||||||
+1930|503|CPI|Pisek||||||
+1931|503|CPR|Prachatice||||||
+1932|503|CST|Strakonice||||||
+1933|503|CTA|Tabor||||||
+1934|503|DDO|Domazlice||||||
+1935|503|DCH|Cheb||||||
+1936|503|DKV|Karlovy Vary||||||
+1937|503|DKL|Klatovy||||||
+1938|503|DPM|Plzen mesto||||||
+1939|503|DPJ|Plzen jih||||||
+1940|503|DPS|Plzen sever||||||
+1941|503|DRO|Rokycany||||||
+1942|503|DSO|Sokolov||||||
+1943|503|DTA|Tachov||||||
+1944|503|ECL|Ceska Lipa||||||
+1945|503|EDE|Decin||||||
+1946|503|ECH|Chomutov||||||
+1947|503|EJA|Jablonec n. Nisou||||||
+1948|503|ELI|Liberec||||||
+1949|503|ELT|Litomerice||||||
+1950|503|ELO|Louny||||||
+1951|503|EMO|Most||||||
+1952|503|ETE|Teplice||||||
+1953|503|EUL|Usti nad Labem||||||
+1954|503|FHB|Havlickuv Brod||||||
+1955|503|FHK|Hradec Kralove||||||
+1956|503|FCR|Chrudim||||||
+1957|503|FJI|Jicin||||||
+1958|503|FNA|Nachod||||||
+1959|503|FPA|Pardubice||||||
+1960|503|FRK|Rychn n. Kneznou||||||
+1961|503|FSE|Semily||||||
+1962|503|FSV|Svitavy||||||
+1963|503|FTR|Trutnov||||||
+1964|503|FUO|Usti nad Orlici||||||
+1965|503|GBL|Blansko||||||
+1966|503|GBM|Brno mesto||||||
+1967|503|GBV|Brno venkov||||||
+1968|503|GBR|Breclav||||||
+1969|503|GHO|Hodonin||||||
+1970|503|GJI|Jihlava||||||
+1971|503|GKR|Kromeriz||||||
+1972|503|GPR|Prostejov||||||
+1973|503|GTR|Trebic||||||
+1974|503|GUH|Uherske Hradiste||||||
+1975|503|GVY|Vyskov||||||
+1976|503|GZL|Zlin||||||
+1977|503|GZN|Znojmo||||||
+1978|503|GZS|Zdar nad Sazavou||||||
+1979|503|HBR|Bruntal||||||
+1980|503|HFM|Frydek-Mistek||||||
+1981|503|HJE|Jesenik||||||
+1982|503|HKA|Karvina||||||
+1983|503|HNJ|Novy Jicin||||||
+1984|503|HOL|Olomouc||||||
+1985|503|HOP|Opava||||||
+1986|503|HOS|Ostrava||||||
+1987|503|HPR|Prerov||||||
+1988|503|HSU|Sumperk||||||
+1989|503|HVS|Vsetin||||||
+1990|504|BAA|Bratislava 1||||||
+1991|504|BAB|Bratislava 2||||||
+1992|504|BAC|Bratislava 3||||||
+1993|504|BAD|Bratislava 4||||||
+1994|504|BAE|Bratislava 5||||||
+1995|504|MAL|Malacky||||||
+1996|504|PEZ|Pezinok||||||
+1997|504|SEN|Senec||||||
+1998|504|DST|Dunajska Streda||||||
+1999|504|GAL|Galanta||||||
+2000|504|HLO|Hlohovec||||||
+2001|504|PIE|Piestany||||||
+2002|504|SEA|Senica||||||
+2003|504|SKA|Skalica||||||
+2004|504|TRN|Trnava||||||
+2005|504|BAN|Banovce n. Bebr.||||||
+2006|504|ILA|Ilava||||||
+2007|504|MYJ|Myjava||||||
+2008|504|NMV|Nove Mesto n. Vah||||||
+2009|504|PAR|Partizanske||||||
+2010|504|PBY|Povazska Bystrica||||||
+2011|504|PRI|Prievidza||||||
+2012|504|PUC|Puchov||||||
+2013|504|TNC|Trencin||||||
+2014|504|KOM|Komarno||||||
+2015|504|LVC|Levice||||||
+2016|504|NIT|Nitra||||||
+2017|504|NZA|Nove Zamky||||||
+2018|504|SAL|Sala||||||
+2019|504|TOP|Topolcany||||||
+2020|504|ZMO|Zlate Moravce||||||
+2021|504|BYT|Bytca||||||
+2022|504|CAD|Cadca||||||
+2023|504|DKU|Dolny Kubin||||||
+2024|504|KNM|Kysucke N. Mesto||||||
+2025|504|LMI|Liptovsky Mikulas||||||
+2026|504|MAR|Martin||||||
+2027|504|NAM|Namestovo||||||
+2028|504|RUZ|Ruzomberok||||||
+2029|504|TTE|Turcianske Teplice||||||
+2030|504|TVR|Tvrdosin||||||
+2031|504|ZIL|Zilina||||||
+2032|504|BBY|Banska Bystrica||||||
+2033|504|BST|Banska Stiavnica||||||
+2034|504|BRE|Brezno||||||
+2035|504|DET|Detva||||||
+2036|504|KRU|Krupina||||||
+2037|504|LUC|Lucenec||||||
+2038|504|POL|Poltar||||||
+2039|504|REV|Revuca||||||
+2040|504|RSO|Rimavska Sobota||||||
+2041|504|VKR|Velky Krtis||||||
+2042|504|ZAR|Zarnovica||||||
+2043|504|ZIH|Ziar nad Hronom||||||
+2044|504|ZVO|Zvolen||||||
+2045|504|GEL|Gelnica||||||
+2046|504|KEA|Kosice 1||||||
+2047|504|KEB|Kosice 2||||||
+2048|504|KEC|Kosice 3||||||
+2049|504|KED|Kosice 4||||||
+2050|504|KEO|Kosice-okolie||||||
+2051|504|MIC|Michalovce||||||
+2052|504|ROZ|Roznava||||||
+2053|504|SOB|Sobrance||||||
+2054|504|SNV|Spisska Nova Ves||||||
+2055|504|TRE|Trebisov||||||
+2056|504|BAR|Bardejov||||||
+2057|504|HUM|Humenne||||||
+2058|504|KEZ|Kezmarok||||||
+2059|504|LEV|Levoca||||||
+2060|504|MED|Medzilaborce||||||
+2061|504|POP|Poprad||||||
+2062|504|PRE|Presov||||||
+2063|504|SAB|Sabinov||||||
+2064|504|SNI|Snina||||||
+2065|504|SLU|Stara Lubovna||||||
+2066|504|STR|Stropkov||||||
+2067|504|SVI|Svidnik||||||
+2068|504|VRT|Vranov nad Toplou||||||
