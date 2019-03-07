@@ -59,7 +59,7 @@ pas206_subdivision_id|pas206_region_id|code|subdivision|before_date|after_date
 58|5|WE|Wels||
 59|5|WL|Wels-Land||
 60|6|BA|Bad Aussee|2012-01-01|
-61|6|BM|Bruck/Mur||1900-01-00
+61|6|BM|Bruck/Mur||2013-01-01
 62|6|BM|Bruck-Murzzuschlag|2013-01-01|
 63|6|DL|Deutschlandsberg||
 64|6|FB|Feldbach|2013-01-01|
@@ -68,18 +68,18 @@ pas206_subdivision_id|pas206_region_id|code|subdivision|before_date|after_date
 67|6|GC|Graz||
 68|6|GU|Graz-Umgebung||
 69|6|HB|Hartberg|2013-01-01|
-70|6|HF|Hartberg-Furstenfeld||1900-01-00
+70|6|HF|Hartberg-Furstenfeld||2013-01-01
 71|6|JU|Judenburg|2012-01-01|
 72|6|KF|Knittelfeld|2012-01-01|
 73|6|LB|Leibnitz||
 74|6|LE|Leoben||
 75|6|LI|Liezen||
 76|6|LN|Leoben-Land||
-77|6|MT|Murtal||1900-01-00
+77|6|MT|Murtal||2012-01-01
 78|6|MU|Murau||
 79|6|MZ|Murzzuschlag|2013-01-01|
 80|6|RA|Radkersburg|2013-01-01|
-81|6|SO|Sudoststeiermark||1900-01-00
+81|6|SO|Sudoststeiermark||2013-01-01
 82|6|VO|Voitsberg||
 83|6|WZ|Weiz||
 84|7|IC|Innsbruck||
