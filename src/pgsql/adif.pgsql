@@ -934,8 +934,9 @@ CREATE OR REPLACE VIEW adif_view.sas_type AS
     FROM adif.sas_type
     ORDER BY sas_type;
 
--- PAS-1 View ------------------------------------------------------------------
-CREATE TABLE adif_view.pas_1 AS
+-- PAS 1 Canada ----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas1 AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
         dxcc.name AS "Country",
@@ -954,6 +955,20 @@ CREATE TABLE adif_view.pas_1 AS
 	GROUP BY dxcc.dxcc_id, pas.pas_code, pas.subdivision
 	ORDER BY adif.pas.pas_code;
 
+-- PAS 5 Aland Is. -------------------------------------------------------------
+
+CREATE TABLE adif_view.pas5 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision",
+        pas.is_deleted AS "Is Deleted"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '5'
+	ORDER BY adif.pas.pas_code;
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton

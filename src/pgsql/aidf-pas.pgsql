@@ -4,34 +4,6 @@
 --
 -- =============================================================================
 
--- 5 Aland Is. -----------------------------------------------------------------
-
--- PAS-5 Table
-CREATE TABLE adif.pas5
-(
-    pas5_id SERIAL PRIMARY KEY,
-    dxcc_code INT NOT NULL,
-    code CHAR(4) NOT NULL, -- three char 001, 002, 003
-    subdivision VARCHAR(120) NOT NULL,
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT pas5_uq UNIQUE (code,subdivision)
-);
-
--- PAS-5 Data
-\COPY adif.pas5 FROM 'adif-pas/pas5.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-5 View
-CREATE OR REPLACE VIEW adif.view_pas5 AS
-    SELECT
-        dxcc.dxcc_id AS "DXCC Code",
-        dxcc.name AS "Country",
-        pas5.code AS "Code",
-        pas5.subdivision AS "Subdivision",
-        pas5.is_deleted AS "Is Deleted"
-    FROM adif.pas5
-        JOIN adif.dxcc ON
-            adif.dxcc.dxcc_id = pas5.dxcc_code
-	ORDER BY adif.pas5.code;
 
 -- 6 Alaska --------------------------------------------------------------------
 
