@@ -1052,6 +1052,47 @@ CREATE TABLE adif_view.pas21 AS
     WHERE dxcc.dxcc_id = '21'
 	ORDER BY adif.pas.pas_code;
 
+-- 27 Belarus ------------------------------------------------------------------
+CREATE TABLE adif_view.pas27 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '27'
+	ORDER BY adif.pas.pas_code;
+
+-- 29 Canary Is. ---------------------------------------------------------------
+
+CREATE TABLE adif_view.pas29 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '29'
+	ORDER BY adif.pas.pas_code;
+
+-- 32 Cetua & Melilla ----------------------------------------------------------
+
+CREATE TABLE adif_view.pas32 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '32'
+	ORDER BY adif.pas.pas_code;
+
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
