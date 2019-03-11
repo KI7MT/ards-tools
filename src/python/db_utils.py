@@ -162,6 +162,19 @@ def init_adif():
     finally:
         os.chdir('../python')
 
+def init_adif_view():
+    """Use subprocess to call adif-view.pgsql"""
+    try:
+        set_pg_access('ards')
+        os.chdir('../pgsql')
+        subprocess.run("psql -v ON_ERROR_STOP=1 -U ards -d ards -f adif-view.pgsql", check=True, shell=True)
+    except subprocess.CalledProcessError as error:
+        print(error)
+        os.chdir('../python')
+        sys.exit(1)
+    finally:
+        os.chdir('../python')
+
 def init_eqsl():
     """Use subprocess to call eqsl.pgsql"""
     try:
