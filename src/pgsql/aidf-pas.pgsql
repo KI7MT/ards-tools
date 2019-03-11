@@ -137,33 +137,6 @@ CREATE OR REPLACE VIEW adif.view_pas15_stats AS
                 FROM adif.pas15 WHERE before_date IS NULL
             ) AS "Current Count";
 
--- 21 Beleric Is. --------------------------------------------------------------
-
---PAS-21 Table
-CREATE TABLE adif.pas21
-(
-    pas21_id SERIAL PRIMARY KEY,
-    dxcc_code INT NOT NULL,
-    code CHAR(4) NOT NULL, -- two char IB, IC, ...
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas21_uq UNIQUE (code,subdivision)
-);
-
--- PAS-21
-\COPY adif.pas21 FROM 'adif-pas/pas21.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-21 View
-CREATE OR REPLACE VIEW adif.view_pas21 AS
-    SELECT
-        dxcc.dxcc_id AS "DXCC Code",
-        dxcc.name AS "Country",
-        pas21.code AS "Code",
-        pas21.subdivision AS "Subdivision"
-    FROM adif.pas21
-        JOIN adif.dxcc ON
-            adif.dxcc.dxcc_id = pas21.dxcc_code
-	ORDER BY adif.pas21.code;
-
 -- 27 Belarus ------------------------------------------------------------------
 
 -- PAS-27 Table
