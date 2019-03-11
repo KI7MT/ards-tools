@@ -1,5 +1,4 @@
 /* 
-
     Project .............: Amateur Radio Data Serivce Tools
     Author ..............: Greg, Beam, KI7MT, <ki7mt@yahoo.com>
     Copyright ...........: Copyright (C) 2018-2019 Greg Beam, KI7MT
@@ -46,9 +45,6 @@
         _uq     = Unique Constraint
         _pkey   = Primary Key
         _fkey   = Foreign Key
-
-        TODO: Add Japan JCC, JGC, KU Tables and List CSV Data
-        TODO: Need JCC, JGC, and KU CSV Datafiles
 
 */
 
@@ -415,7 +411,7 @@ CREATE TABLE adif.sponsored_award
 \COPY adif.qsl_rcvd FROM 'adif/qsl_rcvd.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.qsl_sent FROM 'adif/qsl_sent.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.qsl_via FROM 'adif/qsl_via.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.qso_complete FROM 'adif/qsl_complete.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.qso_complete FROM 'adif/qso_complete.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.qso_upload_status FROM 'adif/qso_upload_status.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.region FROM 'adif/region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.region_applicability FROM 'adif/region_applicability.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
@@ -425,7 +421,6 @@ CREATE TABLE adif.sponsored_award
 \COPY adif.ituzone FROM 'adif/ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.iaru_region FROM 'adif/iaru_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.iaru_region_member FROM 'adif/iaru_region_member.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
@@ -491,11 +486,7 @@ ALTER TABLE adif.sponsored_award ADD CONSTRAINT sponsored_award_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (weblink_id);
 
 -- *****************************************************************************
---  ADD INDEXES based on z-tools\index-reccomend2.sql
--- *****************************************************************************
-
--- *****************************************************************************
---  VIEWS
+--  VIEW TABLES
 -- *****************************************************************************
 
 \echo
@@ -622,14 +613,6 @@ CREATE TABLE adif_view.dxcc AS
     FROM adif.dxcc
     ORDER BY dxcc.code;
 
--- iaru_region -----------------------------------------------------------------
-CREATE TABLE adif_view.iaru_region AS
-    SELECT
-        iaru_region.region AS "Region",
-        iaru_region.description AS "Description"
-    FROM adif.iaru_region
-    ORDER BY iaru_region.region;
-
 -- iaru_region_member-----------------------------------------------------------
 CREATE TABLE adif_view.iaru_region_member AS
     SELECT
@@ -639,7 +622,23 @@ CREATE TABLE adif_view.iaru_region_member AS
     FROM adif.iaru_region_member
         JOIN adif.iaru_region ON
             iaru_region.iaru_region_id = iaru_region_member.iaru_region_id
-    ORDER BY iaru_region.region, iaru_region_member.name; 
+    ORDER BY iaru_region.region, iaru_region_member.name;
+
+-- iaru_region -----------------------------------------------------------------
+CREATE TABLE adif_view.iaru_region AS
+    SELECT
+        iaru_region.region AS "Region",
+        iaru_region.description AS "Description"
+    FROM adif.iaru_region
+    ORDER BY iaru_region.region;
+
+-- ituzone ---------------------------------------------------------------------
+CREATE TABLE adif_view.ituzone AS
+    SELECT
+       ituzone.ituzone AS "ITU Zone",
+       ituzone.description AS "Description"
+    FROM adif.ituzone
+    ORDER BY ituzone.ituzone;
 
 -- mode ------------------------------------------------------------------------
 CREATE TABLE adif_view.mode AS
@@ -656,14 +655,6 @@ CREATE TABLE adif_view.propogation_mode AS
         propogation_mode.description AS "Description"
     FROM adif.propogation_mode
     ORDER BY propogation_mode.enumeration;
-
--- qso_complete ----------------------------------------------------------------
-CREATE TABLE adif_view.qso_complete AS
-    SELECT
-        qso_complete.abbreviation AS "Abbreviation",
-        qso_complete.meaning AS "Meaning"
-    FROM adif.qso_complete
-    ORDER BY qso_complete.Abbreviation;
 
 -- qsl_medium ------------------------------------------------------------------
 CREATE TABLE adif_view.qsl_medium AS
@@ -700,6 +691,14 @@ CREATE TABLE adif_view.qsl_via AS
         qsl_via.import_only as "Import Only"
     FROM adif.qsl_via
     ORDER BY qsl_via.via;
+
+-- qso_complete ----------------------------------------------------------------
+CREATE TABLE adif_view.qso_complete AS
+    SELECT
+        qso_complete.abbreviation AS "Abbreviation",
+        qso_complete.meaning AS "Meaning"
+    FROM adif.qso_complete
+    ORDER BY qso_complete.Abbreviation;
 
 -- qso_upload_status -----------------------------------------------------------
 CREATE TABLE adif_view.qso_upload_status AS
