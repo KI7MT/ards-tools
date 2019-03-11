@@ -901,7 +901,8 @@ CREATE TABLE adif.pas_ituzone
 --               PRIMARY ADMIN SUBDIVISION VIEWS
 --
 --------------------------------------------------------------------------------
--- pas_summary
+
+-- pas_summary -----------------------------------------------------------------
 CREATE OR REPLACE VIEW adif_view.pas_summary AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
@@ -932,6 +933,27 @@ CREATE OR REPLACE VIEW adif_view.sas_type AS
         sas_type AS "Sec. Subdivision"
     FROM adif.sas_type
     ORDER BY sas_type;
+
+-- PAS-1 View ------------------------------------------------------------------
+CREATE TABLE adif_view.pas_1 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision",
+		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+		JOIN adif.pas_cqzone ON
+		    adif.pas_cqzone.pas_id = pas.pas_id
+		JOIN adif.pas_ituzone ON
+		    adif.pas_ituzone.pas_id = pas.pas_id
+    WHERE dxcc.dxcc_id = '1'
+	GROUP BY dxcc.dxcc_id, pas.pas_code, pas.subdivision
+	ORDER BY adif.pas.pas_code;
+
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
