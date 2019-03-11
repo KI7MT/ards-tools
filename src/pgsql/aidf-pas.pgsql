@@ -5,33 +5,6 @@
 -- =============================================================================
 
 
--- 6 Alaska --------------------------------------------------------------------
-
--- PA6 Table
-CREATE TABLE adif.pas6
-(
-    pas6_id SERIAL PRIMARY KEY,
-    dxcc_code INT NOT NULL,
-    code CHAR(4) NOT NULL, -- two char AK
-    subdivision VARCHAR(120) NOT NULL,
-    CONSTRAINT pas6_uq UNIQUE (code,subdivision)
-);
-
--- PAS-6 Data
-\COPY adif.pas6 FROM 'adif-pas/pas6.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS-6 View
-CREATE OR REPLACE VIEW adif.view_pas6 AS
-    SELECT
-        dxcc.dxcc_id AS "DXCC Code",
-        dxcc.name AS "Country",
-        pas6.code AS "Code",
-        pas6.subdivision AS "Subdivision"
-    FROM adif.pas6
-        JOIN adif.dxcc ON
-            adif.dxcc.dxcc_id = pas6.dxcc_code
-	ORDER BY adif.pas6.code;
-
 -- 15 Asiatic Russia -----------------------------------------------------------
 
 CREATE TABLE adif.pas15

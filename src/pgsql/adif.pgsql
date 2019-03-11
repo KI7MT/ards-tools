@@ -938,7 +938,7 @@ CREATE OR REPLACE VIEW adif_view.sas_type AS
 
 CREATE TABLE adif_view.pas1 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.dxcc_id AS "DXCC",
         dxcc.name AS "Country",
         pas.pas_code AS "Code",
         pas.subdivision AS "Subdivision",
@@ -959,7 +959,7 @@ CREATE TABLE adif_view.pas1 AS
 
 CREATE TABLE adif_view.pas5 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC Code",
+        dxcc.dxcc_id AS "DXCC",
         dxcc.name AS "Country",
         pas.pas_code AS "Code",
         pas.subdivision AS "Subdivision",
@@ -969,6 +969,22 @@ CREATE TABLE adif_view.pas5 AS
             adif.dxcc.dxcc_id = pas.dxcc_id
     WHERE dxcc.dxcc_id = '5'
 	ORDER BY adif.pas.pas_code;
+
+
+-- PAS 6 Alaska ----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas5 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '6'
+	ORDER BY adif.pas.pas_code;
+
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
