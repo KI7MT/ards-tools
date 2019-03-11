@@ -905,12 +905,12 @@ CREATE TABLE adif.pas_ituzone
 -- pas_summary -----------------------------------------------------------------
 CREATE OR REPLACE VIEW adif_view.pas_summary AS
     SELECT
-        dxcc.dxcc_id AS "DXCC Code",
-        dxcc.name AS "Country",
-        pas_type.pas_type AS "Pri. Subdivision",
-        pas_summary.has_oblast AS "Has Oblast",
-        pas_summary.has_sas AS "Has Secondary",
-        sas_type.sas_type AS "Sec. Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas_type.pas_type AS pri_subdivision,
+        pas_summary.has_oblast AS has_oblast,
+        pas_summary.has_sas AS has_secondary,
+        sas_type.sas_type AS sec_subdivision
     FROM adif.pas_summary
         LEFT JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas_summary.dxcc_code
@@ -923,14 +923,14 @@ CREATE OR REPLACE VIEW adif_view.pas_summary AS
 -- pas_type
 CREATE OR REPLACE VIEW adif_view.pas_type AS
     SELECT
-        pas_type AS "Pri. Subdivision Type"
+        pas_type AS pri_subdivision_type
     FROM adif.pas_type
     ORDER BY pas_type;
 
 -- sas_type 
 CREATE OR REPLACE VIEW adif_view.sas_type AS
     SELECT
-        sas_type AS "Sec. Subdivision"
+        sas_type AS sec_subdivision
     FROM adif.sas_type
     ORDER BY sas_type;
 
@@ -938,12 +938,12 @@ CREATE OR REPLACE VIEW adif_view.sas_type AS
 
 CREATE TABLE adif_view.pas1 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision",
-		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
-		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS cq_zone,
+		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS itu_zone
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -959,11 +959,11 @@ CREATE TABLE adif_view.pas1 AS
 
 CREATE TABLE adif_view.pas5 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision",
-        pas.is_deleted AS "Is Deleted"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS dxcc,
+        pas.pas_code AS code,
+        pas.subdivision,
+        pas.is_deleted AS is_deleted
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -975,10 +975,10 @@ CREATE TABLE adif_view.pas5 AS
 
 CREATE TABLE adif_view.pas6 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -995,15 +995,15 @@ CREATE TABLE adif_view.pas6 AS
 -- PAS-15 View Full Table
 CREATE TABLE adif_view.pas15 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision",
-		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
-		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone",
-        pas.oblast AS "Oblast",
-        pas.before_date AS "Before Date",
-        pas.referred_to_as AS "Referred To As"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS cq_zone,
+		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS itu_zone,
+        pas.oblast AS oblast,
+        pas.before_date AS before_date,
+        pas.referred_to_as AS referred_to_as
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -1017,11 +1017,11 @@ CREATE TABLE adif_view.pas15 AS
 
 -- Before (test table)
 CREATE TABLE adif_view.pas15_before AS
-    SELECT * FROM adif_view.pas15 WHERE "Before Date" IS NOT NULL;
+    SELECT * FROM adif_view.pas15 WHERE before_date IS NOT NULL;
 
 -- Current (test table)
 CREATE TABLE adif_view.pas15_current AS
-    SELECT * FROM adif_view.pas15 WHERE "Before Date" IS NULL;
+    SELECT * FROM adif_view.pas15 WHERE before_date IS NULL;
 
 -- PAD-15 Stats
 CREATE TABLE adif.view_pas15_stats AS
@@ -1031,21 +1031,21 @@ CREATE TABLE adif.view_pas15_stats AS
             ) AS "Total Count",
             (
             SELECT COUNT(*)
-                FROM adif_view.pas15 WHERE "Before Date" IS NOT NULL
+                FROM adif_view.pas15 WHERE before_date IS NOT NULL
             ) AS "Before Count",
             (
             SELECT COUNT(*)
-                FROM adif_view.pas15 WHERE "Before Date" IS NULL
+                FROM adif_view.pas15 WHERE before_date IS NULL
             ) AS "Current Count";
 
 -- 21 Beleric Is. --------------------------------------------------------------
 
 CREATE TABLE adif_view.pas21 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -1055,10 +1055,10 @@ CREATE TABLE adif_view.pas21 AS
 -- 27 Belarus ------------------------------------------------------------------
 CREATE TABLE adif_view.pas27 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -1069,10 +1069,10 @@ CREATE TABLE adif_view.pas27 AS
 
 CREATE TABLE adif_view.pas29 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
@@ -1083,16 +1083,29 @@ CREATE TABLE adif_view.pas29 AS
 
 CREATE TABLE adif_view.pas32 AS
     SELECT
-        dxcc.dxcc_id AS "DXCC",
-        dxcc.name AS "Country",
-        pas.pas_code AS "Code",
-        pas.subdivision AS "Subdivision"
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
     FROM adif.pas
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
     WHERE dxcc.dxcc_id = '32'
 	ORDER BY adif.pas.pas_code;
 
+-- 50 Mexico -------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas50 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '50'
+	ORDER BY adif.pas.pas_code;
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
