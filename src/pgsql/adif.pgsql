@@ -811,52 +811,7 @@ CREATE OR REPLACE VIEW view_schema_info AS
 --
 -- -----------------------------------------------------------------------------
 
--- PAS -------------------------------------------------------------------------
-CREATE TABLE adif.pas
-(
-    pas_id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,                           -- DXCC Country
-    pas_region_id INT,                              -- Region, if applicable
-    pas_code CHAR(4) NOT NULL,                      -- code for the subdivision
-    subdivision VARCHAR(120) NOT NULL,              -- subdivision name
-    oblast VARCHAR(90),                             -- Oblast number
-    referred_to_as VARCHAR(60),                     -- Alias Names
-    is_deleted BOOLEAN DEFAULT '0',                 -- is a deleted subdivision
-    is_import_only BOOLEAN DEFAULT '0',             -- Can only be imported
-    before_date DATE,                               -- For QSO's Made BEFORE date
-    after_date DATE,                                -- For QSO's made ON or AFTER date
-    CONSTRAINT pas_uq UNIQUE (dxcc_id,pas_code,subdivision)
-);
-
--- PAS Region
-CREATE TABLE adif.pas_region
-(
-    pas_region_id SERIAL PRIMARY KEY,
-    region VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_region_uq UNIQUE (region)
-);
-
--- PAS CQ Zone
-CREATE TABLE adif.pas_cqzone
-(
-    pas_cqzone_id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    cqzone_id INT NOT NULL
-);
-
--- PAS ITU Zone
-CREATE TABLE adif.pas_ituzone
-(
-    pas_ituzone_id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    ituzone_id INT NOT NULL
-);
-
--- -----------------------------------------------------------------------------
--- PAS SUMMARY Tables and Data
--- -----------------------------------------------------------------------------
-
--- Primary Administration Subdivision Summary ----------------------------------
+-- PAS Summary -----------------------------------------------------------------
 CREATE TABLE adif.pas_summary
 (
     pas_summary_id SERIAL PRIMARY KEY,
@@ -896,8 +851,58 @@ ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_type_fkey
 ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_type_fkey
     FOREIGN KEY (sas_type_id) REFERENCES adif.sas_type (sas_type_id);
 
--- view_pas_summary
-CREATE OR REPLACE VIEW adif.view_pas_summary AS
+-- PAS Tables and Data ---------------------------------------------------------
+CREATE TABLE adif.pas
+(
+    pas_id SERIAL PRIMARY KEY,
+    dxcc_id INT NOT NULL,                           -- DXCC Country
+    pas_region_id INT,                              -- Region, if applicable
+    pas_code CHAR(4) NOT NULL,                      -- code for the subdivision
+    subdivision VARCHAR(120) NOT NULL,              -- subdivision name
+    oblast VARCHAR(90),                             -- Oblast number
+    referred_to_as VARCHAR(60),                     -- Alias Names
+    is_deleted BOOLEAN DEFAULT '0',                 -- is a deleted subdivision
+    is_import_only BOOLEAN DEFAULT '0',             -- Can only be imported
+    before_date DATE,                               -- For QSO's Made BEFORE date
+    after_date DATE,                                -- For QSO's made ON or AFTER date
+    CONSTRAINT pas_uq UNIQUE (dxcc_id,pas_code,subdivision)
+);
+\COPY adif.pas FROM 'adif/pas.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS Region
+CREATE TABLE adif.pas_region
+(
+    pas_region_id SERIAL PRIMARY KEY,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas_region_uq UNIQUE (region)
+);
+\COPY adif.pas_region FROM 'adif/pas_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS CQ Zone
+CREATE TABLE adif.pas_cqzone
+(
+    pas_cqzone_id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    cqzone_id INT NOT NULL
+);
+\COPY adif.pas_cqzone FROM 'adif/pas_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS ITU Zone
+CREATE TABLE adif.pas_ituzone
+(
+    pas_ituzone_id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    ituzone_id INT NOT NULL
+);
+\COPY adif.pas_ituzone FROM 'adif/pas_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- -----------------------------------------------------------------------------
+--
+--               PRIMARY ADMIN SUBDIVISION VIEWS
+--
+--------------------------------------------------------------------------------
+-- pas_summary
+CREATE OR REPLACE VIEW adif_view.pas_summary AS
     SELECT
         dxcc.dxcc_id AS "DXCC Code",
         dxcc.name AS "Country",
@@ -914,20 +919,19 @@ CREATE OR REPLACE VIEW adif.view_pas_summary AS
             adif.pas_summary.sas_type_id = adif.sas_type.sas_type_id
     ORDER BY adif.pas_summary.pas_summary_id;
 
--- view_pas_type
-CREATE OR REPLACE VIEW adif.view_pas_type AS
+-- pas_type
+CREATE OR REPLACE VIEW adif_view.pas_type AS
     SELECT
-        pas_type AS "Pri. Subdivision"
+        pas_type AS "Pri. Subdivision Type"
     FROM adif.pas_type
     ORDER BY pas_type;
 
--- view_sas_type 
-CREATE OR REPLACE VIEW adif.view_sas_type AS
+-- sas_type 
+CREATE OR REPLACE VIEW adif_view.sas_type AS
     SELECT
         sas_type AS "Sec. Subdivision"
     FROM adif.sas_type
     ORDER BY sas_type;
-
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
