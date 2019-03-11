@@ -973,7 +973,7 @@ CREATE TABLE adif_view.pas5 AS
 
 -- PAS 6 Alaska ----------------------------------------------------------------
 
-CREATE TABLE adif_view.pas5 AS
+CREATE TABLE adif_view.pas6 AS
     SELECT
         dxcc.dxcc_id AS "DXCC",
         dxcc.name AS "Country",
@@ -984,6 +984,97 @@ CREATE TABLE adif_view.pas5 AS
             adif.dxcc.dxcc_id = pas.dxcc_id
     WHERE dxcc.dxcc_id = '6'
 	ORDER BY adif.pas.pas_code;
+
+-- 15 Asiatic Russia -----------------------------------------------------------
+
+-- PAS-15 View Full Table
+-- PAS-15 Partial List where Before Date IS NOT NULL
+-- PAS-15 Current List where Before Date IS NULL
+-- PAD-15 Stats
+
+-- PAS-15 View Full Table
+CREATE TABLE adif_view.pas15 AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision",
+		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone",
+        pas.oblast AS "Oblast",
+        pas.before_date AS "Before Date",
+        pas.referred_to_as AS "Referred To As"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+		JOIN adif.pas_cqzone ON
+		    adif.pas_cqzone.pas_id = pas.pas_id
+		JOIN adif.pas_ituzone ON
+		    adif.pas_ituzone.pas_id = pas.pas_id
+	WHERE dxcc.dxcc_id = '15'
+	GROUP BY dxcc.dxcc_id, pas.pas_code, pas.subdivision, pas.oblast, pas.before_date, pas.referred_to_as
+	ORDER BY adif.pas.pas_code;
+
+-- PAS-15 Partial List where Before Date IS NOT NULL
+CREATE TABLE adif_view.pas15_before AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision",
+        STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+        STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone",
+        pas.oblast AS "Oblast",
+        pas.before_date AS "Before Date",
+        pas.referred_to_as AS "Referred To As"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+        JOIN adif.pas_cqzone ON
+            adif.pas_cqzone.pas_id = pas.pas_id
+        JOIN adif.pas_ituzone ON
+            adif.pas_ituzone.pas_id = pas.pas_id
+    WHERE dxcc.dxcc_id = '15' AND before_date IS NOT NULL
+    GROUP BY dxcc.dxcc_id, pas.pas_code, pas.subdivision, pas.oblast, pas.before_date, pas.referred_to_as
+    ORDER BY adif.pas.pas_code;
+
+-- PAS-15 Current List where Before Date IS NULL
+CREATE OR REPLACE VIEW adif_view.pas15_current AS
+    SELECT
+        dxcc.dxcc_id AS "DXCC",
+        dxcc.name AS "Country",
+        pas.pas_code AS "Code",
+        pas.subdivision AS "Subdivision",
+        STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS "CQ Zone",
+        STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS "ITU Zone",
+        pas.oblast AS "Oblast",
+        pas.before_date AS "Before Date",
+        pas.referred_to_as AS "Referred To As"
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+        JOIN adif.pas_cqzone ON
+            adif.pas_cqzone.pas_id = pas.pas_id
+        JOIN adif.pas_ituzone ON
+            adif.pas_ituzone.pas_id = pas.pas_id
+    WHERE dxcc.dxcc_id = '15' AND before_date IS NULL
+    GROUP BY dxcc.dxcc_id, pas.pas_code, pas.subdivision, pas.oblast, pas.before_date, pas.referred_to_as
+    ORDER BY adif.pas.pas_code;
+
+-- PAD-15 Stats
+CREATE OR REPLACE VIEW adif.view_pas15_stats AS
+    SELECT  (
+            SELECT COUNT(*)
+                FROM adif_view.pas15
+            ) AS "Total Count",
+            (
+            SELECT COUNT(*)
+                FROM adif_view.pas15 WHERE "Before Date" IS NOT NULL
+            ) AS "Before Count",
+            (
+            SELECT COUNT(*)
+                FROM adif_view.pas15 WHERE "Before Date" IS NULL
+            ) AS "Current Count";
 
 
 -- *****************************************************************************
