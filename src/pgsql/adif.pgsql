@@ -999,8 +999,8 @@ CREATE TABLE adif_view.pas15 AS
         dxcc.name AS country,
         pas.pas_code AS code,
         pas.subdivision AS subdivision,
-		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS cq_zone,
-		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS itu_zone,
+		STRING_AGG(DISTINCT pas_cqzone.cqzone_id::text,', ') AS cqzone,
+		STRING_AGG(DISTINCT pas_ituzone.ituzone_id::text,', ') AS ituzone,
         pas.oblast AS oblast,
         pas.before_date AS before_date,
         pas.referred_to_as AS referred_to_as
@@ -1105,6 +1105,45 @@ CREATE TABLE adif_view.pas50 AS
         JOIN adif.dxcc ON
             adif.dxcc.dxcc_id = pas.dxcc_id
     WHERE dxcc.dxcc_id = '50'
+	ORDER BY adif.pas.pas_code;
+
+-- 52 Estonia ------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas52 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '52'
+	ORDER BY adif.pas.pas_code;
+
+
+-- 54 European Russia ----------------------------------------------------------
+
+-- PAS-54 View
+-- NOTE: There are no multiple itu or cq zones for EU Russia. Therefore, no
+--       need for it's own cqzone or ituzone tables nor aggregate's
+CREATE OR REPLACE VIEW adif_view.pas54 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+        pas.oblast AS oblast,
+		pas_cqzone.cqzone_id AS cqzone,
+        pas_ituzone.ituzone_id AS ituzone
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+		JOIN adif.pas_cqzone ON
+		    adif.pas_cqzone.pas_id = pas.pas_id
+		JOIN adif.pas_ituzone ON
+		    adif.pas_ituzone.pas_id = pas.pas_id
+	WHERE dxcc.dxcc_id = '54'
 	ORDER BY adif.pas.pas_code;
 
 -- *****************************************************************************
