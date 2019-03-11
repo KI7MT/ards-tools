@@ -859,7 +859,7 @@ CREATE TABLE adif.pas
     pas_region_id INT,                              -- Region, if applicable
     pas_code CHAR(4) NOT NULL,                      -- code for the subdivision
     subdivision VARCHAR(120) NOT NULL,              -- subdivision name
-    oblast VARCHAR(90),                             -- Oblast number
+    oblast CHAR(4),                                 -- Oblast number
     referred_to_as VARCHAR(60),                     -- Alias Names
     is_deleted BOOLEAN DEFAULT '0',                 -- is a deleted subdivision
     is_import_only BOOLEAN DEFAULT '0',             -- Can only be imported
@@ -1124,7 +1124,6 @@ CREATE TABLE adif_view.pas52 AS
 
 -- 54 European Russia ----------------------------------------------------------
 
--- PAS-54 View
 -- NOTE: There are no multiple itu or cq zones for EU Russia. Therefore, no
 --       need for it's own cqzone or ituzone tables nor aggregate's
 CREATE OR REPLACE VIEW adif_view.pas54 AS
@@ -1145,6 +1144,494 @@ CREATE OR REPLACE VIEW adif_view.pas54 AS
 		    adif.pas_ituzone.pas_id = pas.pas_id
 	WHERE dxcc.dxcc_id = '54'
 	ORDER BY adif.pas.pas_code;
+
+-- 61 Franz Josef Land ---------------------------------------------------------
+
+CREATE TABLE adif_view.pas61 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+        pas.is_import_only AS is_import_only
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '61'
+	ORDER BY adif.pas.pas_code;
+
+-- 70 Cuba ---------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas70 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '70'
+	ORDER BY adif.pas.pas_code;
+
+-- 74 El Salvador --------------------------------------------------------------
+
+CREATE TABLE adif_view.pas74 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '74'
+	ORDER BY adif.pas.pas_code;
+
+-- 86 Nicaragua ----------------------------------------------------------------
+CREATE TABLE adif_view.pas86 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '86'
+	ORDER BY adif.pas.pas_code;
+
+-- 100 Argentina ---------------------------------------------------------------
+
+CREATE TABLE adif_view.pas100 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '100'
+	ORDER BY adif.pas.pas_code;
+
+-- 104 Bolivia -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas104 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '104'
+	ORDER BY adif.pas.pas_code;
+
+-- 108 Brazil ------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas108 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '108'
+	ORDER BY adif.pas.pas_code;
+
+-- 110 Hawaii ------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas110 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '110'
+	ORDER BY adif.pas.pas_code;
+
+-- 112 Hawaii ------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas112 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '112'
+	ORDER BY adif.pas.pas_code;
+
+
+-- 126 Kalingrad ---------------------------------------------------------------
+
+-- NOTE: There are no multiple itu or cq zones for Kalingrad. Therefore, no
+--       need for it's own cqzone or ituzone tables nor aggregate's
+CREATE OR REPLACE VIEW adif_view.pas126 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+        pas.oblast AS oblast,
+		pas_cqzone.cqzone_id AS cqzone,
+        pas_ituzone.ituzone_id AS ituzone
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+		JOIN adif.pas_cqzone ON
+		    adif.pas_cqzone.pas_id = pas.pas_id
+		JOIN adif.pas_ituzone ON
+		    adif.pas_ituzone.pas_id = pas.pas_id
+	WHERE dxcc.dxcc_id = '126'
+	ORDER BY adif.pas.pas_code;
+
+-- 130 Kazakhstan --------------------------------------------------------------
+
+CREATE TABLE adif_view.pas130 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+        pas.oblast as oblast
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '130'
+	ORDER BY adif.pas.pas_code;
+
+-- 132 Paraguay ----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas132 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '132'
+	ORDER BY adif.pas.pas_code;
+
+-- 137 Republic of Korea -------------------------------------------------------
+
+CREATE TABLE adif_view.pas137 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '137'
+	ORDER BY adif.pas.pas_code;
+
+-- 138 Kure Island -------------------------------------------------------------
+
+CREATE TABLE adif_view.pas138 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '138'
+	ORDER BY adif.pas.pas_code;
+
+-- 144 Uruguay -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas144 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '144'
+	ORDER BY adif.pas.pas_code;
+
+-- 147 Lord Howe Is. -----------------------------------------------------------
+
+CREATE TABLE adif_view.pas147 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '147'
+	ORDER BY adif.pas.pas_code;
+
+-- 148 Venezuela ---------------------------------------------------------------
+
+CREATE TABLE adif_view.pas148 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '148'
+	ORDER BY adif.pas.pas_code;
+
+-- 149 Azores ------------------------------------------------------------------
+
+CREATE TABLE adif_view.pas149 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '149'
+	ORDER BY adif.pas.pas_code;
+
+-- 150 Australia ---------------------------------------------------------------
+
+CREATE TABLE adif_view.pas150 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '150'
+	ORDER BY adif.pas.pas_code;
+
+-- 151 Malyj Vysotski Is -------------------------------------------------------
+
+CREATE TABLE adif_view.pas151 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision,
+        pas.is_import_only AS is_import_only
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '151'
+	ORDER BY adif.pas.pas_code;
+
+-- 153 Macquarie Is. -----------------------------------------------------------
+
+CREATE TABLE adif_view.pas153 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '153'
+	ORDER BY adif.pas.pas_code;
+
+-- 163 Papua New Guinea --------------------------------------------------------
+
+CREATE TABLE adif_view.pas163 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '163'
+	ORDER BY adif.pas.pas_code;
+
+-- 170 New Zealand -------------------------------------------------------------
+
+CREATE TABLE adif_view.pas170 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '170'
+	ORDER BY adif.pas.pas_code;
+
+-- 177 Minami Torishima --------------------------------------------------------
+
+CREATE TABLE adif_view.pas177 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '177'
+	ORDER BY adif.pas.pas_code;
+
+-- 179 Moldova -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas179 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '179'
+	ORDER BY adif.pas.pas_code;
+
+-- 192 Ogasawara ---------------------------------------------------------------
+
+CREATE TABLE adif_view.pas192 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '192'
+	ORDER BY adif.pas.pas_code;
+
+-- 206 Austria -----------------------------------------------------------------
+
+-- Regions and Subdivisions
+CREATE TABLE adif_view.pas206 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas_region.region as region,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+        JOIN adif.pas_region ON
+            adif.pas.pas_region_id = pas_region.pas_region_id
+        WHERE dxcc.dxcc_id = '206'
+	ORDER BY adif.pas_region.region, pas.pas_code;
+
+-- PAS 206 Regions Only
+CREATE TABLE adif_view.pas206_region AS
+    SELECT DISTINCT region FROM adif_view.pas206;
+
+-- PAD-15 Stats
+CREATE TABLE adif_view.pas206_stats AS
+    SELECT
+        region,
+        COUNT (subdivision) AS subdivision_count
+    FROM
+        adif_view.pas206
+    GROUP BY
+        region
+    ORDER BY
+        region;
+
+-- 209 Belgium -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas209 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '209'
+	ORDER BY adif.pas.pas_code;
+
+-- 212 Bulgaria ----------------------------------------------------------------
+
+-- Regions and Subdivisions
+CREATE TABLE adif_view.pas212 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas_region.region as region,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+        JOIN adif.pas_region ON
+            adif.pas.pas_region_id = pas_region.pas_region_id
+        WHERE dxcc.dxcc_id = '212'
+	ORDER BY adif.pas_region.region, pas.pas_code;
+
+-- PAS 206 Regions Only
+CREATE TABLE adif_view.pas212_region AS
+    SELECT DISTINCT region FROM adif_view.pas212;
+
+-- PAD-15 Stats
+CREATE TABLE adif_view.pas212_stats AS
+    SELECT
+        region,
+        COUNT (subdivision) AS subdivision_count
+    FROM
+        adif_view.pas212
+    GROUP BY
+        region
+    ORDER BY
+        region;
+
+-- 214 Corsica -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas214 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '214'
+	ORDER BY adif.pas.pas_code;
+
+-- 221 Denmark -----------------------------------------------------------------
+
+CREATE TABLE adif_view.pas221 AS
+    SELECT
+        dxcc.dxcc_id AS dxcc_code,
+        dxcc.name AS country,
+        pas.pas_code AS code,
+        pas.subdivision AS subdivision
+    FROM adif.pas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = pas.dxcc_id
+    WHERE dxcc.dxcc_id = '221'
+	ORDER BY adif.pas.pas_code;
+
+
 
 -- *****************************************************************************
 -- Add PAS Schema Informaiton
