@@ -2169,6 +2169,7 @@ ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
 -- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
 -- Info Link   : https://www.jarl.org/English/4_Library/A-4-2_Awards/Aw_jcc.htm
 -- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
+-- Total Cout = 913, Current = 815, Deleted = 98
 
 -- JARL JCC PREFECTURES
 CREATE TABLE adif.jcc
@@ -2199,7 +2200,21 @@ CREATE TABLE adif.jcc_city
 ALTER TABLE adif.jcc_city ADD CONSTRAINT jcc_city_jcc_fkey
     FOREIGN KEY (jcc_id) REFERENCES adif.jcc (jcc_id);
 
-CREATE TABLE adif_view.jcc_stats AS
+-- Prefectures and Cities
+CREATE TABLE adif_view.jcc AS
+    SELECT
+        jcc.prefecture AS prefecture,
+        jcc_city.number as jcc_number,
+        jcc_city.city AS city,
+        jcc_city.is_deleted AS is_deleted,
+        jcc_city.deleted_date AS deleted_date
+    FROM adif.jcc
+        JOIN adif.jcc_city ON
+            adif.jcc_city.jcc_id = jcc.jcc_id
+	ORDER BY jcc_city.number;
+
+-- JCC City County by Prefectture Stats
+CREATE TABLE adif_view.jcc_prefecture_stats AS
     SELECT 
         adif.jcc.prefecture AS precefture,
         count(*) AS city_count
@@ -2208,6 +2223,27 @@ CREATE TABLE adif_view.jcc_stats AS
             adif.jcc_city.jcc_id = jcc.jcc_id
     GROUP BY jcc.prefecture
     ORDER BY jcc.prefecture;
+
+-- City Stats
+-- Should Return: Prefectures = 47, Total Cout = 913, Current = 815, Deleted = 98
+CREATE TABLE adif_view.jcc_full_stats AS
+    SELECT  
+            (
+            SELECT COUNT(*)
+                FROM adif.jcc
+            ) AS prefecture_count,    
+            (
+            SELECT COUNT(*)
+                FROM adif.jcc_city
+            ) AS total_cities,
+            (
+            SELECT COUNT(*)
+                FROM adif.jcc_city WHERE is_deleted = FALSE
+            ) AS current_cities,
+            (
+            SELECT COUNT(*)
+                FROM adif.jcc_city WHERE is_deleted = TRUE
+            ) AS deleted_cities;
 
 -- RDXC Oblasts ----------------------------------------------------------------
 
@@ -2245,19 +2281,55 @@ CREATE TABLE adif.rdxc_district
 ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
     FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (rdxc_id);
 
+-- Full RDA List
+CREATE TABLE adif_view.rdxc_district_list AS
+   SELECT 
+        rdxc_district.code AS district_code,
+        rdxc_district.district AS district,
+        rdxc_district.is_new_rda AS is_new
+    FROM adif.rdxc_district
+    WHERE rdxc_district.is_deleted = FALSE
+    ORDER BY code ASC;
+
 -- RDXC Oblast Stats
 -- RDXC Oblasts Numbers do not match the 3.0.9 Spec
--- RDXC Number from the source dont match what's published by v3.0.9 Spec
-CREATE OR REPLACE VIEW adif.view_rdxc_count_all AS
+-- RDXC Number from the source dont match what's published by v3.0.9 Spec Either
+-- ADIF Spec states: Current = 2644, Deleted = +180
+CREATE TABLE adif_view.rdxc_oblast_count AS
 SELECT 
-	rdxc.rdxc_code AS "RDXC Code",
-    rdxc.prefix AS "Prefix", 
-	rdxc.oblast AS "Oblast", 
-	count(*) AS "District Count"
-	FROM adif.rdxc JOIN adif.rdxc_district ON (rdxc_district.rdxc_id = rdxc.rdxc_id)
-	WHERE rdxc.is_deleted = 'false' 
+    rdxc.rdxc_code AS rdxc_code,
+    rdxc.prefix AS prefix, 
+    rdxc.oblast AS oblast, 
+    count(*) AS total_count
+FROM adif.rdxc
+    JOIN adif.rdxc_district ON 
+        rdxc_district.rdxc_id = rdxc.rdxc_id
 GROUP BY rdxc.oblast, rdxc.rdxc_code, rdxc.prefix 
 ORDER BY rdxc.rdxc_code;
+
+-- Summary Count
+CREATE TABLE adif_view.rdxc_oblast_stats AS
+    SELECT  
+        (
+        SELECT COUNT(*)
+            FROM adif.rdxc
+        ) AS oblast_count,    
+        (
+        SELECT COUNT(*)
+            FROM adif.rdxc_district
+        ) AS total_districts,
+        (
+        SELECT COUNT(*)
+            FROM adif.rdxc_district WHERE is_deleted = FALSE
+        ) AS current_districts,
+        (
+        SELECT COUNT(*)
+            FROM adif.rdxc_district WHERE is_new_rda = TRUE
+        ) AS new_districts,	
+        (
+        SELECT COUNT(*)
+            FROM adif.rdxc_district WHERE is_deleted = TRUE
+        ) AS deleted_districts;
 
 -- *****************************************************************************
 -- Add SAS Schema Informaiton
