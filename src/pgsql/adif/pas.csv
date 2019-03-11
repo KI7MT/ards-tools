@@ -1183,7 +1183,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1182|227||95|Val-d'Oise||||||
 1183|230||BB|Brandenburg||||||
 1184|230||BE|Berlin||||||
-1185|230||BW|Baden-Württemberg||||||
+1185|230||BW|Baden-Wurttemberg||||||
 1186|230||BY|Freistaat Bayern||||||
 1187|230||HB|Freie Hansestadt Bremen||||||
 1188|230||HE|Hessen||||||
@@ -1196,7 +1196,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1195|230||SH|Schleswig-Holstein||||||
 1196|230||SN|Freistaat Sachsen||||||
 1197|230||ST|Sachsen-Anhalt||||||
-1198|230||TH|Freistaat Thüringen||||||
+1198|230||TH|Freistaat Thuringen||||||
 1199|239||GY|Gyor (Gyor-Moson-Sopron)||||||
 1200|239||VA|Vas||||||
 1201|239||ZA|Zala||||||
@@ -1372,7 +1372,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1371|272||AV|Aveiro||||||
 1372|272||BJ|Beja||||||
 1373|272||BR|Braga||||||
-1374|272||BG|Bragança||||||
+1374|272||BG|Braganca||||||
 1375|272||CB|Castelo Branco||||||
 1376|272||CO|Coimbra||||||
 1377|272||EV|Evora||||||
@@ -1388,7 +1388,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1387|272||VR|Vila Real||||||
 1388|272||VS|Viseu||||||
 1389|275||AR|Arad||||||
-1390|275||Cs|Cara'-severin||||||
+1390|275||CS|Cara'-severin||||||
 1391|275||HD|Hunedoara||||||
 1392|275||TM|Timis (Timis)||||||
 1393|275||BU|Bucuresti (Bucure'ti)||||||
@@ -1403,13 +1403,13 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1402|275||BN|Bistrita-Nasaud||||||
 1403|275||CJ|Cluj||||||
 1404|275||MM|Maramures (Maramures)||||||
-1405|275||sJ|salaj (salaj)||||||
-1406|275||sM|satu Mare||||||
+1405|275||SJ|salaj (salaj)||||||
+1406|275||SM|satu Mare||||||
 1407|275||BV|Brasov (Bra'ov)||||||
 1408|275||CV|Covasna||||||
 1409|275||HR|Harghita||||||
 1410|275||Ms|Mures (Mures)||||||
-1411|275||sB|sibiu||||||
+1411|275||SB|sibiu||||||
 1412|275||AG|Arge'||||||
 1413|275||DJ|Dolj||||||
 1414|275||GJ|Gorj||||||
@@ -1418,10 +1418,10 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1417|275||VL|Valcea||||||
 1418|275||BC|Bacau||||||
 1419|275||BT|Boto'ani||||||
-1420|275||Is|Iasi (Iasi)||||||
+1420|275||IS|Iasi (Iasi)||||||
 1421|275||NT|Neamt (Neamt)||||||
-1422|275||sV|suceava||||||
-1423|275||Vs|Vaslui||||||
+1422|275||SV|suceava||||||
+1423|275||VS|Vaslui||||||
 1424|275||BZ|Buzau (Buzau)||||||
 1425|275||CL|Calarasi (Calarasi)||||||
 1426|275||DB|Dambovita (Dambovita)||||||
@@ -1431,7 +1431,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1430|275||TR|Teleorman||||||
 1431|281||AV|Avila||||||
 1432|281||BU|Burgos||||||
-1433|281||C|A Coruña||||||
+1433|281||C|A Coruna||||||
 1434|281||LE|Leon||||||
 1435|281||LO|La Rioja||||||
 1436|281||LU|Lugo||||||
@@ -1504,12 +1504,12 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1503|287||BS|Basel Stadt||||||
 1504|287||BE|Bern||||||
 1505|287||FR|Freiburg / Fribourg||||||
-1506|287||GE|Genf / Genève||||||
+1506|287||GE|Genf / Geneve||||||
 1507|287||GL|Glarus||||||
 1508|287||GR|Graubuenden / Grisons||||||
 1509|287||JU|Jura||||||
 1510|287||LU|Luzern||||||
-1511|287||NE|Neuenburg / Neuchâtel||||||
+1511|287||NE|Neuenburg / Neuchatel||||||
 1512|287||NW|Nidwalden||||||
 1513|287||OW|Obwalden||||||
 1514|287||SH|Schaffhausen||||||
@@ -1541,7 +1541,7 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1540|288||CR|Chernihivs'ka Oblast'||||||
 1541|288||IF|Ivano-Frankivs'ka Oblast'||||||
 1542|288||HM|Khmel'nyts'ka Oblast'||||||
-1543|288||KV|Kyïv||||||
+1543|288||KV|Kyiv||||||
 1544|288||KO|Kyivs'ka Oblast'||||||
 1545|288||KI|Kirovohrads'ka Oblast'||||||
 1546|288||LV|L'vivs'ka Oblast'||||||
@@ -1709,85 +1709,85 @@ pas_id|dxcc_id|pas_region_id|pas_code|subdivision|oblast|referred_to_as|is_delet
 1708|339|56|28|Toyama||||||
 1709|339|57|9|Nagano||||||
 1710|339|57|8|Niigata||||||
-1711|375||AUR|Aurora||||||
-1712|375||BTG|Batangas||||||
-1713|375||CAV|Cavite||||||
-1714|375||LAG|Laguna||||||
-1715|375||MAD|Marinduque||||||
-1716|375||MDC|Mindoro Occidental||||||
-1717|375||MDR|Mindoro Oriental||||||
-1718|375||PLW|Palawan||||||
-1719|375||QUE|Quezon||||||
-1720|375||RIZ|Rizal||||||
-1721|375||ROM|Romblon||||||
-1722|375||ILN|Ilocos Norte||||||
-1723|375||ILS|Ilocos Sur||||||
-1724|375||LUN|La Union||||||
-1725|375||PAN|Pangasinan||||||
-1726|375||BTN|Batanes||||||
-1727|375||CAG|Cagayan||||||
-1728|375||ISA|Isabela||||||
-1729|375||NUV|Nueva Vizcaya||||||
-1730|375||QUI|Quirino||||||
-1731|375||ABR|Abra||||||
-1732|375||APA|Apayao||||||
-1733|375||BEN|Benguet||||||
-1734|375||IFU|Ifugao||||||
-1735|375||KAL|Kalinga-Apayso||||||
-1736|375||MOU|Mountain Province||||||
-1737|375||BAN|Batasn||||||
-1738|375||BUL|Bulacan||||||
-1739|375||NUE|Nueva Ecija||||||
-1740|375||PAM|Pampanga||||||
-1741|375||TAR|Tarlac||||||
-1742|375||ZMB|Zambales||||||
-1743|375||ALB|Albay||||||
-1744|375||CAN|Camarines Norte||||||
-1745|375||CAS|Camarines Sur||||||
-1746|375||CAT|Catanduanes||||||
-1747|375||MAS|Masbate||||||
-1748|375||SOR|Sorsogon||||||
-1749|375||BIL|Biliran||||||
-1750|375||EAS|Eastern Samar||||||
-1751|375||LEY|Leyte||||||
-1752|375||NSA|Northern Samar||||||
-1753|375||SLE|Southern Leyte||||||
-1754|375||WSA|Western Samar||||||
-1755|375||AKL|Aklan||||||
-1756|375||ANT|Antique||||||
-1757|375||CAP|Capiz||||||
-1758|375||GUI|Guimaras||||||
-1759|375||ILI|Iloilo||||||
-1760|375||NEC|Negroe Occidental||||||
-1761|375||BOH|Bohol||||||
-1762|375||CEB|Cebu||||||
-1763|375||NER|Negros Oriental||||||
-1764|375||SIG|Siquijor||||||
-1765|375||ZAN|Zamboanga del Norte||||||
-1766|375||ZAS|Zamboanga del Sur||||||
-1767|375||ZSI|Zamboanga Sibugay||||||
-1768|375||NCO|North Cotabato||||||
-1769|375||SUK|Sultan Kudarat||||||
-1770|375||SAR|Sarangani||||||
-1771|375||SCO|South Cotabato||||||
-1772|375||BAS|Basilan||||||
-1773|375||LAS|Lanao del Sur||||||
-1774|375||MAG|Maguindanao||||||
-1775|375||SLU|Sulu||||||
-1776|375||TAW|Tawi-Tawi||||||
-1777|375||LAN|Lanao del Norte||||||
-1778|375||BUK|Bukidnon||||||
-1779|375||CAM|Camiguin||||||
-1780|375||MSC|Misamis Occidental||||||
-1781|375||MSR|Misamis Oriental||||||
-1782|375||COM|Compostela Valley||||||
-1783|375||DAV|Davao del Norte||||||
-1784|375||DAS|Davao del Sur||||||
-1785|375||DAO|Davao Oriental||||||
-1786|375||AGN|Agusan del Norte||||||
-1787|375||AGS|Agusan del Sur||||||
-1788|375||SUN|Surigao del Norte||||||
-1789|375||SUR|Surigao del Sur||||||
+1711|375|74|AUR|Aurora||||||
+1712|375|74|BTG|Batangas||||||
+1713|375|74|CAV|Cavite||||||
+1714|375|74|LAG|Laguna||||||
+1715|375|74|MAD|Marinduque||||||
+1716|375|74|MDC|Mindoro Occidental||||||
+1717|375|74|MDR|Mindoro Oriental||||||
+1718|375|74|PLW|Palawan||||||
+1719|375|74|QUE|Quezon||||||
+1720|375|74|RIZ|Rizal||||||
+1721|375|74|ROM|Romblon||||||
+1722|375|75|ILN|Ilocos Norte||||||
+1723|375|75|ILS|Ilocos Sur||||||
+1724|375|75|LUN|La Union||||||
+1725|375|75|PAN|Pangasinan||||||
+1726|375|76|BTN|Batanes||||||
+1727|375|76|CAG|Cagayan||||||
+1728|375|76|ISA|Isabela||||||
+1729|375|76|NUV|Nueva Vizcaya||||||
+1730|375|76|QUI|Quirino||||||
+1731|375|77|ABR|Abra||||||
+1732|375|77|APA|Apayao||||||
+1733|375|77|BEN|Benguet||||||
+1734|375|77|IFU|Ifugao||||||
+1735|375|77|KAL|Kalinga-Apayso||||||
+1736|375|77|MOU|Mountain Province||||||
+1737|375|78|BAN|Batasn||||||
+1738|375|78|BUL|Bulacan||||||
+1739|375|78|NUE|Nueva Ecija||||||
+1740|375|78|PAM|Pampanga||||||
+1741|375|78|TAR|Tarlac||||||
+1742|375|78|ZMB|Zambales||||||
+1743|375|79|ALB|Albay||||||
+1744|375|79|CAN|Camarines Norte||||||
+1745|375|79|CAS|Camarines Sur||||||
+1746|375|79|CAT|Catanduanes||||||
+1747|375|79|MAS|Masbate||||||
+1748|375|79|SOR|Sorsogon||||||
+1749|375|80|BIL|Biliran||||||
+1750|375|80|EAS|Eastern Samar||||||
+1751|375|80|LEY|Leyte||||||
+1752|375|80|NSA|Northern Samar||||||
+1753|375|80|SLE|Southern Leyte||||||
+1754|375|80|WSA|Western Samar||||||
+1755|375|81|AKL|Aklan||||||
+1756|375|81|ANT|Antique||||||
+1757|375|81|CAP|Capiz||||||
+1758|375|81|GUI|Guimaras||||||
+1759|375|81|ILI|Iloilo||||||
+1760|375|81|NEC|Negroe Occidental||||||
+1761|375|82|BOH|Bohol||||||
+1762|375|82|CEB|Cebu||||||
+1763|375|82|NER|Negros Oriental||||||
+1764|375|82|SIG|Siquijor||||||
+1765|375|83|ZAN|Zamboanga del Norte||||||
+1766|375|83|ZAS|Zamboanga del Sur||||||
+1767|375|83|ZSI|Zamboanga Sibugay||||||
+1768|375|84|NCO|North Cotabato||||||
+1769|375|84|SUK|Sultan Kudarat||||||
+1770|375|84|SAR|Sarangani||||||
+1771|375|84|SCO|South Cotabato||||||
+1772|375|85|BAS|Basilan||||||
+1773|375|85|LAS|Lanao del Sur||||||
+1774|375|85|MAG|Maguindanao||||||
+1775|375|85|SLU|Sulu||||||
+1776|375|85|TAW|Tawi-Tawi||||||
+1777|375|86|LAN|Lanao del Norte||||||
+1778|375|86|BUK|Bukidnon||||||
+1779|375|86|CAM|Camiguin||||||
+1780|375|86|MSC|Misamis Occidental||||||
+1781|375|86|MSR|Misamis Oriental||||||
+1782|375|87|COM|Compostela Valley||||||
+1783|375|87|DAV|Davao del Norte||||||
+1784|375|87|DAS|Davao del Sur||||||
+1785|375|87|DAO|Davao Oriental||||||
+1786|375|88|AGN|Agusan del Norte||||||
+1787|375|88|AGS|Agusan del Sur||||||
+1788|375|88|SUN|Surigao del Norte||||||
+1789|375|88|SUR|Surigao del Sur||||||
 1790|386||CHA|Changhua||||||
 1791|386||CYI|Chiayi||||||
 1792|386||HSZ|Hsinchu||||||
