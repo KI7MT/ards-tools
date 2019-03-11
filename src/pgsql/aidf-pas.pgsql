@@ -12,43 +12,43 @@
 -- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
 
 -- JARL JCC PREFECTURES
-CREATE TABLE adif.jarl_jcc
+CREATE TABLE adif.jcc
 (
     id SERIAL PRIMARY KEY,
     prefecture VARCHAR(30) NOT NULL,
     prefix CHAR(2) NOT NULL,
-    CONSTRAINT jarl_jcc_uq UNIQUE(prefecture)
+    CONSTRAINT jcc_uq UNIQUE(prefecture)
 );
 
 -- JARL JCC CITIES
-CREATE TABLE adif.jarl_jcc_city
+CREATE TABLE adif.jcc_city
 (
-    id SERIAL PRIMARY KEY,
+    jcc_city_id SERIAL PRIMARY KEY,
     jcc_id INT NOT NULL,
     number CHAR(6),
     city VARCHAR(30),
     is_deleted BOOLEAN NOT NULL DEFAULT '0',
     deleted_date date,
-    CONSTRAINT jarl_jcc_city_uq UNIQUE(number,city)
+    CONSTRAINT jcc_city_uq UNIQUE(number,city)
 );
 
 -- JARL JCC DATA
-\COPY adif.jarl_jcc FROM 'adif-sas/jarl_jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.jarl_jcc_city FROM 'adif-sas/jarl_jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.jcc FROM 'adif-sas/jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.jcc_city FROM 'adif-sas/jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- JARL JCC FK
-ALTER TABLE adif.jarl_jcc_city ADD CONSTRAINT jarl_jcc_city_jarl_jcc_fkey
-    FOREIGN KEY (jcc_id) REFERENCES adif.jarl_jcc (id);
+ALTER TABLE adif.jcc_city ADD CONSTRAINT jcc_city_jcc_fkey
+    FOREIGN KEY (jcc_id) REFERENCES adif.jcc (jcc_id);
 
 CREATE OR REPLACE VIEW adif.view_jcc_stats AS
     SELECT 
-        adif.jarl_jcc.prefecture AS "Precefture",
+        adif.jcc.prefecture AS "Precefture",
         count(*) AS "City Count"
-    FROM adif.jarl_jcc
-        JOIN adif.jarl_jcc_city ON
-            adif.jarl_jcc_city.jcc_id = jarl_jcc.id
-    GROUP BY jarl_jcc.prefecture
-    ORDER BY jarl_jcc.prefecture;
+    FROM adif.jcc
+        JOIN adif.jcc_city ON
+            adif.jcc_city.jcc_id = jcc.id
+    GROUP BY jcc.prefecture
+    ORDER BY jcc.prefecture;
 
 -- RDXC Oblasts ----------------------------------------------------------------
 
