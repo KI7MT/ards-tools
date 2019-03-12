@@ -379,6 +379,135 @@ CREATE TABLE adif.sponsored_award
     CONSTRAINT qso_sponsored_award_sponsor_uq UNIQUE (sponsor)
 );
 
+-- PAS Tables and Data ---------------------------------------------------------
+CREATE TABLE adif.pas
+(
+    pas_id SERIAL PRIMARY KEY,
+    dxcc_id INT NOT NULL,                           -- DXCC Country
+    pas_region_id INT,                              -- Region, if applicable
+    pas_code CHAR(4) NOT NULL,                      -- code for the subdivision
+    subdivision VARCHAR(120) NOT NULL,              -- subdivision name
+    oblast CHAR(4),                                 -- Oblast number
+    referred_to_as VARCHAR(60),                     -- Alias Names
+    is_deleted BOOLEAN DEFAULT '0',                 -- is a deleted subdivision
+    is_import_only BOOLEAN DEFAULT '0',             -- Can only be imported
+    before_date DATE,                               -- For QSO's Made BEFORE date
+    after_date DATE,                                -- For QSO's made ON or AFTER date
+    CONSTRAINT pas_uq UNIQUE (dxcc_id,pas_code,subdivision)
+);
+
+-- PAS Summary
+CREATE TABLE adif.pas_summary
+(
+    pas_summary_id SERIAL PRIMARY KEY,
+    dxcc_code INT NOT NULL,
+    pas_type_id INT NOT NULL,
+    has_oblast BOOLEAN NOT NULL DEFAULT '0',
+    has_sas BOOLEAN NOT NULL DEFAULT '0',
+    sas_type_id INT,
+    CHECK ( NOT (has_sas AND sas_type_id IS NULL) )
+); 
+
+-- Primary Administration Subdivision Type
+CREATE TABLE adif.pas_type
+(
+    pas_type_id SERIAL PRIMARY KEY,
+    pas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT pas_type_uq UNIQUE (pas_type)
+);
+
+-- PAS Region
+CREATE TABLE adif.pas_region
+(
+    pas_region_id SERIAL PRIMARY KEY,
+    region VARCHAR(120) NOT NULL,
+    CONSTRAINT pas_region_uq UNIQUE (region)
+);
+
+-- PAS CQ Zone
+CREATE TABLE adif.pas_cqzone
+(
+    pas_cqzone_id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    cqzone_id INT NOT NULL
+);
+
+-- PAS ITU Zone
+CREATE TABLE adif.pas_ituzone
+(
+    pas_ituzone_id SERIAL PRIMARY KEY,
+    pas_id INT NOT NULL,
+    ituzone_id INT NOT NULL
+);
+
+-- Secondary Administration Subdivision ----------------------------------------
+CREATE TABLE adif.sas_type
+(
+    sas_type_id SERIAL PRIMARY KEY,
+    sas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT sas_type_uq UNIQUE (sas_type)
+);
+
+-- JARL JCC (Ku) ---------------------------------------------------------------
+
+-- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
+-- Info Link   : https://www.jarl.org/English/4_Library/A-4-2_Awards/Aw_jcc.htm
+-- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
+-- Total Cout = 913, Current = 815, Deleted = 98
+
+-- JARL JCC PREFECTURES
+CREATE TABLE adif.jcc
+(
+    jcc_id SERIAL PRIMARY KEY,
+    prefecture VARCHAR(30) NOT NULL,
+    prefix CHAR(2) NOT NULL,
+    CONSTRAINT jcc_uq UNIQUE(prefecture)
+);
+
+-- JARL JCC CITIES
+CREATE TABLE adif.jcc_city
+(
+    jcc_city_id SERIAL PRIMARY KEY,
+    jcc_id INT NOT NULL,
+    number CHAR(6),
+    city VARCHAR(30),
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    deleted_date date,
+    CONSTRAINT jcc_city_uq UNIQUE(number,city)
+);
+
+-- JARL JCC FK
+ALTER TABLE adif.jcc_city ADD CONSTRAINT jcc_city_jcc_fkey
+    FOREIGN KEY (jcc_id) REFERENCES adif.jcc (jcc_id);
+
+-- RDXC Oblasts ----------------------------------------------------------------
+
+-- RDXC Table for Oblasts
+CREATE TABLE adif.rdxc
+(
+    rdxc_id SERIAL PRIMARY KEY,
+    prefix CHAR(4) NOT NULL,
+    rdxc_code CHAR(4) NOT NULL,
+    oblast VARCHAR(60) NOT NULL,
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
+);
+
+-- RDXC Table for Districts under each Oblast
+CREATE TABLE adif.rdxc_district
+(
+    rdxc_district_id SERIAL PRIMARY KEY,
+    rdxc_id INT NOT NULL,
+    code CHAR(5) NOT NULL,
+    district VARCHAR(120),
+    valid_since DATE,
+    is_deleted BOOLEAN NOT NULL DEFAULT '0',
+    is_new_rda BOOLEAN NOT NULL DEFAULT '0',
+    has_replacement BOOLEAN NOT NULL DEFAULT '0',
+    migration_district CHAR(5),
+    CONSTRAINT rdxc_district_uq UNIQUE(code,district)
+);
+
 -- *****************************************************************************
 --  ADD CSV DATA
 -- *****************************************************************************
@@ -420,6 +549,23 @@ CREATE TABLE adif.sponsored_award
 \COPY adif.ituzone FROM 'adif/ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.iaru_region FROM 'adif/iaru_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.iaru_region_member FROM 'adif/iaru_region_member.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- PAS Data
+\COPY adif.pas_type FROM 'adif/pas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sas_type FROM 'adif/sas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_summary FROM 'adif/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas FROM 'adif/pas.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_region FROM 'adif/pas_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_cqzone FROM 'adif/pas_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.pas_ituzone FROM 'adif/pas_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- JARL JCC DATA
+\COPY adif.jcc FROM 'adif/jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.jcc_city FROM 'adif/jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- RDXC Data (Oblasts and Districts)
+\COPY adif.rdxc FROM 'adif/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.rdxc_district FROM 'adif/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
@@ -484,8 +630,24 @@ ALTER TABLE adif.region_applicability ADD CONSTRAINT region_applicability_weblin
 ALTER TABLE adif.sponsored_award ADD CONSTRAINT sponsored_award_weblink_fkey
     FOREIGN KEY (weblink_id) REFERENCES adif.weblink (weblink_id);
 
+-- PAS Summary FK's
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_type_fkey
+    FOREIGN KEY (pas_type_id) REFERENCES adif.pas_type (pas_type_id);
+
+ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_type_fkey
+    FOREIGN KEY (sas_type_id) REFERENCES adif.sas_type (sas_type_id);
+
+-- RDXC District FK
+ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
+    FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (rdxc_id);
+
 -- *****************************************************************************
---  VIEW TABLES
+--
+--
+--                           ALL VIEW TABLES
+--
+--
+
 -- *****************************************************************************
 
 \echo
@@ -783,16 +945,6 @@ CREATE TABLE adif_view.weblink AS
     FROM adif.weblink
     ORDER BY weblink.display_text;
 
--- *****************************************************************************
--- Add Schema Informaiton
--- *****************************************************************************
-
-INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES(:'name', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
-
 CREATE OR REPLACE VIEW view_schema_info AS
     SELECT
         schema_info.schema_name AS "Schema Name",
@@ -803,104 +955,6 @@ CREATE OR REPLACE VIEW view_schema_info AS
     ORDER BY  schema_info.schema_name;
 
 \echo
---SELECT * FROM view_schema_info WHERE view_schema_info."Schema Name" = :'name';
-
--- -----------------------------------------------------------------------------
---
---                  Primary Administrative Subdivision
---
--- -----------------------------------------------------------------------------
-
--- PAS Summary -----------------------------------------------------------------
-CREATE TABLE adif.pas_summary
-(
-    pas_summary_id SERIAL PRIMARY KEY,
-    dxcc_code INT NOT NULL,
-    pas_type_id INT NOT NULL,
-    has_oblast BOOLEAN NOT NULL DEFAULT '0',
-    has_sas BOOLEAN NOT NULL DEFAULT '0',
-    sas_type_id INT,
-    CHECK ( NOT (has_sas AND sas_type_id IS NULL) )
-); 
-
--- Primary Administration Subdivision Type
-CREATE TABLE adif.pas_type
-(
-    pas_type_id SERIAL PRIMARY KEY,
-    pas_type VARCHAR(20) NOT NULL,
-    CONSTRAINT pas_type_uq UNIQUE (pas_type)
-);
-
--- Secondary Administration Subdivision
-CREATE TABLE adif.sas_type
-(
-    sas_type_id SERIAL PRIMARY KEY,
-    sas_type VARCHAR(20) NOT NULL,
-    CONSTRAINT sas_type_uq UNIQUE (sas_type)
-);
-
--- PAS Summary Data
-\COPY adif.pas_type FROM 'adif/pas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.sas_type FROM 'adif/sas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.pas_summary FROM 'adif/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS Summary FK's
-ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_pas_type_fkey
-    FOREIGN KEY (pas_type_id) REFERENCES adif.pas_type (pas_type_id);
-
-ALTER TABLE adif.pas_summary ADD CONSTRAINT pas_summary_sas_type_fkey
-    FOREIGN KEY (sas_type_id) REFERENCES adif.sas_type (sas_type_id);
-
--- PAS Tables and Data ---------------------------------------------------------
-CREATE TABLE adif.pas
-(
-    pas_id SERIAL PRIMARY KEY,
-    dxcc_id INT NOT NULL,                           -- DXCC Country
-    pas_region_id INT,                              -- Region, if applicable
-    pas_code CHAR(4) NOT NULL,                      -- code for the subdivision
-    subdivision VARCHAR(120) NOT NULL,              -- subdivision name
-    oblast CHAR(4),                                 -- Oblast number
-    referred_to_as VARCHAR(60),                     -- Alias Names
-    is_deleted BOOLEAN DEFAULT '0',                 -- is a deleted subdivision
-    is_import_only BOOLEAN DEFAULT '0',             -- Can only be imported
-    before_date DATE,                               -- For QSO's Made BEFORE date
-    after_date DATE,                                -- For QSO's made ON or AFTER date
-    CONSTRAINT pas_uq UNIQUE (dxcc_id,pas_code,subdivision)
-);
-\COPY adif.pas FROM 'adif/pas.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS Region
-CREATE TABLE adif.pas_region
-(
-    pas_region_id SERIAL PRIMARY KEY,
-    region VARCHAR(120) NOT NULL,
-    CONSTRAINT pas_region_uq UNIQUE (region)
-);
-\COPY adif.pas_region FROM 'adif/pas_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS CQ Zone
-CREATE TABLE adif.pas_cqzone
-(
-    pas_cqzone_id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    cqzone_id INT NOT NULL
-);
-\COPY adif.pas_cqzone FROM 'adif/pas_cqzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- PAS ITU Zone
-CREATE TABLE adif.pas_ituzone
-(
-    pas_ituzone_id SERIAL PRIMARY KEY,
-    pas_id INT NOT NULL,
-    ituzone_id INT NOT NULL
-);
-\COPY adif.pas_ituzone FROM 'adif/pas_ituzone.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- -----------------------------------------------------------------------------
---
---               PRIMARY ADMIN SUBDIVISION VIEWS
---
---------------------------------------------------------------------------------
 
 -- pas_summary -----------------------------------------------------------------
 CREATE OR REPLACE VIEW adif_view.pas_summary AS
@@ -2147,60 +2201,7 @@ CREATE TABLE adif_view.pas504_stats AS
     ORDER BY
         region;
 
--- *****************************************************************************
--- Add PAS Schema Informaiton
--- *****************************************************************************
-
-INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES('adif-pas', :'ver', :'adifv', CURRENT_TIMESTAMP)
-ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
-                                        adif_spec = :'adifv',
-                                        last_update = CURRENT_TIMESTAMP;
-
--- =============================================================================
---
---               ADIF SECONDARY ADMINISTRATION SUBDIVISION
---
--- =============================================================================
-
-
--- JARL JCC (Ku) ---------------------------------------------------------------
-
--- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
--- Info Link   : https://www.jarl.org/English/4_Library/A-4-2_Awards/Aw_jcc.htm
--- Source Link : https://www.jarl.org/English/4_Library/A-4-5_jcc-jcg/jcc-list.txt
--- Total Cout = 913, Current = 815, Deleted = 98
-
--- JARL JCC PREFECTURES
-CREATE TABLE adif.jcc
-(
-    jcc_id SERIAL PRIMARY KEY,
-    prefecture VARCHAR(30) NOT NULL,
-    prefix CHAR(2) NOT NULL,
-    CONSTRAINT jcc_uq UNIQUE(prefecture)
-);
-
--- JARL JCC CITIES
-CREATE TABLE adif.jcc_city
-(
-    jcc_city_id SERIAL PRIMARY KEY,
-    jcc_id INT NOT NULL,
-    number CHAR(6),
-    city VARCHAR(30),
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    deleted_date date,
-    CONSTRAINT jcc_city_uq UNIQUE(number,city)
-);
-
--- JARL JCC DATA
-\COPY adif.jcc FROM 'adif/jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.jcc_city FROM 'adif/jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- JARL JCC FK
-ALTER TABLE adif.jcc_city ADD CONSTRAINT jcc_city_jcc_fkey
-    FOREIGN KEY (jcc_id) REFERENCES adif.jcc (jcc_id);
-
--- Prefectures and Cities
+-- JCC Prefectures and Cities --------------------------------------------------
 CREATE TABLE adif_view.jcc AS
     SELECT
         jcc.prefecture AS prefecture,
@@ -2245,51 +2246,23 @@ CREATE TABLE adif_view.jcc_full_stats AS
                 FROM adif.jcc_city WHERE is_deleted = TRUE
             ) AS deleted_cities;
 
--- RDXC Oblasts ----------------------------------------------------------------
-
--- RDXC Table for Oblasts
-CREATE TABLE adif.rdxc
-(
-    rdxc_id SERIAL PRIMARY KEY,
-    prefix CHAR(4) NOT NULL,
-    rdxc_code CHAR(4) NOT NULL,
-    oblast VARCHAR(60) NOT NULL,
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    CONSTRAINT rdxc_uq UNIQUE(prefix,rdxc_code,oblast)
-);
-
--- RDXC Table for Districts under each Oblast
-CREATE TABLE adif.rdxc_district
-(
-    rdxc_district_id SERIAL PRIMARY KEY,
-    rdxc_id INT NOT NULL,
-    code CHAR(5) NOT NULL,
-    district VARCHAR(120),
-    valid_since DATE,
-    is_deleted BOOLEAN NOT NULL DEFAULT '0',
-    is_new_rda BOOLEAN NOT NULL DEFAULT '0',
-    has_replacement BOOLEAN NOT NULL DEFAULT '0',
-    migration_district CHAR(5),
-    CONSTRAINT rdxc_district_uq UNIQUE(code,district)
-);
-
--- RDXC Data (Oblasts and Districts)
-\COPY adif.rdxc FROM 'adif/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.rdxc_district FROM 'adif/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-
--- RDXC District FK
-ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
-    FOREIGN KEY (rdxc_id) REFERENCES adif.rdxc (rdxc_id);
-
--- Full RDA List
+-- RDXC Full RDA List ----------------------------------------------------------
 CREATE TABLE adif_view.rdxc_district_list AS
-   SELECT 
-        rdxc_district.code AS district_code,
-        rdxc_district.district AS district,
-        rdxc_district.is_new_rda AS is_new
+    SELECT
+        rdxc.rdxc_code as rdxc_code,
+        rdxc.oblast as oblast,
+        rdxc.prefix as prefix,
+        rdxc.is_deleted as oblast_is_deleted,
+        code,
+        district,
+        valid_since,
+        rdxc_district.is_deleted as district_is_deleted,
+        is_new_rda,
+        has_replacement,
+        migration_district
     FROM adif.rdxc_district
-    WHERE rdxc_district.is_deleted = FALSE
-    ORDER BY code ASC;
+        JOIN adif.rdxc ON 
+            rdxc.rdxc_id = rdxc_district.rdxc_district_id
 
 -- RDXC Oblast Stats
 -- RDXC Oblasts Numbers do not match the 3.0.9 Spec
@@ -2330,7 +2303,6 @@ CREATE TABLE adif_view.rdxc_oblast_stats AS
         SELECT COUNT(*)
             FROM adif.rdxc_district WHERE is_deleted = TRUE
         ) AS deleted_districts;
-
 -- *****************************************************************************
 -- Add SAS Schema Informaiton
 -- *****************************************************************************
