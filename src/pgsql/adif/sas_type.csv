@@ -1,4 +1,5 @@
-sas_type_id|sas_subdivision_type
+sas_type_id|sas_type
 1|County
 2|District
-3|Cities/Gun
+3|Gun
+4|Gun/City

@@ -22,7 +22,7 @@
 
     Tool Requirments:
 
-        * PostgreSQL v10 or above
+        * PostgreSQL v11 or above
         * git for cloning the repository
         * adif uses the default database (postgres) and password (postgres)
           If you want to use a different Role / DB, adjust the commands as needed.
@@ -440,14 +440,6 @@ CREATE TABLE adif.pas_ituzone
     ituzone_id INT NOT NULL
 );
 
--- Secondary Administration Subdivision ----------------------------------------
-CREATE TABLE adif.sas_type
-(
-    sas_type_id SERIAL PRIMARY KEY,
-    sas_type VARCHAR(20) NOT NULL,
-    CONSTRAINT sas_type_uq UNIQUE (sas_type)
-);
-
 -- JARL JCC (Ku) ---------------------------------------------------------------
 
 -- Japan Century Cities (JCC), SWL - Japan Century Cites (SWL - JCC)
@@ -508,6 +500,29 @@ CREATE TABLE adif.rdxc_district
     CONSTRAINT rdxc_district_uq UNIQUE(code,district)
 );
 
+-- Secondary Administration Subdivision ----------------------------------------
+-- SAS Main Table
+-- NEED FK to dxcc_id
+CREATE TABLE adif.sas
+(
+    sas_id SERIAL PRIMARY KEY,
+    dxcc_id INT NOT NULL,
+    prefix VARCHAR(120),
+    name VARCHAR(120),
+    code VARCHAR(120),
+    description VARCHAR(120),
+    CONSTRAINT sas_uq UNIQUE (dxcc_id,prefix,name,code)
+);
+
+-- SAS Type
+-- Need FK to dxcc_id
+CREATE TABLE adif.sas_type
+(
+    sas_type_id SERIAL PRIMARY KEY,
+    sas_type VARCHAR(20) NOT NULL,
+    CONSTRAINT sas_type_uq UNIQUE (sas_type)
+);
+
 -- *****************************************************************************
 --  ADD CSV DATA
 -- *****************************************************************************
@@ -552,7 +567,6 @@ CREATE TABLE adif.rdxc_district
 
 -- PAS Data
 \COPY adif.pas_type FROM 'adif/pas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
-\COPY adif.sas_type FROM 'adif/sas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas_summary FROM 'adif/pas_summary.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas FROM 'adif/pas.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.pas_region FROM 'adif/pas_region.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
@@ -563,9 +577,18 @@ CREATE TABLE adif.rdxc_district
 \COPY adif.jcc FROM 'adif/jcc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.jcc_city FROM 'adif/jcc_city.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 
+-- JARL JCG Data
+
+-- JARL Ku Data
+
 -- RDXC Data (Oblasts and Districts)
 \COPY adif.rdxc FROM 'adif/rdxc.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
 \COPY adif.rdxc_district FROM 'adif/rdxc_district.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
+-- SASA Data
+\COPY adif.sas_type FROM 'adif/sas_type.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+\COPY adif.sas FROM 'adif/sas.csv' DELIMITER '|' QUOTE '"' HEADER CSV;
+
 
 -- *****************************************************************************
 --  ADD FOREIGN KEYS
@@ -2303,6 +2326,229 @@ CREATE TABLE adif_view.rdxc_oblast_stats AS
         SELECT COUNT(*)
             FROM adif.rdxc_district WHERE is_deleted = TRUE
         ) AS deleted_districts;
+
+-- SAS 6 Alaska ----------------------------------------------------------------
+CREATE TABLE adif_view.sas6 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '6'
+    ORDER BY adif.sas.code;
+
+-- SAS 15 ASIATIC RUSSIA -------------------------------------------------------
+
+CREATE TABLE adif_view.sas15 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '15'
+    ORDER BY adif.sas.code;
+
+-- SAS 54 EUROPEAN RUSSIA ------------------------------------------------------
+
+CREATE TABLE adif_view.sas54 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '54'
+    ORDER BY adif.sas.code;
+
+-- SAS 61 FRANZ JOSEF LAND -----------------------------------------------------
+
+CREATE TABLE adif_view.sas61 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '61'
+    ORDER BY adif.sas.code;
+
+-- SAS 110 HAWAII --------------------------------------------------------------
+
+CREATE TABLE adif_view.sas110 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '110'
+    ORDER BY adif.sas.code;
+
+-- SAS 126 KALININGRAD ---------------------------------------------------------
+
+CREATE TABLE adif_view.sas126 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '126'
+    ORDER BY adif.sas.code;
+
+-- SAS 137 REPUBLIC OF KOREA ---------------------------------------------------
+
+CREATE TABLE adif_view.sas137 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '137'
+    ORDER BY adif.sas.code;
+
+-- SAS 151 MALYJ VYSOTSKIJ I. --------------------------------------------------
+
+CREATE TABLE adif_view.sas151 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '151'
+    ORDER BY adif.sas.code;
+
+-- SAS 170 NEW ZEALAND ---------------------------------------------------------
+
+CREATE TABLE adif_view.sas170 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '170'
+    ORDER BY adif.sas.code;
+
+-- SAS 177 MINAMI TORISHIMA ----------------------------------------------------
+
+CREATE TABLE adif_view.sas177 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '177'
+    ORDER BY adif.sas.code;
+
+-- SAS 192 OGASAWARA -----------------------------------------------------------
+
+CREATE TABLE adif_view.sas192 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '192'
+    ORDER BY adif.sas.code;
+
+-- SAS 288 UKRAINE -------------------------------------------------------------
+
+CREATE TABLE adif_view.sas288 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '288'
+    ORDER BY adif.sas.code;
+
+-- SAS 291 UNITED STATES OF AMERICA --------------------------------------------
+
+CREATE TABLE adif_view.sas291 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '291'
+    ORDER BY adif.sas.code;
+
+-- SAS 339 JAPAN ---------------------------------------------------------------
+
+CREATE TABLE adif_view.sas339 AS
+    SELECT
+        sas.dxcc_id AS dxcc_code,
+        dxcc.name as dxcc_name,
+        sas.prefix,
+        sas.name,
+        sas.code,
+        sas.description as description
+    FROM adif.sas
+        JOIN adif.dxcc ON
+            adif.dxcc.dxcc_id = sas.dxcc_id
+    WHERE dxcc.dxcc_id = '339'
+    ORDER BY adif.sas.code;
 
 -- *****************************************************************************
 -- ADD SCHEMA INFORMATION
