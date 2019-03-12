@@ -2262,7 +2262,7 @@ CREATE TABLE adif_view.rdxc_district_list AS
         migration_district
     FROM adif.rdxc_district
         JOIN adif.rdxc ON 
-            rdxc.rdxc_id = rdxc_district.rdxc_district_id
+            rdxc.rdxc_id = rdxc_district.rdxc_district_id;
 
 -- RDXC Oblast Stats
 -- RDXC Oblasts Numbers do not match the 3.0.9 Spec
@@ -2303,12 +2303,13 @@ CREATE TABLE adif_view.rdxc_oblast_stats AS
         SELECT COUNT(*)
             FROM adif.rdxc_district WHERE is_deleted = TRUE
         ) AS deleted_districts;
+
 -- *****************************************************************************
--- Add SAS Schema Informaiton
+-- ADD SCHEMA INFORMATION
 -- *****************************************************************************
 
 INSERT INTO schema_info(schema_name, schema_version, adif_spec, last_update)
-VALUES('adif-sas', :'ver', :'adifv', CURRENT_TIMESTAMP)
+VALUES('adif', :'ver', :'adifv', CURRENT_TIMESTAMP)
 ON CONFLICT (schema_name) DO UPDATE SET schema_version = :'ver',
                                         adif_spec = :'adifv',
                                         last_update = CURRENT_TIMESTAMP;
