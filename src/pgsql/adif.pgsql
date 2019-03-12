@@ -694,7 +694,7 @@ CREATE TABLE adif_view.band AS
     ORDER BY band.lower_freq;
 
 -- contest ---------------------------------------------------------------------
-CREATE OR REPLACE VIEW adif_view.contest AS
+CREATE TABLE adif_view.contest AS
     SELECT
         contest.name AS "Contest Name",
         contest.description AS "Description",
@@ -957,7 +957,7 @@ CREATE OR REPLACE VIEW view_schema_info AS
 \echo
 
 -- pas_summary -----------------------------------------------------------------
-CREATE OR REPLACE VIEW adif_view.pas_summary AS
+CREATE TABLE adif_view.pas_summary AS
     SELECT
         dxcc.dxcc_id AS dxcc_code,
         dxcc.name AS country,
@@ -975,14 +975,14 @@ CREATE OR REPLACE VIEW adif_view.pas_summary AS
     ORDER BY adif.pas_summary.pas_summary_id;
 
 -- pas_type
-CREATE OR REPLACE VIEW adif_view.pas_type AS
+CREATE TABLE adif_view.pas_type AS
     SELECT
         pas_type AS pri_subdivision_type
     FROM adif.pas_type
     ORDER BY pas_type;
 
 -- sas_type 
-CREATE OR REPLACE VIEW adif_view.sas_type AS
+CREATE TABLE adif_view.sas_type AS
     SELECT
         sas_type AS sec_subdivision
     FROM adif.sas_type
@@ -1078,7 +1078,7 @@ CREATE TABLE adif_view.pas15_current AS
     SELECT * FROM adif_view.pas15 WHERE before_date IS NULL;
 
 -- PAD-15 Stats
-CREATE TABLE adif.view_pas15_stats AS
+CREATE TABLE adif_view.pas15_stats AS
     SELECT  (
             SELECT COUNT(*)
                 FROM adif_view.pas15
@@ -1180,7 +1180,7 @@ CREATE TABLE adif_view.pas52 AS
 
 -- NOTE: There are no multiple itu or cq zones for EU Russia. Therefore, no
 --       need for it's own cqzone or ituzone tables nor aggregate's
-CREATE OR REPLACE VIEW adif_view.pas54 AS
+CREATE TABLE adif_view.pas54 AS
     SELECT
         dxcc.dxcc_id AS dxcc_code,
         dxcc.name AS country,
@@ -1330,7 +1330,7 @@ CREATE TABLE adif_view.pas112 AS
 
 -- NOTE: There are no multiple itu or cq zones for Kalingrad. Therefore, no
 --       need for it's own cqzone or ituzone tables nor aggregate's
-CREATE OR REPLACE VIEW adif_view.pas126 AS
+CREATE TABLE adif_view.pas126 AS
     SELECT
         dxcc.dxcc_id AS dxcc_code,
         dxcc.name AS country,
