@@ -670,7 +670,6 @@ ALTER TABLE adif.rdxc_district ADD CONSTRAINT rdxc_district_rdxc_fkey
 --                           ALL VIEW TABLES
 --
 --
-
 -- *****************************************************************************
 
 \echo
@@ -685,6 +684,10 @@ CREATE TABLE adif_view.antenna_path AS
         antenna_path.meaning
     FROM adif.antenna_path
     ORDER BY adif.antenna_path.abbreviation;
+
+ALTER TABLE adif_view.antenna_path
+ADD CONSTRAINT antenna_path_pkey PRIMARY KEY (antenna_path_id);
+
 
 -- arrl_section ----------------------------------------------------------------
 CREATE TABLE adif_view.arrl_section AS
@@ -701,6 +704,9 @@ CREATE TABLE adif_view.arrl_section AS
             adif.dxcc.dxcc_id = adif.arrl_section.dxcc_code
     ORDER BY arrl_section.name;
 
+ALTER TABLE adif_view.arrl_section
+ADD CONSTRAINT arrl_section_pkey PRIMARY KEY (arrl_section_id);
+
 -- award -----------------------------------------------------------------------
 CREATE TABLE adif_view.award AS
     SELECT
@@ -709,6 +715,9 @@ CREATE TABLE adif_view.award AS
         award.is_import_only
     FROM adif.award
     ORDER BY award.name;
+
+ALTER TABLE adif_view.award
+ADD CONSTRAINT award_pkey PRIMARY KEY (award_id);
 
 -- band ------------------------------------------------------------------------
 CREATE TABLE adif_view.band AS
@@ -719,6 +728,9 @@ CREATE TABLE adif_view.band AS
         band.upper_freq AS upper_freq
     FROM adif.band
     ORDER BY band.lower_freq;
+
+ALTER TABLE adif_view.band
+ADD CONSTRAINT band_pkey PRIMARY KEY (band_id);
 
 -- contest ---------------------------------------------------------------------
 CREATE TABLE adif_view.contest AS
@@ -733,6 +745,9 @@ CREATE TABLE adif_view.contest AS
             adif.weblink.weblink_id = adif.contest.weblink_id
     ORDER BY contest.name;
 
+ALTER TABLE adif_view.contest
+ADD CONSTRAINT contest_pkey PRIMARY KEY (contest_id);
+
 -- continent -------------------------------------------------------------------
 CREATE TABLE adif_view.continent AS
     SELECT
@@ -742,6 +757,9 @@ CREATE TABLE adif_view.continent AS
     FROM adif.continent
     ORDER BY continent.abbreviation;
 
+ALTER TABLE adif_view.continent
+ADD CONSTRAINT continent_pkey PRIMARY KEY (continent_id);
+
 -- county_name -----------------------------------------------------------------
 CREATE TABLE adif_view.county_name AS
     SELECT
@@ -749,6 +767,9 @@ CREATE TABLE adif_view.county_name AS
         county_name.name AS county_name
     FROM adif.county_name
     ORDER BY county_name.name;
+
+ALTER TABLE adif_view.county_name
+ADD CONSTRAINT county_name_pkey PRIMARY KEY (county_name_id);
 
 -- cqzone ----------------------------------------------------------------------
 CREATE TABLE adif_view.cqzone AS
@@ -759,6 +780,9 @@ CREATE TABLE adif_view.cqzone AS
     FROM adif.cqzone
     ORDER BY cqzone.cqzone;
 
+ALTER TABLE adif_view.cqzone
+ADD CONSTRAINT cqzone_pkey PRIMARY KEY (cqzone_id);
+
 -- credit__award ---------------------------------------------------------------
 CREATE TABLE adif_view.credit_award AS
     SELECT
@@ -766,6 +790,9 @@ CREATE TABLE adif_view.credit_award AS
         credit_award.name AS award_name
     FROM adif.credit_award
     ORDER BY credit_award.name;
+
+ALTER TABLE adif_view.credit_award 
+ADD CONSTRAINT credit_award_pkey PRIMARY KEY (credit_award_id);
 
 -- credit_facet ----------------------------------------------------------------
 CREATE TABLE adif_view.credit_facet AS
@@ -775,6 +802,9 @@ CREATE TABLE adif_view.credit_facet AS
     FROM adif.credit_facet
     ORDER BY credit_facet.name;
 
+ALTER TABLE adif_view.credit_facet
+ADD CONSTRAINT credit_facet_pkey PRIMARY KEY (credit_facet_id);
+
 -- credit_sponsor --------------------------------------------------------------
 CREATE TABLE adif_view.credit_sponsor AS
     SELECT
@@ -782,6 +812,9 @@ CREATE TABLE adif_view.credit_sponsor AS
         credit_sponsor.name AS sponsor
     FROM adif.credit_sponsor
     ORDER BY credit_sponsor.name;
+
+ALTER TABLE adif_view.credit_sponsor 
+ADD CONSTRAINT credit_sponsor_pkey PRIMARY KEY (credit_sponsor_id);
 
 -- credit ----------------------------------------------------------------------
 CREATE TABLE adif_view.credit AS
@@ -800,6 +833,9 @@ CREATE TABLE adif_view.credit AS
             adif.credit_facet.credit_facet_id = adif.credit.credit_facet_id
     ORDER BY credit_for;
 
+ALTER TABLE adif_view.credit 
+ADD CONSTRAINT credit_pkey PRIMARY KEY (credit_id);
+
 -- dxcc ------------------------------------------------------------------------
 CREATE TABLE adif_view.dxcc AS
     SELECT
@@ -809,6 +845,9 @@ CREATE TABLE adif_view.dxcc AS
         dxcc.is_deleted
     FROM adif.dxcc
     ORDER BY dxcc.code;
+
+ALTER TABLE adif_view.dxcc 
+ADD CONSTRAINT dxcc_pkey PRIMARY KEY (dxcc_id);
 
 -- iaru_region_member-----------------------------------------------------------
 CREATE TABLE adif_view.iaru_region_member AS
@@ -822,6 +861,9 @@ CREATE TABLE adif_view.iaru_region_member AS
             iaru_region.iaru_region_id = iaru_region_member.iaru_region_id
     ORDER BY iaru_region.region, iaru_region_member.name;
 
+ALTER TABLE adif_view.iaru_region_member 
+ADD CONSTRAINT iaru_region_member_pkey PRIMARY KEY (iaru_region_member_id);
+
 -- iaru_region -----------------------------------------------------------------
 CREATE TABLE adif_view.iaru_region AS
     SELECT
@@ -830,6 +872,9 @@ CREATE TABLE adif_view.iaru_region AS
         iaru_region.description
     FROM adif.iaru_region
     ORDER BY iaru_region.region;
+
+ALTER TABLE adif_view.iaru_region 
+ADD CONSTRAINT iaru_region_pkey PRIMARY KEY (iaru_region_id);
 
 -- ituzone ---------------------------------------------------------------------
 CREATE TABLE adif_view.ituzone AS
@@ -840,13 +885,20 @@ CREATE TABLE adif_view.ituzone AS
     FROM adif.ituzone
     ORDER BY ituzone.ituzone;
 
+ALTER TABLE adif_view.ituzone
+ADD CONSTRAINT ituuzone_pkey PRIMARY KEY (ituzone_id);
+
 -- mode ------------------------------------------------------------------------
 CREATE TABLE adif_view.mode AS
     SELECT
+        mode.mode_id,
         mode.name AS mode,
         mode.is_import_only
     FROM adif.mode
     ORDER BY mode.name;
+
+ALTER TABLE adif_view.mode
+ADD CONSTRAINT mode_pkey PRIMARY KEY (mode_id);
 
 -- propogation_mode ------------------------------------------------------------
 CREATE TABLE adif_view.propogation_mode AS
@@ -857,6 +909,9 @@ CREATE TABLE adif_view.propogation_mode AS
     FROM adif.propogation_mode
     ORDER BY propogation_mode.enumeration;
 
+ALTER TABLE adif_view.propogation_mode
+ADD CONSTRAINT propogation_mode_pkey PRIMARY KEY (propogation_mode_id);
+
 -- qsl_medium ------------------------------------------------------------------
 CREATE TABLE adif_view.qsl_medium AS
     SELECT
@@ -865,6 +920,9 @@ CREATE TABLE adif_view.qsl_medium AS
         qsl_medium.description
     FROM adif.qsl_medium
     ORDER BY qsl_medium.medium;
+
+ALTER TABLE adif_view.qsl_medium
+ADD CONSTRAINT qsl_medium_pkey PRIMARY KEY (qsl_medium_id);
 
 -- qsl_rcvd --------------------------------------------------------------------
 CREATE TABLE adif_view.qsl_rcvd AS
@@ -877,6 +935,9 @@ CREATE TABLE adif_view.qsl_rcvd AS
     FROM adif.qsl_rcvd
     ORDER BY qsl_rcvd.status;
 
+ALTER TABLE adif_view.qsl_rcvd
+ADD CONSTRAINT qsl_rcvd_pkey PRIMARY KEY (qsl_rcvd_id);
+
 -- qsl_sent --------------------------------------------------------------------
 CREATE TABLE adif_view.qsl_sent AS
     SELECT
@@ -886,6 +947,9 @@ CREATE TABLE adif_view.qsl_sent AS
         qsl_sent.description
     FROM adif.qsl_sent
     ORDER BY qsl_sent.status;
+
+ALTER TABLE adif_view.qsl_sent
+ADD CONSTRAINT qsl_sent_pkey PRIMARY KEY (qsl_sent_id);
 
 -- qsl_via ---------------------------------------------------------------------
 CREATE TABLE adif_view.qsl_via AS
@@ -897,6 +961,9 @@ CREATE TABLE adif_view.qsl_via AS
     FROM adif.qsl_via
     ORDER BY qsl_via.via;
 
+ALTER TABLE adif_view.qsl_via
+ADD CONSTRAINT qsl_via_pkey PRIMARY KEY (qsl_via_id);
+
 -- qso_complete ----------------------------------------------------------------
 CREATE TABLE adif_view.qso_complete AS
     SELECT
@@ -906,6 +973,9 @@ CREATE TABLE adif_view.qso_complete AS
     FROM adif.qso_complete
     ORDER BY qso_complete.Abbreviation;
 
+ALTER TABLE adif_view.qso_complete
+ADD CONSTRAINT qso_complete_pkey PRIMARY KEY (qso_complete_id);
+
 -- qso_upload_status -----------------------------------------------------------
 CREATE TABLE adif_view.qso_upload_status AS
     SELECT
@@ -914,6 +984,9 @@ CREATE TABLE adif_view.qso_upload_status AS
         qso_upload_status.description
     FROM adif.qso_upload_status
     ORDER BY qso_upload_status.Abbreviation;
+
+ALTER TABLE adif_view.qso_upload_status
+ADD CONSTRAINT qso_upload_status_pkey PRIMARY KEY (qso_upload_status_id);
 
 -- region applicability --------------------------------------------------------
 CREATE TABLE adif_view.region_applicability AS
@@ -932,6 +1005,9 @@ CREATE TABLE adif_view.region_applicability AS
     GROUP BY region_applicability.region_applicability_id, region.code, region.dxcc_code, region.region, region.prefix
     ORDER by region.code;
 
+ALTER TABLE adif_view.region_applicability
+ADD CONSTRAINT region_applicability_pkey PRIMARY KEY (region_applicability_id);
+
 -- region ----------------------------------------------------------------------
 CREATE TABLE adif_view.region AS
     SELECT
@@ -942,6 +1018,9 @@ CREATE TABLE adif_view.region AS
         region.prefix
     FROM adif.region
     ORDER BY region.Code;
+
+ALTER TABLE adif_view.region
+ADD CONSTRAINT region_pkey PRIMARY KEY (region_id);
 
 -- sponsored_award -------------------------------------------------------------
 CREATE TABLE adif_view.sponsored_award AS
@@ -954,6 +1033,9 @@ CREATE TABLE adif_view.sponsored_award AS
             adif.weblink.weblink_id = adif.sponsored_award.weblink_id
     GROUP BY sponsored_award.sponsored_award_id, sponsored_award.sponsor, weblink.display_text
     ORDER by sponsored_award.sponsor;
+
+ALTER TABLE adif_view.sponsored_award
+ADD CONSTRAINT sponsored_award_pkey PRIMARY KEY (sponsored_award_id);
 
 -- state_county ----------------------------------------------------------------
 CREATE TABLE adif_view.state_county AS
@@ -969,6 +1051,9 @@ CREATE TABLE adif_view.state_county AS
             adif.county_name.county_name_id = adif.state_county.county_name_id
     ORDER by state.name;
 
+ALTER TABLE adif_view.state_county
+ADD CONSTRAINT state_county_pkey PRIMARY KEY (state_county_id);
+
 -- state -----------------------------------------------------------------------
 CREATE TABLE adif_view.state AS
     SELECT
@@ -977,6 +1062,9 @@ CREATE TABLE adif_view.state AS
         state.name AS state_name
     FROM adif.state
     ORDER BY state.name;
+
+ALTER TABLE adif_view.state
+ADD CONSTRAINT state_pkey PRIMARY KEY (state_id);
 
 -- submode ---------------------------------------------------------------------
 CREATE TABLE adif_view.submode AS
@@ -989,6 +1077,9 @@ CREATE TABLE adif_view.submode AS
             mode.mode_id = submode.mode_id
     ORDER BY submode.name;
 
+ALTER TABLE adif_view.submode
+ADD CONSTRAINT submode_pkey PRIMARY KEY (submode_id);
+
 -- weblink ---------------------------------------------------------------------
 CREATE TABLE adif_view.weblink AS
     SELECT
@@ -997,6 +1088,9 @@ CREATE TABLE adif_view.weblink AS
         weblink.url AS weblink_url
     FROM adif.weblink
     ORDER BY weblink.display_text;
+
+ALTER TABLE adif_view.weblink
+ADD CONSTRAINT weblink_pkey PRIMARY KEY (weblink_id);
 
 -- Schema Information View (this is designed to be a table)
 CREATE OR REPLACE VIEW view_schema_info AS
@@ -1007,8 +1101,6 @@ CREATE OR REPLACE VIEW view_schema_info AS
         date_trunc('second', schema_info.last_update::TIMESTAMP) AS "Create Date"
     FROM schema_info
     ORDER BY  schema_info.schema_name;
-
-\echo
 
 -- pas_summary -----------------------------------------------------------------
 CREATE TABLE adif_view.pas_summary AS
@@ -1029,6 +1121,9 @@ CREATE TABLE adif_view.pas_summary AS
             adif.pas_summary.sas_type_id = adif.sas_type.sas_type_id
     ORDER BY adif.pas_summary.pas_summary_id;
 
+ALTER TABLE adif_view.pas_summary
+ADD CONSTRAINT pas_summary_pkey PRIMARY KEY (pas_summary_id);
+
 -- pas_type
 CREATE TABLE adif_view.pas_type AS
     SELECT
@@ -1037,6 +1132,9 @@ CREATE TABLE adif_view.pas_type AS
     FROM adif.pas_type
     ORDER BY pas_type;
 
+ALTER TABLE adif_view.pas_type
+ADD CONSTRAINT pas_type_pkey PRIMARY KEY (pas_type_id);
+
 -- sas_type 
 CREATE TABLE adif_view.sas_type AS
     SELECT
@@ -1044,6 +1142,9 @@ CREATE TABLE adif_view.sas_type AS
         sas_type AS sec_subdivision
     FROM adif.sas_type
     ORDER BY sas_type;
+
+ALTER TABLE adif_view.sas_type
+ADD CONSTRAINT sas_type_pkey PRIMARY KEY (sas_type_id);
 
 -- PAS 1 Canada ----------------------------------------------------------------
 
@@ -1073,7 +1174,7 @@ ALTER TABLE adif_view.pas1 ADD COLUMN pas1_id SERIAL PRIMARY KEY;
 CREATE TABLE adif_view.pas5 AS
     SELECT
         dxcc.dxcc_id AS dxcc_code,
-        dxcc.name AS dxcc,
+        dxcc.name AS country,
         pas.pas_code AS code,
         pas.subdivision,
         pas.is_deleted AS is_deleted
@@ -1981,6 +2082,8 @@ CREATE TABLE adif_view.pas245 AS
             adif.dxcc.dxcc_id = pas.dxcc_id
     WHERE dxcc.dxcc_id = '245'
 	ORDER BY adif.pas.pas_code;
+
+ALTER TABLE adif_view.pas245 ADD COLUMN pas245_id SERIAL PRIMARY KEY;
 
 -- 248 Italy -------------------------------------------------------------------
 

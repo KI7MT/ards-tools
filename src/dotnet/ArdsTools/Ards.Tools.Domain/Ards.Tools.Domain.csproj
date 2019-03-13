@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <Description>Domain Library for the ARDS Tools Projects</Description>
+    <Authors>Greg Beam, KI7MT</Authors>
+    <Company />
+    <Product>ARDS Tools</Product>
+    <Copyright>Copyright (c), Greg Beam, 2019, GPL v3</Copyright>
+    <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-3.0.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/KI7MT/ards-tools</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KI7MT/ards-tools</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Ham Radio, ADIF</PackageTags>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
