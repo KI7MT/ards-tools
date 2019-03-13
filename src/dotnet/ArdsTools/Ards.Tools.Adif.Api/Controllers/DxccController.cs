@@ -25,7 +25,7 @@ namespace Ards.Tools.Adif.Api.Controllers
         /// Get all DXCC Entities
         /// </summary>
         /// <returns>Return All DXCC Entities</returns>
-        [Route("api/CreditSponsor")]
+        [Produces("application/json")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Dxcc>>> GetDxcc()
         {
@@ -36,9 +36,8 @@ namespace Ards.Tools.Adif.Api.Controllers
         /// Get DXCC Entity by ID. The ID is the same as the XCC Code for each country
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="dxcc"></param>
         /// <returns>Retrun DXCC Entity by ID</returns>
-        [Route("api/CreditSponsor")]
+        [Produces("application/json")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Dxcc>> GetDxcc(int id)
         {
