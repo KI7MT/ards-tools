@@ -6,3 +6,4 @@ src/pgsql/eqsl/*.txt
 src/pgsql/lotw/*.csv
 src/pgsql/fcc/*.dat
 src/**/__pycache__
+*.vs/**
