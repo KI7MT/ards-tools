@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "",
+      "launchUrl": "api/AntennaPath",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "Ards.Tools.Adif.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "api/AntennaPath",
       "applicationUrl": "http://localhost:52751",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

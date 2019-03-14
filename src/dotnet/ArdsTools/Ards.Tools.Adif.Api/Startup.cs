@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
@@ -25,7 +26,12 @@ namespace Ards.Tools.Adif.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // AddJsonOptions is for Swagger Ptrtty Json Response
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                });
 
             // ARDS Tools DDomain Context File
             services.AddDbContext<AdifDomain>(options =>
@@ -71,7 +77,7 @@ namespace Ards.Tools.Adif.Api
 
             app.UseMvc();
 
-            // Adding Swagger 2.4.0 API Client
+            // Adding Swagger API Client
             app.UseSwagger();
 
             // Add SwaggerUI

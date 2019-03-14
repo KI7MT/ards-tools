@@ -1,7 +1,7 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/{catch-all}",
+      "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 52751
         }
       ],
-      "UpstreamPathTemplate": "/adif/{catch-all}",
+      "UpstreamPathTemplate": "/adif/{everything}",
       "UpstreamHttpMethod": [ "Get" ]
     }
   ],
