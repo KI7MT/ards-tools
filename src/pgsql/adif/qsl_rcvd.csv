@@ -1,6 +1,0 @@
-qsl_rcvd_id|status|meaning|description|is_import_only
-1|Y|yes|The QSO has been confirmed by card or Online Service|f
-2|N|no|The QSO has not been confirmed by Card nor Online Service|f
-3|R|requested|The logging station has requested a QSL card or upload QSO to Online service.|f
-4|V|verified|DXCC award credit granted for the QSL card - instead use. DXCC credit granted for the LoTW confirmation - instead use |t
-5|I|ignore or invalid||f
